@@ -1,0 +1,11 @@
+--- ../abs/vte/src/vte-0.28.1/src/vte.c.ORIG	2011-06-20 22:33:20.014885530 -0700
++++ ../abs/vte/src/vte-0.28.1/src/vte.c	2011-06-20 22:33:53.001529856 -0700
+@@ -11398,7 +11398,7 @@
+ 	}
+ 
+ 	adj = terminal->adjustment;
+-	v = MAX (1., ceil (gtk_adjustment_get_page_increment (adj) / 10.));
++	v = 2.0; /* MAX (1., ceil (gtk_adjustment_get_page_increment (adj) / 10.)); */ /* gavin: always scroll by 2 */
+ 	switch (event->direction) {
+ 	case GDK_SCROLL_UP:
+ 		v = -v;

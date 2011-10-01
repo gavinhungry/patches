@@ -1,0 +1,14 @@
+--- ../pre/rhythmbox/src/rhythmbox-0.13.3/sources/rb-play-queue-source.c.ORIG	2011-02-03 23:08:35.076745658 -0800
++++ ../pre/rhythmbox/src/rhythmbox-0.13.3/sources/rb-play-queue-source.c	2011-02-03 23:16:34.343670054 -0800
+@@ -424,8 +424,9 @@
+ 	album = rhythmdb_entry_get_string (entry, RHYTHMDB_PROP_ALBUM);
+ 
+ 	/* Translators: format is "<title> from <album> by <artist>" */
+-	markup = g_markup_printf_escaped ("%s\n<span size=\"smaller\">%s <i>%s</i>\n%s <i>%s</i></span>",
+-					  title, _("from"), album, _("by"), artist);
++	/* gavin: change of formatting to: "<title> by <artist> from <album>" */
++	markup = g_markup_printf_escaped ("%s\n<span size=\"smaller\">%s <b>%s</b>\n%s <b><i>%s</i></b></span>",
++					  title, _("by"), artist, _("from"), album);
+ 
+ 	g_object_set (G_OBJECT (renderer), "markup", markup, NULL);
+ 

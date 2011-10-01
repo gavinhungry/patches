@@ -1,0 +1,27 @@
+--- ../pre/gedit/src/gedit-2.30.4/gedit/gedit-notebook.c.ORIG	2011-02-13 18:21:35.088597374 -0800
++++ ../pre/gedit/src/gedit-2.30.4/gedit/gedit-notebook.c	2011-02-13 20:57:13.205318231 -0800
+@@ -569,8 +569,9 @@
+ 						      cur_page_num);
+ 
+ 		/* CHECK: I don't follow the code here -- Paolo  */
+-		if (!is_in_notebook_window (notebook, event->x_root, event->y_root) &&
+-		    (gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook)) > 1))
++		/*if (!is_in_notebook_window (notebook, event->x_root, event->y_root) &&
++		    (gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook)) > 1))*/
++		if (0) /* gavin: no drag-and-drop tab detatching */
+ 		{
+ 			/* Tab was detached */
+ 			g_signal_emit (G_OBJECT (notebook),
+@@ -652,8 +653,10 @@
+  */
+ GtkWidget *
+ gedit_notebook_new (void)
+-{
+-	return GTK_WIDGET (g_object_new (GEDIT_TYPE_NOTEBOOK, NULL));
++{ /* gavin: add some padding around the notebooks */
++  GtkNotebook *nb = g_object_new (GEDIT_TYPE_NOTEBOOK, NULL);
++  gtk_container_set_border_width (GTK_CONTAINER (nb), 5);
++	return GTK_WIDGET (nb);
+ }
+ 
+ static void

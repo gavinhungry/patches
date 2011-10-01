@@ -1,0 +1,22 @@
+--- ../pre/rhythmbox/src/rhythmbox-0.13.3/plugins/audioscrobbler/rb-audioscrobbler-entry.c.ORIG	2011-02-03 23:48:00.791726578 -0800
++++ ../pre/rhythmbox/src/rhythmbox-0.13.3/plugins/audioscrobbler/rb-audioscrobbler-entry.c	2011-02-04 00:20:55.927571017 -0800
+@@ -87,6 +87,7 @@
+ rb_audioscrobbler_entry_create (RhythmDBEntry *rb_entry, RBAudioscrobblerService *service)
+ {
+ 	AudioscrobblerEntry *as_entry = g_new0 (AudioscrobblerEntry, 1);
++	gchar* genre = rhythmdb_entry_dup_string (rb_entry, RHYTHMDB_PROP_GENRE); /* gavin: get genre */
+ 
+ 	as_entry->title = rhythmdb_entry_dup_string (rb_entry, RHYTHMDB_PROP_TITLE);
+ 	as_entry->track = rhythmdb_entry_get_ulong (rb_entry, RHYTHMDB_PROP_TRACK_NUMBER);
+@@ -126,6 +127,11 @@
+ 		as_entry->source = g_strdup ("P");
+ 	}
+ 
++	/* gavin: set source to 'X' if the genre is not electronic */
++	if (strcmp (genre, _("electronic, ambient")) != 0) {
++		as_entry->source = g_strdup ("X");
++	}
++
+ 	return as_entry;
+ }
+ 

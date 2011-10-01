@@ -1,0 +1,17 @@
+--- ../pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/procman.h.ORIG	2011-05-01 13:58:17.462234179 -0700
++++ ../pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/procman.h	2011-05-01 13:58:45.252216284 -0700
+@@ -61,11 +61,11 @@
+ 
+ enum ProcmanTab
+ {
+-	PROCMAN_TAB_SYSINFO,
+ 	PROCMAN_TAB_PROCESSES,
+ 	PROCMAN_TAB_RESOURCES,
+-	PROCMAN_TAB_DISKS
+-};
++	PROCMAN_TAB_DISKS,
++	PROCMAN_TAB_SYSINFO
++}; /* gavin: no System tab, so move it to the end */
+ 
+ 
+ struct ProcConfig

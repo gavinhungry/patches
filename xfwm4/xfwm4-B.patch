@@ -1,0 +1,30 @@
+--- ../abs/xfwm4/src/xfwm4-4.8.2/src/tabwin.c.ORIG	2011-01-30 08:51:01.000000000 -0800
++++ ../abs/xfwm4/src/xfwm4-4.8.2/src/tabwin.c	2011-02-08 21:44:35.588107742 -0800
+@@ -25,7 +25,7 @@
+ #endif
+ 
+ #ifndef WIN_ICON_SIZE
+-#define WIN_ICON_SIZE 48
++#define WIN_ICON_SIZE 16 /* gavin: 16px icons in alt-tab list */
+ #endif
+ 
+ #ifndef WIN_ICON_BORDER
+@@ -232,7 +232,8 @@
+ 
+     gdk_screen_get_monitor_geometry (screen_info->gscr, tbw->monitor_num, &monitor);
+ 
+-    tbw->grid_cols = (monitor.width / (WIN_ICON_SIZE + 2 * WIN_ICON_BORDER)) * 0.75;
++    /* gavin: alt-tab takes up 25% of screen width (less one column) before adding new row */
++    tbw->grid_cols = (monitor.width / (WIN_ICON_SIZE + 2 * WIN_ICON_BORDER)) * 0.25 - 1;
+     tbw->grid_rows = screen_info->client_count / tbw->grid_cols + 1;
+     tbw->widgets = NULL;
+     windowlist = gtk_table_new (tbw->grid_rows, tbw->grid_cols, FALSE);
+@@ -354,7 +355,7 @@
+     gtk_label_set_justify (GTK_LABEL (tbw->label), GTK_JUSTIFY_CENTER);
+     gtk_label_set_use_markup (GTK_LABEL (tbw->class), TRUE);
+     gtk_box_pack_start (GTK_BOX (vbox), tbw->label, TRUE, TRUE, 0);
+-    gtk_widget_set_size_request (GTK_WIDGET (tbw->label), 240, -1);
++    gtk_widget_set_size_request (GTK_WIDGET (tbw->label), 360, -1); /* gavin: alt-tab starts out wider */
+ 
+     windowlist = createWindowlist (screen_info, tbw);
+     tbw->container = windowlist;

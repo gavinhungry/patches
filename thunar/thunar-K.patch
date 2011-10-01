@@ -1,0 +1,11 @@
+--- ../abs/thunar/src/Thunar-1.2.3/thunar/thunar-shortcuts-model.c.ORIG	2011-09-22 21:07:57.482270775 -0700
++++ ../abs/thunar/src/Thunar-1.2.3/thunar/thunar-shortcuts-model.c	2011-09-22 21:08:26.682269885 -0700
+@@ -260,7 +260,7 @@
+   system_paths = g_list_append (system_paths, thunar_g_file_new_for_root ());
+ 
+   /* append the network icon if browsing the network is supported */
+-  if (thunar_g_vfs_is_uri_scheme_supported ("network"))
++  if (0) /* gavin: no network icon */
+     system_paths = g_list_append (system_paths, g_file_new_for_uri ("network://"));
+ 
+   /* will be used to append the shortcuts to the list */

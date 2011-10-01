@@ -1,0 +1,11 @@
+--- ../abs/xfce4-session/src/xfce4-session-4.8.2/xfce4-session/xfsm-fadeout.c.ORIG	2011-04-20 21:26:55.781364927 -0700
++++ ../abs/xfce4-session/src/xfce4-session-4.8.2/xfce4-session/xfsm-fadeout.c	2011-04-20 21:28:30.744559307 -0700
+@@ -29,7 +29,7 @@
+ 
+ 
+ 
+-#define COLOR "#b6c4d7"
++#define COLOR "#555555"
+ 
+ 
+ 

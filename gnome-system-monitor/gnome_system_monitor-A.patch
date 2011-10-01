@@ -1,0 +1,27 @@
+--- ../pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/interface.cpp.ORIG	2011-05-01 13:58:09.562239280 -0700
++++ ../pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/interface.cpp	2011-05-01 13:58:38.722220461 -0700
+@@ -686,9 +686,11 @@
+ 	                    TRUE, 
+ 	                    0);
+ 
++  /* gavin: no System tab */ /*
+ 	sysinfo_box = gtk_hbox_new(TRUE, 0); // procman_create_sysinfo_view();
+ 	sysinfo_label = gtk_label_new(_("System"));
+ 	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), sysinfo_box, sysinfo_label);
++  */
+ 
+ 	vbox1 = create_proc_view (procdata);
+ 	tab_label1 = gtk_label_new (_("Processes"));
+@@ -708,8 +710,10 @@
+ 			  G_CALLBACK (cb_change_current_page), procdata);
+ 
+ 	gtk_widget_show_all(notebook); // need to make page switch work
+-	gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), procdata->config.current_tab);
+-	cb_change_current_page (GTK_NOTEBOOK (notebook), procdata->config.current_tab, procdata);
++
++  /* gavin: set to Resources tab by default */
++	gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), PROCMAN_TAB_RESOURCES);
++	cb_change_current_page (GTK_NOTEBOOK (notebook), PROCMAN_TAB_RESOURCES, procdata);
+ 	g_signal_connect (G_OBJECT (app), "delete_event",
+                           G_CALLBACK (cb_app_delete),
+                           procdata);

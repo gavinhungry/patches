@@ -1,0 +1,11 @@
+--- ../abs/thunar/src/Thunar-1.2.3/thunar/thunar-emblem-chooser.c.ORIG	2011-02-12 20:54:49.310053695 -0800
++++ ../abs/thunar/src/Thunar-1.2.3/thunar/thunar-emblem-chooser.c	2011-02-12 20:54:58.063056819 -0800
+@@ -400,7 +400,7 @@
+   GdkPixbuf   *icon;
+ 
+   /* lookup the icon info for the emblem */
+-  info = gtk_icon_theme_lookup_icon (chooser->icon_theme, emblem, 48, 0);
++  info = gtk_icon_theme_lookup_icon (chooser->icon_theme, emblem, 16, 0); /* gavin: use 16px emblems */
+   if (G_UNLIKELY (info == NULL))
+     return NULL;
+ 
