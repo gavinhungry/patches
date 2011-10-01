@@ -1,0 +1,29 @@
+--- ../pre/brasero/src/brasero-2.32.1/src/brasero-project-type-chooser.c.ORIG	2011-02-12 17:59:05.873773225 -0800
++++ ../pre/brasero/src/brasero-2.32.1/src/brasero-project-type-chooser.c	2011-02-12 18:02:45.442361286 -0800
+@@ -164,7 +164,7 @@
+ 
+ 	label = gtk_label_new (NULL);
+ 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), eventbox);
+-	description_str = g_strdup_printf ("<big>%s</big>", _(description->text));
++	description_str = g_strdup_printf ("<b>%s</b>", _(description->text)); /* gavin: project types are bold instead of "big" */
+ 	gtk_label_set_markup_with_mnemonic (GTK_LABEL (label), description_str);
+ 	g_free (description_str);
+ 	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+@@ -472,7 +472,7 @@
+ 	gtk_widget_show (project_box);
+ 	gtk_box_pack_start (GTK_BOX (vbox), project_box, FALSE, TRUE, 0);
+ 
+-	string = g_strdup_printf ("<span size='x-large'><b>%s</b></span>", _("Create a new project:"));
++	string = g_strdup_printf ("<span size='large'><b>%s</b></span>", _("Create a new project:")); /* gavin: x-large -> large */
+ 	label = gtk_label_new (string);
+ 	g_free (string);
+ 
+@@ -518,7 +518,7 @@
+ 	gtk_widget_show (recent_box);
+ 	gtk_box_pack_start (GTK_BOX (vbox), recent_box, TRUE, TRUE, 0);
+ 
+-	string = g_strdup_printf ("<span size='x-large'><b>%s</b></span>", _("Recent projects:"));
++	string = g_strdup_printf ("<span size='large'><b>%s</b></span>", _("Recent projects:")); /* gavin: x-large -> large */
+ 	label = gtk_label_new (string);
+ 	g_free (string);
+ 

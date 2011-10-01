@@ -1,0 +1,15 @@
+--- ../pre/rhythmbox/src/rhythmbox-0.13.3/plugins/audioscrobbler/rb-audioscrobbler.c.ORIG	2011-02-13 21:16:50.945106336 -0800
++++ ../pre/rhythmbox/src/rhythmbox-0.13.3/plugins/audioscrobbler/rb-audioscrobbler.c	2011-02-13 21:17:44.396467275 -0800
+@@ -659,6 +659,12 @@
+ static gboolean
+ rb_audioscrobbler_timeout_cb (RBAudioscrobbler *audioscrobbler)
+ {
++	/* gavin: do nothing if the source is 'X' */
++	if (audioscrobbler->priv->currently_playing == NULL ||
++	strcmp (audioscrobbler->priv->currently_playing->source, _("X")) == 0) {
++		return TRUE;
++	}
++
+ 	maybe_add_current_song_to_queue (audioscrobbler);
+ 
+ 	/* do handshake if we need to */

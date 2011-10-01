@@ -1,0 +1,81 @@
+--- ../abs/thunar/src/Thunar-1.2.3/thunar/thunar-location-buttons.c.ORIG	2011-06-26 20:01:46.614240520 -0700
++++ ../abs/thunar/src/Thunar-1.2.3/thunar/thunar-location-buttons.c	2011-06-26 20:05:31.418026854 -0700
+@@ -128,7 +128,8 @@
+                                                                          ThunarLocationButtons      *buttons);
+ static void           thunar_location_buttons_action_properties         (GtkAction                  *action,
+                                                                          ThunarLocationButtons      *buttons);
+-
++static void           thunar_location_buttons_action_open_terminal      (GtkAction                  *action,   /* gavin: */
++                                                                         ThunarLocationButtons      *buttons); 
+ 
+ 
+ struct _ThunarLocationButtonsClass
+@@ -167,6 +168,7 @@
+   { "location-buttons-context-menu", NULL, "Context Menu", NULL, NULL, NULL, },
+   { "location-buttons-open", GTK_STOCK_OPEN, N_("_Open"), NULL, NULL, G_CALLBACK (thunar_location_buttons_action_open), },
+   { "location-buttons-open-in-new-window", NULL, N_("Open in New Window"), NULL, NULL, G_CALLBACK (thunar_location_buttons_action_open_in_new_window), },
++  { "location-buttons-open-terminal", NULL, N_("Open Terminal Here"), NULL, NULL, G_CALLBACK (thunar_location_buttons_action_open_terminal), }, /* gavin: */
+   { "location-buttons-create-folder", NULL, N_("Create _Folder..."), NULL, NULL, G_CALLBACK (thunar_location_buttons_action_create_folder), },
+   { "location-buttons-empty-trash", NULL, N_("_Empty Trash"), NULL, N_("Delete all files and folders in the Trash"), G_CALLBACK (thunar_location_buttons_action_empty_trash), },
+   { "location-buttons-paste-into-folder", GTK_STOCK_PASTE, N_("Paste Into Folder"), NULL, NULL, G_CALLBACK (thunar_location_buttons_action_paste_into_folder), },
+@@ -1226,6 +1228,11 @@
+           thunar_gtk_action_set_tooltip (action, _("Open \"%s\" in a new window"), display_name);
+           g_object_set_data_full (G_OBJECT (action), I_("thunar-file"), g_object_ref (G_OBJECT (file)), (GDestroyNotify) g_object_unref);
+ 
++          /* gavin: setup the "Open Terminal Here" action */
++          action = gtk_action_group_get_action (buttons->action_group, "location-buttons-open-terminal");
++          thunar_gtk_action_set_tooltip (action, _("Open \"%s\" in a terminal window"), display_name);
++          g_object_set_data_full (G_OBJECT (action), I_("thunar-file"), g_object_ref (G_OBJECT (file)), (GDestroyNotify) g_object_unref);
++
+           /* setup the "Create Folder..." action */
+           action = gtk_action_group_get_action (buttons->action_group, "location-buttons-create-folder");
+           thunar_gtk_action_set_tooltip (action, _("Create a new folder in \"%s\""), display_name);
+@@ -1444,6 +1451,48 @@
+ }
+ 
+ 
++
++/* gavin: add "Open Terminal Here" in pathbar/breadcrumb context menu */
++static void
++thunar_location_buttons_action_open_terminal (GtkAction             *action,
++                                              ThunarLocationButtons *buttons)
++{
++  ThunarFile *directory;
++  GString *command = g_string_new(NULL);
++  GString *trash = g_string_new("trash:///");
++  GString *path, *uri;
++
++  _thunar_return_if_fail (THUNAR_IS_LOCATION_BUTTONS (buttons));
++  _thunar_return_if_fail (GTK_IS_ACTION (action));
++
++  directory = g_object_get_data (G_OBJECT (action), "thunar-file");
++  if (G_LIKELY (directory != NULL)) {
++
++    path = g_string_new(g_file_get_path(directory->gfile));
++
++    if (path->len <= 0) {
++      uri = g_string_new(g_file_get_uri(directory->gfile));
++
++      if (g_string_equal(uri, trash))
++        g_string_printf(path, "%s/.local/share/Trash/files", g_get_home_dir());
++
++      g_string_free(uri, TRUE);
++    }
++
++    if (path->len > 0) {
++      g_string_assign(command, "exo-open --launch TerminalEmulator --working-directory ");
++      g_string_append(command, g_shell_quote(path->str));
++      system(command->str);
++    }
++
++    g_string_free(path, TRUE);
++  }
++
++  g_string_free(command, TRUE);
++  g_string_free(trash, TRUE);
++}
++
++
+ 
+ /**
+  * thunar_location_buttons_new:

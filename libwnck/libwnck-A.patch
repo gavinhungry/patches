@@ -1,0 +1,70 @@
+--- ../abs/libwnck/src/libwnck-2.30.7/libwnck/pager.c.ORIG	2010-06-01 06:56:13.000000000 -0700
++++ ../abs/libwnck/src/libwnck-2.30.7/libwnck/pager.c	2011-04-27 15:47:05.481736850 -0700
+@@ -759,6 +759,11 @@
+   return result;
+ }
+ 
++
++/* ------------------------------------ */
++/* ------------------------------------ */
++/* ------------------------------------ */
++
+ static void
+ get_window_rect (WnckWindow         *window,
+                  const GdkRectangle *workspace_rect,
+@@ -785,7 +790,14 @@
+   y = y * height_ratio + 0.5;
+   width = width * width_ratio + 0.5;
+   height = height * height_ratio + 0.5;
+-  
++
++  /* gavin: margin around workspaces */
++  if (x <= 0) { width += x - 1; x = 1; } 
++  if (y <= 0) { height+= y - 1; y = 1; }
++  if (x + width  >= workspace_rect->width)  { width  = workspace_rect->width  - x - 1; }
++  if (y + height >= workspace_rect->height) { height = workspace_rect->height - y - 1; }
++  /* ------------------------------- */
++
+   x += workspace_rect->x;
+   y += workspace_rect->y;
+   
+@@ -802,6 +814,12 @@
+   gdk_rectangle_intersect ((GdkRectangle *) workspace_rect, &unclipped_win_rect, rect);
+ }
+ 
++/* ------------------------------------ */
++/* ------------------------------------ */
++/* ------------------------------------ */
++
++
++
+ static void
+ draw_window (GdkDrawable        *drawable,
+              GtkWidget          *widget,
+@@ -845,7 +863,7 @@
+ 
+   icon_w = icon_h = 0;
+           
+-  if (icon)
++  if (0)
+     {              
+       icon_w = gdk_pixbuf_get_width (icon);
+       icon_h = gdk_pixbuf_get_height (icon);
+@@ -871,7 +889,7 @@
+         }
+     }
+ 
+-  if (icon)
++  if (0)
+     {
+       icon_x = winrect->x + (winrect->width - icon_w) / 2;
+       icon_y = winrect->y + (winrect->height - icon_h) / 2;
+@@ -1680,7 +1698,7 @@
+ 					  GTK_ICON_SIZE_DND, &dnd_w, &dnd_h))
+     dnd_w = dnd_h = 32;
+   /* windows are huge, so let's make this huge */
+-  dnd_w *= 3;
++  dnd_w *= 2; /* gavin: not so huge */
+  
+   workspace = wnck_window_get_workspace (window);
+   if (workspace == NULL)

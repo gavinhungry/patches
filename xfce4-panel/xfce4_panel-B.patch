@@ -1,0 +1,15 @@
+--- ../abs/xfce4-panel/src/xfce4-panel-4.8.6/plugins/launcher/launcher.c.ORIG	2011-01-31 17:02:49.037696961 -0800
++++ ../abs/xfce4-panel/src/xfce4-panel-4.8.6/plugins/launcher/launcher.c	2011-01-31 17:03:32.681823784 -0800
+@@ -2051,10 +2051,10 @@
+ {
+   panel_return_if_fail (XFCE_IS_LAUNCHER_PLUGIN (plugin));
+ 
+-  if (plugin->arrow_position != LAUNCHER_ARROW_INTERNAL
++  /* if (plugin->arrow_position != LAUNCHER_ARROW_INTERNAL
+        && LIST_HAS_TWO_OR_MORE_ENTRIES (plugin->items))
+     gtk_widget_show (plugin->arrow);
+-  else
++  else */ /* gavin: always hide launcher menu arrows */
+     gtk_widget_hide (plugin->arrow);
+ }
+ 

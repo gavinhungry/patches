@@ -1,0 +1,75 @@
+--- ../abs/parcellite/src/parcellite-1.0.2rc5/src/main.c.ORIG	2011-09-08 12:31:19.504211592 -0700
++++ ../abs/parcellite/src/parcellite-1.0.2rc5/src/main.c	2011-09-08 12:37:16.607533361 -0700
+@@ -576,7 +576,7 @@
+     if (!size)
+     {
+       /* File contained no actions so adding empty */
+-      menu_item = gtk_menu_item_new_with_label(_("Empty"));
++      menu_item = gtk_menu_item_new_with_label(_("Clipboard is Empty")); /* gavin: */
+       gtk_widget_set_sensitive(menu_item, FALSE);
+       gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
+     }
+@@ -609,7 +609,7 @@
+   else
+   {
+     /* File did not open so adding empty */
+-    menu_item = gtk_menu_item_new_with_label(_("Empty"));
++    menu_item = gtk_menu_item_new_with_label(_("Clipboard is Empty")); /* gavin: */
+     gtk_widget_set_sensitive(menu_item, FALSE);
+     gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
+   }
+@@ -1291,7 +1291,7 @@
+   else
+   {
+     /* Nothing in history so adding empty */
+-    menu_item = gtk_menu_item_new_with_label(_("Empty"));
++    menu_item = gtk_menu_item_new_with_label(_("Clipboard is Empty")); /* gavin: */
+     gtk_widget_set_sensitive(menu_item, FALSE);
+     gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
+   }
+@@ -1305,11 +1305,13 @@
+     gtk_image_menu_item_set_image((GtkImageMenuItem*)h.title_item, menu_image);
+     gtk_menu_shell_append((GtkMenuShell*)menu, h.title_item);    
+   }else{
+-    menu_item = gtk_image_menu_item_new_with_mnemonic(_("_Edit Clipboard"));
++    /*menu_item = gtk_image_menu_item_new_with_mnemonic(_("_Edit Clipboard"));
+     menu_image = gtk_image_new_from_stock(GTK_STOCK_EDIT, GTK_ICON_SIZE_MENU);
+     gtk_image_menu_item_set_image((GtkImageMenuItem*)menu_item, menu_image);
+ 		g_signal_connect((GObject*)menu_item, "activate", (GCallback)edit_selected, (gpointer)&h);
+-    gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
++    gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);*/ /* gavin: no Edit Clipboard */
++
++    menu_image = gtk_image_new_from_stock(GTK_STOCK_EDIT, GTK_ICON_SIZE_MENU); /* gavin: Clear uses the same icon, so we need that part at least */
+ 		menu_item = gtk_image_menu_item_new_with_mnemonic(_("_Clear"));
+ 		/* Clear */
+ 	  menu_image = gtk_image_new_from_stock(GTK_STOCK_CLEAR, GTK_ICON_SIZE_MENU);
+@@ -1319,9 +1321,9 @@
+   }
+   /* Popup the menu... */
+   gtk_widget_show_all(menu);
+-  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, prefs.history_pos?postition_history:NULL, NULL, 1, gtk_get_current_event_time());
++  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, gtk_status_icon_position_menu, data, 1, gtk_get_current_event_time()); /* gavin: position LEFT-CLICKED menu */
+ 	/**set last entry at first -fixes bug 2974614 */
+-	gtk_menu_shell_select_first((GtkMenuShell*)menu, TRUE);
++	/* gtk_menu_shell_select_first((GtkMenuShell*)menu, TRUE); */ /* gavin: let's not */
+ #if 0
+ 	if(0)
+ 	{
+@@ -1367,7 +1369,7 @@
+   gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
+   /* Popup the menu... */
+   gtk_widget_show_all(menu);
+-  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, NULL, user_data, button, activate_time);
++  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, gtk_status_icon_position_menu, status_icon, button, activate_time); /* gavin: position RIGHT-CLICKED menu */
+ }
+ 
+ /* Called when status icon is left-clicked */
+@@ -1439,7 +1441,7 @@
+   {
+ 	  status_icon = gtk_status_icon_new_from_icon_name(PARCELLITE_ICON); 
+     gtk_status_icon_set_tooltip((GtkStatusIcon*)status_icon, _("Clipboard Manager"));
+-    g_signal_connect((GObject*)status_icon, "activate", (GCallback)status_icon_clicked, NULL);
++    g_signal_connect((GObject*)status_icon, "activate", (GCallback)show_history_menu, NULL); /* gavin: skip over buggy click handler for actions */
+     g_signal_connect((GObject*)status_icon, "popup-menu", (GCallback)show_parcellite_menu, NULL);
+   }
+ }

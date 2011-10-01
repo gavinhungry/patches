@@ -1,0 +1,50 @@
+--- ../abs/xfce4-panel/src/xfce4-panel-4.8.6/plugins/tasklist/tasklist-widget.c.ORIG	2011-01-31 17:06:47.584182245 -0800
++++ ../abs/xfce4-panel/src/xfce4-panel-4.8.6/plugins/tasklist/tasklist-widget.c	2011-01-31 17:10:24.752788487 -0800
+@@ -45,7 +45,7 @@
+ 
+ 
+ #define DEFAULT_BUTTON_SIZE          (25)
+-#define DEFAULT_MAX_BUTTON_LENGTH    (200)
++#define DEFAULT_MAX_BUTTON_LENGTH    (300) /* gavin: increase tasklist width from 200 to 300 */
+ #define DEFAULT_MENU_ICON_SIZE       (16)
+ #define DEFAULT_MIN_BUTTON_LENGTH    (DEFAULT_MAX_BUTTON_LENGTH / 4)
+ #define DEFAULT_ICON_LUCENCY         (50)
+@@ -1491,8 +1491,13 @@
+         g_get_current_time (&child->last_focused);
+ 
+       /* set the toggle button state */
+-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button),
+-                                    !!(child->window == active_window));
++      if (child->window == active_window) { /* gavin: bold active tasks, unbold others */
++        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), TRUE);
++        gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string ("bold"));
++      } else {
++        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
++        gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string (""));
++      } /* END gavin: bold active tasks, unbold others */
+     }
+ 
+   /* release the lock */
+@@ -2323,11 +2328,12 @@
+   gtk_widget_set_tooltip_text (GTK_WIDGET (child->button), name);
+ 
+   /* create the button label */
+-  if (!child->tasklist->only_minimized
++  /* gavin: no makers on minimized/shaded */
++  /* if (!child->tasklist->only_minimized
+       && wnck_window_is_minimized (child->window))
+     name = label = g_strdup_printf ("[%s]", name);
+   else if (wnck_window_is_shaded (child->window))
+-    name = label = g_strdup_printf ("=%s=", name);
++    name = label = g_strdup_printf ("=%s=", name); */
+ 
+   gtk_label_set_text (GTK_LABEL (child->label), name);
+ 
+@@ -2419,6 +2425,7 @@
+ 
+   /* make sure we don't have two active windows (bug #6474) */
+   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
++  gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string ("")); /* gavin: unbold if not active */
+ 
+   if (!tasklist->all_workspaces)
+     xfce_tasklist_active_workspace_changed (tasklist->screen, NULL, tasklist);

@@ -1,0 +1,20 @@
+--- ../abs/thunar/src/Thunar-1.2.3/thunar/thunar-location-dialog.c.ORIG	2010-11-13 07:35:47.000000000 -0800
++++ ../abs/thunar/src/Thunar-1.2.3/thunar/thunar-location-dialog.c	2011-02-01 22:42:48.974793668 -0800
+@@ -63,7 +63,7 @@
+   gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (location_dialog)->vbox), 2);
+   gtk_container_set_border_width (GTK_CONTAINER (location_dialog), 5);
+   gtk_dialog_set_has_separator (GTK_DIALOG (location_dialog), FALSE);
+-  gtk_window_set_default_size (GTK_WINDOW (location_dialog), 350, -1);
++  gtk_window_set_default_size (GTK_WINDOW (location_dialog), 400, -1); /* gavin: make location input wider */
+   gtk_window_set_title (GTK_WINDOW (location_dialog), _("Open Location"));
+ 
+   cancel_button = gtk_dialog_add_button (GTK_DIALOG (location_dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+@@ -80,7 +80,7 @@
+ 
+   label = gtk_label_new_with_mnemonic (_("_Location:"));
+   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+-  gtk_widget_show (label);
++  /* gtk_widget_show (label); */ /* gavin: no Location label */
+ 
+   location_dialog->entry = thunar_path_entry_new ();
+   gtk_entry_set_activates_default (GTK_ENTRY (location_dialog->entry), TRUE);

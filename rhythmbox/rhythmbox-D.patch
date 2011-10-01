@@ -1,0 +1,45 @@
+--- ../pre/rhythmbox/src/rhythmbox-0.13.3/shell/rb-shell.c.ORIG	2011-02-16 09:33:29.855484140 -0800
++++ ../pre/rhythmbox/src/rhythmbox-0.13.3/shell/rb-shell.c	2011-02-16 09:39:32.577409801 -0800
+@@ -1241,7 +1241,7 @@
+ 
+ 	/* initialize UI */
+ 	win = GTK_WINDOW (gtk_window_new (GTK_WINDOW_TOPLEVEL));
+-	gtk_window_set_title (win, _("Music Player"));
++	gtk_window_set_title (win, _("Rhythmbox")); /* gavin: not 'Music Player' */
+ 
+ 	shell->priv->window = GTK_WIDGET (win);
+ 	shell->priv->iconified = FALSE;
+@@ -1332,6 +1332,7 @@
+ 
+ 	/* set up sidebars */
+ 	shell->priv->paned = gtk_hpaned_new ();
++	gtk_container_set_border_width (GTK_CONTAINER (shell->priv->paned), 5); /* gavin: add 5px of padding around the pane view */
+ 	shell->priv->right_paned = gtk_hpaned_new ();
+ 	gtk_widget_show_all (shell->priv->right_paned);
+ 	g_signal_connect_object (G_OBJECT (shell->priv->right_paned),
+@@ -1424,11 +1425,11 @@
+ 									 RHYTHMDB_ENTRY_TYPE_IGNORE);
+ 
+ 	rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (shell->priv->library_source), page_group);
+-	rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (shell->priv->podcast_source), page_group);
++	/* rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (shell->priv->podcast_source), page_group); */ /* gavin: hide podcasts from sidebar */
+ 	rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (shell->priv->missing_files_source), page_group);
+ 	rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (shell->priv->import_errors_source), page_group);
+ 
+-	rb_podcast_main_source_add_subsources (RB_PODCAST_MAIN_SOURCE (shell->priv->podcast_source));
++	/* rb_podcast_main_source_add_subsources (RB_PODCAST_MAIN_SOURCE (shell->priv->podcast_source)); */ /* gavin: hide podcasts from sidebar */
+ 
+ 	/* Find the playlist name if none supplied */
+ 	if (shell->priv->playlists_file) {
+@@ -2225,9 +2226,10 @@
+ 		shell->priv->cached_title = NULL;
+ 
+ 		gtk_window_set_title (GTK_WINDOW (shell->priv->window),
+-				      _("Music Player"));
++				      _("Rhythmbox")); /* gavin: not 'Music Player' */
+ 	}
+ 	else {
++		return; /* gavin: don't change title to song info */
+ 		gboolean playing;
+ 		char *title;
+ 
