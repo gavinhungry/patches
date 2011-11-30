@@ -1,11 +1,11 @@
---- ../abs/blueman/PKGBUILD.orig	2011-11-09 22:32:50.578247474 -0800
-+++ ../abs/blueman/PKGBUILD	2011-11-09 22:33:07.958246955 -0800
-@@ -26,6 +26,8 @@
-          'cdce55a57d7628ed8b6c7fcf4391f4f0')
- 
- build() {
-+    export PYTHON=python2
-+
-     cd "${srcdir}/${pkgname}-${pkgver}"
- 
- #    patch -Np1 -i "${srcdir}/PulsePatch.patch"
+--- ../abs/blueman/src/blueman-1.23/blueman/plugins/applet/PowerManager.py.ORIG	2011-11-09 21:58:14.324082001 -0800
++++ ../abs/blueman/src/blueman-1.23/blueman/plugins/applet/PowerManager.py	2011-11-09 21:58:29.234081545 -0800
+@@ -93,7 +93,7 @@
+ 		if state:
+ 			def timeout():
+ 				self.adapter_state = self.get_adapter_state()
+-				self.RequestPowerState(self.adapter_state)
++				self.RequestPowerState(False)
+ 			gobject.timeout_add(1000, timeout)
+ 		
+ 	def get_adapter_state(self):
