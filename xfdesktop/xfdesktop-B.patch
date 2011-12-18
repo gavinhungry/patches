@@ -1,0 +1,10 @@
+--- ../abs/xfdesktop/src/xfdesktop-4.8.3/src/xfce-desktop.c.ORIG	2011-12-18 15:20:42.586418996 -0800
++++ ../abs/xfdesktop/src/xfdesktop-4.8.3/src/xfce-desktop.c	2011-12-18 15:21:25.576417683 -0800
+@@ -616,7 +616,6 @@
+     GTK_WINDOW(desktop)->type = GTK_WINDOW_TOPLEVEL;
+     
+     gtk_window_set_type_hint(GTK_WINDOW(desktop), GDK_WINDOW_TYPE_HINT_DESKTOP);
+-    gtk_window_set_accept_focus(GTK_WINDOW(desktop), FALSE);
+ }
+ 
+ static void
