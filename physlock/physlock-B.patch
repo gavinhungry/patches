@@ -1,0 +1,9 @@
+--- ../aur/physlock/src/physlock-0.4.2/config.h.ORIG	2012-01-02 20:05:50.034152862 -0800
++++ ../aur/physlock/src/physlock-0.4.2/config.h	2012-01-02 20:05:58.044152630 -0800
+@@ -6,5 +6,5 @@
+ #define TTY_DEVICE_BASE    "/dev/tty"
+ 
+ /* timeout (seconds) after failed authentication try:  */
+-#define AUTH_FAIL_TIMEOUT  2
++#define AUTH_FAIL_TIMEOUT  1
+ 

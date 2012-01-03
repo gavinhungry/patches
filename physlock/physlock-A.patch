@@ -1,0 +1,31 @@
+--- ../aur/physlock/src/physlock-0.4.2/main.c.ORIG	2012-01-02 19:56:17.977503883 -0800
++++ ../aur/physlock/src/physlock-0.4.2/main.c	2012-01-02 20:02:05.114159821 -0800
+@@ -146,7 +146,7 @@
+ 
+ 	while (!auth) {
+ 		as = &root;
+-		if (!only_root) {
++		if (0) { /* gavin: no root unlock */
+ 			tty_echo_on(&vt);
+ 			while (1) {
+ 				prompt(vt.ios, "\nUnlock as [%s/%s]: ", user.name, root.name);
+@@ -159,13 +159,16 @@
+ 			}
+ 			tty_echo_off(&vt);
+ 		} else {
+-			prompt(vt.ios, "\nPress [Enter] to unlock.\n");
++			// prompt(vt.ios, "Press [Enter] to unlock.\n"); /* gavin: no prompt */
+ 		}
++		
++		if (!only_root) /* gavin: no root unlock */
++  		as = &user;
+ 
+-		prompt(vt.ios, "%s's password: ", as->name);
++		prompt(vt.ios, "[%s] Password: ", as->name);
+ 		auth = authenticate(as, buf);
+ 		if (!auth) {
+-			fprintf(vt.ios, "\nAuthentication failed\n");
++			fprintf(vt.ios, "\n"); /* gavin: ask again */
+ 			sleep(AUTH_FAIL_TIMEOUT);
+ 		}
+ 	}
