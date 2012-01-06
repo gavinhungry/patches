@@ -1,0 +1,191 @@
+--- ../pre/notification-daemon/src/notification-daemon-0.4.0/src/themes/standard/theme.c.ORIG	2008-11-20 01:38:01.000000000 -0800
++++ ../pre/notification-daemon/src/notification-daemon-0.4.0/src/themes/standard/theme.c	2012-01-06 11:53:56.524165384 -0800
+@@ -16,7 +16,6 @@
+ 	GtkWidget *icon;
+ 	GtkWidget *content_hbox;
+ 	GtkWidget *summary_label;
+-	GtkWidget *close_button;
+ 	GtkWidget *body_label;
+ 	GtkWidget *actions_box;
+ 	GtkWidget *last_sep;
+@@ -62,15 +61,15 @@
+ //#define ENABLE_GRADIENT_LOOK
+ 
+ #ifdef ENABLE_GRADIENT_LOOK
+-# define STRIPE_WIDTH  45
++# define STRIPE_WIDTH  35
+ #else
+-# define STRIPE_WIDTH  30
++# define STRIPE_WIDTH  20
+ #endif
+ 
+ #define WIDTH         400
+-#define IMAGE_SIZE    32
++#define IMAGE_SIZE    24
+ #define IMAGE_PADDING 10
+-#define SPACER_LEFT   30
++#define SPACER_LEFT   16
+ #define PIE_RADIUS    12
+ #define PIE_WIDTH     (2 * PIE_RADIUS)
+ #define PIE_HEIGHT    (2 * PIE_RADIUS)
+@@ -78,7 +77,7 @@
+ #define DEFAULT_ARROW_OFFSET  (SPACER_LEFT + 2)
+ #define DEFAULT_ARROW_HEIGHT  14
+ #define DEFAULT_ARROW_WIDTH   28
+-#define BACKGROUND_OPACITY    0.92
++#define BACKGROUND_OPACITY    0.95
+ #define BOTTOM_GRADIENT_HEIGHT 30
+ 
+ #if GTK_CHECK_VERSION(2, 10, 0)
+@@ -90,7 +89,8 @@
+ fill_background(GtkWidget *widget, WindowData *windata, cairo_t *cr)
+ {
+ 	GtkStyle *style = gtk_widget_get_style(widget);
+-	GdkColor *background_color = &style->base[GTK_STATE_NORMAL];
++	GdkColor background_color;
++	gdk_color_parse("#FAFAFA", &background_color);
+ #ifdef ENABLE_GRADIENT_LOOK
+ 	cairo_pattern_t *gradient;
+ 	int gradient_y = widget->allocation.height - BOTTOM_GRADIENT_HEIGHT;
+@@ -99,14 +99,14 @@
+ 	if (windata->enable_transparency)
+ 	{
+ 		cairo_set_source_rgba(cr,
+-							  background_color->red   / 65535.0,
+-							  background_color->green / 65535.0,
+-							  background_color->blue  / 65535.0,
++							  background_color.red   / 65535.0,
++							  background_color.green / 65535.0,
++							  background_color.blue  / 65535.0,
+ 							  BACKGROUND_OPACITY);
+ 	}
+ 	else
+ 	{
+-		gdk_cairo_set_source_color(cr, background_color);
++		gdk_cairo_set_source_color(cr, &background_color);
+ 	}
+ 
+ 	cairo_rectangle(cr, 0, 0,
+@@ -143,17 +143,13 @@
+ 
+ 	switch (windata->urgency)
+ 	{
+-		case URGENCY_LOW: // LOW
+-			color = style->bg[GTK_STATE_NORMAL];
+-			break;
+-
+-		case URGENCY_CRITICAL: // CRITICAL
+-			gdk_color_parse("#CC0000", &color);
+-			break;
+-
+ 		case URGENCY_NORMAL: // NORMAL
+-		default:
+-			color = style->bg[GTK_STATE_SELECTED];
++		case URGENCY_LOW:    // LOW / gray
++			gdk_color_parse("#656565", &color);
++			break;
++			
++    case URGENCY_CRITICAL: // CRITICAL / red
++			gdk_color_parse("#B12C2C", &color);
+ 			break;
+ 	}
+ 
+@@ -417,7 +413,7 @@
+ static void
+ draw_border(GtkWidget *widget, WindowData *windata, cairo_t *cr)
+ {
+-	cairo_set_source_rgba(cr, 0.0, 0.0, 0.0, 1.0);
++	cairo_set_source_rgba(cr, 0.0, 0.0, 0.0, 0.65);
+ 	cairo_set_line_width(cr, 1.0);
+ 
+ 	if (windata->has_arrow)
+@@ -572,7 +568,6 @@
+ 	GtkWidget *main_vbox;
+ 	GtkWidget *hbox;
+ 	GtkWidget *vbox;
+-	GtkWidget *close_button;
+ 	GtkWidget *image;
+ 	GtkWidget *alignment;
+ 	AtkObject *atkobj;
+@@ -654,7 +649,7 @@
+ 	vbox = gtk_vbox_new(FALSE, 6);
+ 	gtk_widget_show(vbox);
+ 	gtk_box_pack_start(GTK_BOX(windata->main_hbox), vbox, TRUE, TRUE, 0);
+-	gtk_container_set_border_width(GTK_CONTAINER(vbox), 10);
++	gtk_container_set_border_width(GTK_CONTAINER(vbox), 12);
+ 
+ 	hbox = gtk_hbox_new(FALSE, 6);
+ 	gtk_widget_show(hbox);
+@@ -674,51 +669,31 @@
+ 	atkobj = gtk_widget_get_accessible(windata->summary_label);
+ 	atk_object_set_description(atkobj, "Notification summary text.");
+ 
+-	/* Add the close button */
+ 	alignment = gtk_alignment_new(1, 0, 0, 0);
+ 	gtk_widget_show(alignment);
+ 	gtk_box_pack_start(GTK_BOX(hbox), alignment, FALSE, FALSE, 0);
+ 
+-	close_button = gtk_button_new();
+-	windata->close_button = close_button;
+-	gtk_widget_show(close_button);
+-	gtk_container_add(GTK_CONTAINER(alignment), close_button);
+-	gtk_button_set_relief(GTK_BUTTON(close_button), GTK_RELIEF_NONE);
+-	gtk_container_set_border_width(GTK_CONTAINER(close_button), 0);
+-	//gtk_widget_set_size_request(close_button, 20, 20);
+-	g_signal_connect_swapped(G_OBJECT(close_button), "clicked",
+-							 G_CALLBACK(gtk_widget_destroy), win);
+-
+-	rcstyle = gtk_rc_style_new();
+-	rcstyle->xthickness = rcstyle->ythickness = 0;
+-	gtk_widget_modify_style(close_button, rcstyle);
+-	gtk_rc_style_unref(rcstyle);
+-
+-	atkobj = gtk_widget_get_accessible(close_button);
+-	atk_action_set_description(ATK_ACTION(atkobj), 0,
+-							   "Closes the notification.");
+-	atk_object_set_name(atkobj, "");
+-	atk_object_set_description(atkobj, "Closes the notification.");
+-
+-	image = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+-	gtk_widget_show(image);
+-	gtk_container_add(GTK_CONTAINER(close_button), image);
+-
+ 	windata->content_hbox = gtk_hbox_new(FALSE, 6);
+ 	gtk_box_pack_start(GTK_BOX(vbox), windata->content_hbox, FALSE, FALSE, 0);
+ 
+ 	windata->iconbox = gtk_hbox_new(FALSE, 0);
+-	gtk_widget_show(windata->iconbox);
+-	gtk_box_pack_start(GTK_BOX(windata->content_hbox), windata->iconbox,
+-					   FALSE, FALSE, 0);
+-	gtk_widget_set_size_request(windata->iconbox, BODY_X_OFFSET, -1);
++	
++	/*gtk_widget_show(windata->iconbox);*/
++	/*gtk_box_pack_start(GTK_BOX(windata->content_hbox), windata->iconbox,
++					   FALSE, FALSE, 0);*/
++	/*gtk_widget_set_size_request(windata->iconbox, BODY_X_OFFSET, -1);*/
+ 
+ 	windata->icon = gtk_image_new();
+-	gtk_box_pack_start(GTK_BOX(windata->iconbox), windata->icon,
++	/*gtk_box_pack_start(GTK_BOX(windata->iconbox), windata->icon,
+ 					   TRUE, TRUE, 0);
+-	gtk_misc_set_alignment(GTK_MISC(windata->icon), 0.5, 0.0);
++	gtk_misc_set_alignment(GTK_MISC(windata->icon), 0.5, 0.0);*/
+ 
+-	vbox = gtk_vbox_new(FALSE, 6);
++	spacer = gtk_image_new();
++	gtk_widget_show(spacer);
++	gtk_box_pack_start(GTK_BOX(windata->content_hbox), spacer, FALSE, FALSE, 0);
++	gtk_widget_set_size_request(spacer, SPACER_LEFT, -1);
++
++	vbox = gtk_vbox_new(FALSE, 2);
+ 	gtk_widget_show(vbox);
+ 	gtk_box_pack_start(GTK_BOX(windata->content_hbox), vbox, TRUE, TRUE, 0);
+ 
+@@ -821,7 +796,6 @@
+ 			-1);
+ 	}
+ 
+-	gtk_widget_size_request (windata->close_button, &req);
+ 	gtk_widget_set_size_request(
+ 		windata->summary_label,
+ 		/* -1: main_vbox border width
