@@ -1,0 +1,25 @@
+--- ../abs/mkinitcpio/src/mkinitcpio-0.8.2/init.ORIG	2012-01-21 14:02:12.386817130 -0800
++++ ../abs/mkinitcpio/src/mkinitcpio-0.8.2/init	2012-01-21 14:04:27.733479665 -0800
+@@ -14,10 +14,10 @@
+ 
+ # if available, start udevd at this stage
+ if [ -x /lib/udev/udevd ]; then
+-    msg ":: Starting udevd..."
++#    msg ":: Starting udevd..."
+     /lib/udev/udevd --daemon --resolve-names=never
+     udevd_running=1
+-    msg "done."
++#    msg "done."
+ else
+     udevd_running=0
+ fi
+@@ -40,6 +40,9 @@
+     rootdelay=10
+ fi
+ 
++# clear the terminal
++echo -e "\033[2J\033[1;1H"
++
+ if [ -e "/hooks" ]; then
+     for h in ${HOOKS}; do
+         TST=""
