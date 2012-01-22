@@ -1,0 +1,14 @@
+--- ../abs/mkinitcpio/src/mkinitcpio-0.8.2/hooks/udev.ORIG	2012-01-21 14:05:29.283477786 -0800
++++ ../abs/mkinitcpio/src/mkinitcpio-0.8.2/hooks/udev	2012-01-21 14:05:32.903477676 -0800
+@@ -1,9 +1,9 @@
+ # vim: set ft=sh:
+ run_hook ()
+ {
+-    msg -n ":: Triggering uevents..."
++#    msg -n ":: Triggering uevents..."
+     udevadm trigger --action=add --type=subsystems
+     udevadm trigger --action=add --type=devices
+     udevadm settle
+-    msg "done."
++#    msg "done."
+ }
