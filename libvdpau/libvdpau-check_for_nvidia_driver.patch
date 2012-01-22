@@ -1,0 +1,51 @@
+--- ../abs/libvdpau/src/libvdpau-0.4.1/src/vdpau_wrapper.c.ORIG	2010-09-07 10:21:32.000000000 -0700
++++ ../abs/libvdpau/src/libvdpau-0.4.1/src/vdpau_wrapper.c	2012-01-21 23:59:20.050559551 -0800
+@@ -57,6 +57,36 @@
+ 
+ #define DRIVER_LIB_FORMAT "%slibvdpau_%s.so%s"
+ 
++/**
++ * Source: github.com/Bumblebee-Project/Bumblebee/blob/master/src/module.c
++ * Checks in /proc/modules whether a kernel module is loaded
++ *
++ * @param driver The name of the driver (not a filename)
++ * @return 1 if the module is loaded, 0 otherwise
++ */
++int module_is_loaded(char *driver) {
++    char buffer[4096];
++    FILE * modules = fopen("/proc/modules", "r");
++    int ret = 0;
++    /* assume mod_len <= sizeof(buffer) */
++    int mod_len = strlen(driver);
++
++    if (modules == 0) { // error opening, return 0
++        return 0;
++    }
++
++    while (fgets(buffer, sizeof(buffer), modules)) {
++        /* match "module" with "module " and not "module-blah" */
++        if (!strncmp(buffer, driver, mod_len) && isspace(buffer[mod_len])) {
++            /* module is found */
++            ret = 1;
++            break;
++        }
++    }
++    fclose(modules);
++    return ret;
++}
++
+ static char * _vdp_get_driver_name_from_dri2(
+     Display *             display,
+     int                   screen
+@@ -113,6 +143,11 @@
+         vdpau_driver = "nvidia";
+     }
+ 
++    /* load libvdpau_nvidia.so only if the nvidia driver is already loaded */
++    if (vdpau_driver == "nvidia" && !module_is_loaded("nvidia")) {
++        return VDP_STATUS_NO_IMPLEMENTATION;
++    }
++
+     if (snprintf(vdpau_driver_lib, sizeof(vdpau_driver_lib), DRIVER_LIB_FORMAT,
+                  VDPAU_MODULEDIR "/", vdpau_driver, ".1") >=
+             sizeof(vdpau_driver_lib)) {
