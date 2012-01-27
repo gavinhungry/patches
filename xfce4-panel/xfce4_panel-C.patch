@@ -1,5 +1,5 @@
---- ../abs/xfce4-panel/src/xfce4-panel-4.8.6/plugins/tasklist/tasklist-widget.c.ORIG	2011-01-31 17:06:47.584182245 -0800
-+++ ../abs/xfce4-panel/src/xfce4-panel-4.8.6/plugins/tasklist/tasklist-widget.c	2011-01-31 17:10:24.752788487 -0800
+--- ../abs/xfce4-panel/src/xfce4-panel-4.8.6/plugins/tasklist/tasklist-widget.c.ORIG	2012-01-27 14:21:43.163301714 -0800
++++ ../abs/xfce4-panel/src/xfce4-panel-4.8.6/plugins/tasklist/tasklist-widget.c	2012-01-27 14:22:14.376634093 -0800
 @@ -45,7 +45,7 @@
  
  
@@ -9,7 +9,7 @@
  #define DEFAULT_MENU_ICON_SIZE       (16)
  #define DEFAULT_MIN_BUTTON_LENGTH    (DEFAULT_MAX_BUTTON_LENGTH / 4)
  #define DEFAULT_ICON_LUCENCY         (50)
-@@ -1491,8 +1491,13 @@
+@@ -1501,8 +1501,13 @@
          g_get_current_time (&child->last_focused);
  
        /* set the toggle button state */
@@ -25,7 +25,7 @@
      }
  
    /* release the lock */
-@@ -2323,11 +2328,12 @@
+@@ -2391,11 +2396,12 @@
    gtk_widget_set_tooltip_text (GTK_WIDGET (child->button), name);
  
    /* create the button label */
@@ -40,7 +40,19 @@
  
    gtk_label_set_text (GTK_LABEL (child->label), name);
  
-@@ -2419,6 +2425,7 @@
+@@ -2461,8 +2467,9 @@
+     }
+ 
+   /* update the blinking state */
+-  if (PANEL_HAS_FLAG (changed_state, WNCK_WINDOW_STATE_DEMANDS_ATTENTION)
+-      || PANEL_HAS_FLAG (changed_state, WNCK_WINDOW_STATE_URGENT))
++  /*if (PANEL_HAS_FLAG (changed_state, WNCK_WINDOW_STATE_DEMANDS_ATTENTION)
++      || PANEL_HAS_FLAG (changed_state, WNCK_WINDOW_STATE_URGENT))*/
++  if (FALSE) /* gavin: no blinking for urgent */
+     {
+       /* only start blinking if the window requesting urgentcy
+        * notification is not the active window */
+@@ -2487,6 +2494,7 @@
  
    /* make sure we don't have two active windows (bug #6474) */
    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
