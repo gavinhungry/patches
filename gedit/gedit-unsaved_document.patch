@@ -1,0 +1,20 @@
+--- ../pre/gedit/src/gedit-2.30.4/gedit/gedit-document.c.ORIG	2012-02-12 14:47:31.480047744 -0800
++++ ../pre/gedit/src/gedit-2.30.4/gedit/gedit-document.c	2012-02-12 14:48:17.446712992 -0800
+@@ -1068,7 +1068,7 @@
+ 	g_return_val_if_fail (GEDIT_IS_DOCUMENT (doc), g_strdup (""));
+ 
+ 	if (doc->priv->uri == NULL)
+-		return g_strdup_printf (_("Unsaved Document %d"),
++		return g_strdup_printf (_("Unsaved %d"),
+ 					doc->priv->untitled_number);
+ 	else
+ 		return gedit_utils_uri_for_display (doc->priv->uri);
+@@ -1083,7 +1083,7 @@
+ 	if (doc->priv->short_name != NULL)
+ 		return g_strdup (doc->priv->short_name);
+ 	else if (doc->priv->uri == NULL)
+-		return g_strdup_printf (_("Unsaved Document %d"),
++		return g_strdup_printf (_("Unsaved %d"),
+ 					doc->priv->untitled_number);
+ 	else
+ 		return gedit_utils_basename_for_display (doc->priv->uri);
