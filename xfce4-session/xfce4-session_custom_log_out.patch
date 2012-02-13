@@ -1,5 +1,5 @@
---- ../abs/xfce4-session/src/xfce4-session-4.8.2/xfce4-session/shutdown.c.ORIG	2011-12-10 15:30:12.142326877 -0800
-+++ ../abs/xfce4-session/src/xfce4-session-4.8.2/xfce4-session/shutdown.c	2011-12-10 15:30:24.855659821 -0800
+--- ../abs/xfce4-session/src/xfce4-session-4.8.3/xfce4-session/shutdown.c.ORIG	2011-12-10 15:30:12.142326877 -0800
++++ ../abs/xfce4-session/src/xfce4-session-4.8.3/xfce4-session/shutdown.c	2011-12-10 15:30:24.855659821 -0800
 @@ -61,7 +61,6 @@
  #include <xfce4-session/shutdown.h>
  #include <xfce4-session/xfsm-compat-gnome.h>
