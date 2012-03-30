@@ -1,10 +1,10 @@
---- ../abs/xfce4-power-manager/src/xfce4-power-manager-1.0.10/src/xfpm-backlight.c.ORIG	2011-04-20 15:21:20.846771295 -0700
-+++ ../abs/xfce4-power-manager/src/xfce4-power-manager-1.0.10/src/xfpm-backlight.c	2011-04-20 15:24:10.470084693 -0700
-@@ -278,6 +278,7 @@
+--- ../abs/xfce4-power-manager/src/xfce4-power-manager-1.0.11/src/xfpm-backlight.c.ORIG	2012-03-30 11:38:12.903085578 -0700
++++ ../abs/xfce4-power-manager/src/xfce4-power-manager-1.0.11/src/xfpm-backlight.c	2012-03-30 11:39:51.689749191 -0700
+@@ -284,6 +284,7 @@
  static void
  xfpm_backlight_button_pressed_cb (XfpmButton *button, XfpmButtonKey type, XfpmBacklight *backlight)
  {
 +    return;
-     gint level;
+     glong level;
      gboolean ret = TRUE;
      
