@@ -1,15 +1,15 @@
---- ../aur/pacman-color/pacman-color-4.0.2.patch.ORIG	2012-02-14 09:26:04.147269264 -0800
-+++ ../aur/pacman-color/pacman-color-4.0.2.patch	2012-02-14 09:27:56.197265845 -0800
-@@ -842,7 +842,7 @@
+--- ../aur/pacman-color/pacman-color-4.0.3.patch.ORIG	2012-04-11 14:52:24.220954540 -0700
++++ ../aur/pacman-color/pacman-color-4.0.3.patch	2012-04-11 14:53:56.284285066 -0700
+@@ -2809,7 +2809,7 @@
   	va_end(args);
   
   	return ret;
--@@ -1470,22 +1484,42 @@ int pm_vasprintf(char **string, alpm_log
-+@@ -1470,22 +1484,44 @@ int pm_vasprintf(char **string, alpm_log
+-@@ -1474,22 +1488,42 @@ int pm_vasprintf(char **string, alpm_log
++@@ -1474,22 +1488,44 @@ int pm_vasprintf(char **string, alpm_log
   	ret = vasprintf(&msg, format, args);
   
   	/* print a prefix to the message */
-@@ -868,6 +868,7 @@
+@@ -2835,6 +2835,7 @@
  +				pm_asprintf(string, "%s%s%s%s", colortab.red, _("error: "), colortab.none, msg);
  +				break;
  +			case ALPM_LOG_WARNING:
@@ -17,7 +17,7 @@
  +				pm_asprintf(string, "%s%s%s%s", colortab.yellow, _("warning: "), colortab.none, msg);
  +				break;
  +			case ALPM_LOG_DEBUG:
-@@ -886,6 +887,7 @@
+@@ -2853,6 +2854,7 @@
  +				pm_asprintf(string, _("error: %s"), msg);
  +				break;
  +			case ALPM_LOG_WARNING:
@@ -25,16 +25,16 @@
  +				pm_asprintf(string, _("warning: %s"), msg);
  +				break;
  +			case ALPM_LOG_DEBUG:
-@@ -901,7 +903,7 @@
+@@ -2868,7 +2870,7 @@
   	}
   	free(msg);
   
--@@ -1520,10 +1554,10 @@ int pm_vfprintf(FILE *stream, alpm_logle
-+@@ -1520,10 +1554,11 @@ int pm_vfprintf(FILE *stream, alpm_logle
+-@@ -1524,10 +1558,10 @@ int pm_vfprintf(FILE *stream, alpm_logle
++@@ -1524,10 +1558,11 @@ int pm_vfprintf(FILE *stream, alpm_logle
   	/* print a prefix to the message */
   	switch(level) {
   		case ALPM_LOG_ERROR:
-@@ -910,6 +912,7 @@
+@@ -2877,6 +2879,7 @@
   			break;
   		case ALPM_LOG_WARNING:
  -			fprintf(stream, _("warning: "));
