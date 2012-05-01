@@ -1,0 +1,70 @@
+diff -ru ../abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.0/plugins/tasklist/tasklist-widget.c ../abs/xfce4-panel/src/xfce4-panel-4.10.0/plugins/tasklist/tasklist-widget.c
+--- ../abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.0/plugins/tasklist/tasklist-widget.c	2012-05-01 13:16:50.308180055 -0700
++++ ../abs/xfce4-panel/src/xfce4-panel-4.10.0/plugins/tasklist/tasklist-widget.c	2012-05-01 14:06:18.981532211 -0700
+@@ -45,7 +45,7 @@
+ 
+ 
+ #define DEFAULT_BUTTON_SIZE          (25)
+-#define DEFAULT_MAX_BUTTON_LENGTH    (200)
++#define DEFAULT_MAX_BUTTON_LENGTH    (300)
+ #define DEFAULT_MENU_ICON_SIZE       (16)
+ #define DEFAULT_MIN_BUTTON_LENGTH    (DEFAULT_MAX_BUTTON_LENGTH / 4)
+ #define DEFAULT_ICON_LUCENCY         (50)
+@@ -1524,9 +1524,14 @@
+       if (child->window == active_window)
+         g_get_current_time (&child->last_focused);
+ 
+-      /* set the toggle button state */
+-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button),
+-                                    !!(child->window == active_window));
++      /* bold only active tasks */
++      if (child->window == active_window) {
++        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), TRUE);
++        gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string ("bold"));
++      } else {
++          gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
++          gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string (""));
++        }
+     }
+ 
+   /* release the lock */
+@@ -2416,13 +2421,6 @@
+   name = wnck_window_get_name (child->window);
+   gtk_widget_set_tooltip_text (GTK_WIDGET (child->button), name);
+ 
+-  /* create the button label */
+-  if (!child->tasklist->only_minimized
+-      && wnck_window_is_minimized (child->window))
+-    name = label = g_strdup_printf ("[%s]", name);
+-  else if (wnck_window_is_shaded (child->window))
+-    name = label = g_strdup_printf ("=%s=", name);
+-
+   gtk_label_set_text (GTK_LABEL (child->label), name);
+ 
+   g_free (label);
+@@ -2485,17 +2483,6 @@
+           xfce_tasklist_button_icon_changed (window, child);
+         }
+     }
+-
+-  /* update the blinking state */
+-  if (PANEL_HAS_FLAG (changed_state, WNCK_WINDOW_STATE_DEMANDS_ATTENTION)
+-      || PANEL_HAS_FLAG (changed_state, WNCK_WINDOW_STATE_URGENT))
+-    {
+-      /* only start blinking if the window requesting urgentcy
+-       * notification is not the active window */
+-      blink = wnck_window_or_transient_needs_attention (window);
+-      if (!blink || (blink && !wnck_window_is_active (window)))
+-        xfce_arrow_button_set_blinking (XFCE_ARROW_BUTTON (child->button), blink);
+-    }
+ }
+ 
+ 
+@@ -2513,6 +2500,7 @@
+ 
+   /* make sure we don't have two active windows (bug #6474) */
+   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
++  gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string (""));
+ 
+   if (!tasklist->all_workspaces)
+     xfce_tasklist_active_workspace_changed (tasklist->screen, NULL, tasklist);

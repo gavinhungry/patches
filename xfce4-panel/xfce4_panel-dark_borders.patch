@@ -1,0 +1,30 @@
+diff -ru ../abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.0/panel/panel-base-window.c ../abs/xfce4-panel/src/xfce4-panel-4.10.0/panel/panel-base-window.c
+--- ../abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.0/panel/panel-base-window.c	2012-05-01 13:16:50.314846720 -0700
++++ ../abs/xfce4-panel/src/xfce4-panel-4.10.0/panel/panel-base-window.c	2012-05-01 13:24:58.838165148 -0700
+@@ -579,7 +579,7 @@
+       cairo_rectangle (cr, 0.5, 0.5, width - 1, height - 1);
+       cairo_stroke (cr);
+     }
+-  else if (window->background_style == PANEL_BG_STYLE_NONE)
++  else
+     {
+       if (PANEL_HAS_FLAG (priv->borders, PANEL_BORDER_BOTTOM | PANEL_BORDER_RIGHT))
+         {
+@@ -605,7 +605,7 @@
+       if (PANEL_HAS_FLAG (priv->borders, PANEL_BORDER_TOP | PANEL_BORDER_LEFT))
+         {
+           /* use light color for top and left line */
+-          color = &(widget->style->light[GTK_STATE_NORMAL]);
++          color = &(widget->style->dark[GTK_STATE_NORMAL]);
+           panel_util_set_source_rgba (cr, color, alpha);
+ 
+           if (PANEL_HAS_FLAG (priv->borders, PANEL_BORDER_LEFT))
+@@ -837,8 +837,6 @@
+   if (priv->active_timeout_id != 0)
+     return PANEL_BORDER_TOP | PANEL_BORDER_BOTTOM
+            | PANEL_BORDER_LEFT | PANEL_BORDER_RIGHT;
+-  else if (window->background_style != PANEL_BG_STYLE_NONE)
+-    return PANEL_BORDER_NONE;
+ 
+   return priv->borders;
+ }
