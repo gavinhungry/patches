@@ -1,0 +1,23 @@
+diff -ru ../abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfce-desktop.c ../abs/xfdesktop/src/xfdesktop-4.10.0/src/xfce-desktop.c
+--- ../abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfce-desktop.c	2012-04-30 01:55:38.116400197 -0700
++++ ../abs/xfdesktop/src/xfdesktop-4.10.0/src/xfce-desktop.c	2012-04-30 01:57:35.263063289 -0700
+@@ -670,7 +670,6 @@
+     GTK_WINDOW(desktop)->type = GTK_WINDOW_TOPLEVEL;
+     
+     gtk_window_set_type_hint(GTK_WINDOW(desktop), GDK_WINDOW_TYPE_HINT_DESKTOP);
+-    gtk_window_set_accept_focus(GTK_WINDOW(desktop), FALSE);
+     gtk_window_set_resizable(GTK_WINDOW(desktop), FALSE);
+ }
+ 
+diff -ru ../abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c ../abs/xfdesktop/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c
+--- ../abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c	2012-04-30 01:55:38.116400197 -0700
++++ ../abs/xfdesktop/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c	2012-04-30 01:57:05.299730871 -0700
+@@ -1922,8 +1922,6 @@
+     GdkWindow *groot;
+     GList *l;
+     
+-    gtk_window_set_accept_focus(GTK_WINDOW(icon_view->priv->parent_window), FALSE);
+-    
+     gscreen = gtk_widget_get_screen(widget);
+     groot = gdk_screen_get_root_window(gscreen);
+     gdk_window_remove_filter(groot, xfdesktop_rootwin_watch_workarea, icon_view);

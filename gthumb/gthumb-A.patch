@@ -1,5 +1,5 @@
---- ../abs/gthumb/src/gthumb-2.14.2/extensions/image_viewer/gth-image-viewer-page.c.ORIG	2011-08-28 17:28:56.407313870 -0700
-+++ ../abs/gthumb/src/gthumb-2.14.2/extensions/image_viewer/gth-image-viewer-page.c	2011-08-28 17:29:35.990645998 -0700
+--- ../pre/gthumb/src/gthumb-2.14.2/extensions/image_viewer/gth-image-viewer-page.c.ORIG	2011-08-28 17:28:56.407313870 -0700
++++ ../pre/gthumb/src/gthumb-2.14.2/extensions/image_viewer/gth-image-viewer-page.c	2011-08-28 17:29:35.990645998 -0700
 @@ -197,7 +197,7 @@
  	  N_("Paste Image"), "<control>p",
  	  N_("Paste the image from the clipboard"),
