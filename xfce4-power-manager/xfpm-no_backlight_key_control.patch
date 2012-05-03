@@ -1,10 +1,13 @@
---- ../abs/xfce4-power-manager/src/xfce4-power-manager-1.0.11/src/xfpm-backlight.c.ORIG	2012-03-30 11:38:12.903085578 -0700
-+++ ../abs/xfce4-power-manager/src/xfce4-power-manager-1.0.11/src/xfpm-backlight.c	2012-03-30 11:39:51.689749191 -0700
-@@ -284,6 +284,7 @@
- static void
- xfpm_backlight_button_pressed_cb (XfpmButton *button, XfpmButtonKey type, XfpmBacklight *backlight)
- {
-+    return;
-     glong level;
-     gboolean ret = TRUE;
-     
+diff -ru ../abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-backlight.c ../abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-backlight.c
+--- ../abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-backlight.c	2012-05-02 18:47:14.467315123 -0700
++++ ../abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-backlight.c	2012-05-02 18:48:48.440645550 -0700
+@@ -415,9 +415,6 @@
+         g_signal_connect (backlight->priv->idle, "reset",
+                           G_CALLBACK(xfpm_backlight_reset_cb), backlight);
+ 			  
+-	g_signal_connect (backlight->priv->button, "button-pressed",
+-		          G_CALLBACK (xfpm_backlight_button_pressed_cb), backlight);
+-			  
+ 	g_signal_connect_swapped (backlight->priv->conf, "notify::" BRIGHTNESS_ON_AC,
+ 				  G_CALLBACK (xfpm_backlight_brightness_on_ac_settings_changed), backlight);
+ 	
