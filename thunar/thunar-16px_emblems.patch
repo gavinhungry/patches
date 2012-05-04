@@ -1,6 +1,6 @@
 diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c
---- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c	2012-05-01 12:38:53.381582869 -0700
-+++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c	2012-05-01 12:49:17.268230500 -0700
+--- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c	2012-05-04 13:52:16.712724004 -0700
++++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c	2012-05-04 13:52:27.016057019 -0700
 @@ -400,7 +400,7 @@
    GdkPixbuf   *icon;
  
@@ -11,8 +11,8 @@ diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c ../a
      return NULL;
  
 diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-icon-renderer.c ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-icon-renderer.c
---- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-icon-renderer.c	2012-05-01 12:38:53.378249539 -0700
-+++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-icon-renderer.c	2012-05-01 12:50:28.624894996 -0700
+--- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-icon-renderer.c	2012-05-04 13:52:16.712724004 -0700
++++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-icon-renderer.c	2012-05-04 13:52:27.016057019 -0700
 @@ -461,7 +461,7 @@
            for (lp = emblems, position = 0; lp != NULL && position < max_emblems; lp = lp->next)
              {
