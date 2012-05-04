@@ -1,6 +1,6 @@
 diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-dialogs.c ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-dialogs.c
---- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-dialogs.c	2012-05-04 13:54:06.369387325 -0700
-+++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-dialogs.c	2012-05-04 13:54:45.782719454 -0700
+--- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-dialogs.c	2012-05-04 14:18:57.622675149 -0700
++++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-dialogs.c	2012-05-04 14:19:08.986008135 -0700
 @@ -66,7 +66,6 @@
    ThunarJob         *job = NULL;
    GtkWidget         *dialog;
@@ -9,7 +9,22 @@ diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-dialogs.c ../abs/thun
    GtkWidget         *image;
    GtkWidget         *table;
    GtkWindow         *window;
-@@ -109,7 +108,7 @@
+@@ -96,33 +95,28 @@
+                                         _("_Rename"), GTK_RESPONSE_OK,
+                                         NULL);
+   gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+-  gtk_window_set_default_size (GTK_WINDOW (dialog), 300, -1);
++  gtk_window_set_default_size (GTK_WINDOW (dialog), 400, -1);
+   g_free (title);
+ 
+   /* move the dialog to the appropriate screen */
+   if (G_UNLIKELY (window == NULL && screen != NULL))
+     gtk_window_set_screen (GTK_WINDOW (dialog), screen);
+ 
+-  table = g_object_new (GTK_TYPE_TABLE, "border-width", 6, "column-spacing", 6, "row-spacing", 3, NULL);
++  table = g_object_new (GTK_TYPE_TABLE, "border-width", 6, "column-spacing", 6, "row-spacing", 0, NULL);
+   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), table, TRUE, TRUE, 0);
+   gtk_widget_show (table);
  
    icon_theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (dialog));
    icon_factory = thunar_icon_factory_get_for_icon_theme (icon_theme);
@@ -18,7 +33,9 @@ diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-dialogs.c ../abs/thun
    g_object_unref (G_OBJECT (icon_factory));
  
    image = gtk_image_new_from_pixbuf (icon);
-@@ -118,11 +117,6 @@
+-  gtk_misc_set_padding (GTK_MISC (image), 6, 6);
++  gtk_misc_set_padding (GTK_MISC (image), 2, 2);
+   gtk_table_attach (GTK_TABLE (table), image, 0, 1, 0, 2, GTK_FILL, GTK_FILL, 0, 0);
    g_object_unref (G_OBJECT (icon));
    gtk_widget_show (image);
  
