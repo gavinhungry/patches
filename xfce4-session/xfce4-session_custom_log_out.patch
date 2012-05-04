@@ -1,142 +1,182 @@
---- ../abs/xfce4-session/src/xfce4-session-4.8.3/xfce4-session/shutdown.c.ORIG	2011-12-10 15:30:12.142326877 -0800
-+++ ../abs/xfce4-session/src/xfce4-session-4.8.3/xfce4-session/shutdown.c	2011-12-10 15:30:24.855659821 -0800
-@@ -61,7 +61,6 @@
- #include <xfce4-session/shutdown.h>
- #include <xfce4-session/xfsm-compat-gnome.h>
- #include <xfce4-session/xfsm-compat-kde.h>
+diff -ru ../abs/xfce4-session.ORIG/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c ../abs/xfce4-session/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c
+--- ../abs/xfce4-session.ORIG/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c	2012-05-04 11:41:12.696297326 -0700
++++ ../abs/xfce4-session/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c	2012-05-04 11:45:13.759623302 -0700
+@@ -49,7 +49,6 @@
+ #include <libxfsm/xfsm-util.h>
+ 
+ #include <xfce4-session/xfsm-logout-dialog.h>
 -#include <xfce4-session/xfsm-fadeout.h>
  #include <xfce4-session/xfsm-global.h>
  #include <xfce4-session/xfsm-legacy.h>
- #include <xfce4-session/xfsm-shutdown-helper.h>
-@@ -169,7 +168,6 @@
+ #include <xfce4-session/xfsm-error.h>
+@@ -96,9 +95,6 @@
+   /* set when a button is clicked */
+   XfsmShutdownType  type_clicked;
+ 
+-  /* save session checkbox */
+-  GtkWidget        *save_session;
+-
+   /* mode widgets */
+   GtkWidget        *box[N_MODES];
+ 
+@@ -137,9 +133,7 @@
+ static void
+ xfsm_logout_dialog_init (XfsmLogoutDialog *dialog)
  {
-   gboolean accessibility;
-   GtkIconTheme *icon_theme;
--  XfsmFadeout *fadeout = NULL;
-   GdkScreen *screen;
-   GtkWidget *dialog;
-   GtkWidget *label;
-@@ -327,10 +325,6 @@
-       g_object_unref (G_OBJECT (screenshot_gc));
- #endif
+-  const gchar   *username;
+   GtkWidget     *label;
+-  gchar         *label_str;
+   PangoAttrList *attrs;
+   GtkWidget     *vbox;
+   GtkWidget     *button_vbox;
+@@ -157,14 +151,12 @@
+   XfconfChannel *channel;
+   GtkWidget     *entry;
+   GtkWidget     *image;
+-  GtkWidget     *separator;
+   gboolean       upower_not_found = FALSE;
+ 
+   dialog->type_clicked = XFSM_SHUTDOWN_LOGOUT;
+   dialog->shutdown = xfsm_shutdown_get ();
+ 
+   gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CANCEL);
+-  gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+   gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+ 
+@@ -178,30 +170,6 @@
+   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), BORDER);
+   gtk_widget_show (main_vbox);
+ 
+-  /* label showing the users' name */
+-  username = g_get_real_name ();
+-  if (username == NULL
+-      || *username == '\0'
+-      || strcmp ("Unknown", username) == 0)
+-    username = g_get_user_name ();
+-
+-  label_str = g_strdup_printf (_("Log out %s"), username);
+-  label = gtk_label_new (label_str);
+-  gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_CENTER);
+-  gtk_box_pack_start (GTK_BOX (main_vbox), label, FALSE, TRUE, 0);
+-  gtk_widget_show (label);
+-  g_free (label_str);
+-
+-  attrs = pango_attr_list_new ();
+-  pango_attr_list_insert (attrs, pango_attr_scale_new (PANGO_SCALE_LARGE));
+-  pango_attr_list_insert (attrs, pango_attr_weight_new (PANGO_WEIGHT_BOLD));
+-  gtk_label_set_attributes (GTK_LABEL (label), attrs);
+-  pango_attr_list_unref (attrs);
+-
+-  separator = gtk_hseparator_new ();
+-  gtk_box_pack_start (GTK_BOX (main_vbox), separator, FALSE, TRUE, 0);
+-  gtk_widget_show (separator);
+-
+   /**
+    * Start mode MODE_LOGOUT_BUTTONS
+    **/
+@@ -359,18 +327,6 @@
+         }
+     }
+ 
+-  /**
+-   * Save session
+-   **/
+-  if (xfsm_shutdown_can_save_session (dialog->shutdown)
+-      && !xfconf_channel_get_bool (channel, "/general/AutoSave", FALSE))
+-    {
+-      dialog->save_session = gtk_check_button_new_with_mnemonic (_("_Save session for future logins"));
+-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->save_session), save_session);
+-      gtk_box_pack_start (GTK_BOX (vbox), dialog->save_session, FALSE, TRUE, BORDER);
+-      gtk_widget_show (dialog->save_session);
+-    }
+-
+   attrs = pango_attr_list_new ();
+   pango_attr_list_insert (attrs, pango_attr_weight_new (PANGO_WEIGHT_BOLD));
+ 
+@@ -518,27 +474,6 @@
+   gtk_container_add (GTK_CONTAINER (button), vbox);
+   gtk_widget_show (vbox);
+ 
+-  if (G_UNLIKELY (icon_size == 0))
+-    {
+-      if (gtk_icon_size_lookup (GTK_ICON_SIZE_DND, &w, &h))
+-        icon_size = MAX (w, h);
+-      else
+-        icon_size = 32;
+-    }
+-
+-  icon_theme = gtk_icon_theme_get_for_screen (gtk_window_get_screen (GTK_WINDOW (dialog)));
+-  pixbuf = gtk_icon_theme_load_icon (icon_theme, icon_name, icon_size, 0, NULL);
+-  if (G_UNLIKELY (pixbuf == NULL))
+-    {
+-      pixbuf = gtk_icon_theme_load_icon (icon_theme, icon_name_fallback,
+-                                         icon_size, GTK_ICON_LOOKUP_GENERIC_FALLBACK,
+-                                         NULL);
+-    }
+-
+-  image = gtk_image_new_from_pixbuf (pixbuf);
+-  gtk_box_pack_start (GTK_BOX (vbox), image, FALSE, FALSE, 0);
+-  gtk_widget_show (image);
+-
+   label = gtk_label_new_with_mnemonic (title);
+   gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+   gtk_widget_show (label);
+@@ -719,7 +654,6 @@
+   GdkScreen        *screen;
+   gint              monitor;
+   GdkPixbuf        *screenshot = NULL;
+-  XfsmFadeout      *fadeout = NULL;
+   XfsmLogoutDialog *xfsm_dialog;
+   XfconfChannel    *channel = xfsm_open_config ();
+   gboolean          autosave;
+@@ -779,10 +713,6 @@
+       if (xfconf_channel_get_bool (channel, "/general/ShowScreenshots", TRUE))
+         screenshot = xfsm_logout_dialog_screenshot_new (screen);
  
 -      /* display fadeout */
--      fadeout = xfsm_fadeout_new (gtk_widget_get_display (hidden));
+-      fadeout = xfsm_fadeout_new (gdk_screen_get_display (screen));
 -      gdk_flush ();
 -
-       /* create confirm dialog */
-       dialog = g_object_new (GTK_TYPE_DIALOG,
+       dialog = g_object_new (XFSM_TYPE_LOGOUT_DIALOG,
                               "type", GTK_WINDOW_POPUP,
-@@ -402,7 +396,8 @@
-   gtk_widget_show (vbox2);
-   gtk_container_add (GTK_CONTAINER (logout_button), vbox2);
+                              "screen", screen, NULL);
+@@ -822,9 +752,6 @@
+           /* switch mode */
+           xfsm_logout_dialog_set_mode (xfsm_dialog, MODE_ASK_PASSWORD);
  
--  icon = gtk_icon_theme_load_icon (icon_theme,
-+  /* gavin: no icon on logout button */
-+  /* icon = gtk_icon_theme_load_icon (icon_theme,
-                                    "system-log-out",
-                                    32,
-                                    0,
-@@ -417,7 +412,7 @@
-   image = gtk_image_new_from_pixbuf (icon);
-   gtk_widget_show (image);
-   gtk_box_pack_start (GTK_BOX (vbox2), image, FALSE, FALSE, 0);
--  g_object_unref (icon);
-+  g_object_unref (icon); */
- 
-   label = gtk_label_new (_("Log Out"));
-   gtk_widget_show (label);
-@@ -436,7 +431,8 @@
-   gtk_widget_show (vbox2);
-   gtk_container_add (GTK_CONTAINER (reboot_button), vbox2);
- 
--  icon = gtk_icon_theme_load_icon (icon_theme,
-+  /* gavin: no icon on reboot button */
-+  /* icon = gtk_icon_theme_load_icon (icon_theme,
-                                    "system-reboot",
-                                    32,
-                                    0,
-@@ -452,7 +448,7 @@
-   image = gtk_image_new_from_pixbuf (icon);
-   gtk_widget_show (image);
-   gtk_box_pack_start (GTK_BOX (vbox2), image, FALSE, FALSE, 0);
--  g_object_unref (icon);
-+  g_object_unref (icon); */
- 
-   label = gtk_label_new (_("Restart"));
-   gtk_widget_show (label);
-@@ -478,7 +474,8 @@
-   gtk_widget_show (vbox2);
-   gtk_container_add (GTK_CONTAINER (halt_button), vbox2);
- 
--  icon = gtk_icon_theme_load_icon (icon_theme,
-+  /* gavin: no icon on shutdown button */
-+  /* icon = gtk_icon_theme_load_icon (icon_theme,
-                                    "system-shutdown",
-                                    32,
-                                    0,
-@@ -494,7 +491,7 @@
-   image = gtk_image_new_from_pixbuf (icon);
-   gtk_widget_show (image);
-   gtk_box_pack_start (GTK_BOX (vbox2), image, FALSE, FALSE, 0);
--  g_object_unref (icon);
-+  g_object_unref (icon); */
- 
-   label = gtk_label_new (_("Shut Down"));
-   gtk_widget_show (label);
-@@ -540,7 +537,8 @@
-       gtk_widget_show (vbox2);
-       gtk_container_add (GTK_CONTAINER (suspend_button), vbox2);
- 
--      icon = gtk_icon_theme_load_icon (icon_theme,
-+      /* gavin: no icon on suspend button */
-+      /* icon = gtk_icon_theme_load_icon (icon_theme,
-                                        "system-suspend",
-                                        32,
-                                        0,
-@@ -556,7 +554,7 @@
-       image = gtk_image_new_from_pixbuf (icon);
-       gtk_widget_show (image);
-       gtk_box_pack_start (GTK_BOX (vbox2), image, FALSE, FALSE, 0);
--      g_object_unref (icon);
-+      g_object_unref (icon); */
- 
-       label = gtk_label_new (_("Suspend"));
-       gtk_widget_show (label);
-@@ -578,7 +576,8 @@
-       gtk_widget_show (vbox2);
-       gtk_container_add (GTK_CONTAINER (hibernate_button), vbox2);
- 
--      icon = gtk_icon_theme_load_icon (icon_theme,
-+      /* gavin: no icon on hibernate button */
-+      /* icon = gtk_icon_theme_load_icon (icon_theme,
-                                        "system-hibernate",
-                                        32,
-                                        0,
-@@ -594,7 +593,7 @@
-       image = gtk_image_new_from_pixbuf (icon);
-       gtk_widget_show (image);
-       gtk_box_pack_start (GTK_BOX (vbox2), image, FALSE, FALSE, 0);
--      g_object_unref (icon);
-+      g_object_unref (icon); */
- 
-       label = gtk_label_new (_("Hibernate"));
-       gtk_widget_show (label);
-@@ -608,7 +607,7 @@
-           _("_Save session for future logins"));
-       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbox), saveonexit);
-       gtk_box_pack_start(GTK_BOX(vbox), checkbox, FALSE, TRUE, BORDER);
--      gtk_widget_show(checkbox);
-+      /* gtk_widget_show(checkbox); */ /* gavin: don't show save-session checkbox */
-     }
-   else
-     {
-@@ -744,8 +743,6 @@
-   /* Release Keyboard/Mouse pointer grab */
-   if (!accessibility)
-     {
--      xfsm_fadeout_destroy (fadeout);
+-          /* don't leave artifacts on the background window */
+-          xfsm_fadeout_clear (fadeout);
 -
-       gdk_pointer_ungrab (GDK_CURRENT_TIME);
-       gdk_keyboard_ungrab (GDK_CURRENT_TIME);
-       gdk_flush ();
+           /* loop for sudo password tries */
+           for (;;)
+             {
+@@ -860,9 +787,6 @@
+                       xfsm_logout_dialog_set_mode (xfsm_dialog, MODE_SHOW_ERROR);
+                       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CANCEL);
+ 
+-                      /* don't leave artifacts on the background window */
+-                      xfsm_fadeout_clear (fadeout);
+-
+                       /* show error */
+                       xfsm_logout_dialog_run (GTK_DIALOG (dialog), !a11y);
+ 
+@@ -882,8 +806,6 @@
+           /* store autosave state */
+           if (autosave)
+             *return_save_session = TRUE;
+-          else if (xfsm_dialog->save_session != NULL)
+-            *return_save_session = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (xfsm_dialog->save_session));
+           else
+             *return_save_session = FALSE;
+ 
+@@ -892,9 +814,6 @@
+         }
+     }
+ 
+-  if (fadeout != NULL)
+-    xfsm_fadeout_destroy (fadeout);
+-
+   gtk_widget_destroy (dialog);
+ 
+   /* store channel settings if everything worked fine */

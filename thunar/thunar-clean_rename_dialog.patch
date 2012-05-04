@@ -1,0 +1,32 @@
+diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-dialogs.c ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-dialogs.c
+--- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-dialogs.c	2012-05-04 13:54:06.369387325 -0700
++++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-dialogs.c	2012-05-04 13:54:45.782719454 -0700
+@@ -66,7 +66,6 @@
+   ThunarJob         *job = NULL;
+   GtkWidget         *dialog;
+   GtkWidget         *entry;
+-  GtkWidget         *label;
+   GtkWidget         *image;
+   GtkWidget         *table;
+   GtkWindow         *window;
+@@ -109,7 +108,7 @@
+ 
+   icon_theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (dialog));
+   icon_factory = thunar_icon_factory_get_for_icon_theme (icon_theme);
+-  icon = thunar_icon_factory_load_file_icon (icon_factory, file, THUNAR_FILE_ICON_STATE_DEFAULT, 48);
++  icon = thunar_icon_factory_load_file_icon (icon_factory, file, THUNAR_FILE_ICON_STATE_DEFAULT, 24);
+   g_object_unref (G_OBJECT (icon_factory));
+ 
+   image = gtk_image_new_from_pixbuf (icon);
+@@ -118,11 +117,6 @@
+   g_object_unref (G_OBJECT (icon));
+   gtk_widget_show (image);
+ 
+-  label = gtk_label_new (_("Enter the new name:"));
+-  gtk_misc_set_alignment (GTK_MISC (label), 0.0f, 0.5f);
+-  gtk_table_attach (GTK_TABLE (table), label, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_FILL, 0, 0);
+-  gtk_widget_show (label);
+-
+   entry = gtk_entry_new ();
+   gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
+   gtk_table_attach (GTK_TABLE (table), entry, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL, GTK_FILL, 0, 0);
