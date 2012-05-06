@@ -1,0 +1,57 @@
+diff -ru ../abs/pidgin.ORIG/src/pidgin-2.10.3/pidgin/gtkblist.c ../abs/pidgin/src/pidgin-2.10.3/pidgin/gtkblist.c
+--- ../abs/pidgin.ORIG/src/pidgin-2.10.3/pidgin/gtkblist.c	2012-05-06 01:37:35.494033146 -0700
++++ ../abs/pidgin/src/pidgin-2.10.3/pidgin/gtkblist.c	2012-05-06 02:00:46.720657356 -0700
+@@ -3601,25 +3601,25 @@
+    gtk_blist_key_press_cb to "Get User Info" on the selected buddy. */
+ 
+ 	/* Buddies menu */
+-	{ N_("/_Buddies"), NULL, NULL, 0, "<Branch>", NULL },
+-	{ N_("/Buddies/New Instant _Message..."), "<CTL>M", pidgin_dialogs_im, 0, "<StockItem>", PIDGIN_STOCK_TOOLBAR_MESSAGE_NEW },
+-	{ N_("/Buddies/Join a _Chat..."), "<CTL>C", pidgin_blist_joinchat_show, 0, "<StockItem>", PIDGIN_STOCK_CHAT },
+-	{ N_("/Buddies/Get User _Info..."), "<CTL>I", pidgin_dialogs_info, 0, "<StockItem>", PIDGIN_STOCK_TOOLBAR_USER_INFO },
+-	{ N_("/Buddies/View User _Log..."), "<CTL>L", pidgin_dialogs_log, 0, "<Item>", NULL },
+-	{ "/Buddies/sep1", NULL, NULL, 0, "<Separator>", NULL },
+-	{ N_("/Buddies/Sh_ow"), NULL, NULL, 0, "<Branch>", NULL},
+-	{ N_("/Buddies/Show/_Offline Buddies"), NULL, pidgin_blist_edit_mode_cb, 1, "<CheckItem>", NULL },
+-	{ N_("/Buddies/Show/_Empty Groups"), NULL, pidgin_blist_show_empty_groups_cb, 1, "<CheckItem>", NULL },
+-	{ N_("/Buddies/Show/Buddy _Details"), NULL, pidgin_blist_buddy_details_cb, 1, "<CheckItem>", NULL },
+-	{ N_("/Buddies/Show/Idle _Times"), NULL, pidgin_blist_show_idle_time_cb, 1, "<CheckItem>", NULL },
+-	{ N_("/Buddies/Show/_Protocol Icons"), NULL, pidgin_blist_show_protocol_icons_cb, 1, "<CheckItem>", NULL },
+-	{ N_("/Buddies/_Sort Buddies"), NULL, NULL, 0, "<Branch>", NULL },
+-	{ "/Buddies/sep2", NULL, NULL, 0, "<Separator>", NULL },
+-	{ N_("/Buddies/_Add Buddy..."), "<CTL>B", pidgin_blist_add_buddy_cb, 0, "<StockItem>", GTK_STOCK_ADD },
+-	{ N_("/Buddies/Add C_hat..."), NULL, pidgin_blist_add_chat_cb, 0, "<StockItem>", GTK_STOCK_ADD },
+-	{ N_("/Buddies/Add _Group..."), NULL, purple_blist_request_add_group, 0, "<StockItem>", GTK_STOCK_ADD },
+-	{ "/Buddies/sep3", NULL, NULL, 0, "<Separator>", NULL },
+-	{ N_("/Buddies/_Quit"), "<CTL>Q", purple_core_quit, 0, "<StockItem>", GTK_STOCK_QUIT },
++	{ N_("/_File"), NULL, NULL, 0, "<Branch>", NULL },
++	{ N_("/File/New Instant _Message..."), "<CTL>M", pidgin_dialogs_im, 0, "<StockItem>", PIDGIN_STOCK_TOOLBAR_MESSAGE_NEW },
++	{ N_("/File/Join a _Chat..."), "<CTL>C", pidgin_blist_joinchat_show, 0, "<StockItem>", PIDGIN_STOCK_CHAT },
++	{ N_("/File/Get User _Info..."), "<CTL>I", pidgin_dialogs_info, 0, "<StockItem>", PIDGIN_STOCK_TOOLBAR_USER_INFO },
++	{ N_("/File/View User _Log..."), "<CTL>L", pidgin_dialogs_log, 0, "<Item>", NULL },
++	{ "/File/sep1", NULL, NULL, 0, "<Separator>", NULL },
++	{ N_("/File/Sh_ow"), NULL, NULL, 0, "<Branch>", NULL},
++	{ N_("/File/Show/_Offline Buddies"), NULL, pidgin_blist_edit_mode_cb, 1, "<CheckItem>", NULL },
++	{ N_("/File/Show/_Empty Groups"), NULL, pidgin_blist_show_empty_groups_cb, 1, "<CheckItem>", NULL },
++	{ N_("/File/Show/Buddy _Details"), NULL, pidgin_blist_buddy_details_cb, 1, "<CheckItem>", NULL },
++	{ N_("/File/Show/Idle _Times"), NULL, pidgin_blist_show_idle_time_cb, 1, "<CheckItem>", NULL },
++	{ N_("/File/Show/_Protocol Icons"), NULL, pidgin_blist_show_protocol_icons_cb, 1, "<CheckItem>", NULL },
++	{ N_("/File/_Sort Buddies"), NULL, NULL, 0, "<Branch>", NULL },
++	{ "/File/sep2", NULL, NULL, 0, "<Separator>", NULL },
++	{ N_("/File/_Add Buddy..."), "<CTL>B", pidgin_blist_add_buddy_cb, 0, "<StockItem>", GTK_STOCK_ADD },
++	{ N_("/File/Add C_hat..."), NULL, pidgin_blist_add_chat_cb, 0, "<StockItem>", GTK_STOCK_ADD },
++	{ N_("/File/Add _Group..."), NULL, purple_blist_request_add_group, 0, "<StockItem>", GTK_STOCK_ADD },
++	{ "/File/sep3", NULL, NULL, 0, "<Separator>", NULL },
++	{ N_("/File/_Quit"), "<CTL>Q", purple_core_quit, 0, "<StockItem>", GTK_STOCK_QUIT },
+ 
+ 	/* Accounts menu */
+ 	{ N_("/_Accounts"), NULL, NULL, 0, "<Branch>", NULL },
+@@ -5765,7 +5765,7 @@
+ 	gtkblist->empty_avatar = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, 32, 32);
+ 	gdk_pixbuf_fill(gtkblist->empty_avatar, 0x00000000);
+ 
+-	gtkblist->window = pidgin_create_window(_("Buddy List"), 0, "buddy_list", TRUE);
++	gtkblist->window = pidgin_create_window(_("Pidgin"), 0, "buddy_list", TRUE);
+ 	g_signal_connect(G_OBJECT(gtkblist->window), "focus-in-event",
+ 			 G_CALLBACK(blist_focus_cb), gtkblist);
+ 	g_signal_connect(G_OBJECT(gtkblist->window), "focus-out-event",
