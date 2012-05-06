@@ -1,5 +1,5 @@
 for P in ${1}/*.patch; do
-  patch -p0 < $P;
+  patch -N -r - -p0 < $P;
 done
 
 cd ../abs/thunar/src/Thunar-1.4.0/thunar/
