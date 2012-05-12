@@ -1,5 +1,6 @@
---- ../abs/libvdpau/src/libvdpau-0.4.1/src/vdpau_wrapper.c.ORIG	2010-09-07 10:21:32.000000000 -0700
-+++ ../abs/libvdpau/src/libvdpau-0.4.1/src/vdpau_wrapper.c	2012-01-21 23:59:20.050559551 -0800
+diff -ru ../abs/libvdpau.ORIG/src/libvdpau-0.4.1/src/vdpau_wrapper.c ../abs/libvdpau/src/libvdpau-0.4.1/src/vdpau_wrapper.c
+--- ../abs/libvdpau.ORIG/src/libvdpau-0.4.1/src/vdpau_wrapper.c	2012-05-12 01:47:51.267860776 -0700
++++ ../abs/libvdpau/src/libvdpau-0.4.1/src/vdpau_wrapper.c	2012-05-12 01:49:35.217865497 -0700
 @@ -57,6 +57,36 @@
  
  #define DRIVER_LIB_FORMAT "%slibvdpau_%s.so%s"
@@ -42,7 +43,7 @@
      }
  
 +    /* load libvdpau_nvidia.so only if the nvidia driver is already loaded */
-+    if (vdpau_driver == "nvidia" && !module_is_loaded("nvidia")) {
++    if (!strcmp(vdpau_driver, "nvidia") && !module_is_loaded("nvidia")) {
 +        return VDP_STATUS_NO_IMPLEMENTATION;
 +    }
 +
