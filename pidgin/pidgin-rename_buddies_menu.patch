@@ -1,6 +1,6 @@
 diff -ru ../abs/pidgin.ORIG/src/pidgin-2.10.4/pidgin/gtkblist.c ../abs/pidgin/src/pidgin-2.10.4/pidgin/gtkblist.c
---- ../abs/pidgin.ORIG/src/pidgin-2.10.4/pidgin/gtkblist.c	2012-05-06 01:37:35.494033146 -0700
-+++ ../abs/pidgin/src/pidgin-2.10.4/pidgin/gtkblist.c	2012-05-06 02:00:46.720657356 -0700
+--- ../abs/pidgin.ORIG/src/pidgin-2.10.4/pidgin/gtkblist.c	2012-05-12 01:36:56.501164376 -0700
++++ ../abs/pidgin/src/pidgin-2.10.4/pidgin/gtkblist.c	2012-05-12 01:37:08.984498276 -0700
 @@ -3601,25 +3601,25 @@
     gtk_blist_key_press_cb to "Get User Info" on the selected buddy. */
  
@@ -46,6 +46,38 @@ diff -ru ../abs/pidgin.ORIG/src/pidgin-2.10.4/pidgin/gtkblist.c ../abs/pidgin/sr
  
  	/* Accounts menu */
  	{ N_("/_Accounts"), NULL, NULL, 0, "<Branch>", NULL },
+@@ -4469,12 +4469,12 @@
+ 
+ static const char *require_connection[] =
+ {
+-	N_("/Buddies/New Instant Message..."),
+-	N_("/Buddies/Join a Chat..."),
+-	N_("/Buddies/Get User Info..."),
+-	N_("/Buddies/Add Buddy..."),
+-	N_("/Buddies/Add Chat..."),
+-	N_("/Buddies/Add Group..."),
++	N_("/File/New Instant Message..."),
++	N_("/File/Join a Chat..."),
++	N_("/File/Get User Info..."),
++	N_("/File/Add Buddy..."),
++	N_("/File/Add Chat..."),
++	N_("/File/Add Group..."),
+ };
+ 
+ static const int require_connection_size = sizeof(require_connection)
+@@ -4503,10 +4503,10 @@
+ 		gtk_widget_set_sensitive(widget, sensitive);
+ 	}
+ 
+-	widget = gtk_item_factory_get_widget(gtkblist->ift, N_("/Buddies/Join a Chat..."));
++	widget = gtk_item_factory_get_widget(gtkblist->ift, N_("/File/Join a Chat..."));
+ 	gtk_widget_set_sensitive(widget, pidgin_blist_joinchat_is_showable());
+ 
+-	widget = gtk_item_factory_get_widget(gtkblist->ift, N_("/Buddies/Add Chat..."));
++	widget = gtk_item_factory_get_widget(gtkblist->ift, N_("/File/Add Chat..."));
+ 	gtk_widget_set_sensitive(widget, pidgin_blist_joinchat_is_showable());
+ 
+ 	widget = gtk_item_factory_get_widget(gtkblist->ift, N_("/Tools/Privacy"));
 @@ -5765,7 +5765,7 @@
  	gtkblist->empty_avatar = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, 32, 32);
  	gdk_pixbuf_fill(gtkblist->empty_avatar, 0x00000000);
@@ -55,3 +87,40 @@ diff -ru ../abs/pidgin.ORIG/src/pidgin-2.10.4/pidgin/gtkblist.c ../abs/pidgin/sr
  	g_signal_connect(G_OBJECT(gtkblist->window), "focus-in-event",
  			 G_CALLBACK(blist_focus_cb), gtkblist);
  	g_signal_connect(G_OBJECT(gtkblist->window), "focus-out-event",
+@@ -5992,22 +5992,22 @@
+ 	/* set the Show Offline Buddies option. must be done
+ 	 * after the treeview or faceprint gets mad. -Robot101
+ 	 */
+-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (gtkblist->ift, N_("/Buddies/Show/Offline Buddies"))),
++	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (gtkblist->ift, N_("/File/Show/Offline Buddies"))),
+ 			purple_prefs_get_bool(PIDGIN_PREFS_ROOT "/blist/show_offline_buddies"));
+ 
+-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (gtkblist->ift, N_("/Buddies/Show/Empty Groups"))),
++	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (gtkblist->ift, N_("/File/Show/Empty Groups"))),
+ 			purple_prefs_get_bool(PIDGIN_PREFS_ROOT "/blist/show_empty_groups"));
+ 
+ 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (gtkblist->ift, N_("/Tools/Mute Sounds"))),
+ 			purple_prefs_get_bool(PIDGIN_PREFS_ROOT "/sound/mute"));
+ 
+-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (gtkblist->ift, N_("/Buddies/Show/Buddy Details"))),
++	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (gtkblist->ift, N_("/File/Show/Buddy Details"))),
+ 			purple_prefs_get_bool(PIDGIN_PREFS_ROOT "/blist/show_buddy_icons"));
+ 
+-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (gtkblist->ift, N_("/Buddies/Show/Idle Times"))),
++	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (gtkblist->ift, N_("/File/Show/Idle Times"))),
+ 			purple_prefs_get_bool(PIDGIN_PREFS_ROOT "/blist/show_idle_time"));
+ 
+-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (gtkblist->ift, N_("/Buddies/Show/Protocol Icons"))),
++	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (gtkblist->ift, N_("/File/Show/Protocol Icons"))),
+ 			purple_prefs_get_bool(PIDGIN_PREFS_ROOT "/blist/show_protocol_icons"));
+ 
+ 	if(!strcmp(purple_prefs_get_string(PIDGIN_PREFS_ROOT "/sound/method"), "none"))
+@@ -8223,7 +8223,7 @@
+ 
+ 	g_return_if_fail(m != NULL);
+ 
+-	sortmenu = gtk_item_factory_get_widget(gtkblist->ift, N_("/Buddies/Sort Buddies"));
++	sortmenu = gtk_item_factory_get_widget(gtkblist->ift, N_("/File/Sort Buddies"));
+ 
+ 	if (sortmenu == NULL)
+ 		return;
