@@ -4,7 +4,7 @@
  
  	gtk_window_set_title (GTK_WINDOW (properties), _("Properties"));
  	gtk_window_set_destroy_with_parent (GTK_WINDOW (properties), TRUE);
-+	gtk_window_set_default_size (GTK_WINDOW (properties), 368, -1);
++	gtk_window_set_default_size (GTK_WINDOW (properties), 384, -1);
  	gtk_dialog_set_has_separator (GTK_DIALOG (properties), FALSE);
  	gtk_container_set_border_width (GTK_CONTAINER (properties), 5);
  	gtk_box_set_spacing (content_area, 2);
