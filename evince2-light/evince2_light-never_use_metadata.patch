@@ -1,0 +1,26 @@
+--- ../aur/evince2-light.ORIG/src/evince-2.32.0/shell/ev-metadata.c	2010-07-27 08:47:54.000000000 -0700
++++ ../aur/evince2-light/src/evince-2.32.0/shell/ev-metadata.c	2012-05-27 20:34:29.563300470 -0700
+@@ -292,22 +292,5 @@
+ gboolean
+ ev_is_metadata_supported_for_file (GFile *file)
+ {
+-	GFileAttributeInfoList *namespaces;
+-	gint i;
+-	gboolean retval = FALSE;
+-
+-	namespaces = g_file_query_writable_namespaces (file, NULL, NULL);
+-	if (!namespaces)
+-		return retval;
+-
+-	for (i = 0; i < namespaces->n_infos; i++) {
+-		if (strcmp (namespaces->infos[i].name, "metadata") == 0) {
+-			retval = TRUE;
+-			break;
+-		}
+-	}
+-
+-	g_file_attribute_info_list_unref (namespaces);
+-
+-	return retval;
++	return FALSE;
+ }
