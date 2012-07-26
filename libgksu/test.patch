@@ -1,0 +1,168 @@
+diff -ru ../abs/libgksu.ORIG/src/libgksu-2.0.12/libgksu/libgksu.c ../abs/libgksu/src/libgksu-2.0.12/libgksu/libgksu.c
+--- ../abs/libgksu.ORIG/src/libgksu-2.0.12/libgksu/libgksu.c	2012-07-25 22:58:27.325690426 -0700
++++ ../abs/libgksu/src/libgksu-2.0.12/libgksu/libgksu.c	2012-07-25 23:27:07.168975731 -0700
+@@ -170,7 +170,6 @@
+   GdkRectangle  area;
+   int           rowstride;
+   GdkWindow    *root_window;
+-  GdkWindow    *draw_window;
+   GdkPixbuf    *start_pb, *end_pb, *frame;
+   guchar       *start_p, *end_p, *frame_p;
+   GTimeVal      start_time;
+@@ -280,50 +279,7 @@
+ static gboolean
+ fadeout_callback (FadeoutData *fadeout)
+ {
+-  GTimeVal current_time;
+-  double elapsed, percent;
+-
+-  g_get_current_time (&current_time);
+-  elapsed = ((((double)current_time.tv_sec - fadeout->start_time.tv_sec) * G_USEC_PER_SEC +
+-	      (current_time.tv_usec - fadeout->start_time.tv_usec))) / 1000.0;
+-
+-  if (elapsed < 0)
+-    {
+-      g_warning ("System clock seemed to go backwards?");
+-      elapsed = G_MAXDOUBLE;
+-    }
+-
+-  if (elapsed > FADE_DURATION)
+-    {
+-      gdk_draw_pixbuf (fadeout->draw_window,
+-		       fadeout->gc,
+-		       fadeout->end_pb,
+-		       0, 0,
+-		       0, 0,
+-		       fadeout->area.width,
+-		       fadeout->area.height,
+-		       GDK_RGB_DITHER_NONE,
+-		       0, 0);
+-
+-      return FALSE;
+-    }
+-
+-  percent = elapsed / FADE_DURATION;
+-
+-  get_current_frame (fadeout, 1.0 - percent);
+-  gdk_draw_pixbuf (fadeout->draw_window,
+-		   fadeout->gc,
+-		   fadeout->frame,
+-		   0, 0,
+-		   0, 0,
+-		   fadeout->area.width,
+-		   fadeout->area.height,
+-		   GDK_RGB_DITHER_NONE,
+-		   0, 0);
+-
+-  gdk_flush ();
+-
+-  return TRUE;
++	return FALSE;
+ }
+ 
+ static void
+@@ -344,59 +300,16 @@
+ static gboolean
+ fadein_callback (FadeoutData *fadeout)
+ {
+-  GTimeVal current_time;
+-  double elapsed, percent;
++	g_object_unref (fadeout->gc);
++	g_object_unref (fadeout->start_pb);
++	g_object_unref (fadeout->end_pb);
++	g_object_unref (fadeout->frame);
+ 
+-  g_get_current_time (&current_time);
+-  elapsed = ((((double)current_time.tv_sec - fadeout->start_time.tv_sec) * G_USEC_PER_SEC +
+-	      (current_time.tv_usec - fadeout->start_time.tv_usec))) / 1000.0;
++	g_free (fadeout);
+ 
+-  if (elapsed < 0)
+-    {
+-      g_warning ("System clock seemed to go backwards?");
+-      elapsed = G_MAXDOUBLE;
+-    }
+-
+-  if (elapsed > FADE_DURATION)
+-    {
+-      gdk_draw_pixbuf (fadeout->draw_window,
+-		       fadeout->gc,
+-		       fadeout->end_pb,
+-		       0, 0,
+-		       0, 0,
+-		       fadeout->area.width,
+-		       fadeout->area.height,
+-		       GDK_RGB_DITHER_NONE,
+-		       0, 0);
+-
+-      g_object_unref (fadeout->gc);
+-      g_object_unref (fadeout->start_pb);
+-      g_object_unref (fadeout->end_pb);
+-      g_object_unref (fadeout->frame);
+-
+-      g_free (fadeout);
+-
+-      hide_fadeout_windows ();
+-
+-      return FALSE;
+-    }
+-
+-  percent = elapsed / FADE_DURATION;
+-
+-  get_current_frame (fadeout, percent);
+-  gdk_draw_pixbuf (fadeout->draw_window,
+-		   fadeout->gc,
+-		   fadeout->frame,
+-		   0, 0,
+-		   0, 0,
+-		   fadeout->area.width,
+-		   fadeout->area.height,
+-		   GDK_RGB_DITHER_NONE,
+-		   0, 0);
++	hide_fadeout_windows ();
+ 
+-  gdk_flush ();
+-
+-  return TRUE;
++	return FALSE;
+ }
+ 
+ static void
+@@ -419,7 +332,7 @@
+   fadeout->area.height = gsm_screen_get_height (screen, monitor);
+ 
+   fadeout->root_window = gdk_screen_get_root_window (screen);
+-  attr.window_type = GDK_WINDOW_CHILD;
++  attr.window_type = GDK_WINDOW_TOPLEVEL;
+   attr.x = fadeout->area.x;
+   attr.y = fadeout->area.y;
+   attr.width = fadeout->area.width;
+@@ -430,9 +343,6 @@
+   attr.override_redirect = TRUE;
+   attr_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP | GDK_WA_NOREDIR;
+ 
+-  fadeout->draw_window = gdk_window_new (fadeout->root_window, &attr, attr_mask);
+-  fadeout_windows = g_list_prepend (fadeout_windows, fadeout->draw_window);
+-
+   fadeout->start_pb = gdk_pixbuf_get_from_drawable (NULL,
+ 						    fadeout->root_window,
+ 						    NULL,
+@@ -456,18 +366,6 @@
+ 
+   fadeout->gc = gdk_gc_new_with_values (fadeout->root_window, &values, GDK_GC_SUBWINDOW);
+ 
+-  gdk_window_set_back_pixmap (fadeout->draw_window, NULL, FALSE);
+-  gdk_window_show (fadeout->draw_window);
+-  gdk_draw_pixbuf (fadeout->draw_window,
+-		   fadeout->gc,
+-		   fadeout->frame,
+-		   0, 0,
+-		   0, 0,
+-		   fadeout->area.width,
+-		   fadeout->area.height,
+-		   GDK_RGB_DITHER_NONE,
+-		   0, 0);
+-
+   g_get_current_time (&fadeout->start_time);
+   g_idle_add ((GSourceFunc) fadeout_callback, fadeout);
+ 
