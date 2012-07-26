@@ -133,7 +133,7 @@ diff -ru ../abs/libgksu.ORIG/src/libgksu-2.0.12/libgksu/libgksu.c ../abs/libgksu
  
    fadeout->root_window = gdk_screen_get_root_window (screen);
 -  attr.window_type = GDK_WINDOW_CHILD;
-+  attr.window_type = GDK_WINDOW_TOPLEVEL;
++  attr.window_type = GDK_WINDOW_TEMP;
    attr.x = fadeout->area.x;
    attr.y = fadeout->area.y;
    attr.width = fadeout->area.width;
