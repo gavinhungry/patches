@@ -1,6 +1,6 @@
-diff -ru ../abs/gtk2.ORIG/src/gtk+-2.24.11/gtk/gtkitemfactory.c ../abs/gtk2/src/gtk+-2.24.11/gtk/gtkitemfactory.c
---- ../abs/gtk2.ORIG/src/gtk+-2.24.11/gtk/gtkitemfactory.c	2012-07-23 21:24:49.183443870 -0700
-+++ ../abs/gtk2/src/gtk+-2.24.11/gtk/gtkitemfactory.c	2012-07-23 21:25:11.400710585 -0700
+diff -ru ../abs/gtk2.ORIG/src/gtk+-2.24.12/gtk/gtkitemfactory.c ../abs/gtk2/src/gtk+-2.24.11/gtk/gtkitemfactory.c
+--- ../abs/gtk2.ORIG/src/gtk+-2.24.12/gtk/gtkitemfactory.c	2012-07-23 21:24:49.183443870 -0700
++++ ../abs/gtk2/src/gtk+-2.24.12/gtk/gtkitemfactory.c	2012-07-23 21:25:11.400710585 -0700
 @@ -964,7 +964,7 @@
    else if (type_id == quark_type_toggle_item)
      type = GTK_TYPE_CHECK_MENU_ITEM;
