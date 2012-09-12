@@ -1,6 +1,6 @@
-diff -ru ../abs/gtk2.ORIG/src/gtk+-2.24.11/gtk/gtkfilechooserdefault.c ../abs/gtk2/src/gtk+-2.24.11/gtk/gtkfilechooserdefault.c
---- ../abs/gtk2.ORIG/src/gtk+-2.24.11/gtk/gtkfilechooserdefault.c	2012-07-23 21:34:54.383249136 -0700
-+++ ../abs/gtk2/src/gtk+-2.24.11/gtk/gtkfilechooserdefault.c	2012-07-23 22:52:17.695330920 -0700
+diff -ru ../abs/gtk2.ORIG/src/gtk+-2.24.12/gtk/gtkfilechooserdefault.c ../abs/gtk2/src/gtk+-2.24.11/gtk/gtkfilechooserdefault.c
+--- ../abs/gtk2.ORIG/src/gtk+-2.24.12/gtk/gtkfilechooserdefault.c	2012-07-23 21:34:54.383249136 -0700
++++ ../abs/gtk2/src/gtk+-2.24.12/gtk/gtkfilechooserdefault.c	2012-07-23 22:52:17.695330920 -0700
 @@ -5998,7 +5998,7 @@
        switch (impl->reload_state)
          {
