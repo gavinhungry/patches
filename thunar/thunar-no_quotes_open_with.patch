@@ -1,6 +1,6 @@
-diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-launcher.c ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-launcher.c
---- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-launcher.c	2012-05-01 12:38:53.378249539 -0700
-+++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-launcher.c	2012-05-01 12:57:39.684881837 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-launcher.c abs/thunar/src/Thunar-1.4.0/thunar/thunar-launcher.c
+--- abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-launcher.c	2012-05-01 12:38:53.378249539 -0700
++++ abs/thunar/src/Thunar-1.4.0/thunar/thunar-launcher.c	2012-05-01 12:57:39.684881837 -0700
 @@ -867,7 +867,7 @@
        else if (G_LIKELY (applications != NULL))
          {

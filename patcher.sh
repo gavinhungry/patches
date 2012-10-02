@@ -1,9 +1,12 @@
 #!/bin/bash
 
-if [ -x ${1}/patch.sh ]; then
-  ${1}/patch.sh ${1}
+PDIR=$(pwd)/${1}
+cd ..
+
+if [ -x ${PDIR}/patch.sh ]; then
+  ${PDIR}/patch.sh ${PDIR}
 else
-  for P in ${1}/*.patch; do
+  for P in ${PDIR}/*.patch; do
     patch -N -r - -p0 < $P;
   done
 fi

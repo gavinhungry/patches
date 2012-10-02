@@ -1,5 +1,5 @@
---- ../pre/gedit/src/gedit-2.30.4/gedit/gedit-window.c.ORIG	2012-01-08 17:18:53.764912483 -0800
-+++ ../pre/gedit/src/gedit-2.30.4/gedit/gedit-window.c	2012-01-08 17:20:37.138250504 -0800
+--- pre/gedit/src/gedit-2.30.4/gedit/gedit-window.c.ORIG	2012-01-08 17:18:53.764912483 -0800
++++ pre/gedit/src/gedit-2.30.4/gedit/gedit-window.c	2012-01-08 17:20:37.138250504 -0800
 @@ -3649,6 +3649,7 @@
  	gedit_debug (DEBUG_WINDOW);
  

@@ -1,6 +1,6 @@
-diff -ru ../pre/networkmanager-openconnect.ORIG/src/NetworkManager-openconnect-0.8.6.0/configure ../pre/networkmanager-openconnect/src/NetworkManager-openconnect-0.8.6.0/configure
---- ../pre/networkmanager-openconnect.ORIG/src/NetworkManager-openconnect-0.8.6.0/configure	2012-05-31 20:57:52.661502085 -0700
-+++ ../pre/networkmanager-openconnect/src/NetworkManager-openconnect-0.8.6.0/configure	2012-05-31 20:59:42.561498691 -0700
+diff -ru pre/networkmanager-openconnect.ORIG/src/NetworkManager-openconnect-0.8.6.0/configure pre/networkmanager-openconnect/src/NetworkManager-openconnect-0.8.6.0/configure
+--- pre/networkmanager-openconnect.ORIG/src/NetworkManager-openconnect-0.8.6.0/configure	2012-05-31 20:57:52.661502085 -0700
++++ pre/networkmanager-openconnect/src/NetworkManager-openconnect-0.8.6.0/configure	2012-05-31 20:59:42.561498691 -0700
 @@ -13289,7 +13289,7 @@
  if test "$GCC" = "yes" -a "$set_more_warnings" != "no"; then
  	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5

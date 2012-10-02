@@ -1,5 +1,5 @@
---- ../aur/pacman-color/pacman-color-4.0.3.patch.ORIG	2012-07-20 15:16:37.281012581 -0700
-+++ ../aur/pacman-color/pacman-color-4.0.3.patch	2012-07-20 15:16:46.034637947 -0700
+--- aur/pacman-color/pacman-color-4.0.3.patch.ORIG	2012-07-20 15:16:37.281012581 -0700
++++ aur/pacman-color/pacman-color-4.0.3.patch	2012-07-20 15:16:46.034637947 -0700
 @@ -833,7 +833,7 @@
   	va_end(args);
   

@@ -1,5 +1,5 @@
---- ../pre/gedit/src/gedit-2.30.4/gedit/gedit-tab-label.c.ORIG	2012-02-12 14:35:05.583404120 -0800
-+++ ../pre/gedit/src/gedit-2.30.4/gedit/gedit-tab-label.c	2012-02-12 14:47:13.533381632 -0800
+--- pre/gedit/src/gedit-2.30.4/gedit/gedit-tab-label.c.ORIG	2012-02-12 14:35:05.583404120 -0800
++++ pre/gedit/src/gedit-2.30.4/gedit/gedit-tab-label.c	2012-02-12 14:47:13.533381632 -0800
 @@ -166,14 +166,6 @@
  	    (state == GEDIT_TAB_STATE_SAVING)    ||
  	    (state == GEDIT_TAB_STATE_REVERTING))

@@ -1,5 +1,5 @@
---- ../pre/rhythmbox/src/rhythmbox-0.13.3/plugins/audioscrobbler/rb-audioscrobbler-profile-page.c.ORIG	2011-02-03 23:38:45.303417424 -0800
-+++ ../pre/rhythmbox/src/rhythmbox-0.13.3/plugins/audioscrobbler/rb-audioscrobbler-profile-page.c	2011-02-03 23:40:02.291239428 -0800
+--- pre/rhythmbox/src/rhythmbox-0.13.3/plugins/audioscrobbler/rb-audioscrobbler-profile-page.c.ORIG	2011-02-03 23:38:45.303417424 -0800
++++ pre/rhythmbox/src/rhythmbox-0.13.3/plugins/audioscrobbler/rb-audioscrobbler-profile-page.c	2011-02-03 23:40:02.291239428 -0800
 @@ -1163,7 +1163,7 @@
  		}
  

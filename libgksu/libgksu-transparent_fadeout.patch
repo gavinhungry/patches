@@ -1,6 +1,6 @@
-diff -ru ../abs/libgksu.ORIG/src/libgksu-2.0.12/libgksu/libgksu.c ../abs/libgksu/src/libgksu-2.0.12/libgksu/libgksu.c
---- ../abs/libgksu.ORIG/src/libgksu-2.0.12/libgksu/libgksu.c	2012-07-26 19:37:53.782660511 -0700
-+++ ../abs/libgksu/src/libgksu-2.0.12/libgksu/libgksu.c	2012-07-26 19:38:39.480631696 -0700
+diff -ru abs/libgksu.ORIG/src/libgksu-2.0.12/libgksu/libgksu.c abs/libgksu/src/libgksu-2.0.12/libgksu/libgksu.c
+--- abs/libgksu.ORIG/src/libgksu-2.0.12/libgksu/libgksu.c	2012-07-26 19:37:53.782660511 -0700
++++ abs/libgksu/src/libgksu-2.0.12/libgksu/libgksu.c	2012-07-26 19:38:39.480631696 -0700
 @@ -180,7 +180,7 @@
  FadeoutData *fade_data = NULL;
  static GList *fadeout_windows = NULL;

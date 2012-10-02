@@ -1,5 +1,5 @@
---- ../pre/gedit/src/gedit-2.30.4/gedit/gedit-notebook.c.ORIG	2011-02-13 18:21:35.088597374 -0800
-+++ ../pre/gedit/src/gedit-2.30.4/gedit/gedit-notebook.c	2011-02-13 20:57:13.205318231 -0800
+--- pre/gedit/src/gedit-2.30.4/gedit/gedit-notebook.c.ORIG	2011-02-13 18:21:35.088597374 -0800
++++ pre/gedit/src/gedit-2.30.4/gedit/gedit-notebook.c	2011-02-13 20:57:13.205318231 -0800
 @@ -569,8 +569,9 @@
  						      cur_page_num);
  

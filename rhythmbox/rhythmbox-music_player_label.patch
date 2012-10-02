@@ -1,5 +1,5 @@
---- ../pre/rhythmbox/src/rhythmbox-0.13.3/shell/rb-shell.c.ORIG	2011-02-16 09:33:29.855484140 -0800
-+++ ../pre/rhythmbox/src/rhythmbox-0.13.3/shell/rb-shell.c	2011-02-16 09:39:32.577409801 -0800
+--- pre/rhythmbox/src/rhythmbox-0.13.3/shell/rb-shell.c.ORIG	2011-02-16 09:33:29.855484140 -0800
++++ pre/rhythmbox/src/rhythmbox-0.13.3/shell/rb-shell.c	2011-02-16 09:39:32.577409801 -0800
 @@ -1241,7 +1241,7 @@
  
  	/* initialize UI */

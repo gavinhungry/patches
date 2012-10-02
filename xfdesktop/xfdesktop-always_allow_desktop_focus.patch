@@ -1,6 +1,6 @@
-diff -ru ../abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfce-desktop.c ../abs/xfdesktop/src/xfdesktop-4.10.0/src/xfce-desktop.c
---- ../abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfce-desktop.c	2012-04-30 01:55:38.116400197 -0700
-+++ ../abs/xfdesktop/src/xfdesktop-4.10.0/src/xfce-desktop.c	2012-04-30 01:57:35.263063289 -0700
+diff -ru abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfce-desktop.c abs/xfdesktop/src/xfdesktop-4.10.0/src/xfce-desktop.c
+--- abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfce-desktop.c	2012-04-30 01:55:38.116400197 -0700
++++ abs/xfdesktop/src/xfdesktop-4.10.0/src/xfce-desktop.c	2012-04-30 01:57:35.263063289 -0700
 @@ -670,7 +670,6 @@
      GTK_WINDOW(desktop)->type = GTK_WINDOW_TOPLEVEL;
      
@@ -9,9 +9,9 @@ diff -ru ../abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfce-desktop.c ../abs/xf
      gtk_window_set_resizable(GTK_WINDOW(desktop), FALSE);
  }
  
-diff -ru ../abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c ../abs/xfdesktop/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c
---- ../abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c	2012-04-30 01:55:38.116400197 -0700
-+++ ../abs/xfdesktop/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c	2012-04-30 01:57:05.299730871 -0700
+diff -ru abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c abs/xfdesktop/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c
+--- abs/xfdesktop.ORIG/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c	2012-04-30 01:55:38.116400197 -0700
++++ abs/xfdesktop/src/xfdesktop-4.10.0/src/xfdesktop-icon-view.c	2012-04-30 01:57:05.299730871 -0700
 @@ -1922,8 +1922,6 @@
      GdkWindow *groot;
      GList *l;
