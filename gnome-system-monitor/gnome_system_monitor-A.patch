@@ -1,5 +1,5 @@
---- ../pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/interface.cpp.ORIG	2011-05-01 13:58:09.562239280 -0700
-+++ ../pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/interface.cpp	2011-05-01 13:58:38.722220461 -0700
+--- pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/interface.cpp.ORIG	2011-05-01 13:58:09.562239280 -0700
++++ pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/interface.cpp	2011-05-01 13:58:38.722220461 -0700
 @@ -686,9 +686,11 @@
  	                    TRUE, 
  	                    0);

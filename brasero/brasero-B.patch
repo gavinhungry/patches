@@ -1,5 +1,5 @@
---- ../pre/brasero/src/brasero-2.32.1/src/brasero-project-type-chooser.c.ORIG	2011-02-12 17:59:05.873773225 -0800
-+++ ../pre/brasero/src/brasero-2.32.1/src/brasero-project-type-chooser.c	2011-02-12 18:02:45.442361286 -0800
+--- pre/brasero/src/brasero-2.32.1/src/brasero-project-type-chooser.c.ORIG	2011-02-12 17:59:05.873773225 -0800
++++ pre/brasero/src/brasero-2.32.1/src/brasero-project-type-chooser.c	2011-02-12 18:02:45.442361286 -0800
 @@ -164,7 +164,7 @@
  
  	label = gtk_label_new (NULL);

@@ -1,6 +1,6 @@
-diff -ru ../pre/networkmanager-openconnect.ORIG/PKGBUILD ../pre/networkmanager-openconnect/PKGBUILD
---- ../pre/networkmanager-openconnect.ORIG/PKGBUILD	2012-05-31 20:57:52.661502085 -0700
-+++ ../pre/networkmanager-openconnect/PKGBUILD	2012-05-31 21:04:26.768156575 -0700
+diff -ru pre/networkmanager-openconnect.ORIG/PKGBUILD pre/networkmanager-openconnect/PKGBUILD
+--- pre/networkmanager-openconnect.ORIG/PKGBUILD	2012-05-31 20:57:52.661502085 -0700
++++ pre/networkmanager-openconnect/PKGBUILD	2012-05-31 21:04:26.768156575 -0700
 @@ -18,6 +18,8 @@
  
  build() {

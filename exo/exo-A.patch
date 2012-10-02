@@ -1,5 +1,5 @@
---- ../abs/exo/src/exo-0.6.2/exo-helper/main.c.ORIG	2011-06-14 13:28:03.415392740 -0700
-+++ ../abs/exo/src/exo-0.6.2/exo-helper/main.c	2011-06-14 13:28:53.168577629 -0700
+--- abs/exo/src/exo-0.6.2/exo-helper/main.c.ORIG	2011-06-14 13:28:03.415392740 -0700
++++ abs/exo/src/exo-0.6.2/exo-helper/main.c	2011-06-14 13:28:53.168577629 -0700
 @@ -180,7 +180,7 @@
        if (G_LIKELY (helper != NULL))
          {

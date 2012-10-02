@@ -1,5 +1,5 @@
---- ../pre/gnome-power-manager/src/gnome-power-manager-2.32.0/src/gpm-backlight.c.ORIG	2010-09-22 04:02:17.000000000 -0700
-+++ ../pre/gnome-power-manager/src/gnome-power-manager-2.32.0/src/gpm-backlight.c	2011-04-26 08:50:18.358510260 -0700
+--- pre/gnome-power-manager/src/gnome-power-manager-2.32.0/src/gpm-backlight.c.ORIG	2010-09-22 04:02:17.000000000 -0700
++++ pre/gnome-power-manager/src/gnome-power-manager-2.32.0/src/gpm-backlight.c	2011-04-26 08:50:18.358510260 -0700
 @@ -772,9 +772,10 @@
  	backlight->priv->master_percentage = gconf_client_get_int (backlight->priv->conf, GPM_CONF_BACKLIGHT_BRIGHTNESS_AC, NULL);
  

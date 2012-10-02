@@ -1,6 +1,6 @@
-diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-location-dialog.c ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-location-dialog.c
---- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-location-dialog.c	2012-05-01 12:38:53.374916211 -0700
-+++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-location-dialog.c	2012-05-01 12:52:14.078225105 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-location-dialog.c abs/thunar/src/Thunar-1.4.0/thunar/thunar-location-dialog.c
+--- abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-location-dialog.c	2012-05-01 12:38:53.374916211 -0700
++++ abs/thunar/src/Thunar-1.4.0/thunar/thunar-location-dialog.c	2012-05-01 12:52:14.078225105 -0700
 @@ -62,7 +62,7 @@
    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (location_dialog)->vbox), 2);
    gtk_container_set_border_width (GTK_CONTAINER (location_dialog), 5);
@@ -18,9 +18,9 @@ diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-location-dialog.c ../
  
    location_dialog->entry = thunar_path_entry_new ();
    gtk_entry_set_activates_default (GTK_ENTRY (location_dialog->entry), TRUE);
-diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-path-entry.c ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-path-entry.c
---- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-path-entry.c	2012-05-01 12:38:53.374916211 -0700
-+++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-path-entry.c	2012-05-01 12:53:08.698223439 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-path-entry.c abs/thunar/src/Thunar-1.4.0/thunar/thunar-path-entry.c
+--- abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-path-entry.c	2012-05-01 12:38:53.374916211 -0700
++++ abs/thunar/src/Thunar-1.4.0/thunar/thunar-path-entry.c	2012-05-01 12:53:08.698223439 -0700
 @@ -881,10 +881,6 @@
  
    /* let the GtkEntry class handle the insert */

@@ -1,6 +1,6 @@
-diff -ru ../abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/menu.c ../abs/xchat/src/xchat-2.8.8/src/fe-gtk/menu.c
---- ../abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/menu.c	2012-07-23 20:02:54.715177226 -0700
-+++ ../abs/xchat/src/xchat-2.8.8/src/fe-gtk/menu.c	2012-07-23 20:03:00.422008032 -0700
+diff -ru abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/menu.c abs/xchat/src/xchat-2.8.8/src/fe-gtk/menu.c
+--- abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/menu.c	2012-07-23 20:02:54.715177226 -0700
++++ abs/xchat/src/xchat-2.8.8/src/fe-gtk/menu.c	2012-07-23 20:03:00.422008032 -0700
 @@ -269,7 +269,7 @@
  	char *path;
  
@@ -19,9 +19,9 @@ diff -ru ../abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/menu.c ../abs/xchat/src/xc
  			gtk_widget_set_sensitive (item, FALSE);
  			gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
  			gtk_widget_show (item);
-diff -ru ../abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c ../abs/xchat/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c
---- ../abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c	2012-07-23 20:02:54.715177226 -0700
-+++ ../abs/xchat/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c	2012-07-23 20:03:03.822105798 -0700
+diff -ru abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c abs/xchat/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c
+--- abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c	2012-07-23 20:02:54.715177226 -0700
++++ abs/xchat/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c	2012-07-23 20:03:03.822105798 -0700
 @@ -543,7 +543,7 @@
  	if (label)
  		item = gtk_menu_item_new_with_mnemonic (label);

@@ -1,5 +1,5 @@
---- ../aur/evince2-light.ORIG/src/evince-2.32.0/libdocument/ev-document-misc.c	2012-05-27 22:51:18.973046880 -0700
-+++ ../aur/evince2-light/src/evince-2.32.0/libdocument/ev-document-misc.c	2012-05-27 22:52:43.349710938 -0700
+--- aur/evince2-light.ORIG/src/evince-2.32.0/libdocument/ev-document-misc.c	2012-05-27 22:51:18.973046880 -0700
++++ aur/evince2-light/src/evince-2.32.0/libdocument/ev-document-misc.c	2012-05-27 22:52:43.349710938 -0700
 @@ -63,11 +63,11 @@
  				 width_r + 4,
  				 height_r + 4);

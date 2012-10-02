@@ -1,5 +1,5 @@
---- ../pre/brasero/src/brasero-2.32.1/src/brasero-project.c.ORIG	2011-02-12 18:15:01.635266065 -0800
-+++ ../pre/brasero/src/brasero-2.32.1/src/brasero-project.c	2011-02-12 18:16:22.955604164 -0800
+--- pre/brasero/src/brasero-2.32.1/src/brasero-project.c.ORIG	2011-02-12 18:15:01.635266065 -0800
++++ pre/brasero/src/brasero-2.32.1/src/brasero-project.c	2011-02-12 18:16:22.955604164 -0800
 @@ -684,9 +684,10 @@
  	                            NULL);
  

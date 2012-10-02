@@ -1,6 +1,6 @@
-diff -ru ../abs/xfce4-session.ORIG/src/xfce4-session-4.10.0/xfce4-session/xfsm-fadeout.c ../abs/xfce4-session/src/xfce4-session-4.10.0/xfce4-session/xfsm-fadeout.c
---- ../abs/xfce4-session.ORIG/src/xfce4-session-4.10.0/xfce4-session/xfsm-fadeout.c	2012-07-25 23:47:05.646074602 -0700
-+++ ../abs/xfce4-session/src/xfce4-session-4.10.0/xfce4-session/xfsm-fadeout.c	2012-07-25 23:47:16.213086312 -0700
+diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.0/xfce4-session/xfsm-fadeout.c abs/xfce4-session/src/xfce4-session-4.10.0/xfce4-session/xfsm-fadeout.c
+--- abs/xfce4-session.ORIG/src/xfce4-session-4.10.0/xfce4-session/xfsm-fadeout.c	2012-07-25 23:47:05.646074602 -0700
++++ abs/xfce4-session/src/xfce4-session-4.10.0/xfce4-session/xfsm-fadeout.c	2012-07-25 23:47:16.213086312 -0700
 @@ -51,7 +51,6 @@
    GdkPixmap     *backbuf;
    GdkScreen     *gdk_screen;
@@ -33,9 +33,9 @@ diff -ru ../abs/xfce4-session.ORIG/src/xfce4-session-4.10.0/xfce4-session/xfsm-f
            cairo_destroy (cr);
  
            gdk_window_set_back_pixmap (window, backbuf, FALSE);
-diff -ru ../abs/xfce4-session.ORIG/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c ../abs/xfce4-session/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c
---- ../abs/xfce4-session.ORIG/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c	2012-07-25 23:47:05.646074602 -0700
-+++ ../abs/xfce4-session/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c	2012-07-25 23:48:26.585382281 -0700
+diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c abs/xfce4-session/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c
+--- abs/xfce4-session.ORIG/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c	2012-07-25 23:47:05.646074602 -0700
++++ abs/xfce4-session/src/xfce4-session-4.10.0/xfce4-session/xfsm-logout-dialog.c	2012-07-25 23:48:26.585382281 -0700
 @@ -61,7 +61,7 @@
  
  

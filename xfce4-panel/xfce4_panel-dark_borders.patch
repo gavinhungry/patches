@@ -1,6 +1,6 @@
-diff -ru ../abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.0/panel/panel-base-window.c ../abs/xfce4-panel/src/xfce4-panel-4.10.0/panel/panel-base-window.c
---- ../abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.0/panel/panel-base-window.c	2012-05-01 13:16:50.314846720 -0700
-+++ ../abs/xfce4-panel/src/xfce4-panel-4.10.0/panel/panel-base-window.c	2012-05-01 13:24:58.838165148 -0700
+diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.0/panel/panel-base-window.c abs/xfce4-panel/src/xfce4-panel-4.10.0/panel/panel-base-window.c
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.0/panel/panel-base-window.c	2012-05-01 13:16:50.314846720 -0700
++++ abs/xfce4-panel/src/xfce4-panel-4.10.0/panel/panel-base-window.c	2012-05-01 13:24:58.838165148 -0700
 @@ -579,7 +579,7 @@
        cairo_rectangle (cr, 0.5, 0.5, width - 1, height - 1);
        cairo_stroke (cr);

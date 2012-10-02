@@ -1,6 +1,6 @@
-diff -ru ../pre/network-manager-applet.ORIG/src/network-manager-applet-0.8.6.0/configure ../pre/network-manager-applet/src/network-manager-applet-0.8.6.0/configure
---- ../pre/network-manager-applet.ORIG/src/network-manager-applet-0.8.6.0/configure	2012-05-31 20:38:00.488205577 -0700
-+++ ../pre/network-manager-applet/src/network-manager-applet-0.8.6.0/configure	2012-05-31 20:40:23.531534491 -0700
+diff -ru pre/network-manager-applet.ORIG/src/network-manager-applet-0.8.6.0/configure pre/network-manager-applet/src/network-manager-applet-0.8.6.0/configure
+--- pre/network-manager-applet.ORIG/src/network-manager-applet-0.8.6.0/configure	2012-05-31 20:38:00.488205577 -0700
++++ pre/network-manager-applet/src/network-manager-applet-0.8.6.0/configure	2012-05-31 20:40:23.531534491 -0700
 @@ -13580,7 +13580,7 @@
  if test "$GCC" = "yes" -a "$set_more_warnings" != "no"; then
  	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5

@@ -1,6 +1,6 @@
-diff -ru ../aur/evince2-light.ORIG/src/evince-2.32.0/libview/ev-document-model.c ../aur/evince2-light/src/evince-2.32.0/libview/ev-document-model.c
---- ../aur/evince2-light.ORIG/src/evince-2.32.0/libview/ev-document-model.c	2012-05-27 22:45:12.699724859 -0700
-+++ ../aur/evince2-light/src/evince-2.32.0/libview/ev-document-model.c	2012-05-27 22:45:14.919724792 -0700
+diff -ru aur/evince2-light.ORIG/src/evince-2.32.0/libview/ev-document-model.c aur/evince2-light/src/evince-2.32.0/libview/ev-document-model.c
+--- aur/evince2-light.ORIG/src/evince-2.32.0/libview/ev-document-model.c	2012-05-27 22:45:12.699724859 -0700
++++ aur/evince2-light/src/evince-2.32.0/libview/ev-document-model.c	2012-05-27 22:45:14.919724792 -0700
 @@ -263,8 +263,8 @@
  ev_document_model_init (EvDocumentModel *model)
  {
@@ -12,9 +12,9 @@ diff -ru ../aur/evince2-light.ORIG/src/evince-2.32.0/libview/ev-document-model.c
  	model->continuous = TRUE;
  	model->inverted_colors = FALSE;
  	model->min_scale = 0.;
-diff -ru ../aur/evince2-light.ORIG/src/evince-2.32.0/shell/ev-window.c ../aur/evince2-light/src/evince-2.32.0/shell/ev-window.c
---- ../aur/evince2-light.ORIG/src/evince-2.32.0/shell/ev-window.c	2012-05-27 22:45:12.696391527 -0700
-+++ ../aur/evince2-light/src/evince-2.32.0/shell/ev-window.c	2012-05-27 22:45:20.506391286 -0700
+diff -ru aur/evince2-light.ORIG/src/evince-2.32.0/shell/ev-window.c aur/evince2-light/src/evince-2.32.0/shell/ev-window.c
+--- aur/evince2-light.ORIG/src/evince-2.32.0/shell/ev-window.c	2012-05-27 22:45:12.696391527 -0700
++++ aur/evince2-light/src/evince-2.32.0/shell/ev-window.c	2012-05-27 22:45:20.506391286 -0700
 @@ -1206,6 +1206,8 @@
  	}
  

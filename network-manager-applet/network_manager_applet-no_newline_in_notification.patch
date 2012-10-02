@@ -1,6 +1,6 @@
-diff -ru ../pre/network-manager-applet.ORIG/src/network-manager-applet-0.8.6.0/src/applet.c ../pre/network-manager-applet/src/network-manager-applet-0.8.6.0/src/applet.c
---- ../pre/network-manager-applet.ORIG/src/network-manager-applet-0.8.6.0/src/applet.c	2012-05-31 20:38:00.481538911 -0700
-+++ ../pre/network-manager-applet/src/network-manager-applet-0.8.6.0/src/applet.c	2012-05-31 20:41:16.011532870 -0700
+diff -ru pre/network-manager-applet.ORIG/src/network-manager-applet-0.8.6.0/src/applet.c pre/network-manager-applet/src/network-manager-applet-0.8.6.0/src/applet.c
+--- pre/network-manager-applet.ORIG/src/network-manager-applet-0.8.6.0/src/applet.c	2012-05-31 20:38:00.481538911 -0700
++++ pre/network-manager-applet/src/network-manager-applet-0.8.6.0/src/applet.c	2012-05-31 20:41:16.011532870 -0700
 @@ -879,9 +879,9 @@
  	case NM_VPN_CONNECTION_STATE_ACTIVATED:
  		banner = nm_vpn_connection_get_banner (vpn);

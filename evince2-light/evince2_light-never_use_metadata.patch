@@ -1,5 +1,5 @@
---- ../aur/evince2-light.ORIG/src/evince-2.32.0/shell/ev-metadata.c	2010-07-27 08:47:54.000000000 -0700
-+++ ../aur/evince2-light/src/evince-2.32.0/shell/ev-metadata.c	2012-05-27 20:34:29.563300470 -0700
+--- aur/evince2-light.ORIG/src/evince-2.32.0/shell/ev-metadata.c	2010-07-27 08:47:54.000000000 -0700
++++ aur/evince2-light/src/evince-2.32.0/shell/ev-metadata.c	2012-05-27 20:34:29.563300470 -0700
 @@ -292,22 +292,5 @@
  gboolean
  ev_is_metadata_supported_for_file (GFile *file)

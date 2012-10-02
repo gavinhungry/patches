@@ -1,6 +1,6 @@
-diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-shortcuts-model.c ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-shortcuts-model.c
---- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-shortcuts-model.c	2012-05-01 12:38:53.378249539 -0700
-+++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-shortcuts-model.c	2012-05-01 12:43:23.334907966 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-shortcuts-model.c abs/thunar/src/Thunar-1.4.0/thunar/thunar-shortcuts-model.c
+--- abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-shortcuts-model.c	2012-05-01 12:38:53.378249539 -0700
++++ abs/thunar/src/Thunar-1.4.0/thunar/thunar-shortcuts-model.c	2012-05-01 12:43:23.334907966 -0700
 @@ -259,10 +259,6 @@
    /* append the root file system */
    system_paths = g_list_append (system_paths, thunar_g_file_new_for_root ());
@@ -12,9 +12,9 @@ diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-shortcuts-model.c ../
    /* will be used to append the shortcuts to the list */
    path = gtk_tree_path_new_from_indices (0, -1);
  
-diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-tree-model.c ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-tree-model.c
---- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-tree-model.c	2012-05-01 12:38:53.378249539 -0700
-+++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-tree-model.c	2012-05-01 12:46:15.061569394 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-tree-model.c abs/thunar/src/Thunar-1.4.0/thunar/thunar-tree-model.c
+--- abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-tree-model.c	2012-05-01 12:38:53.378249539 -0700
++++ abs/thunar/src/Thunar-1.4.0/thunar/thunar-tree-model.c	2012-05-01 12:46:15.061569394 -0700
 @@ -326,10 +326,6 @@
    /* append the root file system */
    system_paths = g_list_append (system_paths, thunar_g_file_new_for_root ());
@@ -26,9 +26,9 @@ diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-tree-model.c ../abs/t
    /* append the system defined nodes ('Home', 'Trash', 'File System') */
    for (lp = system_paths; lp != NULL; lp = lp->next)
      {
-diff -ru ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-window.c ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-window.c
---- ../abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-window.c	2012-05-01 12:38:53.378249539 -0700
-+++ ../abs/thunar/src/Thunar-1.4.0/thunar/thunar-window.c	2012-05-01 12:44:35.411572435 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-window.c abs/thunar/src/Thunar-1.4.0/thunar/thunar-window.c
+--- abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-window.c	2012-05-01 12:38:53.378249539 -0700
++++ abs/thunar/src/Thunar-1.4.0/thunar/thunar-window.c	2012-05-01 12:44:35.411572435 -0700
 @@ -1435,28 +1435,6 @@
                             gtk_action_get_name (GTK_ACTION (action)),
                             GTK_UI_MANAGER_MENUITEM, FALSE);

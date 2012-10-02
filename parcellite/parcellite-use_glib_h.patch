@@ -1,5 +1,5 @@
---- ../abs/parcellite/src/parcellite-1.0.2rc5/src/keybinder.h.ORIG	2012-09-14 08:37:00.490126383 -0700
-+++ ../abs/parcellite/src/parcellite-1.0.2rc5/src/keybinder.h	2012-09-14 08:37:08.500891082 -0700
+--- abs/parcellite/src/parcellite-1.0.2rc5/src/keybinder.h.ORIG	2012-09-14 08:37:00.490126383 -0700
++++ abs/parcellite/src/parcellite-1.0.2rc5/src/keybinder.h	2012-09-14 08:37:08.500891082 -0700
 @@ -20,7 +20,7 @@
  #ifndef __KEY_BINDER_H__
  #define __KEY_BINDER_H__

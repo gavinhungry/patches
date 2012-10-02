@@ -1,5 +1,5 @@
---- ../pre/gedit/src/gedit-2.30.4/gedit/gedit-notebook.c.ORIG	2012-09-14 10:32:54.178883241 -0700
-+++ ../pre/gedit/src/gedit-2.30.4/gedit/gedit-notebook.c	2012-09-14 10:33:26.349204488 -0700
+--- pre/gedit/src/gedit-2.30.4/gedit/gedit-notebook.c.ORIG	2012-09-14 10:32:54.178883241 -0700
++++ pre/gedit/src/gedit-2.30.4/gedit/gedit-notebook.c	2012-09-14 10:33:26.349204488 -0700
 @@ -915,24 +915,7 @@
  	jump_to = GPOINTER_TO_INT (g_object_get_data
  				   (G_OBJECT (tab), "jump_to"));

@@ -1,5 +1,5 @@
---- ../pre/rhythmbox/src/rhythmbox-0.13.3/sources/rb-play-queue-source.c.ORIG	2011-02-03 23:08:35.076745658 -0800
-+++ ../pre/rhythmbox/src/rhythmbox-0.13.3/sources/rb-play-queue-source.c	2011-02-03 23:16:34.343670054 -0800
+--- pre/rhythmbox/src/rhythmbox-0.13.3/sources/rb-play-queue-source.c.ORIG	2011-02-03 23:08:35.076745658 -0800
++++ pre/rhythmbox/src/rhythmbox-0.13.3/sources/rb-play-queue-source.c	2011-02-03 23:16:34.343670054 -0800
 @@ -424,8 +424,9 @@
  	album = rhythmdb_entry_get_string (entry, RHYTHMDB_PROP_ALBUM);
  
