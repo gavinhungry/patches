@@ -1,0 +1,12 @@
+diff -ru abs/parcellite.ORIG/src/parcellite-1.0.2rc5/src/main.c abs/parcellite/src/parcellite-1.0.2rc5/src/main.c
+--- abs/parcellite.ORIG/src/parcellite-1.0.2rc5/src/main.c	2012-10-22 16:40:41.759366639 -0700
++++ abs/parcellite/src/parcellite-1.0.2rc5/src/main.c	2012-10-22 16:41:09.063490371 -0700
+@@ -1228,7 +1228,7 @@
+       while (i < string->len)
+       {	 /**fix 100% CPU utilization for odd data. - bug 2976890   */
+ 				gsize nline=0;
+-				while(string->str[i+nline] == '\n' && nline+i<string->len)
++				while((string->str[i+nline] == '\r' || string->str[i+nline] == '\n') && nline+i<string->len)
+ 					nline++;
+ 				if(nline){
+ 					g_string_erase(string, i, nline);
