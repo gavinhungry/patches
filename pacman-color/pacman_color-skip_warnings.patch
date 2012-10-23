@@ -1,5 +1,5 @@
---- aur/pacman-color/pacman-color-4.0.3.patch.ORIG	2012-07-20 15:16:37.281012581 -0700
-+++ aur/pacman-color/pacman-color-4.0.3.patch	2012-07-20 15:16:46.034637947 -0700
+--- aur/pacman-color/pacman-color-4.0.3.patch.ORIG	2012-10-22 22:08:01.687276758 -0700
++++ aur/pacman-color/pacman-color-4.0.3.patch	2012-10-22 22:09:43.720114256 -0700
 @@ -833,7 +833,7 @@
   	va_end(args);
   
@@ -13,7 +13,7 @@
  +				pm_asprintf(string, "%s%s%s%s", colortab.red, _("error: "), colortab.none, msg);
  +				break;
  +			case ALPM_LOG_WARNING:
-++				if (strstr(format, "ignoring package upgrade")) return 1; /* gavin: no IgnorePkg warnings */
+++				if (strstr(format, "ignoring package upgrade") || strstr(format, "is newer than")) return 1;
  +				pm_asprintf(string, "%s%s%s%s", colortab.yellow, _("warning: "), colortab.none, msg);
  +				break;
  +			case ALPM_LOG_DEBUG:
@@ -21,7 +21,7 @@
  +				pm_asprintf(string, _("error: %s"), msg);
  +				break;
  +			case ALPM_LOG_WARNING:
-++				if (strstr(format, "ignoring package upgrade")) return 1; /* gavin: no IgnorePkg warnings */
+++				if (strstr(format, "ignoring package upgrade") || strstr(format, "is newer than")) return 1;
  +				pm_asprintf(string, _("warning: %s"), msg);
  +				break;
  +			case ALPM_LOG_DEBUG:
@@ -38,7 +38,7 @@
   			break;
   		case ALPM_LOG_WARNING:
  -			fprintf(stream, _("warning: "));
-++			if (strstr(format, "ignoring package upgrade")) return 1; /* gavin: no IgnorePkg warnings */
+++			if (strstr(format, "ignoring package upgrade") || strstr(format, "is newer than")) return 1;
  +			color_fprintf(stream, COLOR_YELLOW_ALL, _("warning: "));
   			break;
   		case ALPM_LOG_DEBUG:
