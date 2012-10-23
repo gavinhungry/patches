@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COLOR_PATCH=$(cat ${1}/pacman-color_no_ignorepkg_warn.patch |\
+COLOR_PATCH=$(cat ${1}/pacman_color-skip_warnings.patch |\
               grep '^+++' | sed -e 's/^+++\s*\(.*\.patch\).*$/\1/')
 PKGBUILD="$(dirname ${COLOR_PATCH})/PKGBUILD"
 
