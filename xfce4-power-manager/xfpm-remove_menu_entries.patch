@@ -1,0 +1,94 @@
+diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-power.c abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-power.c
+--- abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-power.c	2012-11-10 01:58:39.557559067 -0800
++++ abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-power.c	2012-11-10 02:05:33.063338004 -0800
+@@ -480,37 +480,6 @@
+ 
+     menu = gtk_menu_new();
+ 
+-    // Hibernate menu option
+-    mi = gtk_image_menu_item_new_with_label (_("Hibernate"));
+-    img = gtk_image_new_from_icon_name (XFPM_HIBERNATE_ICON, GTK_ICON_SIZE_MENU);
+-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), img);
+-    gtk_widget_set_sensitive (mi, FALSE);
+-    
+-    if ( power->priv->can_hibernate && power->priv->auth_hibernate)
+-    {
+-	gtk_widget_set_sensitive (mi, TRUE);
+-	g_signal_connect_swapped (G_OBJECT (mi), "activate",
+-				  G_CALLBACK (xfpm_power_hibernate_cb), power);
+-    }
+-    gtk_widget_show (mi);
+-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+-    
+-    // Suspend menu option
+-    mi = gtk_image_menu_item_new_with_label (_("Suspend"));
+-    img = gtk_image_new_from_icon_name (XFPM_SUSPEND_ICON, GTK_ICON_SIZE_MENU);
+-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), img);
+-    
+-    gtk_widget_set_sensitive (mi, FALSE);
+-    
+-    if ( power->priv->can_suspend && power->priv->auth_hibernate)
+-    {
+-	gtk_widget_set_sensitive (mi, TRUE);
+-	g_signal_connect_swapped (mi, "activate",
+-				  G_CALLBACK (xfpm_power_suspend_cb), power);
+-    }
+-    
+-    gtk_widget_show (mi);
+-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+ /*
+     saver_inhibited = xfpm_screen_saver_get_inhibit (tray->priv->srv);
+     mi = gtk_check_menu_item_new_with_label (_("Monitor power control"));
+@@ -525,10 +494,6 @@
+     gtk_widget_show(mi);
+     gtk_menu_shell_append(GTK_MENU_SHELL(menu),mi);
+ */
+-    
+-    mi = gtk_separator_menu_item_new ();
+-    gtk_widget_show (mi);
+-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+ 
+     // Power information
+     mi = gtk_image_menu_item_new_with_label (_("Power Information"));
+@@ -543,41 +508,6 @@
+     gtk_widget_show (mi);
+     gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+     
+-    /** 
+-     * Power Mode
+-     **/
+-    /* TRANSLATOR: Mode here is the power profile (presentation, power save, normal) */
+-    mi = gtk_image_menu_item_new_with_label (_("Mode"));
+-    img = gtk_image_new_from_icon_name (XFPM_AC_ADAPTER_ICON, GTK_ICON_SIZE_MENU);
+-    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), img);
+-    gtk_widget_set_sensitive (mi,TRUE);
+-    gtk_widget_show (mi);
+-    
+-    subm = gtk_menu_new ();
+-    gtk_menu_item_set_submenu (GTK_MENU_ITEM (mi), subm);
+-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+-    
+-    /* Normal*/
+-    mi = gtk_check_menu_item_new_with_label (_("Normal"));
+-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi), power->priv->power_mode == XFPM_POWER_MODE_NORMAL);
+-    gtk_widget_set_sensitive (mi,TRUE);
+-    
+-    g_signal_connect_swapped (mi, "activate",
+-			      G_CALLBACK (xfpm_power_normal_mode_cb), power);
+-    gtk_widget_show (mi);
+-    gtk_menu_shell_append (GTK_MENU_SHELL (subm), mi);
+-    
+-    /* Normal*/
+-    mi = gtk_check_menu_item_new_with_label (_("Presentation"));
+-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi), power->priv->power_mode == XFPM_POWER_MODE_PRESENTATION);
+-    gtk_widget_set_sensitive (mi, TRUE);
+-    
+-    g_signal_connect_swapped (mi, "activate",
+-			      G_CALLBACK (xfpm_power_presentation_mode_cb), power);
+-    gtk_widget_show (mi);
+-    gtk_menu_shell_append (GTK_MENU_SHELL (subm), mi);
+-    
+-    
+     mi = gtk_separator_menu_item_new ();
+     gtk_widget_show (mi);
+     gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
