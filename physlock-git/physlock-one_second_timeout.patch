@@ -1,0 +1,9 @@
+--- aur/physlock-git/src/physlock/config.h.ORIG	2012-11-08 02:12:37.941803997 -0800
++++ aur/physlock-git/src/physlock/config.h	2012-11-08 02:12:47.798724684 -0800
+@@ -9,5 +9,5 @@
+ static const char * const SYSRQ_PATH = "/proc/sys/kernel/sysrq";
+ 
+ /* timeout (seconds) after failed authentication try:  */
+-enum { AUTH_FAIL_TIMEOUT = 2 };
++enum { AUTH_FAIL_TIMEOUT = 1 };
+ 
