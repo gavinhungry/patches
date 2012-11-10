@@ -1,0 +1,63 @@
+diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/settings/xfpm-settings.c abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/settings/xfpm-settings.c
+--- abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/settings/xfpm-settings.c	2012-11-10 02:08:42.372375716 -0800
++++ abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/settings/xfpm-settings.c	2012-11-10 02:13:48.881574293 -0800
+@@ -1537,7 +1537,7 @@
+     gtk_tree_view_append_column(GTK_TREE_VIEW(view),col);
+     
+     /*General settings */
+-    pix = xfpm_icon_load ("preferences-system", 48); 
++    pix = xfpm_icon_load ("preferences-system", 16); 
+     
+     gtk_list_store_append(list_store, &iter);
+     
+@@ -1553,7 +1553,7 @@
+     i++;
+     
+     /* ON ac power */
+-    pix = xfpm_icon_load (XFPM_AC_ADAPTER_ICON, 48); 
++    pix = xfpm_icon_load (XFPM_AC_ADAPTER_ICON, 16); 
+     gtk_list_store_append(list_store, &iter);
+     if ( pix )
+     {
+@@ -1568,7 +1568,7 @@
+     
+     if ( system_laptop )
+     {
+-	pix = xfpm_icon_load (XFPM_BATTERY_ICON, 48); 
++	pix = xfpm_icon_load (XFPM_BATTERY_ICON, 16); 
+ 	gtk_list_store_append(list_store, &iter);
+ 	if ( pix )
+ 	{
+@@ -1582,7 +1582,7 @@
+     }
+     i++;
+     
+-    pix = xfpm_icon_load ("applications-other", 48); 
++    pix = xfpm_icon_load ("applications-other", 16); 
+     gtk_list_store_append(list_store, &iter);
+     if ( pix )
+     {
+diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-notify.c abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-notify.c
+--- abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-notify.c	2012-11-10 02:08:42.369042282 -0800
++++ abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-notify.c	2012-11-10 02:12:48.046420832 -0800
+@@ -197,7 +197,7 @@
+ static void
+ xfpm_notify_set_notification_icon (NotifyNotification *n, const gchar *icon_name )
+ {
+-    GdkPixbuf *pix = xfpm_icon_load (icon_name, 48);
++    GdkPixbuf *pix = xfpm_icon_load (icon_name, 16);
+     
+     if ( pix )
+     {
+diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-power-info.c abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-power-info.c
+--- abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-power-info.c	2012-11-10 02:08:42.369042282 -0800
++++ abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-power-info.c	2012-11-10 02:12:28.085823442 -0800
+@@ -285,7 +285,7 @@
+     
+     pix = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
+ 				    icon_name,
+-				    48,
++				    16,
+ 				    GTK_ICON_LOOKUP_USE_BUILTIN,
+ 				    NULL);
+     
