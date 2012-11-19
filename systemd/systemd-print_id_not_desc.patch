@@ -1,0 +1,82 @@
+diff -ru abs/systemd.ORIG/src/systemd-195/src/core/job.c abs/systemd/src/systemd-195/src/core/job.c
+--- abs/systemd.ORIG/src/systemd-195/src/core/job.c	2012-11-19 13:05:02.657243851 -0800
++++ abs/systemd/src/systemd-195/src/core/job.c	2012-11-19 13:05:59.331894819 -0800
+@@ -626,20 +626,20 @@
+ 
+                 case JOB_DONE:
+                         if (u->condition_result)
+-                                unit_status_printf(u, ANSI_HIGHLIGHT_GREEN_ON "  OK  " ANSI_HIGHLIGHT_OFF, format, unit_description(u));
++                                unit_status_printf(u, ANSI_HIGHLIGHT_GREEN_ON "  OK  " ANSI_HIGHLIGHT_OFF, format, u->id);
+                         break;
+ 
+                 case JOB_FAILED:
+-                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON "FAILED" ANSI_HIGHLIGHT_OFF, format, unit_description(u));
++                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON "FAILED" ANSI_HIGHLIGHT_OFF, format, u->id);
+                         unit_status_printf(u, NULL, "See 'systemctl status %s' for details.", u->id);
+                         break;
+ 
+                 case JOB_DEPENDENCY:
+-                        unit_status_printf(u, ANSI_HIGHLIGHT_YELLOW_ON "DEPEND" ANSI_HIGHLIGHT_OFF, format, unit_description(u));
++                        unit_status_printf(u, ANSI_HIGHLIGHT_YELLOW_ON "DEPEND" ANSI_HIGHLIGHT_OFF, format, u->id);
+                         break;
+ 
+                 case JOB_TIMEOUT:
+-                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON " TIME " ANSI_HIGHLIGHT_OFF, format, unit_description(u));
++                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON " TIME " ANSI_HIGHLIGHT_OFF, format, u->id);
+                         break;
+ 
+                 default:
+@@ -655,12 +655,12 @@
+                 switch (result) {
+ 
+                 case JOB_TIMEOUT:
+-                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON " TIME " ANSI_HIGHLIGHT_OFF, format, unit_description(u));
++                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON " TIME " ANSI_HIGHLIGHT_OFF, format, u->id);
+                         break;
+ 
+                 case JOB_DONE:
+                 case JOB_FAILED:
+-                        unit_status_printf(u, ANSI_HIGHLIGHT_GREEN_ON "  OK  " ANSI_HIGHLIGHT_OFF, format, unit_description(u));
++                        unit_status_printf(u, ANSI_HIGHLIGHT_GREEN_ON "  OK  " ANSI_HIGHLIGHT_OFF, format, u->id);
+                         break;
+ 
+                 default:
+@@ -673,7 +673,7 @@
+                  * Most likely a DEPEND warning from a requisiting unit will
+                  * occur next and it's nice to see what was requisited. */
+                 if (result == JOB_SKIPPED)
+-                        unit_status_printf(u, ANSI_HIGHLIGHT_ON " INFO " ANSI_HIGHLIGHT_OFF, "%s is not active.", unit_description(u));
++                        unit_status_printf(u, ANSI_HIGHLIGHT_ON " INFO " ANSI_HIGHLIGHT_OFF, "%s is not active.", u->id);
+         }
+ }
+ 
+@@ -697,7 +697,7 @@
+         if (!format)
+                 return;
+ 
+-        snprintf(buf, sizeof(buf), format, unit_description(u));
++        snprintf(buf, sizeof(buf), format, u->id);
+         char_array_0(buf);
+ 
+         if (t == JOB_START) {
+diff -ru abs/systemd.ORIG/src/systemd-195/src/core/unit.c abs/systemd/src/systemd-195/src/core/unit.c
+--- abs/systemd.ORIG/src/systemd-195/src/core/unit.c	2012-11-19 13:05:02.657243851 -0800
++++ abs/systemd/src/systemd-195/src/core/unit.c	2012-11-19 13:05:47.201605575 -0800
+@@ -991,7 +991,7 @@
+         if (!format)
+                 return;
+ 
+-        unit_status_printf(u, "", format, unit_description(u));
++        unit_status_printf(u, "", format, u->id);
+ }
+ 
+ #pragma GCC diagnostic push
+@@ -1015,7 +1015,7 @@
+         if (!format)
+                 return;
+ 
+-        snprintf(buf, sizeof(buf), format, unit_description(u));
++        snprintf(buf, sizeof(buf), format, u->id);
+         char_array_0(buf);
+ 
+         mid = t == JOB_START ? SD_MESSAGE_UNIT_STARTING :
