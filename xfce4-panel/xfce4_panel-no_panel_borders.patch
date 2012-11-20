@@ -1,0 +1,11 @@
+diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.0/panel/panel-base-window.c abs/xfce4-panel/src/xfce4-panel-4.10.0/panel/panel-base-window.c
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.0/panel/panel-base-window.c	2012-11-20 10:03:25.396218325 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.10.0/panel/panel-base-window.c	2012-11-20 10:04:08.090618643 -0800
+@@ -840,6 +840,7 @@
+   else if (window->background_style != PANEL_BG_STYLE_NONE)
+     return PANEL_BORDER_NONE;
+ 
++  priv->borders = PANEL_BORDER_NONE;
+   return priv->borders;
+ }
+ 
