@@ -1,7 +1,7 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-launcher.c abs/thunar/src/Thunar-1.4.0/thunar/thunar-launcher.c
---- abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-launcher.c	2012-05-01 12:38:53.378249539 -0700
-+++ abs/thunar/src/Thunar-1.4.0/thunar/thunar-launcher.c	2012-05-01 12:57:39.684881837 -0700
-@@ -867,7 +867,7 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-launcher.c abs/thunar/src/Thunar-1.6.0/thunar/thunar-launcher.c
+--- abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-launcher.c	2012-12-05 19:56:09.622508104 -0800
++++ abs/thunar/src/Thunar-1.6.0/thunar/thunar-launcher.c	2012-12-05 20:03:50.096727496 -0800
+@@ -933,7 +933,7 @@
        else if (G_LIKELY (applications != NULL))
          {
            /* turn the "Open" action into "Open With DEFAULT" */
@@ -10,7 +10,7 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-launcher.c abs/thunar/sr
            tooltip = g_strdup_printf (ngettext ("Use \"%s\" to open the selected file",
                                                 "Use \"%s\" to open the selected files",
                                                 n_selected_files), g_app_info_get_name (applications->data));
-@@ -953,7 +953,7 @@
+@@ -1019,7 +1019,7 @@
  
                /* generate a unique label, unique id and tooltip for the application's action */
                name = g_strdup_printf ("thunar-launcher-addon-application%d-%p", n, launcher);
@@ -19,3 +19,4 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-launcher.c abs/thunar/sr
                tooltip = g_strdup_printf (ngettext ("Use \"%s\" to open the selected file",
                                                     "Use \"%s\" to open the selected files",
                                                     n_selected_files), g_app_info_get_name (lp->data));
+Only in abs/thunar/src/Thunar-1.6.0/thunar: thunar-launcher.c.orig

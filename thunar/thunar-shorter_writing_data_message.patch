@@ -1,7 +1,7 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-notify.c abs/thunar/src/Thunar-1.4.0/thunar/thunar-notify.c
---- abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-notify.c	2012-07-18 19:26:16.348035022 -0700
-+++ abs/thunar/src/Thunar-1.4.0/thunar/thunar-notify.c	2012-07-18 19:29:06.189261318 -0700
-@@ -129,8 +129,7 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-notify.c abs/thunar/src/Thunar-1.6.0/thunar/thunar-notify.c
+--- abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-notify.c	2012-12-05 19:56:09.619174692 -0800
++++ abs/thunar/src/Thunar-1.6.0/thunar/thunar-notify.c	2012-12-05 20:13:23.199287059 -0800
+@@ -174,8 +174,7 @@
      {
        summary = _("Writing data to device");
        message = g_strdup_printf (_("There is data that needs to be written to the "
@@ -11,7 +11,7 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-notify.c abs/thunar/src/
                                     name);
      }
  
-@@ -247,8 +246,7 @@
+@@ -213,8 +212,7 @@
      {
        summary = _("Writing data to device");
        message = g_strdup_printf (_("There is data that needs to be written to the "
@@ -21,3 +21,4 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-notify.c abs/thunar/src/
                                     name);
      }
  
+Only in abs/thunar/src/Thunar-1.6.0/thunar: thunar-notify.c.orig
