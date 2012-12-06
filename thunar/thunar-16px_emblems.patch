@@ -1,7 +1,7 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c abs/thunar/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c
---- abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c	2012-05-04 13:52:16.712724004 -0700
-+++ abs/thunar/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c	2012-05-04 13:52:27.016057019 -0700
-@@ -400,7 +400,7 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-emblem-chooser.c abs/thunar/src/Thunar-1.6.0/thunar/thunar-emblem-chooser.c
+--- abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-emblem-chooser.c	2012-12-05 19:56:09.622508104 -0800
++++ abs/thunar/src/Thunar-1.6.0/thunar/thunar-emblem-chooser.c	2012-12-05 21:20:43.920773834 -0800
+@@ -437,7 +437,7 @@
    GdkPixbuf   *icon;
  
    /* lookup the icon info for the emblem */
@@ -10,27 +10,27 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-emblem-chooser.c abs/thu
    if (G_UNLIKELY (info == NULL))
      return NULL;
  
-diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-icon-renderer.c abs/thunar/src/Thunar-1.4.0/thunar/thunar-icon-renderer.c
---- abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-icon-renderer.c	2012-05-04 13:52:16.712724004 -0700
-+++ abs/thunar/src/Thunar-1.4.0/thunar/thunar-icon-renderer.c	2012-05-04 13:52:27.016057019 -0700
-@@ -461,7 +461,7 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-icon-renderer.c abs/thunar/src/Thunar-1.6.0/thunar/thunar-icon-renderer.c
+--- abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-icon-renderer.c	2012-12-05 19:56:09.622508104 -0800
++++ abs/thunar/src/Thunar-1.6.0/thunar/thunar-icon-renderer.c	2012-12-05 21:21:41.502328810 -0800
+@@ -467,7 +467,7 @@
            for (lp = emblems, position = 0; lp != NULL && position < max_emblems; lp = lp->next)
              {
-               /* check if we have the emblem in the icon theme */
--              emblem = thunar_icon_factory_load_icon (icon_factory, lp->data, icon_renderer->size, NULL, FALSE);
-+              emblem = thunar_icon_factory_load_icon (icon_factory, lp->data, 16, NULL, FALSE);
-               if (G_UNLIKELY (emblem == NULL))
-                 continue;
+               /* calculate the emblem size */
+-              emblem_size = MIN ((2 * icon_renderer->size) / 3, 32);
++              emblem_size = 16;
  
-@@ -469,19 +469,6 @@
+               /* check if we have the emblem in the icon theme */
+               emblem = thunar_icon_factory_load_icon (icon_factory, lp->data, emblem_size, FALSE);
+@@ -478,19 +478,6 @@
                emblem_area.width = gdk_pixbuf_get_width (emblem);
                emblem_area.height = gdk_pixbuf_get_height (emblem);
  
 -              /* shrink insane emblems */
--              if (G_UNLIKELY (MAX (emblem_area.width, emblem_area.height) > (gint) MIN ((2 * icon_renderer->size) / 3, 32)))
+-              if (G_UNLIKELY (MAX (emblem_area.width, emblem_area.height) > emblem_size))
 -                {
 -                  /* scale down the emblem */
--                  temp = exo_gdk_pixbuf_scale_ratio (emblem, MIN ((2 * icon_renderer->size) / 3, 32));
+-                  temp = exo_gdk_pixbuf_scale_ratio (emblem, emblem_size);
 -                  g_object_unref (G_OBJECT (emblem));
 -                  emblem = temp;
 -

@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-dialogs.c abs/thunar/src/Thunar-1.4.0/thunar/thunar-dialogs.c
---- abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-dialogs.c	2012-05-04 14:18:57.622675149 -0700
-+++ abs/thunar/src/Thunar-1.4.0/thunar/thunar-dialogs.c	2012-05-04 14:19:08.986008135 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-dialogs.c abs/thunar/src/Thunar-1.6.0/thunar/thunar-dialogs.c
+--- abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-dialogs.c	2012-12-05 19:56:09.619174692 -0800
++++ abs/thunar/src/Thunar-1.6.0/thunar/thunar-dialogs.c	2012-12-05 20:11:10.713272734 -0800
 @@ -66,7 +66,6 @@
    ThunarJob         *job = NULL;
    GtkWidget         *dialog;
@@ -9,15 +9,7 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-dialogs.c abs/thunar/src
    GtkWidget         *image;
    GtkWidget         *table;
    GtkWindow         *window;
-@@ -96,33 +95,28 @@
-                                         _("_Rename"), GTK_RESPONSE_OK,
-                                         NULL);
-   gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
--  gtk_window_set_default_size (GTK_WINDOW (dialog), 300, -1);
-+  gtk_window_set_default_size (GTK_WINDOW (dialog), 400, -1);
-   g_free (title);
- 
-   /* move the dialog to the appropriate screen */
+@@ -106,26 +105,21 @@
    if (G_UNLIKELY (window == NULL && screen != NULL))
      gtk_window_set_screen (GTK_WINDOW (dialog), screen);
  
@@ -47,3 +39,12 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.4.0/thunar/thunar-dialogs.c abs/thunar/src
    entry = gtk_entry_new ();
    gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
    gtk_table_attach (GTK_TABLE (table), entry, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL, GTK_FILL, 0, 0);
+@@ -168,7 +162,7 @@
+     }
+ 
+   /* resize the dialog to make long names fit as much as possible */
+-  gtk_window_set_default_size (GTK_WINDOW (dialog), CLAMP (layout_width, 300, parent_width), -1);
++  gtk_window_set_default_size (GTK_WINDOW (dialog), CLAMP (layout_width, 400, parent_width), -1);
+ 
+   /* run the dialog */
+   response = gtk_dialog_run (GTK_DIALOG (dialog));
