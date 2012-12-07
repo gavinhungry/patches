@@ -3,5 +3,6 @@ for P in ${1}/*.patch; do
 done
 
 cd abs/thunar/src/Thunar-1.6.0/thunar/
-echo exo-csource thunar_location_buttons_ui
+echo exo-csource
 exo-csource --strip-comments --strip-content --static --name=thunar_location_buttons_ui thunar-location-buttons-ui.xml > thunar-location-buttons-ui.h
+exo-csource --strip-comments --strip-content --static --name=thunar_launcher_ui thunar-launcher-ui.xml > thunar-launcher-ui.h

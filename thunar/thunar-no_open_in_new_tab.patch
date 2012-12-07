@@ -1,0 +1,52 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-launcher-ui.xml abs/thunar/src/Thunar-1.6.0/thunar/thunar-launcher-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-launcher-ui.xml	2012-12-06 18:34:57.827874513 -0800
++++ abs/thunar/src/Thunar-1.6.0/thunar/thunar-launcher-ui.xml	2012-12-06 19:15:08.001082892 -0800
+@@ -14,7 +14,6 @@
+     <menu action="file-menu">
+       <placeholder name="placeholder-launcher">
+         <menuitem action="open" />
+-        <menuitem action="open-in-new-tab" />
+         <menuitem action="open-in-new-window" />
+         <placeholder name="placeholder-applications" />
+         <menuitem action="open-with-other" />
+@@ -38,7 +37,6 @@
+   <popup action="file-context-menu">
+     <placeholder name="placeholder-launcher">
+       <menuitem action="open" />
+-      <menuitem action="open-in-new-tab" />
+       <menuitem action="open-in-new-window" />
+       <placeholder name="placeholder-applications" />
+       <menuitem action="open-with-other" />
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-shortcuts-view.c abs/thunar/src/Thunar-1.6.0/thunar/thunar-shortcuts-view.c
+--- abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-shortcuts-view.c	2012-12-06 18:34:57.827874513 -0800
++++ abs/thunar/src/Thunar-1.6.0/thunar/thunar-shortcuts-view.c	2012-12-06 19:15:24.311543707 -0800
+@@ -1082,12 +1082,6 @@
+   /* set the stock icon */
+   image = gtk_image_new_from_stock (GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU);
+   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
+-  
+-  /* append the "Open in New Tab" menu action */
+-  item = gtk_image_menu_item_new_with_mnemonic (_("Open in New Tab"));
+-  g_signal_connect_swapped (G_OBJECT (item), "activate", G_CALLBACK (thunar_shortcuts_view_open_in_new_tab_clicked), view);
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+-  gtk_widget_show (item);
+ 
+   /* append the "Open in New Window" menu action */
+   item = gtk_image_menu_item_new_with_mnemonic (_("Open in New Window"));
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-tree-view.c abs/thunar/src/Thunar-1.6.0/thunar/thunar-tree-view.c
+--- abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-tree-view.c	2012-12-06 18:34:57.827874513 -0800
++++ abs/thunar/src/Thunar-1.6.0/thunar/thunar-tree-view.c	2012-12-06 19:15:20.008088808 -0800
+@@ -1112,13 +1112,6 @@
+   /* set the stock icon */
+   image = gtk_image_new_from_stock (GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU);
+   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
+-  
+-  /* append the "Open in New Tab" menu action */
+-  item = gtk_image_menu_item_new_with_mnemonic (_("Open in New _Tab"));
+-  g_signal_connect_swapped (G_OBJECT (item), "activate", G_CALLBACK (thunar_tree_view_action_open_in_new_tab), view);
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+-  gtk_widget_set_sensitive (item, (file != NULL || device != NULL));
+-  gtk_widget_show (item);
+ 
+   /* append the "Open in New Window" menu action */
+   item = gtk_image_menu_item_new_with_mnemonic (_("Open in New _Window"));
