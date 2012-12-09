@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-window.c abs/thunar/src/Thunar-1.6.0/thunar/thunar-window.c
---- abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-window.c	2012-12-05 19:56:09.619174692 -0800
-+++ abs/thunar/src/Thunar-1.6.0/thunar/thunar-window.c	2012-12-05 19:59:23.857099199 -0800
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-window.c abs/thunar/src/Thunar-1.6.1/thunar/thunar-window.c
+--- abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-window.c	2012-12-05 19:56:09.619174692 -0800
++++ abs/thunar/src/Thunar-1.6.1/thunar/thunar-window.c	2012-12-05 19:59:23.857099199 -0800
 @@ -808,7 +808,7 @@
      }
  
@@ -10,4 +10,4 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-window.c abs/thunar/src/
    gtk_table_attach (GTK_TABLE (window->table), window->paned, 0, 1, 4, 5, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
    gtk_widget_show (window->paned);
  
-Only in abs/thunar/src/Thunar-1.6.0/thunar: thunar-window.c.orig
+Only in abs/thunar/src/Thunar-1.6.1/thunar: thunar-window.c.orig
