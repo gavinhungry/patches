@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-launcher.c abs/thunar/src/Thunar-1.6.0/thunar/thunar-launcher.c
---- abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-launcher.c	2012-12-05 19:56:09.622508104 -0800
-+++ abs/thunar/src/Thunar-1.6.0/thunar/thunar-launcher.c	2012-12-05 20:03:50.096727496 -0800
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-launcher.c abs/thunar/src/Thunar-1.6.1/thunar/thunar-launcher.c
+--- abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-launcher.c	2012-12-05 19:56:09.622508104 -0800
++++ abs/thunar/src/Thunar-1.6.1/thunar/thunar-launcher.c	2012-12-05 20:03:50.096727496 -0800
 @@ -933,7 +933,7 @@
        else if (G_LIKELY (applications != NULL))
          {
@@ -19,4 +19,4 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-launcher.c abs/thunar/sr
                tooltip = g_strdup_printf (ngettext ("Use \"%s\" to open the selected file",
                                                     "Use \"%s\" to open the selected files",
                                                     n_selected_files), g_app_info_get_name (lp->data));
-Only in abs/thunar/src/Thunar-1.6.0/thunar: thunar-launcher.c.orig
+Only in abs/thunar/src/Thunar-1.6.1/thunar: thunar-launcher.c.orig

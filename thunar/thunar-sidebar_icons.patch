@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-shortcuts-model.c abs/thunar/src/Thunar-1.6.0/thunar/thunar-shortcuts-model.c
---- abs/thunar.ORIG/src/Thunar-1.6.0/thunar/thunar-shortcuts-model.c	2012-12-05 19:56:09.619174692 -0800
-+++ abs/thunar/src/Thunar-1.6.0/thunar/thunar-shortcuts-model.c	2012-12-05 20:31:01.597691860 -0800
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-shortcuts-model.c abs/thunar/src/Thunar-1.6.1/thunar/thunar-shortcuts-model.c
+--- abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-shortcuts-model.c	2012-12-05 19:56:09.619174692 -0800
++++ abs/thunar/src/Thunar-1.6.1/thunar/thunar-shortcuts-model.c	2012-12-05 20:31:01.597691860 -0800
 @@ -884,7 +884,7 @@
    shortcut->group = THUNAR_SHORTCUT_GROUP_NETWORK_DEFAULT;
    shortcut->name = g_strdup (_("Browse Network"));
