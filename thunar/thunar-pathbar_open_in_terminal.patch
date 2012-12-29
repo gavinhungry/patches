@@ -1,7 +1,7 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-location-buttons.c abs/thunar/src/Thunar-1.6.1/thunar/thunar-location-buttons.c
---- abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-location-buttons.c	2012-12-05 19:56:09.619174692 -0800
-+++ abs/thunar/src/Thunar-1.6.1/thunar/thunar-location-buttons.c	2012-12-05 21:12:43.404289702 -0800
-@@ -124,6 +124,8 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-location-buttons.c abs/thunar/src/Thunar-1.6.2/thunar/thunar-location-buttons.c
+--- abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-location-buttons.c	2012-12-29 11:55:27.581478345 -0800
++++ abs/thunar/src/Thunar-1.6.2/thunar/thunar-location-buttons.c	2012-12-29 12:06:34.881845146 -0800
+@@ -127,6 +127,8 @@
                                                                           ThunarLocationButtons      *buttons);
  static void           thunar_location_buttons_action_open_in_new_window (GtkAction                  *action,
                                                                           ThunarLocationButtons      *buttons);
@@ -10,17 +10,17 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-location-buttons.c abs/t
  static void           thunar_location_buttons_action_paste_into_folder  (GtkAction                  *action,
                                                                           ThunarLocationButtons      *buttons);
  static void           thunar_location_buttons_action_properties         (GtkAction                  *action,
-@@ -167,6 +169,7 @@
-   { "location-buttons-context-menu", NULL, "Context Menu", NULL, NULL, NULL, },
-   { "location-buttons-open", GTK_STOCK_OPEN, N_("_Open"), NULL, NULL, G_CALLBACK (thunar_location_buttons_action_open), },
-   { "location-buttons-open-in-new-window", NULL, N_("Open in New Window"), NULL, NULL, G_CALLBACK (thunar_location_buttons_action_open_in_new_window), },
-+  { "location-buttons-open-terminal", NULL, N_("Open Terminal Here"), NULL, NULL, G_CALLBACK (thunar_location_buttons_action_open_terminal), },
-   { "location-buttons-create-folder", NULL, N_("Create _Folder..."), NULL, NULL, G_CALLBACK (thunar_location_buttons_action_create_folder), },
-   { "location-buttons-empty-trash", NULL, N_("_Empty Trash"), NULL, N_("Delete all files and folders in the Trash"), G_CALLBACK (thunar_location_buttons_action_empty_trash), },
-   { "location-buttons-paste-into-folder", GTK_STOCK_PASTE, N_("Paste Into Folder"), NULL, NULL, G_CALLBACK (thunar_location_buttons_action_paste_into_folder), },
-@@ -1226,6 +1229,11 @@
-           thunar_gtk_action_set_tooltip (action, _("Open \"%s\" in a new window"), display_name);
-           g_object_set_data_full (G_OBJECT (action), I_("thunar-file"), g_object_ref (G_OBJECT (file)), (GDestroyNotify) g_object_unref);
+@@ -175,6 +177,7 @@
+   { "location-buttons-open", GTK_STOCK_OPEN, N_("_Open"), "", NULL, G_CALLBACK (thunar_location_buttons_action_open), },
+   { "location-buttons-open-in-new-tab", NULL, N_("Open in New Tab"), "", NULL, G_CALLBACK (thunar_location_buttons_action_open_in_new_tab), },
+   { "location-buttons-open-in-new-window", NULL, N_("Open in New Window"), "", NULL, G_CALLBACK (thunar_location_buttons_action_open_in_new_window), },
++  { "location-buttons-open-terminal", NULL, N_("Open Terminal Here"), "", NULL, G_CALLBACK (thunar_location_buttons_action_open_terminal), },
+   { "location-buttons-create-folder", NULL, N_("Create _Folder..."), "", NULL, G_CALLBACK (thunar_location_buttons_action_create_folder), },
+   { "location-buttons-empty-trash", NULL, N_("_Empty Trash"), "", N_("Delete all files and folders in the Trash"), G_CALLBACK (thunar_location_buttons_action_empty_trash), },
+   { "location-buttons-paste-into-folder", GTK_STOCK_PASTE, N_("Paste Into Folder"), "", NULL, G_CALLBACK (thunar_location_buttons_action_paste_into_folder), },
+@@ -1249,6 +1252,11 @@
+           thunar_gtk_action_set_tooltip (action, _("Open \"%s\" in a new tab"), display_name);
+           g_object_set_qdata_full (G_OBJECT (action), thunar_file_quark, g_object_ref (G_OBJECT (file)), (GDestroyNotify) g_object_unref);
  
 +          /* setup the "Open Terminal Here" action */
 +          action = gtk_action_group_get_action (buttons->action_group, "location-buttons-open-terminal");
@@ -30,7 +30,7 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-location-buttons.c abs/t
            /* setup the "Create Folder..." action */
            action = gtk_action_group_get_action (buttons->action_group, "location-buttons-create-folder");
            thunar_gtk_action_set_tooltip (action, _("Create a new folder in \"%s\""), display_name);
-@@ -1390,6 +1398,37 @@
+@@ -1433,6 +1441,37 @@
  }
  
  
@@ -68,11 +68,11 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-location-buttons.c abs/t
  
  static void
  thunar_location_buttons_action_paste_into_folder (GtkAction             *action,
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-location-buttons-ui.xml abs/thunar/src/Thunar-1.6.1/thunar/thunar-location-buttons-ui.xml
---- abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-location-buttons-ui.xml	2012-12-05 19:56:09.622508104 -0800
-+++ abs/thunar/src/Thunar-1.6.1/thunar/thunar-location-buttons-ui.xml	2012-12-05 21:12:40.077532648 -0800
-@@ -16,9 +16,11 @@
-     <menuitem action="location-buttons-open" />
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-location-buttons-ui.xml abs/thunar/src/Thunar-1.6.2/thunar/thunar-location-buttons-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-location-buttons-ui.xml	2012-12-29 11:55:27.581478345 -0800
++++ abs/thunar/src/Thunar-1.6.2/thunar/thunar-location-buttons-ui.xml	2012-12-29 12:06:34.881845146 -0800
+@@ -17,9 +17,11 @@
+     <menuitem action="location-buttons-open-in-new-tab" />
      <menuitem action="location-buttons-open-in-new-window" />
      <separator />
 -    <menuitem action="location-buttons-create-folder" />

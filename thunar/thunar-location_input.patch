@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-location-dialog.c abs/thunar/src/Thunar-1.6.1/thunar/thunar-location-dialog.c
---- abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-location-dialog.c	2012-12-05 19:56:09.619174692 -0800
-+++ abs/thunar/src/Thunar-1.6.1/thunar/thunar-location-dialog.c	2012-12-05 20:16:27.086535501 -0800
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-location-dialog.c abs/thunar/src/Thunar-1.6.2/thunar/thunar-location-dialog.c
+--- abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-location-dialog.c	2012-12-29 11:55:27.578144945 -0800
++++ abs/thunar/src/Thunar-1.6.2/thunar/thunar-location-dialog.c	2012-12-29 11:57:09.656907357 -0800
 @@ -57,11 +57,10 @@
  {
    GtkWidget *open_button;
@@ -30,9 +30,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-location-dialog.c abs/th
    gtk_widget_show (location_dialog->entry);
  
    /* the "Open" button is only sensitive if a valid file is entered */
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-path-entry.c abs/thunar/src/Thunar-1.6.1/thunar/thunar-path-entry.c
---- abs/thunar.ORIG/src/Thunar-1.6.1/thunar/thunar-path-entry.c	2012-12-05 19:56:09.619174692 -0800
-+++ abs/thunar/src/Thunar-1.6.1/thunar/thunar-path-entry.c	2012-12-05 20:16:48.383664627 -0800
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-path-entry.c abs/thunar/src/Thunar-1.6.2/thunar/thunar-path-entry.c
+--- abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-path-entry.c	2012-12-29 11:55:27.578144945 -0800
++++ abs/thunar/src/Thunar-1.6.2/thunar/thunar-path-entry.c	2012-12-29 11:57:09.656907357 -0800
 @@ -707,10 +707,6 @@
  
    /* let the GtkEntry class handle the insert */
