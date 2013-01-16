@@ -1,7 +1,7 @@
-diff -ru abs/systemd.ORIG/src/systemd-196/src/core/job.c abs/systemd/src/systemd-196/src/core/job.c
---- abs/systemd.ORIG/src/systemd-196/src/core/job.c	2012-11-19 13:05:02.657243851 -0800
-+++ abs/systemd/src/systemd-196/src/core/job.c	2012-11-19 13:05:59.331894819 -0800
-@@ -626,20 +626,20 @@
+diff -ru abs/systemd.ORIG/src/systemd-197/src/core/job.c abs/systemd/src/systemd-197/src/core/job.c
+--- abs/systemd.ORIG/src/systemd-197/src/core/job.c	2013-01-16 08:57:41.011223224 -0800
++++ abs/systemd/src/systemd-197/src/core/job.c	2013-01-16 08:57:47.637490039 -0800
+@@ -635,20 +635,20 @@
  
                  case JOB_DONE:
                          if (u->condition_result)
@@ -26,7 +26,7 @@ diff -ru abs/systemd.ORIG/src/systemd-196/src/core/job.c abs/systemd/src/systemd
                          break;
  
                  default:
-@@ -655,12 +655,12 @@
+@@ -664,12 +664,12 @@
                  switch (result) {
  
                  case JOB_TIMEOUT:
@@ -41,7 +41,7 @@ diff -ru abs/systemd.ORIG/src/systemd-196/src/core/job.c abs/systemd/src/systemd
                          break;
  
                  default:
-@@ -673,7 +673,7 @@
+@@ -682,7 +682,7 @@
                   * Most likely a DEPEND warning from a requisiting unit will
                   * occur next and it's nice to see what was requisited. */
                  if (result == JOB_SKIPPED)
@@ -50,7 +50,7 @@ diff -ru abs/systemd.ORIG/src/systemd-196/src/core/job.c abs/systemd/src/systemd
          }
  }
  
-@@ -697,7 +697,7 @@
+@@ -706,7 +706,7 @@
          if (!format)
                  return;
  
@@ -59,9 +59,10 @@ diff -ru abs/systemd.ORIG/src/systemd-196/src/core/job.c abs/systemd/src/systemd
          char_array_0(buf);
  
          if (t == JOB_START) {
-diff -ru abs/systemd.ORIG/src/systemd-196/src/core/unit.c abs/systemd/src/systemd-196/src/core/unit.c
---- abs/systemd.ORIG/src/systemd-196/src/core/unit.c	2012-11-19 13:05:02.657243851 -0800
-+++ abs/systemd/src/systemd-196/src/core/unit.c	2012-11-19 13:05:47.201605575 -0800
+Only in abs/systemd/src/systemd-197/src/core: job.c.orig
+diff -ru abs/systemd.ORIG/src/systemd-197/src/core/unit.c abs/systemd/src/systemd-197/src/core/unit.c
+--- abs/systemd.ORIG/src/systemd-197/src/core/unit.c	2013-01-16 08:57:41.011223224 -0800
++++ abs/systemd/src/systemd-197/src/core/unit.c	2013-01-16 08:57:47.637490039 -0800
 @@ -991,7 +991,7 @@
          if (!format)
                  return;
