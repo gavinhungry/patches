@@ -1,7 +1,7 @@
-diff -ru abs/parcellite.ORIG/src/parcellite-1.0.2rc5/src/main.c abs/parcellite/src/parcellite-1.0.2rc5/src/main.c
---- abs/parcellite.ORIG/src/parcellite-1.0.2rc5/src/main.c	2012-10-22 16:47:55.995256914 -0700
-+++ abs/parcellite/src/parcellite-1.0.2rc5/src/main.c	2012-10-22 16:51:50.732025891 -0700
-@@ -572,7 +572,7 @@
+diff -ru abs/parcellite.ORIG/src/parcellite-1.1.3/src/main.c abs/parcellite/src/parcellite-1.1.3/src/main.c
+--- abs/parcellite.ORIG/src/parcellite-1.1.3/src/main.c	2013-01-18 21:25:27.206399523 -0800
++++ abs/parcellite/src/parcellite-1.1.3/src/main.c	2013-01-18 21:25:29.299787768 -0800
+@@ -881,7 +881,7 @@
      if (!size)
      {
        /* File contained no actions so adding empty */
@@ -10,7 +10,7 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.0.2rc5/src/main.c abs/parcellite/s
        gtk_widget_set_sensitive(menu_item, FALSE);
        gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
      }
-@@ -605,7 +605,7 @@
+@@ -915,7 +915,7 @@
    else
    {
      /* File did not open so adding empty */
@@ -19,7 +19,7 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.0.2rc5/src/main.c abs/parcellite/s
      gtk_widget_set_sensitive(menu_item, FALSE);
      gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
    }
-@@ -1287,7 +1287,7 @@
+@@ -1544,7 +1544,7 @@
    else
    {
      /* Nothing in history so adding empty */
@@ -28,7 +28,7 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.0.2rc5/src/main.c abs/parcellite/s
      gtk_widget_set_sensitive(menu_item, FALSE);
      gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
    }
-@@ -1301,11 +1301,7 @@
+@@ -1577,11 +1577,7 @@
      gtk_image_menu_item_set_image((GtkImageMenuItem*)h.title_item, menu_image);
      gtk_menu_shell_append((GtkMenuShell*)menu, h.title_item);    
    }else{
@@ -40,33 +40,73 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.0.2rc5/src/main.c abs/parcellite/s
  		menu_item = gtk_image_menu_item_new_with_mnemonic(_("_Clear"));
  		/* Clear */
  	  menu_image = gtk_image_new_from_stock(GTK_STOCK_CLEAR, GTK_ICON_SIZE_MENU);
-@@ -1315,9 +1311,8 @@
-   }
+@@ -1593,9 +1589,7 @@
+ 	g_list_free(persistent);
    /* Popup the menu... */
    gtk_widget_show_all(menu);
--  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, prefs.history_pos?postition_history:NULL, NULL, 1, gtk_get_current_event_time());
-+  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, gtk_status_icon_position_menu, data, 1, gtk_get_current_event_time());
- 	/**set last entry at first -fixes bug 2974614 */
+-  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, get_pref_int32("history_pos")?postition_history:NULL, NULL, 1, gtk_get_current_event_time());
+-	/**set last entry at first -fixes bug 2974614 */
 -	gtk_menu_shell_select_first((GtkMenuShell*)menu, TRUE);
- #if 0
- 	if(0)
- 	{
-@@ -1363,7 +1358,7 @@
++  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, gtk_status_icon_position_menu, status_icon, 1, gtk_get_current_event_time());
+   /* Return FALSE so the g_timeout_add() function is called only once */
+   return FALSE;
+ }
+@@ -1635,7 +1629,7 @@
    gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
    /* Popup the menu... */
    gtk_widget_show_all(menu);
--  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, NULL, user_data, button, activate_time);
+-  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, NULL, NULL, button, activate_time);	
 +  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, gtk_status_icon_position_menu, status_icon, button, activate_time);
+ 	return menu;
  }
  
- /* Called when status icon is left-clicked */
-@@ -1435,7 +1430,7 @@
+@@ -1704,13 +1698,13 @@
    {
- 	  status_icon = gtk_status_icon_new_from_icon_name(PARCELLITE_ICON); 
-     gtk_status_icon_set_tooltip((GtkStatusIcon*)status_icon, _("Clipboard Manager"));
--    g_signal_connect((GObject*)status_icon, "activate", (GCallback)status_icon_clicked, NULL);
-+    g_signal_connect((GObject*)status_icon, "activate", (GCallback)show_history_menu, NULL);
-     g_signal_connect((GObject*)status_icon, "popup-menu", (GCallback)show_parcellite_menu, NULL);
+     if (actions_lock == FALSE)
+     {
+-      g_timeout_add(POPUP_DELAY, show_actions_menu, NULL);
++      show_actions_menu(NULL);
+     }
+   }
+   /* Normal click */
+   else
+   {
+-    g_timeout_add(POPUP_DELAY, show_history_menu, GINT_TO_POINTER(figure_histories()));
++    show_history_menu(GINT_TO_POINTER(figure_histories()));
    }
  }
-Only in abs/parcellite/src/parcellite-1.0.2rc5/src: main.c.orig
+ #endif
+@@ -1718,19 +1712,19 @@
+ /* Called when history global hotkey is pressed */
+ void history_hotkey(char *keystring, gpointer user_data)
+ {
+-  g_timeout_add(POPUP_DELAY, show_history_menu, GINT_TO_POINTER(figure_histories()));
++	show_history_menu(GINT_TO_POINTER(figure_histories()));
+ }
+ /* Called when persistent history global hotkey is pressed */
+ void phistory_hotkey(char *keystring, gpointer user_data)
+ {
+ 	if(get_pref_int32("persistent_history") && get_pref_int32("persistent_separate"))
+-    g_timeout_add(POPUP_DELAY, show_history_menu, GINT_TO_POINTER(HIST_DISPLAY_PERSISTENT));
++    show_history_menu(GINT_TO_POINTER(HIST_DISPLAY_PERSISTENT));
+ }
+ 
+ /* Called when actions global hotkey is pressed */
+ void actions_hotkey(char *keystring, gpointer user_data)
+ {
+-  g_timeout_add(POPUP_DELAY, show_actions_menu, NULL);
++  show_actions_menu(NULL);
+ }
+ 
+ /* Called when actions global hotkey is pressed */
+diff -ru abs/parcellite.ORIG/src/parcellite-1.1.3/src/main.h abs/parcellite/src/parcellite-1.1.3/src/main.h
+--- abs/parcellite.ORIG/src/parcellite-1.1.3/src/main.h	2013-01-18 21:25:27.206399523 -0800
++++ abs/parcellite/src/parcellite-1.1.3/src/main.h	2013-01-18 21:25:29.299787768 -0800
+@@ -24,7 +24,6 @@
+ extern GMutex *hist_lock;
+ 
+ #define ACTIONS_TAB    2
+-#define POPUP_DELAY    100
+ #define CHECK_INTERVAL 500
+ #define ID_PRIMARY   0
+ #define ID_CLIPBOARD 1
