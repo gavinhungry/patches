@@ -1,0 +1,36 @@
+diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.6.5/src/roxterm.c aur/roxterm-gtk2/src/roxterm-2.6.5/src/roxterm.c
+--- aur/roxterm-gtk2.ORIG/src/roxterm-2.6.5/src/roxterm.c	2013-02-19 14:33:36.607743180 -0800
++++ aur/roxterm-gtk2/src/roxterm-2.6.5/src/roxterm.c	2013-02-19 14:34:34.081903204 -0800
+@@ -1078,6 +1078,24 @@
+     set_show_uri_menu_items(multi_win_get_short_popup_menu(win), show_type);
+ }
+ 
++static void roxterm_update_toplevel_background(ROXTermData * roxterm,
++    const GdkColor *background)
++{
++    GtkWindow *w = roxterm_get_toplevel(roxterm);
++
++    if (w && background)
++    {
++#if GTK_CHECK_VERSION(3, 0, 0)
++	GdkRGBA rgba;
++	gdk_rgba_parse(&rgba, gdk_color_to_string(background));
++	gtk_widget_override_background_color(GTK_WIDGET(w),
++	    GTK_STATE_FLAG_NORMAL, &rgba);
++#else
++	gtk_widget_modify_bg(GTK_WIDGET(w), GTK_STATE_NORMAL, background);
++#endif
++    }
++}
++
+ static void roxterm_update_background(ROXTermData * roxterm, VteTerminal * vte)
+ {
+     char *background_file;
+@@ -1188,6 +1206,7 @@
+     if (ncolours)
+         palette = colour_scheme_get_palette(roxterm->colour_scheme);
+     vte_terminal_set_colors(vte, foreground, background, palette, ncolours);
++    roxterm_update_toplevel_background(roxterm, background);
+     if (!ncolours && foreground && background)
+     {
+         vte_terminal_set_color_bold(vte,
