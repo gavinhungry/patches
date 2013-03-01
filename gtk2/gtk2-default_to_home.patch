@@ -1,7 +1,7 @@
-diff -ru abs/gtk2.ORIG/src/gtk+-2.24.15/gtk/gtkfilechooserdefault.c abs/gtk2/src/gtk+-2.24.15/gtk/gtkfilechooserdefault.c
---- abs/gtk2.ORIG/src/gtk+-2.24.15/gtk/gtkfilechooserdefault.c	2013-02-10 12:10:50.541973036 -0800
-+++ abs/gtk2/src/gtk+-2.24.15/gtk/gtkfilechooserdefault.c	2013-02-10 12:11:04.146078308 -0800
-@@ -6024,7 +6024,7 @@
+diff -ru abs/gtk2.ORIG/src/gtk+-2.24.16/gtk/gtkfilechooserdefault.c abs/gtk2/src/gtk+-2.24.16/gtk/gtkfilechooserdefault.c
+--- abs/gtk2.ORIG/src/gtk+-2.24.16/gtk/gtkfilechooserdefault.c	2013-02-28 16:40:25.256962374 -0800
++++ abs/gtk2/src/gtk+-2.24.16/gtk/gtkfilechooserdefault.c	2013-02-28 16:40:31.503778425 -0800
+@@ -6004,7 +6004,7 @@
    switch (impl->startup_mode)
      {
      case STARTUP_MODE_RECENT:
@@ -10,4 +10,3 @@ diff -ru abs/gtk2.ORIG/src/gtk+-2.24.15/gtk/gtkfilechooserdefault.c abs/gtk2/src
        break;
  
      case STARTUP_MODE_CWD:
-Only in abs/gtk2/src/gtk+-2.24.15/gtk: gtkfilechooserdefault.c.orig
