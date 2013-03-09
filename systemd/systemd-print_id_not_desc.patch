@@ -1,83 +1,24 @@
-diff -ru abs/systemd.ORIG/src/systemd-197/src/core/job.c abs/systemd/src/systemd-197/src/core/job.c
---- abs/systemd.ORIG/src/systemd-197/src/core/job.c	2013-01-16 08:57:41.011223224 -0800
-+++ abs/systemd/src/systemd-197/src/core/job.c	2013-01-16 08:57:47.637490039 -0800
-@@ -635,20 +635,20 @@
- 
-                 case JOB_DONE:
-                         if (u->condition_result)
--                                unit_status_printf(u, ANSI_HIGHLIGHT_GREEN_ON "  OK  " ANSI_HIGHLIGHT_OFF, format, unit_description(u));
-+                                unit_status_printf(u, ANSI_HIGHLIGHT_GREEN_ON "  OK  " ANSI_HIGHLIGHT_OFF, format, u->id);
-                         break;
- 
-                 case JOB_FAILED:
--                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON "FAILED" ANSI_HIGHLIGHT_OFF, format, unit_description(u));
-+                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON "FAILED" ANSI_HIGHLIGHT_OFF, format, u->id);
-                         unit_status_printf(u, NULL, "See 'systemctl status %s' for details.", u->id);
-                         break;
- 
-                 case JOB_DEPENDENCY:
--                        unit_status_printf(u, ANSI_HIGHLIGHT_YELLOW_ON "DEPEND" ANSI_HIGHLIGHT_OFF, format, unit_description(u));
-+                        unit_status_printf(u, ANSI_HIGHLIGHT_YELLOW_ON "DEPEND" ANSI_HIGHLIGHT_OFF, format, u->id);
-                         break;
- 
-                 case JOB_TIMEOUT:
--                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON " TIME " ANSI_HIGHLIGHT_OFF, format, unit_description(u));
-+                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON " TIME " ANSI_HIGHLIGHT_OFF, format, u->id);
-                         break;
- 
-                 default:
-@@ -664,12 +664,12 @@
-                 switch (result) {
- 
-                 case JOB_TIMEOUT:
--                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON " TIME " ANSI_HIGHLIGHT_OFF, format, unit_description(u));
-+                        unit_status_printf(u, ANSI_HIGHLIGHT_RED_ON " TIME " ANSI_HIGHLIGHT_OFF, format, u->id);
-                         break;
- 
-                 case JOB_DONE:
-                 case JOB_FAILED:
--                        unit_status_printf(u, ANSI_HIGHLIGHT_GREEN_ON "  OK  " ANSI_HIGHLIGHT_OFF, format, unit_description(u));
-+                        unit_status_printf(u, ANSI_HIGHLIGHT_GREEN_ON "  OK  " ANSI_HIGHLIGHT_OFF, format, u->id);
-                         break;
- 
-                 default:
-@@ -682,7 +682,7 @@
-                  * Most likely a DEPEND warning from a requisiting unit will
-                  * occur next and it's nice to see what was requisited. */
-                 if (result == JOB_SKIPPED)
--                        unit_status_printf(u, ANSI_HIGHLIGHT_ON " INFO " ANSI_HIGHLIGHT_OFF, "%s is not active.", unit_description(u));
-+                        unit_status_printf(u, ANSI_HIGHLIGHT_ON " INFO " ANSI_HIGHLIGHT_OFF, "%s is not active.", u->id);
-         }
- }
- 
-@@ -706,7 +706,7 @@
+diff -ru abs/systemd.ORIG/src/systemd-198/src/core/job.c abs/systemd/src/systemd-198/src/core/job.c
+--- abs/systemd.ORIG/src/systemd-198/src/core/job.c	2013-03-08 09:59:09.652481370 -0800
++++ abs/systemd/src/systemd-198/src/core/job.c	2013-03-08 21:27:22.228243610 -0800
+@@ -715,7 +715,7 @@
          if (!format)
                  return;
  
 -        snprintf(buf, sizeof(buf), format, unit_description(u));
-+        snprintf(buf, sizeof(buf), format, u->id);
++        snprintf(buf, sizeof(buf), format, strna(u->id));
          char_array_0(buf);
  
          if (t == JOB_START) {
-Only in abs/systemd/src/systemd-197/src/core: job.c.orig
-diff -ru abs/systemd.ORIG/src/systemd-197/src/core/unit.c abs/systemd/src/systemd-197/src/core/unit.c
---- abs/systemd.ORIG/src/systemd-197/src/core/unit.c	2013-01-16 08:57:41.011223224 -0800
-+++ abs/systemd/src/systemd-197/src/core/unit.c	2013-01-16 08:57:47.637490039 -0800
-@@ -991,7 +991,7 @@
-         if (!format)
-                 return;
- 
--        unit_status_printf(u, "", format, unit_description(u));
-+        unit_status_printf(u, "", format, u->id);
+diff -ru abs/systemd.ORIG/src/systemd-198/src/core/unit.c abs/systemd/src/systemd-198/src/core/unit.c
+--- abs/systemd.ORIG/src/systemd-198/src/core/unit.c	2013-03-08 09:59:09.652481370 -0800
++++ abs/systemd/src/systemd-198/src/core/unit.c	2013-03-08 21:27:43.055399271 -0800
+@@ -2553,7 +2553,7 @@
  }
  
- #pragma GCC diagnostic push
-@@ -1015,7 +1015,7 @@
-         if (!format)
-                 return;
+ void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
+-        manager_status_printf(u->manager, false, status, unit_status_msg_format, unit_description(u));
++        manager_status_printf(u->manager, false, status, unit_status_msg_format, strna(u->id));
+ }
  
--        snprintf(buf, sizeof(buf), format, unit_description(u));
-+        snprintf(buf, sizeof(buf), format, u->id);
-         char_array_0(buf);
- 
-         mid = t == JOB_START ? SD_MESSAGE_UNIT_STARTING :
+ bool unit_need_daemon_reload(Unit *u) {
