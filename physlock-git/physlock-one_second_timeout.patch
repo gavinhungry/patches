@@ -1,5 +1,6 @@
---- aur/physlock-git/src/physlock/config.h.ORIG	2012-11-08 02:12:37.941803997 -0800
-+++ aur/physlock-git/src/physlock/config.h	2012-11-08 02:12:47.798724684 -0800
+diff -ru aur/physlock-git.ORIG/src/physlock-git/config.h aur/physlock-git/src/physlock-git/config.h
+--- aur/physlock-git.ORIG/src/physlock-git/config.h	2013-04-05 00:07:29.790142637 -0700
++++ aur/physlock-git/src/physlock-git/config.h	2013-04-05 00:07:40.727154071 -0700
 @@ -9,5 +9,5 @@
  static const char * const SYSRQ_PATH = "/proc/sys/kernel/sysrq";
  
