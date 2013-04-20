@@ -1,0 +1,51 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-launcher.c abs/thunar/src/Thunar-1.6.2/thunar/thunar-launcher.c
+--- abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-launcher.c	2013-04-20 00:18:52.555769586 -0700
++++ abs/thunar/src/Thunar-1.6.2/thunar/thunar-launcher.c	2013-04-20 00:19:15.939294914 -0700
+@@ -177,9 +177,9 @@
+   { "open", GTK_STOCK_OPEN, N_ ("_Open"), "<control>O", NULL, G_CALLBACK (thunar_launcher_action_open), },
+   { "open-in-new-tab", NULL, N_ ("Open in New _Tab"), "<control><shift>P", NULL, G_CALLBACK (thunar_launcher_action_open_in_new_tab), },
+   { "open-in-new-window", NULL, N_ ("Open in New _Window"), "<control><shift>O", NULL, G_CALLBACK (thunar_launcher_action_open_in_new_window), },
+-  { "open-with-other", NULL, N_ ("Open With Other _Application..."), NULL, N_ ("Choose another application with which to open the selected file"), G_CALLBACK (thunar_launcher_action_open_with_other), },
++  { "open-with-other", NULL, N_ ("Open with Other _Application..."), NULL, N_ ("Choose another application with which to open the selected file"), G_CALLBACK (thunar_launcher_action_open_with_other), },
+   { "open-with-menu", NULL, N_ ("Open With"), NULL, NULL, NULL, },
+-  { "open-with-other-in-menu", NULL, N_ ("Open With Other _Application..."), NULL, N_ ("Choose another application with which to open the selected file"), G_CALLBACK (thunar_launcher_action_open_with_other), },
++  { "open-with-other-in-menu", NULL, N_ ("Open with Other _Application..."), NULL, N_ ("Choose another application with which to open the selected file"), G_CALLBACK (thunar_launcher_action_open_with_other), },
+   { "sendto-desktop", THUNAR_STOCK_DESKTOP, "", NULL, NULL, G_CALLBACK (thunar_launcher_action_sendto_desktop), },
+ };
+ 
+@@ -934,7 +934,7 @@
+       else if (G_LIKELY (applications != NULL))
+         {
+           /* turn the "Open" action into "Open With DEFAULT" */
+-          label = g_strdup_printf (_("_Open With \"%s\""), g_app_info_get_name (applications->data));
++          label = g_strdup_printf (_("_Open with %s"), g_app_info_get_name (applications->data));
+           tooltip = g_strdup_printf (ngettext ("Use \"%s\" to open the selected file",
+                                                "Use \"%s\" to open the selected files",
+                                                n_selected_files), g_app_info_get_name (applications->data));
+@@ -958,7 +958,7 @@
+         {
+           /* turn the "Open" action into "Open With Other Application" */
+           g_object_set (G_OBJECT (launcher->action_open),
+-                        "label", _("_Open With Other Application..."),
++                        "label", _("_Open with Other Application..."),
+                         "tooltip", _("Choose another application with which to open the selected file"),
+                         NULL);
+           default_is_open_with_other = TRUE;
+@@ -967,7 +967,7 @@
+         {
+           /* we can only show a generic "Open" action */
+           g_object_set (G_OBJECT (launcher->action_open),
+-                        "label", _("_Open With Default Applications"),
++                        "label", _("_Open with Default Applications"),
+                         "tooltip", ngettext ("Open the selected file with the default application",
+                                              "Open the selected files with the default applications", n_selected_files),
+                         NULL);
+@@ -1020,7 +1020,7 @@
+ 
+               /* generate a unique label, unique id and tooltip for the application's action */
+               name = g_strdup_printf ("thunar-launcher-addon-application%d-%p", n, launcher);
+-              label = g_strdup_printf (_("Open With \"%s\""), g_app_info_get_name (lp->data));
++              label = g_strdup_printf (_("Open with %s"), g_app_info_get_name (lp->data));
+               tooltip = g_strdup_printf (ngettext ("Use \"%s\" to open the selected file",
+                                                    "Use \"%s\" to open the selected files",
+                                                    n_selected_files), g_app_info_get_name (lp->data));
