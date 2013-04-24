@@ -1,6 +1,6 @@
-diff -ru abs/systemd.ORIG/src/systemd-201/src/core/job.c abs/systemd/src/systemd-201/src/core/job.c
---- abs/systemd.ORIG/src/systemd-201/src/core/job.c	2013-04-11 20:31:25.035588671 -0700
-+++ abs/systemd/src/systemd-201/src/core/job.c	2013-04-11 20:32:04.463424184 -0700
+diff -ru abs/systemd.ORIG/src/systemd-202/src/core/job.c abs/systemd/src/systemd-202/src/core/job.c
+--- abs/systemd.ORIG/src/systemd-202/src/core/job.c	2013-04-23 21:32:19.380176262 -0700
++++ abs/systemd/src/systemd-202/src/core/job.c	2013-04-23 21:32:56.787097386 -0700
 @@ -715,7 +715,7 @@
          if (!format)
                  return;
@@ -10,10 +10,10 @@ diff -ru abs/systemd.ORIG/src/systemd-201/src/core/job.c abs/systemd/src/systemd
          char_array_0(buf);
  
          if (t == JOB_START) {
-diff -ru abs/systemd.ORIG/src/systemd-201/src/core/unit.c abs/systemd/src/systemd-201/src/core/unit.c
---- abs/systemd.ORIG/src/systemd-201/src/core/unit.c	2013-04-11 20:31:25.035588671 -0700
-+++ abs/systemd/src/systemd-201/src/core/unit.c	2013-04-11 20:32:04.463424184 -0700
-@@ -2549,7 +2549,7 @@
+diff -ru abs/systemd.ORIG/src/systemd-202/src/core/unit.c abs/systemd/src/systemd-202/src/core/unit.c
+--- abs/systemd.ORIG/src/systemd-202/src/core/unit.c	2013-04-23 21:32:19.380176262 -0700
++++ abs/systemd/src/systemd-202/src/core/unit.c	2013-04-23 21:32:56.787097386 -0700
+@@ -2552,7 +2552,7 @@
  }
  
  void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
