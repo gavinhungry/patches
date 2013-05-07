@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-emblem-chooser.c abs/thunar/src/Thunar-1.6.2/thunar/thunar-emblem-chooser.c
---- abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-emblem-chooser.c	2012-12-29 11:55:27.584811746 -0800
-+++ abs/thunar/src/Thunar-1.6.2/thunar/thunar-emblem-chooser.c	2012-12-29 11:56:03.638885296 -0800
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.3/thunar/thunar-emblem-chooser.c abs/thunar/src/Thunar-1.6.3/thunar/thunar-emblem-chooser.c
+--- abs/thunar.ORIG/src/Thunar-1.6.3/thunar/thunar-emblem-chooser.c	2013-05-07 00:23:01.661765040 -0700
++++ abs/thunar/src/Thunar-1.6.3/thunar/thunar-emblem-chooser.c	2013-05-07 00:29:49.280229102 -0700
 @@ -437,7 +437,7 @@
    GdkPixbuf   *icon;
  
@@ -10,9 +10,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-emblem-chooser.c abs/thu
    if (G_UNLIKELY (info == NULL))
      return NULL;
  
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-icon-renderer.c abs/thunar/src/Thunar-1.6.2/thunar/thunar-icon-renderer.c
---- abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-icon-renderer.c	2012-12-29 11:55:27.581478345 -0800
-+++ abs/thunar/src/Thunar-1.6.2/thunar/thunar-icon-renderer.c	2012-12-29 11:56:03.638885296 -0800
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.3/thunar/thunar-icon-renderer.c abs/thunar/src/Thunar-1.6.3/thunar/thunar-icon-renderer.c
+--- abs/thunar.ORIG/src/Thunar-1.6.3/thunar/thunar-icon-renderer.c	2013-05-07 00:23:01.661765040 -0700
++++ abs/thunar/src/Thunar-1.6.3/thunar/thunar-icon-renderer.c	2013-05-07 00:29:49.280229102 -0700
 @@ -503,7 +503,7 @@
            for (lp = emblems, position = 0; lp != NULL && position < max_emblems; lp = lp->next)
              {
@@ -42,4 +42,3 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-icon-renderer.c abs/thun
                /* determine a good position for the emblem, depending on the position index */
                switch (position)
                  {
-Only in abs/thunar/src/Thunar-1.6.2/thunar: thunar-icon-renderer.c.orig
