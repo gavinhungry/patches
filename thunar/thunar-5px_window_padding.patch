@@ -1,7 +1,7 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-window.c abs/thunar/src/Thunar-1.6.2/thunar/thunar-window.c
---- abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-window.c	2012-12-29 11:55:27.581478345 -0800
-+++ abs/thunar/src/Thunar-1.6.2/thunar/thunar-window.c	2012-12-29 11:56:25.379331642 -0800
-@@ -840,7 +840,7 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.3/thunar/thunar-window.c abs/thunar/src/Thunar-1.6.3/thunar/thunar-window.c
+--- abs/thunar.ORIG/src/Thunar-1.6.3/thunar/thunar-window.c	2013-05-07 00:23:01.658432393 -0700
++++ abs/thunar/src/Thunar-1.6.3/thunar/thunar-window.c	2013-05-07 00:29:49.360225642 -0700
+@@ -847,7 +847,7 @@
      }
  
    window->paned = gtk_hpaned_new ();
@@ -10,4 +10,3 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.2/thunar/thunar-window.c abs/thunar/src/
    gtk_table_attach (GTK_TABLE (window->table), window->paned, 0, 1, 4, 5, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
    gtk_widget_show (window->paned);
  
-Only in abs/thunar/src/Thunar-1.6.2/thunar: thunar-window.c.orig
