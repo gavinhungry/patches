@@ -1,6 +1,6 @@
-diff -ru abs/systemd.ORIG/src/systemd-202/src/core/job.c abs/systemd/src/systemd-202/src/core/job.c
---- abs/systemd.ORIG/src/systemd-202/src/core/job.c	2013-04-23 21:32:19.380176262 -0700
-+++ abs/systemd/src/systemd-202/src/core/job.c	2013-04-23 21:32:56.787097386 -0700
+diff -ru abs/systemd.ORIG/src/systemd-203/src/core/job.c abs/systemd/src/systemd-203/src/core/job.c
+--- abs/systemd.ORIG/src/systemd-203/src/core/job.c	2013-05-09 17:38:01.683227872 -0700
++++ abs/systemd/src/systemd-203/src/core/job.c	2013-05-09 17:38:05.803256770 -0700
 @@ -715,7 +715,7 @@
          if (!format)
                  return;
@@ -10,15 +10,15 @@ diff -ru abs/systemd.ORIG/src/systemd-202/src/core/job.c abs/systemd/src/systemd
          char_array_0(buf);
  
          if (t == JOB_START) {
-diff -ru abs/systemd.ORIG/src/systemd-202/src/core/unit.c abs/systemd/src/systemd-202/src/core/unit.c
---- abs/systemd.ORIG/src/systemd-202/src/core/unit.c	2013-04-23 21:32:19.380176262 -0700
-+++ abs/systemd/src/systemd-202/src/core/unit.c	2013-04-23 21:32:56.787097386 -0700
-@@ -2552,7 +2552,7 @@
- }
- 
+diff -ru abs/systemd.ORIG/src/systemd-203/src/core/unit.c abs/systemd/src/systemd-203/src/core/unit.c
+--- abs/systemd.ORIG/src/systemd-203/src/core/unit.c	2013-05-09 17:38:01.683227872 -0700
++++ abs/systemd/src/systemd-203/src/core/unit.c	2013-05-09 17:38:05.806590126 -0700
+@@ -2584,7 +2584,7 @@
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wformat-nonliteral"
  void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
 -        manager_status_printf(u->manager, false, status, unit_status_msg_format, unit_description(u));
 +        manager_status_printf(u->manager, false, status, unit_status_msg_format, strna(u->id));
  }
+ #pragma GCC diagnostic pop
  
- bool unit_need_daemon_reload(Unit *u) {
