@@ -1,7 +1,7 @@
-diff -ru abs/pacman.ORIG/src/pacman-4.1.0/src/pacman/util.c abs/pacman/src/pacman-4.1.0/src/pacman/util.c
---- abs/pacman.ORIG/src/pacman-4.1.0/src/pacman/util.c	2013-04-04 22:02:36.257818334 -0700
-+++ abs/pacman/src/pacman-4.1.0/src/pacman/util.c	2013-04-04 22:23:34.536052303 -0700
-@@ -1673,6 +1673,7 @@
+diff -ru abs/pacman.ORIG/src/pacman-4.1.1/src/pacman/util.c abs/pacman/src/pacman-4.1.1/src/pacman/util.c
+--- abs/pacman.ORIG/src/pacman-4.1.1/src/pacman/util.c	2013-05-09 17:36:34.035946447 -0700
++++ abs/pacman/src/pacman-4.1.1/src/pacman/util.c	2013-05-09 17:36:35.449289695 -0700
+@@ -1674,6 +1674,7 @@
  					config->colstr.nocolor);
  			break;
  		case ALPM_LOG_WARNING:
