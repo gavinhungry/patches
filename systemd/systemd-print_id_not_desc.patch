@@ -1,6 +1,6 @@
-diff -ru abs/systemd.ORIG/src/systemd-203/src/core/job.c abs/systemd/src/systemd-203/src/core/job.c
---- abs/systemd.ORIG/src/systemd-203/src/core/job.c	2013-05-09 17:38:01.683227872 -0700
-+++ abs/systemd/src/systemd-203/src/core/job.c	2013-05-09 17:38:05.803256770 -0700
+diff -ru abs/systemd.ORIG/src/systemd-204/src/core/job.c abs/systemd/src/systemd-204/src/core/job.c
+--- abs/systemd.ORIG/src/systemd-204/src/core/job.c	2013-05-12 23:38:51.541527562 -0700
++++ abs/systemd/src/systemd-204/src/core/job.c	2013-05-12 23:38:53.588241153 -0700
 @@ -715,7 +715,7 @@
          if (!format)
                  return;
@@ -10,9 +10,9 @@ diff -ru abs/systemd.ORIG/src/systemd-203/src/core/job.c abs/systemd/src/systemd
          char_array_0(buf);
  
          if (t == JOB_START) {
-diff -ru abs/systemd.ORIG/src/systemd-203/src/core/unit.c abs/systemd/src/systemd-203/src/core/unit.c
---- abs/systemd.ORIG/src/systemd-203/src/core/unit.c	2013-05-09 17:38:01.683227872 -0700
-+++ abs/systemd/src/systemd-203/src/core/unit.c	2013-05-09 17:38:05.806590126 -0700
+diff -ru abs/systemd.ORIG/src/systemd-204/src/core/unit.c abs/systemd/src/systemd-204/src/core/unit.c
+--- abs/systemd.ORIG/src/systemd-204/src/core/unit.c	2013-05-12 23:38:51.541527562 -0700
++++ abs/systemd/src/systemd-204/src/core/unit.c	2013-05-12 23:38:53.588241153 -0700
 @@ -2584,7 +2584,7 @@
  #pragma GCC diagnostic push
  #pragma GCC diagnostic ignored "-Wformat-nonliteral"
