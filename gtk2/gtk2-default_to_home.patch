@@ -1,6 +1,6 @@
-diff -ru abs/gtk2.ORIG/src/gtk+-2.24.17/gtk/gtkfilechooserdefault.c abs/gtk2/src/gtk+-2.24.17/gtk/gtkfilechooserdefault.c
---- abs/gtk2.ORIG/src/gtk+-2.24.17/gtk/gtkfilechooserdefault.c	2013-03-18 10:44:08.441357310 -0700
-+++ abs/gtk2/src/gtk+-2.24.17/gtk/gtkfilechooserdefault.c	2013-03-18 10:44:12.708138881 -0700
+diff -ru abs/gtk2.ORIG/src/gtk+-2.24.18/gtk/gtkfilechooserdefault.c abs/gtk2/src/gtk+-2.24.18/gtk/gtkfilechooserdefault.c
+--- abs/gtk2.ORIG/src/gtk+-2.24.18/gtk/gtkfilechooserdefault.c	2013-05-16 09:58:27.777862174 -0700
++++ abs/gtk2/src/gtk+-2.24.18/gtk/gtkfilechooserdefault.c	2013-05-16 10:00:55.023665769 -0700
 @@ -6004,7 +6004,7 @@
    switch (impl->startup_mode)
      {
