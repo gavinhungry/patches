@@ -1,6 +1,6 @@
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-box.c abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/systray/systray-box.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-box.c	2013-05-07 00:36:03.466822514 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/systray/systray-box.c	2013-05-07 00:38:25.799766331 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-box.c	2013-05-28 19:21:56.709767985 -0700
++++ abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/systray/systray-box.c	2013-05-28 19:22:17.069994443 -0700
 @@ -36,7 +36,7 @@
  #include "systray-box.h"
  #include "systray-socket.h"
@@ -22,8 +22,8 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-box
  #if GLIB_CHECK_VERSION (2, 16, 0)
    return g_strcmp0 (name_a, name_b);
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-socket.c abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/systray/systray-socket.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-socket.c	2013-05-07 00:36:03.466822514 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/systray/systray-socket.c	2013-05-07 00:38:25.799766331 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-socket.c	2013-05-28 19:21:56.709767985 -0700
++++ abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/systray/systray-socket.c	2013-05-28 19:25:07.111844899 -0700
 @@ -56,6 +56,7 @@
    GdkNativeWindow window;
  
@@ -48,7 +48,7 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-soc
  
    G_OBJECT_CLASS (systray_socket_parent_class)->finalize (object);
  }
-@@ -401,6 +404,28 @@
+@@ -401,6 +404,30 @@
  }
  
  
@@ -62,12 +62,14 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-soc
 +  socket->sort = g_strdup(socket->name);
 +
 +#if GLIB_CHECK_VERSION (2, 16, 0)
-+  if (!g_strcmp0(socket->sort, "dropbox")) g_strlcpy(socket->sort, "zzzzz00", 8);
-+  else if (!g_strcmp0(socket->sort, "parcellite")) g_strlcpy(socket->sort, "zzzzz10", 8);
-+  else if (!g_strcmp0(socket->sort, "blueman-applet")) g_strlcpy(socket->sort, "zzzzz20", 8);
-+  else if (!g_strcmp0(socket->sort, "networkmanager applet")) g_strlcpy(socket->sort, "zzzzz30", 8);
-+  else if (!g_strcmp0(socket->sort, "xfce4-power-manager")) g_strlcpy(socket->sort, "zzzzz40", 8);
-+  else if (!g_strcmp0(socket->sort, "volatile.py")) g_strlcpy(socket->sort, "zzzzz50", 8);
++  if (!g_strcmp0(socket->sort, "xchat")) { g_strlcpy(socket->sort, "zzzzz00", 8); }
++  else if (!g_strcmp0(socket->sort, "pidgin")) { g_strlcpy(socket->sort, "zzzzz10", 8); }
++  else if (!g_strcmp0(socket->sort, "main")) { g_strlcpy(socket->sort, "zzzzz20", 8); } // dropbox
++  else if (!g_strcmp0(socket->sort, "parcellite")) { g_strlcpy(socket->sort, "zzzzz30", 8); }
++  else if (!g_strcmp0(socket->sort, "blueman-applet")) { g_strlcpy(socket->sort, "zzzzz40", 8); }
++  else if (!g_strcmp0(socket->sort, "networkmanager applet")) { g_strlcpy(socket->sort, "zzzzz50", 8); }
++  else if (!g_strcmp0(socket->sort, "xfce4-power-manager")) { g_strlcpy(socket->sort, "zzzzz60", 8); }
++  else if (!g_strcmp0(socket->sort, "volatile.py")) { g_strlcpy(socket->sort, "zzzzz70", 8); }
 +#endif
 +
 +  return socket->sort;
