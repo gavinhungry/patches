@@ -1,7 +1,7 @@
-diff -ru abs/libvdpau.ORIG/src/libvdpau-0.4.1/src/vdpau_wrapper.c abs/libvdpau/src/libvdpau-0.4.1/src/vdpau_wrapper.c
---- abs/libvdpau.ORIG/src/libvdpau-0.4.1/src/vdpau_wrapper.c	2012-05-12 01:47:51.267860776 -0700
-+++ abs/libvdpau/src/libvdpau-0.4.1/src/vdpau_wrapper.c	2012-05-12 01:49:35.217865497 -0700
-@@ -57,6 +57,36 @@
+diff -ru abs/libvdpau.ORIG/src/libvdpau-0.6/src/vdpau_wrapper.c abs/libvdpau/src/libvdpau-0.6/src/vdpau_wrapper.c
+--- abs/libvdpau.ORIG/src/libvdpau-0.6/src/vdpau_wrapper.c	2013-07-20 03:26:12.250886642 -0700
++++ abs/libvdpau/src/libvdpau-0.6/src/vdpau_wrapper.c	2013-07-20 03:27:41.830883877 -0700
+@@ -68,6 +68,36 @@
  
  #define DRIVER_LIB_FORMAT "%slibvdpau_%s.so%s"
  
@@ -38,7 +38,7 @@ diff -ru abs/libvdpau.ORIG/src/libvdpau-0.4.1/src/vdpau_wrapper.c abs/libvdpau/s
  static char * _vdp_get_driver_name_from_dri2(
      Display *             display,
      int                   screen
-@@ -113,6 +143,11 @@
+@@ -120,6 +150,11 @@
          vdpau_driver = "nvidia";
      }
  
