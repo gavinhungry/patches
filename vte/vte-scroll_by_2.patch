@@ -1,5 +1,6 @@
---- abs/vte/src/vte-0.28.1/src/vte.c.ORIG	2011-06-20 22:33:20.014885530 -0700
-+++ abs/vte/src/vte-0.28.1/src/vte.c	2011-06-20 22:33:53.001529856 -0700
+diff -ru abs/vte.ORIG/src/vte-0.28.2/src/vte.c abs/vte/src/vte-0.28.2/src/vte.c
+--- abs/vte.ORIG/src/vte-0.28.2/src/vte.c	2014-01-26 11:18:34.010986123 -0800
++++ abs/vte/src/vte-0.28.2/src/vte.c	2014-01-26 11:18:48.840985664 -0800
 @@ -11398,7 +11398,7 @@
  	}
  
