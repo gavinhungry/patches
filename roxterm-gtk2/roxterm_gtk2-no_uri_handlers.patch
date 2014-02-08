@@ -1,7 +1,7 @@
-diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.7.2/src/profilegui.c aur/roxterm-gtk2/src/roxterm-2.7.2/src/profilegui.c
---- aur/roxterm-gtk2.ORIG/src/roxterm-2.7.2/src/profilegui.c	2013-07-18 23:21:13.301704931 -0700
-+++ aur/roxterm-gtk2/src/roxterm-2.7.2/src/profilegui.c	2013-07-18 23:21:31.728371029 -0700
-@@ -835,6 +835,7 @@
+diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.8.1/src/profilegui.c aur/roxterm-gtk2/src/roxterm-2.8.1/src/profilegui.c
+--- aur/roxterm-gtk2.ORIG/src/roxterm-2.8.1/src/profilegui.c	2014-02-08 14:45:23.430499251 -0800
++++ aur/roxterm-gtk2/src/roxterm-2.8.1/src/profilegui.c	2014-02-08 14:46:43.223830119 -0800
+@@ -834,6 +834,7 @@
      pg->list_store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
      for (n = 0; n < G_N_ELEMENTS(labels); ++n)
      {
@@ -9,10 +9,11 @@ diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.7.2/src/profilegui.c aur/roxterm-gt
          gtk_list_store_append(pg->list_store, &iter);
          gtk_list_store_set(pg->list_store, &iter,
                  0, gettext(labels[n]), 1, n, -1);
-diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.7.2/src/roxterm.c aur/roxterm-gtk2/src/roxterm-2.7.2/src/roxterm.c
---- aur/roxterm-gtk2.ORIG/src/roxterm-2.7.2/src/roxterm.c	2013-07-18 23:21:13.305038264 -0700
-+++ aur/roxterm-gtk2/src/roxterm-2.7.2/src/roxterm.c	2013-07-18 23:21:31.728371029 -0700
-@@ -3287,7 +3287,6 @@
+Only in aur/roxterm-gtk2/src/roxterm-2.8.1/src: profilegui.c.orig
+diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.8.1/src/roxterm.c aur/roxterm-gtk2/src/roxterm-2.8.1/src/roxterm.c
+--- aur/roxterm-gtk2.ORIG/src/roxterm-2.8.1/src/roxterm.c	2014-02-08 14:45:23.433832583 -0800
++++ aur/roxterm-gtk2/src/roxterm-2.8.1/src/roxterm.c	2014-02-08 14:46:43.223830119 -0800
+@@ -3237,7 +3237,6 @@
      roxterm_apply_title_template(roxterm);
      roxterm_apply_show_tab_number(roxterm);
      roxterm_apply_show_tab_status(roxterm);
@@ -20,7 +21,7 @@ diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.7.2/src/roxterm.c aur/roxterm-gtk2/
  #if GTK_CHECK_VERSION(3, 0, 0)
      roxterm_apply_show_resize_grip(roxterm);
  #endif
-@@ -3478,8 +3477,6 @@
+@@ -3437,8 +3436,6 @@
          gtk_widget_show(roxterm->widget);
      }
  
@@ -29,7 +30,7 @@ diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.7.2/src/roxterm.c aur/roxterm-gtk2/
      roxterm_apply_profile(roxterm, vte, FALSE);
      tab_name = global_options_lookup_string("tab-name");
      if (tab_name)
-@@ -3744,10 +3741,6 @@
+@@ -3705,10 +3702,6 @@
          {
              roxterm_apply_show_tab_status(roxterm);
          }
@@ -40,4 +41,4 @@ diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.7.2/src/roxterm.c aur/roxterm-gtk2/
  #if GTK_CHECK_VERSION(3, 0, 0)
          else if (!strcmp(key, "show_resize_grip"))
          {
-Only in aur/roxterm-gtk2/src/roxterm-2.7.2/src: roxterm.c.orig
+Only in aur/roxterm-gtk2/src/roxterm-2.8.1/src: roxterm.c.orig
