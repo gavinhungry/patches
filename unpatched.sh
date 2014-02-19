@@ -2,11 +2,9 @@
 
 for DIR in */ ; do
   PKG=${DIR%*/}
-  PACKAGER=$(pacman -Qi $PKG | grep ^Packager | cut -d':' -f2 | sed 's/^\s*//g')
+  PACKAGER=$(pacman -Qi $PKG 2>&1 | grep ^Packager | cut -d':' -f2 | sed 's/^\s*//g')
 
-  if [[ $PACKAGER != $(gecos ${USER})* ]]; then
-    echo $PKG - $PACKAGER
-
-    [ "x$1" != 'x-p' ] && (pkgsource $PKG; echo)
+  if [[ $PACKAGER && $PACKAGER != $(gecos ${USER})* ]]; then
+    [ "x$1" == 'x-p' ] && echo $PKG || (pkgsource $PKG; echo)
   fi
 done
