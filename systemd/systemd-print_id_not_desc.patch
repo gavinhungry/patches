@@ -1,24 +1,24 @@
-diff -ru abs/systemd.ORIG/src/systemd-208/src/core/job.c abs/systemd/src/systemd-208/src/core/job.c
---- abs/systemd.ORIG/src/systemd-208/src/core/job.c	2013-10-24 16:38:27.564922375 -0700
-+++ abs/systemd/src/systemd-208/src/core/job.c	2013-10-24 16:38:40.481589625 -0700
-@@ -715,7 +715,7 @@
-         if (!format)
+diff -ru abs/systemd.ORIG/src/systemd-210/src/core/job.c abs/systemd/src/systemd-210/src/core/job.c
+--- abs/systemd.ORIG/src/systemd-210/src/core/job.c	2014-03-06 09:53:22.256774316 -0800
++++ abs/systemd/src/systemd-210/src/core/job.c	2014-03-06 10:24:06.011342998 -0800
+@@ -704,7 +704,7 @@
                  return;
  
+         DISABLE_WARNING_FORMAT_NONLITERAL;
 -        snprintf(buf, sizeof(buf), format, unit_description(u));
 +        snprintf(buf, sizeof(buf), format, strna(u->id));
          char_array_0(buf);
+         REENABLE_WARNING;
  
-         if (t == JOB_START) {
-diff -ru abs/systemd.ORIG/src/systemd-208/src/core/unit.c abs/systemd/src/systemd-208/src/core/unit.c
---- abs/systemd.ORIG/src/systemd-208/src/core/unit.c	2013-10-24 16:38:27.561589042 -0700
-+++ abs/systemd/src/systemd-208/src/core/unit.c	2013-10-24 16:38:40.481589625 -0700
-@@ -2429,7 +2429,7 @@
- #pragma GCC diagnostic push
- #pragma GCC diagnostic ignored "-Wformat-nonliteral"
+diff -ru abs/systemd.ORIG/src/systemd-210/src/core/unit.c abs/systemd/src/systemd-210/src/core/unit.c
+--- abs/systemd.ORIG/src/systemd-210/src/core/unit.c	2014-03-06 09:53:22.250108316 -0800
++++ abs/systemd/src/systemd-210/src/core/unit.c	2014-03-06 10:23:28.391074589 -0800
+@@ -2522,7 +2522,7 @@
+ 
  void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
+         DISABLE_WARNING_FORMAT_NONLITERAL;
 -        manager_status_printf(u->manager, false, status, unit_status_msg_format, unit_description(u));
 +        manager_status_printf(u->manager, false, status, unit_status_msg_format, strna(u->id));
+         REENABLE_WARNING;
  }
- #pragma GCC diagnostic pop
  
