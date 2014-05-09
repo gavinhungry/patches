@@ -1,7 +1,7 @@
-diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/settings/xfpm-settings.c abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/settings/xfpm-settings.c
---- abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/settings/xfpm-settings.c	2012-11-10 02:08:42.372375716 -0800
-+++ abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/settings/xfpm-settings.c	2012-11-10 02:13:48.881574293 -0800
-@@ -1537,7 +1537,7 @@
+diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager/settings/xfpm-settings.c abs/xfce4-power-manager/src/xfce4-power-manager/settings/xfpm-settings.c
+--- abs/xfce4-power-manager.ORIG/src/xfce4-power-manager/settings/xfpm-settings.c	2014-05-08 22:49:26.365396471 -0700
++++ abs/xfce4-power-manager/src/xfce4-power-manager/settings/xfpm-settings.c	2014-05-08 22:49:42.098730512 -0700
+@@ -1560,7 +1560,7 @@
      gtk_tree_view_append_column(GTK_TREE_VIEW(view),col);
      
      /*General settings */
@@ -10,7 +10,7 @@ diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/settings/xfp
      
      gtk_list_store_append(list_store, &iter);
      
-@@ -1553,7 +1553,7 @@
+@@ -1576,7 +1576,7 @@
      i++;
      
      /* ON ac power */
@@ -19,7 +19,7 @@ diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/settings/xfp
      gtk_list_store_append(list_store, &iter);
      if ( pix )
      {
-@@ -1568,7 +1568,7 @@
+@@ -1591,7 +1591,7 @@
      
      if ( system_laptop )
      {
@@ -28,7 +28,7 @@ diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/settings/xfp
  	gtk_list_store_append(list_store, &iter);
  	if ( pix )
  	{
-@@ -1582,7 +1582,7 @@
+@@ -1605,7 +1605,7 @@
      }
      i++;
      
@@ -37,9 +37,10 @@ diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/settings/xfp
      gtk_list_store_append(list_store, &iter);
      if ( pix )
      {
-diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-notify.c abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-notify.c
---- abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-notify.c	2012-11-10 02:08:42.369042282 -0800
-+++ abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-notify.c	2012-11-10 02:12:48.046420832 -0800
+Only in abs/xfce4-power-manager/src/xfce4-power-manager/settings: xfpm-settings.c.orig
+diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager/src/xfpm-notify.c abs/xfce4-power-manager/src/xfce4-power-manager/src/xfpm-notify.c
+--- abs/xfce4-power-manager.ORIG/src/xfce4-power-manager/src/xfpm-notify.c	2014-05-08 22:49:26.358729804 -0700
++++ abs/xfce4-power-manager/src/xfce4-power-manager/src/xfpm-notify.c	2014-05-08 22:49:42.098730512 -0700
 @@ -197,7 +197,7 @@
  static void
  xfpm_notify_set_notification_icon (NotifyNotification *n, const gchar *icon_name )
@@ -49,10 +50,10 @@ diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-not
      
      if ( pix )
      {
-diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-power-info.c abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-power-info.c
---- abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-power-info.c	2012-11-10 02:08:42.369042282 -0800
-+++ abs/xfce4-power-manager/src/xfce4-power-manager-1.2.0/src/xfpm-power-info.c	2012-11-10 02:12:28.085823442 -0800
-@@ -285,7 +285,7 @@
+diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager/src/xfpm-power-info.c abs/xfce4-power-manager/src/xfce4-power-manager/src/xfpm-power-info.c
+--- abs/xfce4-power-manager.ORIG/src/xfce4-power-manager/src/xfpm-power-info.c	2014-05-08 22:49:26.362063138 -0700
++++ abs/xfce4-power-manager/src/xfce4-power-manager/src/xfpm-power-info.c	2014-05-08 22:49:42.098730512 -0700
+@@ -279,7 +279,7 @@
      
      pix = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
  				    icon_name,
@@ -61,3 +62,4 @@ diff -ru abs/xfce4-power-manager.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-pow
  				    GTK_ICON_LOOKUP_USE_BUILTIN,
  				    NULL);
      
+Only in abs/xfce4-power-manager/src/xfce4-power-manager/src: xfpm-power-info.c.orig
