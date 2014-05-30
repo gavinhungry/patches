@@ -1,6 +1,6 @@
-diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.8.2/src/profilegui.c aur/roxterm-gtk2/src/roxterm-2.8.2/src/profilegui.c
---- aur/roxterm-gtk2.ORIG/src/roxterm-2.8.2/src/profilegui.c	2014-04-19 13:37:31.993233318 -0700
-+++ aur/roxterm-gtk2/src/roxterm-2.8.2/src/profilegui.c	2014-04-19 13:37:33.166566707 -0700
+diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.8.3/src/profilegui.c aur/roxterm-gtk2/src/roxterm-2.8.3/src/profilegui.c
+--- aur/roxterm-gtk2.ORIG/src/roxterm-2.8.3/src/profilegui.c	2014-05-29 22:00:38.150964420 -0700
++++ aur/roxterm-gtk2/src/roxterm-2.8.3/src/profilegui.c	2014-05-29 22:00:43.897630912 -0700
 @@ -834,6 +834,7 @@
      pg->list_store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
      for (n = 0; n < G_N_ELEMENTS(labels); ++n)
@@ -8,10 +8,11 @@ diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.8.2/src/profilegui.c aur/roxterm-gt
 +        if (n == 3 || n == 4) { continue; }
          gtk_list_store_append(pg->list_store, &iter);
          gtk_list_store_set(pg->list_store, &iter,
-                 0, gettext(labels[n]), 1, n, -1);
-diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.8.2/src/roxterm.c aur/roxterm-gtk2/src/roxterm-2.8.2/src/roxterm.c
---- aur/roxterm-gtk2.ORIG/src/roxterm-2.8.2/src/roxterm.c	2014-04-19 13:37:31.999899986 -0700
-+++ aur/roxterm-gtk2/src/roxterm-2.8.2/src/roxterm.c	2014-04-19 13:37:33.169900040 -0700
+                 0, gettext(labels[n]), 1,
+Only in aur/roxterm-gtk2/src/roxterm-2.8.3/src: profilegui.c.orig
+diff -ru aur/roxterm-gtk2.ORIG/src/roxterm-2.8.3/src/roxterm.c aur/roxterm-gtk2/src/roxterm-2.8.3/src/roxterm.c
+--- aur/roxterm-gtk2.ORIG/src/roxterm-2.8.3/src/roxterm.c	2014-05-29 22:00:38.150964420 -0700
++++ aur/roxterm-gtk2/src/roxterm-2.8.3/src/roxterm.c	2014-05-29 22:00:43.897630912 -0700
 @@ -3237,7 +3237,6 @@
      roxterm_apply_title_template(roxterm);
      roxterm_apply_show_tab_number(roxterm);
