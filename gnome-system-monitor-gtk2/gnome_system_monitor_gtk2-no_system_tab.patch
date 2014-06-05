@@ -1,6 +1,6 @@
-diff -ru pre/gnome-system-monitor.ORIG/src/gnome-system-monitor-2.28.2/src/interface.cpp pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/interface.cpp
---- pre/gnome-system-monitor.ORIG/src/gnome-system-monitor-2.28.2/src/interface.cpp	2012-10-02 15:50:04.538479293 -0700
-+++ pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/interface.cpp	2012-10-02 15:50:28.309097224 -0700
+diff -ru aur/gnome-system-monitor-gtk2.ORIG/src/gnome-system-monitor-2.28.2/src/interface.cpp aur/gnome-system-monitor-gtk2/src/gnome-system-monitor-2.28.2/src/interface.cpp
+--- aur/gnome-system-monitor-gtk2.ORIG/src/gnome-system-monitor-2.28.2/src/interface.cpp	2012-10-02 15:50:04.538479293 -0700
++++ aur/gnome-system-monitor-gtk2/src/gnome-system-monitor-2.28.2/src/interface.cpp	2012-10-02 15:50:28.309097224 -0700
 @@ -686,9 +686,7 @@
  	                    TRUE, 
  	                    0);
@@ -23,9 +23,9 @@ diff -ru pre/gnome-system-monitor.ORIG/src/gnome-system-monitor-2.28.2/src/inter
  	g_signal_connect (G_OBJECT (app), "delete_event",
                            G_CALLBACK (cb_app_delete),
                            procdata);
-diff -ru pre/gnome-system-monitor.ORIG/src/gnome-system-monitor-2.28.2/src/procman.h pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/procman.h
---- pre/gnome-system-monitor.ORIG/src/gnome-system-monitor-2.28.2/src/procman.h	2012-10-02 15:50:04.538479293 -0700
-+++ pre/gnome-system-monitor/src/gnome-system-monitor-2.28.2/src/procman.h	2012-10-02 15:50:05.888514386 -0700
+diff -ru aur/gnome-system-monitor-gtk2.ORIG/src/gnome-system-monitor-2.28.2/src/procman.h aur/gnome-system-monitor-gtk2/src/gnome-system-monitor-2.28.2/src/procman.h
+--- aur/gnome-system-monitor-gtk2.ORIG/src/gnome-system-monitor-2.28.2/src/procman.h	2012-10-02 15:50:04.538479293 -0700
++++ aur/gnome-system-monitor-gtk2/src/gnome-system-monitor-2.28.2/src/procman.h	2012-10-02 15:50:05.888514386 -0700
 @@ -61,10 +61,10 @@
  
  enum ProcmanTab
