@@ -1,6 +1,6 @@
-diff -ru abs/systemd.ORIG/src/systemd-212/src/core/job.c abs/systemd/src/systemd-212/src/core/job.c
---- abs/systemd.ORIG/src/systemd-212/src/core/job.c	2014-04-04 04:08:03.427244951 -0700
-+++ abs/systemd/src/systemd-212/src/core/job.c	2014-04-04 04:08:31.447246213 -0700
+diff -ru abs/systemd.ORIG/src/systemd-213/src/core/job.c abs/systemd/src/systemd-213/src/core/job.c
+--- abs/systemd.ORIG/src/systemd-213/src/core/job.c	2014-06-05 09:37:26.307848184 -0700
++++ abs/systemd/src/systemd-213/src/core/job.c	2014-06-05 09:37:29.321483006 -0700
 @@ -705,7 +705,7 @@
                  return;
  
@@ -10,11 +10,10 @@ diff -ru abs/systemd.ORIG/src/systemd-212/src/core/job.c abs/systemd/src/systemd
          char_array_0(buf);
          REENABLE_WARNING;
  
-Only in abs/systemd/src/systemd-212/src/core: job.c.orig
-diff -ru abs/systemd.ORIG/src/systemd-212/src/core/unit.c abs/systemd/src/systemd-212/src/core/unit.c
---- abs/systemd.ORIG/src/systemd-212/src/core/unit.c	2014-04-04 04:08:03.427244951 -0700
-+++ abs/systemd/src/systemd-212/src/core/unit.c	2014-04-04 04:08:31.447246213 -0700
-@@ -2572,7 +2572,7 @@
+diff -ru abs/systemd.ORIG/src/systemd-213/src/core/unit.c abs/systemd/src/systemd-213/src/core/unit.c
+--- abs/systemd.ORIG/src/systemd-213/src/core/unit.c	2014-06-05 09:37:26.297847183 -0700
++++ abs/systemd/src/systemd-213/src/core/unit.c	2014-06-05 09:37:29.324816672 -0700
+@@ -2603,7 +2603,7 @@
  
  void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
          DISABLE_WARNING_FORMAT_NONLITERAL;
@@ -23,3 +22,4 @@ diff -ru abs/systemd.ORIG/src/systemd-212/src/core/unit.c abs/systemd/src/system
          REENABLE_WARNING;
  }
  
+Only in abs/systemd/src/systemd-213/src/core: unit.c.orig
