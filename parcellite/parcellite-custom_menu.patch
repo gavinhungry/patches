@@ -1,7 +1,7 @@
 diff -ru abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c abs/parcellite/src/parcellite-1.1.8/src/main.c
---- abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c	2013-11-07 14:13:40.511498905 -0800
-+++ abs/parcellite/src/parcellite-1.1.8/src/main.c	2013-11-07 14:19:03.137941407 -0800
-@@ -1144,7 +1144,7 @@
+--- abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c	2014-07-21 11:24:28.801615312 -0700
++++ abs/parcellite/src/parcellite-1.1.8/src/main.c	2014-07-21 11:25:38.317999803 -0700
+@@ -1210,7 +1210,7 @@
      if (!size)
      {
        /* File contained no actions so adding empty */
@@ -10,7 +10,7 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c abs/parcellite/src/
        gtk_widget_set_sensitive(menu_item, FALSE);
        gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
      }
-@@ -1179,7 +1179,7 @@
+@@ -1245,7 +1245,7 @@
    else
    {
      /* File did not open so adding empty */
@@ -19,7 +19,7 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c abs/parcellite/src/
      gtk_widget_set_sensitive(menu_item, FALSE);
      gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
    }
-@@ -1859,7 +1859,7 @@
+@@ -1939,7 +1939,7 @@
    else
    {
      /* Nothing in history so adding empty */
@@ -28,7 +28,7 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c abs/parcellite/src/
      gtk_widget_set_sensitive(menu_item, FALSE);
      gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
    }
-@@ -1892,11 +1892,7 @@
+@@ -1972,11 +1972,7 @@
      gtk_image_menu_item_set_image((GtkImageMenuItem*)h.title_item, menu_image);
      gtk_menu_shell_append((GtkMenuShell*)menu, h.title_item);    
    }else{
@@ -40,8 +40,8 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c abs/parcellite/src/
  		menu_item = gtk_image_menu_item_new_with_mnemonic(_("_Clear"));
  		/* Clear */
  	  menu_image = gtk_image_new_from_stock(GTK_STOCK_CLEAR, GTK_ICON_SIZE_MENU);
-@@ -1908,12 +1904,7 @@
- 	g_list_free(persistent);
+@@ -1989,12 +1985,7 @@
+ 	g_signal_connect(menu,"deactivate",(GCallback)destroy_history_menu,(gpointer)&h);
    /* Popup the menu... */
    gtk_widget_show_all(menu);
 -  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, get_pref_int32("history_pos")?postition_history:NULL, NULL, 1, gtk_get_current_event_time());
@@ -54,7 +54,7 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c abs/parcellite/src/
    /* Return FALSE so the g_timeout_add() function is called only once */
    return FALSE;
  }
-@@ -1972,7 +1963,7 @@
+@@ -2053,7 +2044,7 @@
    gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
    /* Popup the menu... */
    gtk_widget_show_all(menu);
@@ -63,7 +63,7 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c abs/parcellite/src/
  	return menu;
  }
  
-@@ -2043,32 +2034,32 @@
+@@ -2114,32 +2105,32 @@
  		g_fprintf(stderr,"Got Ctrl-click\n");
      if (actions_lock == FALSE)
      {
@@ -101,3 +101,4 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c abs/parcellite/src/
  }
  
  /* Called when actions global hotkey is pressed */
+Only in abs/parcellite/src/parcellite-1.1.8/src: main.c.orig
