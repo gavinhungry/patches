@@ -1,6 +1,6 @@
-diff -ru abs/libvdpau.ORIG/src/libvdpau-0.7/src/vdpau_wrapper.c abs/libvdpau/src/libvdpau-0.7/src/vdpau_wrapper.c
---- abs/libvdpau.ORIG/src/libvdpau-0.7/src/vdpau_wrapper.c	2014-01-26 11:15:33.217658374 -0800
-+++ abs/libvdpau/src/libvdpau-0.7/src/vdpau_wrapper.c	2014-01-26 11:15:36.750991599 -0800
+diff -ru abs/libvdpau.ORIG/src/libvdpau-0.8/src/vdpau_wrapper.c abs/libvdpau/src/libvdpau-0.8/src/vdpau_wrapper.c
+--- abs/libvdpau.ORIG/src/libvdpau-0.8/src/vdpau_wrapper.c	2014-01-26 11:15:33.217658374 -0800
++++ abs/libvdpau/src/libvdpau-0.8/src/vdpau_wrapper.c	2014-01-26 11:15:36.750991599 -0800
 @@ -68,6 +68,36 @@
  
  #define DRIVER_LIB_FORMAT "%slibvdpau_%s.so%s"
