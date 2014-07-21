@@ -1,6 +1,6 @@
-diff -ru abs/parcellite.ORIG/src/parcellite-1.1.7/src/main.c abs/parcellite/src/parcellite-1.1.7/src/main.c
---- abs/parcellite.ORIG/src/parcellite-1.1.7/src/main.c	2013-11-07 14:13:40.511498905 -0800
-+++ abs/parcellite/src/parcellite-1.1.7/src/main.c	2013-11-07 14:19:03.137941407 -0800
+diff -ru abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c abs/parcellite/src/parcellite-1.1.8/src/main.c
+--- abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c	2013-11-07 14:13:40.511498905 -0800
++++ abs/parcellite/src/parcellite-1.1.8/src/main.c	2013-11-07 14:19:03.137941407 -0800
 @@ -1144,7 +1144,7 @@
      if (!size)
      {
