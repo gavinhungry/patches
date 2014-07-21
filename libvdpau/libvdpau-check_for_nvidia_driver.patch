@@ -1,9 +1,9 @@
 diff -ru abs/libvdpau.ORIG/src/libvdpau-0.8/src/vdpau_wrapper.c abs/libvdpau/src/libvdpau-0.8/src/vdpau_wrapper.c
---- abs/libvdpau.ORIG/src/libvdpau-0.8/src/vdpau_wrapper.c	2014-01-26 11:15:33.217658374 -0800
-+++ abs/libvdpau/src/libvdpau-0.8/src/vdpau_wrapper.c	2014-01-26 11:15:36.750991599 -0800
-@@ -68,6 +68,36 @@
- 
- #define DRIVER_LIB_FORMAT "%slibvdpau_%s.so%s"
+--- abs/libvdpau.ORIG/src/libvdpau-0.8/src/vdpau_wrapper.c	2014-07-21 11:15:23.362397250 -0700
++++ abs/libvdpau/src/libvdpau-0.8/src/vdpau_wrapper.c	2014-07-21 11:22:21.987785610 -0700
+@@ -70,6 +70,36 @@
+ #define DRIVER_FALLBACK_LIB_FORMAT "libvdpau_%s.so"
+ #define DRIVER_LIB_FORMAT "%s/libvdpau_%s.so.1"
  
 +/**
 + * Source: github.com/Bumblebee-Project/Bumblebee/blob/master/src/module.c
@@ -38,8 +38,8 @@ diff -ru abs/libvdpau.ORIG/src/libvdpau-0.8/src/vdpau_wrapper.c abs/libvdpau/src
  static char * _vdp_get_driver_name_from_dri2(
      Display *             display,
      int                   screen
-@@ -120,6 +150,11 @@
-         vdpau_driver = "nvidia";
+@@ -134,6 +164,11 @@
+         }
      }
  
 +    /* load libvdpau_nvidia.so only if the nvidia driver is already loaded */
@@ -47,6 +47,6 @@ diff -ru abs/libvdpau.ORIG/src/libvdpau-0.8/src/vdpau_wrapper.c abs/libvdpau/src
 +        return VDP_STATUS_NO_IMPLEMENTATION;
 +    }
 +
-     if (snprintf(vdpau_driver_lib, sizeof(vdpau_driver_lib), DRIVER_LIB_FORMAT,
-                  VDPAU_MODULEDIR "/", vdpau_driver, ".1") >=
-             sizeof(vdpau_driver_lib)) {
+     /* Fallback to VDPAU_MODULEDIR when VDPAU_DRIVER_PATH is not set,
+      * or if we fail to create the driver path/dlopen the library. */
+     if (!_vdp_driver_dll) {
