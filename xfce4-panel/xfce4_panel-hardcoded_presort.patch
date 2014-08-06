@@ -69,7 +69,7 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-soc
 +  else if (!g_strcmp0(socket->sort, "blueman-applet")) { g_strlcpy(socket->sort, "zzzzz40", 8); }
 +  else if (!g_strcmp0(socket->sort, "networkmanager applet")) { g_strlcpy(socket->sort, "zzzzz50", 8); }
 +  else if (!g_strcmp0(socket->sort, "xfce4-power-manager")) { g_strlcpy(socket->sort, "zzzzz60", 8); }
-+  else if (!g_strcmp0(socket->sort, "volatile.py")) { g_strlcpy(socket->sort, "zzzzz70", 8); }
++  else if (!g_strcmp0(socket->sort, "volatile")) { g_strlcpy(socket->sort, "zzzzz70", 8); }
 +#endif
 +
 +  return socket->sort;
