@@ -1,0 +1,128 @@
+diff -ru aur/compiz-core.ORIG/src/compiz-0.8.9/plugins/resize.c aur/compiz-core/src/compiz-0.8.9/plugins/resize.c
+--- aur/compiz-core.ORIG/src/compiz-0.8.9/plugins/resize.c	2014-09-19 17:27:06.514175058 -0700
++++ aur/compiz-core/src/compiz-0.8.9/plugins/resize.c	2014-09-19 17:27:10.990896788 -0700
+@@ -425,40 +425,31 @@
+ 	rd->pointerDx = x - pointerX;
+ 	rd->pointerDy = y - pointerY;
+ 
+-	if ((w->state & MAXIMIZE_STATE) == MAXIMIZE_STATE)
++
++    rd->mode = rd->opt[RESIZE_DISPLAY_OPTION_MODE].value.i;
++    for (i = 0; i <= RESIZE_MODE_LAST; i++)
++    {
++	if (action == &rd->opt[i].value.action)
+ 	{
+-	    /* if the window is fully maximized, showing the outline or
+-	       rectangle would be visually distracting as the window can't
+-	       be resized anyway; so we better don't use them in this case */
+-	    rd->mode = RESIZE_MODE_NORMAL;
++	    rd->mode = i;
++	    break;
+ 	}
+-	else
+-	{
+-	    rd->mode = rd->opt[RESIZE_DISPLAY_OPTION_MODE].value.i;
+-	    for (i = 0; i <= RESIZE_MODE_LAST; i++)
+-	    {
+-		if (action == &rd->opt[i].value.action)
+-		{
+-		    rd->mode = i;
+-		    break;
+-		}
+-	    }
++    }
+ 
+-	    if (i > RESIZE_MODE_LAST)
+-	    {
+-		int index;
++    if (i > RESIZE_MODE_LAST)
++    {
++	int index;
+ 
+-		for (i = 0; i <= RESIZE_MODE_LAST; i++)
+-		{
+-		    index = RESIZE_DISPLAY_OPTION_NORMAL_MATCH + i;
+-		    if (matchEval (&rd->opt[index].value.match, w))
+-		    {
+-			rd->mode = i;
+-			break;
+-		    }
+-		}
++	for (i = 0; i <= RESIZE_MODE_LAST; i++)
++	{
++	    index = RESIZE_DISPLAY_OPTION_NORMAL_MATCH + i;
++	    if (matchEval (&rd->opt[index].value.match, w))
++	    {
++		rd->mode = i;
++		break;
+ 	    }
+ 	}
++    }
+ 
+ 	if (!rs->grabIndex)
+ 	{
+@@ -820,11 +811,11 @@
+ 	else if (rd->mask & ResizeDownMask)
+ 	    h += rd->pointerDy;
+ 
+-	if (rd->w->state & CompWindowStateMaximizedVertMask)
+-	    h = rd->w->serverHeight;
+-
+-	if (rd->w->state & CompWindowStateMaximizedHorzMask)
+-	    w = rd->w->serverWidth;
++	int wstate = rd->w->state;
++	if (wstate & MAXIMIZE_STATE) {
++		wstate &= (rd->w->state & ~MAXIMIZE_STATE);
++		changeWindowState (rd->w, wstate);
++	}
+ 
+ 	constrainNewWindowSize (rd->w, w, h, &w, &h);
+ 
+@@ -1079,6 +1070,12 @@
+ 	rd->geometry.width  = w;
+ 	rd->geometry.height = h;
+ 
++  // see window saveWindowGeometry,restoreWindowGeometry
++  rd->w->saveWc.x = rd->geometry.x;
++  rd->w->saveWc.y = rd->geometry.y;
++  rd->w->saveWc.width = w;
++  rd->w->saveWc.height = h;
++
+ 	if (rd->mode != RESIZE_MODE_NORMAL)
+ 	{
+ 	    if (rd->mode == RESIZE_MODE_STRETCH)
+diff -ru aur/compiz-core.ORIG/src/compiz-0.8.9/src/window.c aur/compiz-core/src/compiz-0.8.9/src/window.c
+--- aur/compiz-core.ORIG/src/compiz-0.8.9/src/window.c	2014-09-19 17:27:06.527508555 -0700
++++ aur/compiz-core/src/compiz-0.8.9/src/window.c	2014-09-19 17:27:15.974291418 -0700
+@@ -3539,31 +3539,11 @@
+     if (m & CWWidth)
+     {
+ 	xwc->width = w->saveWc.width;
+-
+-	/* This is not perfect but it works OK for now. If the saved width is
+-	   the same as the current width then make it a little be smaller so
+-	   the user can see that it changed and it also makes sure that
+-	   windowResizeNotify is called and plugins are notified. */
+-	if (xwc->width == w->serverWidth)
+-	{
+-	    xwc->width -= 10;
+-	    if (m & CWX)
+-		xwc->x += 5;
+-	}
+     }
+ 
+     if (m & CWHeight)
+     {
+ 	xwc->height = w->saveWc.height;
+-
+-	/* As above, if the saved height is the same as the current height
+-	   then make it a little be smaller. */
+-	if (xwc->height == w->serverHeight)
+-	{
+-	    xwc->height -= 10;
+-	    if (m & CWY)
+-		xwc->y += 5;
+-	}
+     }
+ 
+     if (m & CWBorderWidth)
