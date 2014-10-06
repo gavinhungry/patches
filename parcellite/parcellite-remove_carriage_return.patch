@@ -1,7 +1,7 @@
-diff -ru abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c abs/parcellite/src/parcellite-1.1.8/src/main.c
---- abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c	2014-07-21 11:24:28.801615312 -0700
-+++ abs/parcellite/src/parcellite-1.1.8/src/main.c	2014-07-21 11:26:13.774455583 -0700
-@@ -1861,7 +1861,7 @@
+diff -ru abs/parcellite.ORIG/src/parcellite-1.1.9/src/main.c abs/parcellite/src/parcellite-1.1.9/src/main.c
+--- abs/parcellite.ORIG/src/parcellite-1.1.9/src/main.c	2014-10-06 11:29:53.428399061 -0700
++++ abs/parcellite/src/parcellite-1.1.9/src/main.c	2014-10-06 11:30:51.759159264 -0700
+@@ -1897,7 +1897,7 @@
        while (i < string->len)
        {	 /**fix 100% CPU utilization for odd data. - bug 2976890   */
  				gsize nline=0;
@@ -10,4 +10,3 @@ diff -ru abs/parcellite.ORIG/src/parcellite-1.1.8/src/main.c abs/parcellite/src/
  					nline++;
  				if(nline){
  					g_string_erase(string, i, nline);
-Only in abs/parcellite/src/parcellite-1.1.8/src: main.c.orig
