@@ -1,0 +1,15 @@
+diff -ru aur/xfce4-power-manager-1.2.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-power.c aur/xfce4-power-manager-1.2/src/xfce4-power-manager-1.2.0/src/xfpm-power.c
+--- aur/xfce4-power-manager-1.2.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-power.c	2014-07-25 09:57:24.389550790 -0700
++++ aur/xfce4-power-manager-1.2/src/xfce4-power-manager-1.2.0/src/xfpm-power.c	2014-07-25 10:44:50.876171138 -0700
+@@ -1002,10 +1002,7 @@
+     XFPM_DEBUG_ENUM (device_type, XFPM_TYPE_DEVICE_TYPE, " device added");
+     
+     if ( device_type == XFPM_DEVICE_TYPE_BATTERY || 
+-	 device_type == XFPM_DEVICE_TYPE_UPS     ||
+-	 device_type == XFPM_DEVICE_TYPE_MOUSE   ||
+-	 device_type == XFPM_DEVICE_TYPE_KBD     ||
+-	 device_type == XFPM_DEVICE_TYPE_PHONE)
++	 device_type == XFPM_DEVICE_TYPE_UPS)
+     {
+ 	GtkStatusIcon *battery;
+ 	DBusGProxy *proxy;
