@@ -1,7 +1,7 @@
-diff -ru abs/systemd.ORIG/src/systemd-216/src/core/job.c abs/systemd/src/systemd-216/src/core/job.c
---- abs/systemd.ORIG/src/systemd-216/src/core/job.c	2014-08-26 13:17:27.771897160 -0700
-+++ abs/systemd/src/systemd-216/src/core/job.c	2014-08-26 13:17:30.991934835 -0700
-@@ -705,7 +705,7 @@
+diff -ru abs/systemd.ORIG/src/systemd-217/src/core/job.c abs/systemd/src/systemd-217/src/core/job.c
+--- abs/systemd.ORIG/src/systemd-217/src/core/job.c	2014-11-18 09:37:07.214973599 -0800
++++ abs/systemd/src/systemd-217/src/core/job.c	2014-11-18 09:37:35.525331159 -0800
+@@ -712,7 +712,7 @@
                  return;
  
          DISABLE_WARNING_FORMAT_NONLITERAL;
@@ -10,16 +10,15 @@ diff -ru abs/systemd.ORIG/src/systemd-216/src/core/job.c abs/systemd/src/systemd
          char_array_0(buf);
          REENABLE_WARNING;
  
-diff -ru abs/systemd.ORIG/src/systemd-216/src/core/unit.c abs/systemd/src/systemd-216/src/core/unit.c
---- abs/systemd.ORIG/src/systemd-216/src/core/unit.c	2014-08-26 13:17:27.771897160 -0700
-+++ abs/systemd/src/systemd-216/src/core/unit.c	2014-08-26 13:17:30.991934835 -0700
-@@ -2716,7 +2716,7 @@
- 
+diff -ru abs/systemd.ORIG/src/systemd-217/src/core/unit.c abs/systemd/src/systemd-217/src/core/unit.c
+--- abs/systemd.ORIG/src/systemd-217/src/core/unit.c	2014-11-18 09:37:07.214973599 -0800
++++ abs/systemd/src/systemd-217/src/core/unit.c	2014-11-18 09:38:21.219241610 -0800
+@@ -2769,7 +2769,7 @@
  void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
          DISABLE_WARNING_FORMAT_NONLITERAL;
--        manager_status_printf(u->manager, false, status, unit_status_msg_format, unit_description(u));
-+        manager_status_printf(u->manager, false, status, unit_status_msg_format, strna(u->id));
+         manager_status_printf(u->manager, STATUS_TYPE_NORMAL,
+-                              status, unit_status_msg_format, unit_description(u));
++                              status, unit_status_msg_format, strna(u->id));
          REENABLE_WARNING;
  }
  
-Only in abs/systemd/src/systemd-216/src/core: unit.c.orig
