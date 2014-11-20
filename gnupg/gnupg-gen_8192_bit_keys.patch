@@ -1,0 +1,36 @@
+diff -ru abs/gnupg.ORIG/src/gnupg-2.0.26/g10/keygen.c abs/gnupg/src/gnupg-2.0.26/g10/keygen.c
+--- abs/gnupg.ORIG/src/gnupg-2.0.26/g10/keygen.c	2014-11-20 13:29:06.499943430 -0800
++++ abs/gnupg/src/gnupg-2.0.26/g10/keygen.c	2014-11-20 13:29:58.544004704 -0800
+@@ -1175,9 +1175,9 @@
+       nbits = 2048;
+       log_info (_("keysize invalid; using %u bits\n"), nbits );
+     }
+-  else if (nbits > 4096)
++  else if (nbits > 8192)
+     {
+-      nbits = 4096;
++      nbits = 8192;
+       log_info (_("keysize invalid; using %u bits\n"), nbits );
+     }
+ 
+@@ -1442,9 +1442,9 @@
+       nbits = 2048;
+       log_info (_("keysize invalid; using %u bits\n"), nbits );
+     }
+-  else if (nbits > 4096)
++  else if (nbits > 8192)
+     {
+-      nbits = 4096;
++      nbits = 8192;
+       log_info (_("keysize invalid; using %u bits\n"), nbits );
+     }
+ 
+@@ -1781,7 +1781,7 @@
+ static unsigned
+ ask_keysize (int algo, unsigned int primary_keysize)
+ {
+-  unsigned int nbits, min, def = DEFAULT_STD_KEYSIZE, max=4096;
++  unsigned int nbits, min, def = DEFAULT_STD_KEYSIZE, max=8192;
+   int for_subkey = !!primary_keysize;
+   int autocomp = 0;
+ 
