@@ -1,36 +1,22 @@
-diff -ru abs/gnupg.ORIG/src/gnupg-2.0.26/g10/keygen.c abs/gnupg/src/gnupg-2.0.26/g10/keygen.c
---- abs/gnupg.ORIG/src/gnupg-2.0.26/g10/keygen.c	2014-11-20 13:29:06.499943430 -0800
-+++ abs/gnupg/src/gnupg-2.0.26/g10/keygen.c	2014-11-20 13:29:58.544004704 -0800
-@@ -1175,9 +1175,9 @@
-       nbits = 2048;
-       log_info (_("keysize invalid; using %u bits\n"), nbits );
-     }
--  else if (nbits > 4096)
-+  else if (nbits > 8192)
-     {
--      nbits = 4096;
-+      nbits = 8192;
-       log_info (_("keysize invalid; using %u bits\n"), nbits );
-     }
+diff -ru abs/gnupg.ORIG/PKGBUILD abs/gnupg/PKGBUILD
+--- abs/gnupg.ORIG/PKGBUILD	2014-11-25 08:32:07.034778852 -0800
++++ abs/gnupg/PKGBUILD	2014-11-25 08:32:21.311636177 -0800
+@@ -43,6 +43,7 @@
+ 		--enable-maintainer-mode \
+ 		--enable-symcryptrun \
+ 		--enable-gpgtar \
++		--enable-large-secmem
  
-@@ -1442,9 +1442,9 @@
-       nbits = 2048;
-       log_info (_("keysize invalid; using %u bits\n"), nbits );
-     }
--  else if (nbits > 4096)
-+  else if (nbits > 8192)
-     {
--      nbits = 4096;
-+      nbits = 8192;
-       log_info (_("keysize invalid; using %u bits\n"), nbits );
-     }
+ 	make
+ }
+diff -ru abs/gnupg.ORIG/src/gnupg-2.1.0/g10/keygen.c abs/gnupg/src/gnupg-2.1.0/g10/keygen.c
+--- abs/gnupg.ORIG/src/gnupg-2.1.0/g10/keygen.c	2014-11-25 08:32:07.061445874 -0800
++++ abs/gnupg/src/gnupg-2.1.0/g10/keygen.c	2014-11-25 08:33:14.725670299 -0800
+@@ -2040,6 +2040,7 @@
  
-@@ -1781,7 +1781,7 @@
- static unsigned
- ask_keysize (int algo, unsigned int primary_keysize)
- {
--  unsigned int nbits, min, def = DEFAULT_STD_KEYSIZE, max=4096;
-+  unsigned int nbits, min, def = DEFAULT_STD_KEYSIZE, max=8192;
-   int for_subkey = !!primary_keysize;
-   int autocomp = 0;
+     case PUBKEY_ALGO_RSA:
+       min=1024;
++      if (opt.flags.large_rsa) { max = 8192; }
+       break;
+     }
  
