@@ -1,0 +1,54 @@
+diff -ru aur/compiz-monowall-plugin-git.ORIG/src/compiz-monowall-plugin-git/monowall.xml.in aur/compiz-monowall-plugin-git/src/compiz-monowall-plugin-git/monowall.xml.in
+--- aur/compiz-monowall-plugin-git.ORIG/src/compiz-monowall-plugin-git/monowall.xml.in	2014-11-21 18:20:35.725402343 -0800
++++ aur/compiz-monowall-plugin-git/src/compiz-monowall-plugin-git/monowall.xml.in	2014-11-21 18:21:17.705986253 -0800
+@@ -256,42 +256,42 @@
+ 					<option name="left_key_zeroth" type="key">
+ 						<_short>Device 0 Move Left</_short>
+ 						<_long>Move left along the wall in the first device</_long>
+-						<default>&lt;Control&gt;&lt;Super&gt;Left</default>
++						<default>&lt;Alt&gt;&lt;Super&gt;Left</default>
+                     </option>
+    					<option name="right_key_zeroth" type="key">
+ 						<_short>Device 0 Move Right</_short>
+ 						<_long>Move right along the wall in the first device</_long>
+-						<default>&lt;Control&gt;&lt;Super&gt;Right</default>
++						<default>&lt;Alt&gt;&lt;Super&gt;Right</default>
+                     </option>
+ 					<option name="up_key_zeroth" type="key">
+ 						<_short>Device 0 Move Up</_short>
+ 						<_long>Move up along the wall in the first device</_long>
+-						<default>&lt;Control&gt;&lt;Super&gt;Up</default>
++						<default>&lt;Alt&gt;&lt;Super&gt;Up</default>
+                     </option>
+ 					<option name="down_key_zeroth" type="key">
+ 						<_short>Device 0 Move Down</_short>
+ 						<_long>Move down along the wall in the first device</_long>
+-						<default>&lt;Control&gt;&lt;Super&gt;Down</default>
++						<default>&lt;Alt&gt;&lt;Super&gt;Down</default>
+                     </option>
+ 					<option name="left_key_first" type="key">
+ 						<_short>Device 1 Move Left</_short>
+ 						<_long>Move left along the wall in the second device</_long>
+-						<default>&lt;Alt&gt;&lt;Super&gt;Left</default>
++						<default>&lt;Control&gt;&lt;Super&gt;Left</default>
+                     </option>
+    					<option name="right_key_first" type="key">
+ 						<_short>Device 1 Move Right</_short>
+ 						<_long>Move right along the wall in the second device</_long>
+-						<default>&lt;Alt&gt;&lt;Super&gt;Right</default>
++						<default>&lt;Control&gt;&lt;Super&gt;Right</default>
+                     </option>
+ 					<option name="up_key_first" type="key">
+ 						<_short>Device 1 Move Up</_short>
+ 						<_long>Move up along the wall in the second device</_long>
+-						<default>&lt;Alt&gt;&lt;Super&gt;Up</default>
++						<default>&lt;Control&gt;&lt;Super&gt;Up</default>
+                     </option>
+ 					<option name="down_key_first" type="key">
+ 						<_short>Device 1 Move Down</_short>
+ 						<_long>Move down along the wall in the second device</_long>
+-						<default>&lt;Alt&gt;&lt;Super&gt;Down</default>
++						<default>&lt;Control&gt;&lt;Super&gt;Down</default>
+                     </option>
+                 </subgroup>
+ 				<subgroup>
