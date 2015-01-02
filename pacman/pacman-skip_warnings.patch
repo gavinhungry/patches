@@ -1,13 +1,13 @@
-diff -ru abs/pacman/src/pacman-4.2.0/src/pacman/util.c abs/pacman.ORIG/src/pacman-4.2.0/src/pacman/util.c
---- abs/pacman/src/pacman-4.2.0/src/pacman/util.c	2015-01-02 10:31:59.252579709 -0800
-+++ abs/pacman.ORIG/src/pacman-4.2.0/src/pacman/util.c	2015-01-02 10:30:45.854233491 -0800
-@@ -1701,9 +1701,6 @@
+diff -ru abs/pacman.ORIG/src/pacman-4.2.0/src/pacman/util.c abs/pacman/src/pacman-4.2.0/src/pacman/util.c
+--- abs/pacman.ORIG/src/pacman-4.2.0/src/pacman/util.c	2015-01-02 10:37:52.000651530 -0800
++++ abs/pacman/src/pacman-4.2.0/src/pacman/util.c	2015-01-02 10:38:43.861838253 -0800
+@@ -1701,6 +1701,9 @@
  					config->colstr.nocolor);
  			break;
  		case ALPM_LOG_WARNING:
--			if (strstr(format, "ignoring package upgrade") ||
--					strstr(format, "ignoring package replacement") ||
--					strstr(format, "is newer than")) { return 1; }
++			if (strstr(format, "ignoring package upgrade") ||
++					strstr(format, "ignoring package replacement") ||
++					strstr(format, "is newer than")) { return 1; }
  			fprintf(stream, "%s%s%s", config->colstr.warn, _("warning: "),
  					config->colstr.nocolor);
  			break;
