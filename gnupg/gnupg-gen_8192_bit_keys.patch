@@ -1,7 +1,7 @@
 diff -ru abs/gnupg.ORIG/PKGBUILD abs/gnupg/PKGBUILD
---- abs/gnupg.ORIG/PKGBUILD	2014-11-25 08:32:07.034778852 -0800
-+++ abs/gnupg/PKGBUILD	2014-11-25 08:32:21.311636177 -0800
-@@ -43,6 +43,7 @@
+--- abs/gnupg.ORIG/PKGBUILD	2015-01-02 10:25:47.434071505 -0800
++++ abs/gnupg/PKGBUILD	2015-01-02 10:26:47.105436946 -0800
+@@ -35,6 +35,7 @@
  		--enable-maintainer-mode \
  		--enable-symcryptrun \
  		--enable-gpgtar \
@@ -9,9 +9,9 @@ diff -ru abs/gnupg.ORIG/PKGBUILD abs/gnupg/PKGBUILD
  
  	make
  }
-diff -ru abs/gnupg.ORIG/src/gnupg-2.1.0/g10/keygen.c abs/gnupg/src/gnupg-2.1.0/g10/keygen.c
---- abs/gnupg.ORIG/src/gnupg-2.1.0/g10/keygen.c	2014-11-25 08:32:07.061445874 -0800
-+++ abs/gnupg/src/gnupg-2.1.0/g10/keygen.c	2014-11-25 08:33:14.725670299 -0800
+diff -ru abs/gnupg.ORIG/src/gnupg-2.1.1/g10/keygen.c abs/gnupg/src/gnupg-2.1.1/g10/keygen.c
+--- abs/gnupg.ORIG/src/gnupg-2.1.1/g10/keygen.c	2015-01-02 10:25:47.474072420 -0800
++++ abs/gnupg/src/gnupg-2.1.1/g10/keygen.c	2015-01-02 10:27:25.269643578 -0800
 @@ -2040,6 +2040,7 @@
  
      case PUBKEY_ALGO_RSA:
