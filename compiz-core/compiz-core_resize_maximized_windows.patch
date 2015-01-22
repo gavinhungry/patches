@@ -1,6 +1,6 @@
-diff -ru aur/compiz-core.ORIG/src/compiz-0.8.9/plugins/resize.c aur/compiz-core/src/compiz-0.8.9/plugins/resize.c
---- aur/compiz-core.ORIG/src/compiz-0.8.9/plugins/resize.c	2014-09-19 17:27:06.514175058 -0700
-+++ aur/compiz-core/src/compiz-0.8.9/plugins/resize.c	2014-09-19 17:27:10.990896788 -0700
+diff -ru aur/compiz-core.ORIG/src/core/plugins/resize.c aur/compiz-core/src/core/plugins/resize.c
+--- aur/compiz-core.ORIG/src/core/plugins/resize.c	2014-09-19 17:27:06.514175058 -0700
++++ aur/compiz-core/src/core/plugins/resize.c	2014-09-19 17:27:10.990896788 -0700
 @@ -425,40 +425,31 @@
  	rd->pointerDx = x - pointerX;
  	rd->pointerDy = y - pointerY;
@@ -91,9 +91,9 @@ diff -ru aur/compiz-core.ORIG/src/compiz-0.8.9/plugins/resize.c aur/compiz-core/
  	if (rd->mode != RESIZE_MODE_NORMAL)
  	{
  	    if (rd->mode == RESIZE_MODE_STRETCH)
-diff -ru aur/compiz-core.ORIG/src/compiz-0.8.9/src/window.c aur/compiz-core/src/compiz-0.8.9/src/window.c
---- aur/compiz-core.ORIG/src/compiz-0.8.9/src/window.c	2014-09-19 17:27:06.527508555 -0700
-+++ aur/compiz-core/src/compiz-0.8.9/src/window.c	2014-09-19 17:27:15.974291418 -0700
+diff -ru aur/compiz-core.ORIG/src/core/src/window.c aur/compiz-core/src/core/src/window.c
+--- aur/compiz-core.ORIG/src/core/src/window.c	2014-09-19 17:27:06.527508555 -0700
++++ aur/compiz-core/src/core/src/window.c	2014-09-19 17:27:15.974291418 -0700
 @@ -3539,31 +3539,11 @@
      if (m & CWWidth)
      {
