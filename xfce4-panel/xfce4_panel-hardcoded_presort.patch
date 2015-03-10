@@ -1,6 +1,6 @@
-diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-box.c abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/systray/systray-box.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-box.c	2013-06-25 08:29:44.873785329 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/systray/systray-box.c	2013-06-25 08:30:40.148675631 -0700
+diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/systray/systray-box.c abs/xfce4-panel/src/xfce4-panel-4.12.0/plugins/systray/systray-box.c
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/systray/systray-box.c	2013-06-25 08:29:44.873785329 -0700
++++ abs/xfce4-panel/src/xfce4-panel-4.12.0/plugins/systray/systray-box.c	2013-06-25 08:30:40.148675631 -0700
 @@ -36,7 +36,7 @@
  #include "systray-box.h"
  #include "systray-socket.h"
@@ -21,9 +21,9 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-box
  
  #if GLIB_CHECK_VERSION (2, 16, 0)
    return g_strcmp0 (name_a, name_b);
-diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-socket.c abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/systray/systray-socket.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/systray/systray-socket.c	2013-06-25 08:29:44.873785329 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/systray/systray-socket.c	2013-06-25 08:30:40.148675631 -0700
+diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/systray/systray-socket.c abs/xfce4-panel/src/xfce4-panel-4.12.0/plugins/systray/systray-socket.c
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/systray/systray-socket.c	2013-06-25 08:29:44.873785329 -0700
++++ abs/xfce4-panel/src/xfce4-panel-4.12.0/plugins/systray/systray-socket.c	2013-06-25 08:30:40.148675631 -0700
 @@ -56,6 +56,7 @@
    GdkNativeWindow window;
  
