@@ -1,6 +1,6 @@
-diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-fadeout.c abs/xfce4-session/src/xfce4-session-4.10.1/xfce4-session/xfsm-fadeout.c
---- abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-fadeout.c	2013-05-07 00:46:42.802607924 -0700
-+++ abs/xfce4-session/src/xfce4-session-4.10.1/xfce4-session/xfsm-fadeout.c	2013-05-07 00:46:46.813056861 -0700
+diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.12.0/xfce4-session/xfsm-fadeout.c abs/xfce4-session/src/xfce4-session-4.12.0/xfce4-session/xfsm-fadeout.c
+--- abs/xfce4-session.ORIG/src/xfce4-session-4.12.0/xfce4-session/xfsm-fadeout.c	2015-03-10 10:14:28.954476526 -0700
++++ abs/xfce4-session/src/xfce4-session-4.12.0/xfce4-session/xfsm-fadeout.c	2015-03-10 10:14:31.204506699 -0700
 @@ -51,7 +51,6 @@
    GdkPixmap     *backbuf;
    GdkScreen     *gdk_screen;
@@ -33,9 +33,9 @@ diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-fade
            cairo_destroy (cr);
  
            gdk_window_set_back_pixmap (window, backbuf, FALSE);
-diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-logout-dialog.c abs/xfce4-session/src/xfce4-session-4.10.1/xfce4-session/xfsm-logout-dialog.c
---- abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-logout-dialog.c	2013-05-07 00:46:42.802607924 -0700
-+++ abs/xfce4-session/src/xfce4-session-4.10.1/xfce4-session/xfsm-logout-dialog.c	2013-05-07 00:46:46.813056861 -0700
+diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.12.0/xfce4-session/xfsm-logout-dialog.c abs/xfce4-session/src/xfce4-session-4.12.0/xfce4-session/xfsm-logout-dialog.c
+--- abs/xfce4-session.ORIG/src/xfce4-session-4.12.0/xfce4-session/xfsm-logout-dialog.c	2015-03-10 10:14:28.954476526 -0700
++++ abs/xfce4-session/src/xfce4-session-4.12.0/xfce4-session/xfsm-logout-dialog.c	2015-03-10 10:14:36.534578178 -0700
 @@ -61,7 +61,7 @@
  
  
@@ -45,7 +45,7 @@ diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-logo
  #define SHOTSIZE 64
  
  
-@@ -96,9 +96,6 @@
+@@ -94,9 +94,6 @@
    /* set when a button is clicked */
    XfsmShutdownType  type_clicked;
  
@@ -55,7 +55,7 @@ diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-logo
    /* mode widgets */
    GtkWidget        *box[N_MODES];
  
-@@ -137,9 +134,7 @@
+@@ -132,9 +129,7 @@
  static void
  xfsm_logout_dialog_init (XfsmLogoutDialog *dialog)
  {
@@ -65,9 +65,9 @@ diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-logo
    PangoAttrList *attrs;
    GtkWidget     *vbox;
    GtkWidget     *button_vbox;
-@@ -157,14 +152,12 @@
+@@ -151,14 +146,12 @@
+   GError        *error = NULL;
    XfconfChannel *channel;
-   GtkWidget     *entry;
    GtkWidget     *image;
 -  GtkWidget     *separator;
    gboolean       upower_not_found = FALSE;
@@ -80,7 +80,7 @@ diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-logo
    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
  
-@@ -178,30 +171,6 @@
+@@ -172,30 +165,6 @@
    gtk_container_set_border_width (GTK_CONTAINER (main_vbox), BORDER);
    gtk_widget_show (main_vbox);
  
@@ -111,7 +111,7 @@ diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-logo
    /**
     * Start mode MODE_LOGOUT_BUTTONS
     **/
-@@ -359,18 +328,6 @@
+@@ -337,18 +306,6 @@
          }
      }
  
@@ -130,7 +130,7 @@ diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-logo
    attrs = pango_attr_list_new ();
    pango_attr_list_insert (attrs, pango_attr_weight_new (PANGO_WEIGHT_BOLD));
  
-@@ -518,27 +475,6 @@
+@@ -456,27 +413,6 @@
    gtk_container_add (GTK_CONTAINER (button), vbox);
    gtk_widget_show (vbox);
  
@@ -158,12 +158,12 @@ diff -ru abs/xfce4-session.ORIG/src/xfce4-session-4.10.1/xfce4-session/xfsm-logo
    label = gtk_label_new_with_mnemonic (title);
    gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
    gtk_widget_show (label);
-@@ -882,8 +818,6 @@
-           /* store autosave state */
-           if (autosave)
-             *return_save_session = TRUE;
--          else if (xfsm_dialog->save_session != NULL)
--            *return_save_session = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (xfsm_dialog->save_session));
-           else
-             *return_save_session = FALSE;
+@@ -754,8 +690,6 @@
+       /* store autosave state */
+       if (autosave)
+         *return_save_session = TRUE;
+-      else if (xfsm_dialog->save_session != NULL)
+-        *return_save_session = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (xfsm_dialog->save_session));
+       else
+         *return_save_session = FALSE;
  
