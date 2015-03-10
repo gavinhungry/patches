@@ -1,6 +1,6 @@
-diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/tasklist/tasklist-widget.c abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/tasklist/tasklist-widget.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/tasklist/tasklist-widget.c	2013-05-07 00:36:03.466822514 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.10.1/plugins/tasklist/tasklist-widget.c	2013-05-07 00:38:25.923096266 -0700
+diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/tasklist/tasklist-widget.c abs/xfce4-panel/src/xfce4-panel-4.12.0/plugins/tasklist/tasklist-widget.c
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/tasklist/tasklist-widget.c	2015-03-10 09:20:22.877612559 -0700
++++ abs/xfce4-panel/src/xfce4-panel-4.12.0/plugins/tasklist/tasklist-widget.c	2015-03-10 09:21:09.214900620 -0700
 @@ -45,7 +45,7 @@
  
  
@@ -10,7 +10,7 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/tasklist/tasklist-w
  #define DEFAULT_MENU_ICON_SIZE       (16)
  #define DEFAULT_MIN_BUTTON_LENGTH    (DEFAULT_MAX_BUTTON_LENGTH / 4)
  #define DEFAULT_ICON_LUCENCY         (50)
-@@ -1524,9 +1524,14 @@
+@@ -1583,9 +1583,14 @@
        if (child->window == active_window)
          g_get_current_time (&child->last_focused);
  
@@ -28,7 +28,7 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/tasklist/tasklist-w
      }
  
    /* release the lock */
-@@ -2416,13 +2421,6 @@
+@@ -2493,13 +2498,6 @@
    name = wnck_window_get_name (child->window);
    gtk_widget_set_tooltip_text (GTK_WIDGET (child->button), name);
  
@@ -42,7 +42,7 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/tasklist/tasklist-w
    gtk_label_set_text (GTK_LABEL (child->label), name);
  
    g_free (label);
-@@ -2485,17 +2483,6 @@
+@@ -2563,33 +2561,6 @@
            xfce_tasklist_button_icon_changed (window, child);
          }
      }
@@ -51,16 +51,32 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.10.1/plugins/tasklist/tasklist-w
 -  if (PANEL_HAS_FLAG (changed_state, WNCK_WINDOW_STATE_DEMANDS_ATTENTION)
 -      || PANEL_HAS_FLAG (changed_state, WNCK_WINDOW_STATE_URGENT))
 -    {
--      /* only start blinking if the window requesting urgentcy
+-      /* only start blinking if the window requesting urgency
 -       * notification is not the active window */
 -      blink = wnck_window_or_transient_needs_attention (window);
 -      if (!blink || (blink && !wnck_window_is_active (window)))
--        xfce_arrow_button_set_blinking (XFCE_ARROW_BUTTON (child->button), blink);
+-        {
+-          /* if we have all_blinking set make sure we toggle visibility of the button
+-           * in case the window is not in the current workspace */
+-          active_ws = wnck_screen_get_active_workspace (child->tasklist->screen);
+-          if (child->tasklist->all_blinking && blink
+-              && !xfce_tasklist_button_visible (child, active_ws))
+-            {
+-              gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
+-              gtk_widget_show (child->button);
+-            }
+-
+-          xfce_arrow_button_set_blinking (XFCE_ARROW_BUTTON (child->button), blink);
+-
+-          if (child->tasklist->all_blinking
+-              && !xfce_tasklist_button_visible (child, active_ws))
+-            gtk_widget_hide (child->button);
+-        }
 -    }
  }
  
  
-@@ -2513,6 +2500,7 @@
+@@ -2607,6 +2578,7 @@
  
    /* make sure we don't have two active windows (bug #6474) */
    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
