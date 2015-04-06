@@ -1,0 +1,16 @@
+diff -ru aur/xfce4-power-manager-1.2.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-power.c aur/xfce4-power-manager-1.2/src/xfce4-power-manager-1.2.0/src/xfpm-power.c
+--- aur/xfce4-power-manager-1.2.ORIG/src/xfce4-power-manager-1.2.0/src/xfpm-power.c	2015-04-06 09:27:21.642766215 -0700
++++ aur/xfce4-power-manager-1.2/src/xfce4-power-manager-1.2.0/src/xfpm-power.c	2015-04-06 09:48:02.449756603 -0700
+@@ -983,7 +983,11 @@
+     DBusGProxy *proxy_prop;
+     guint device_type = XFPM_DEVICE_TYPE_UNKNOWN;
+     GValue value;
+-    
++
++    if (strstr(object_path, "/battery_hid_") != NULL) {
++        return;
++    }
++
+     proxy_prop = dbus_g_proxy_new_for_name (power->priv->bus, 
+ 					    UPOWER_NAME,
+ 					    object_path,
