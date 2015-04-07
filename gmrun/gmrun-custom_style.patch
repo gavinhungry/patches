@@ -1,0 +1,31 @@
+diff -ru abs/gmrun.ORIG/src/gmrun-0.9.2/src/main.cc abs/gmrun/src/gmrun-0.9.2/src/main.cc
+--- abs/gmrun.ORIG/src/gmrun-0.9.2/src/main.cc	2015-04-07 15:28:27.181338863 -0700
++++ abs/gmrun/src/gmrun-0.9.2/src/main.cc	2015-04-07 15:32:22.591210651 -0700
+@@ -537,9 +537,8 @@
+ 
+   win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+   gtk_widget_realize(win);
+-  gdk_window_set_decorations(win->window, GDK_DECOR_BORDER);
+   gtk_widget_set_name(win, "Msh_Run_Window");
+-  gtk_window_set_title(GTK_WINDOW(win), "Execute program feat. completion");
++  gtk_window_set_title(GTK_WINDOW(win), "gmrun");
+   gtk_window_set_policy(GTK_WINDOW(win), FALSE, FALSE, TRUE);
+   // gtk_window_set_position(GTK_WINDOW(win), GTK_WIN_POS_CENTER);
+   gtk_container_set_border_width(GTK_CONTAINER(win), 4);
+@@ -555,16 +554,6 @@
+   gtk_box_pack_start(GTK_BOX(hbox), hhbox, FALSE, FALSE, 0);
+ 
+   GtkWidget *label = gtk_label_new("Run program:");
+-  gtk_widget_show(label);
+-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
+-  gtk_misc_set_padding(GTK_MISC(label), 10, 0);
+-  gtk_box_pack_start(GTK_BOX(hhbox), label, FALSE, FALSE, 0);
+-
+-  label_search = gtk_label_new("");
+-  gtk_widget_show(label_search);
+-  gtk_misc_set_alignment(GTK_MISC(label_search), 1.0, 0.5);
+-  gtk_misc_set_padding(GTK_MISC(label_search), 10, 0);
+-  gtk_box_pack_start(GTK_BOX(hhbox), label_search, TRUE, TRUE, 0);
+ 
+   compline = gtk_completion_line_new();
+   gtk_widget_set_name(compline, "Msh_Run_Compline");
