@@ -1,19 +1,19 @@
-diff -ru abs/systemd.ORIG/src/systemd-218/src/core/job.c abs/systemd/src/systemd-218/src/core/job.c
---- abs/systemd.ORIG/src/systemd-218/src/core/job.c	2015-01-02 10:40:59.651612153 -0800
-+++ abs/systemd/src/systemd-218/src/core/job.c	2015-01-02 10:41:29.005617186 -0800
-@@ -722,7 +722,7 @@
+diff -ru abs/systemd.ORIG/src/systemd-219/src/core/job.c abs/systemd/src/systemd-219/src/core/job.c
+--- abs/systemd.ORIG/src/systemd-219/src/core/job.c	2015-05-05 10:19:12.476843724 -0700
++++ abs/systemd/src/systemd-219/src/core/job.c	2015-05-05 10:20:05.497565942 -0700
+@@ -763,7 +763,7 @@
                  return;
  
          DISABLE_WARNING_FORMAT_NONLITERAL;
 -        snprintf(buf, sizeof(buf), format, unit_description(u));
 +        snprintf(buf, sizeof(buf), format, strna(u->id));
-         char_array_0(buf);
          REENABLE_WARNING;
  
-diff -ru abs/systemd.ORIG/src/systemd-218/src/core/unit.c abs/systemd/src/systemd-218/src/core/unit.c
---- abs/systemd.ORIG/src/systemd-218/src/core/unit.c	2015-01-02 10:40:59.651612153 -0800
-+++ abs/systemd/src/systemd-218/src/core/unit.c	2015-01-02 10:41:29.005617186 -0800
-@@ -2860,7 +2860,7 @@
+         if (t == JOB_START) {
+diff -ru abs/systemd.ORIG/src/systemd-219/src/core/unit.c abs/systemd/src/systemd-219/src/core/unit.c
+--- abs/systemd.ORIG/src/systemd-219/src/core/unit.c	2015-05-05 10:19:12.483510481 -0700
++++ abs/systemd/src/systemd-219/src/core/unit.c	2015-05-05 10:20:23.824482249 -0700
+@@ -2892,7 +2892,7 @@
  void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
          DISABLE_WARNING_FORMAT_NONLITERAL;
          manager_status_printf(u->manager, STATUS_TYPE_NORMAL,
