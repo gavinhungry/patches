@@ -1,6 +1,6 @@
-diff -ru abs/xfdesktop.ORIG/src/xfdesktop-4.12.0/src/xfdesktop-icon-view.c abs/xfdesktop/src/xfdesktop-4.12.0/src/xfdesktop-icon-view.c
---- abs/xfdesktop.ORIG/src/xfdesktop-4.12.0/src/xfdesktop-icon-view.c	2015-03-10 10:22:43.257771914 -0700
-+++ abs/xfdesktop/src/xfdesktop-4.12.0/src/xfdesktop-icon-view.c	2015-03-10 10:23:27.028358887 -0700
+diff -ru abs/xfdesktop.ORIG/src/xfdesktop-4.12.1/src/xfdesktop-icon-view.c abs/xfdesktop/src/xfdesktop-4.12.1/src/xfdesktop-icon-view.c
+--- abs/xfdesktop.ORIG/src/xfdesktop-4.12.1/src/xfdesktop-icon-view.c	2015-03-10 10:22:43.257771914 -0700
++++ abs/xfdesktop/src/xfdesktop-4.12.1/src/xfdesktop-icon-view.c	2015-03-10 10:23:27.028358887 -0700
 @@ -2022,7 +2022,7 @@
      GdkScreen *gscreen;
      GdkWindow *groot;
