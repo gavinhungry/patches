@@ -1,10 +1,14 @@
 #!/bin/bash
 
-for DIR in */ ; do
-  PKG=${DIR%*/}
-  PACKAGER=$(pacman -Qi $PKG 2>&1 | grep ^Packager | cut -d':' -f2 | sed 's/^\s*//g')
+PATCHER_DIR=$(dirname $(realpath $0))
+PATCHES_DIR=${PATCHER_DIR}/pkgs
+source ${PATCHER_DIR}/abash/abash.sh
 
-  if [[ $PACKAGER && $PACKAGER != $(gecos ${USER})* ]]; then
-    echo $PKG
+for DIR in ${PATCHES_DIR}/* ; do
+  PKG=$(basename ${DIR})
+  PACKAGER=$(pacman -Qi ${PKG} 2>&1 | grep ^Packager | cut -d':' -f2 | sed 's/^\s*//g')
+
+  if [[ ${PACKAGER} && ${PACKAGER} != $(gecos ${USER})* ]]; then
+    arge download && pkgsource ${PKG} || echo ${PKG}
   fi
 done

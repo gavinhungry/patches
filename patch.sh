@@ -13,14 +13,18 @@ PATCH_DIR=${PATCHES_DIR}/${PKG}
 [ -d "${PATCH_DIR}" ] || die 'Could not find patch directory'
 
 source ${PATCHER_DIR}/soft-update.sh ${PKG}
-cd ${PATCHER_DIR}/..
+ARCH_DIR=${PATCHER_DIR}/..
+cd ${ARCH_DIR}
 
-for PATCH in ${PATCH_DIR}/*.patch; do
-  inform 'Applying' $(basename ${PATCH})
-  patch -Ns -r - -p0 < ${PATCH} || die 'Error applying patch'
-done
+PATCHES=(${PATCH_DIR}/*.patch)
+if stat -t ${PATCHES} &> /dev/null; then
+  for PATCH in ${PATCHES[@]}; do
+    inform 'Applying' $(basename ${PATCH})
+    patch -Ns -r - -p0 < ${PATCH} || die 'Error applying patch'
+  done
+fi
 
 if [ -x ${PATCH_DIR}/patch.sh ]; then
-  [ -d "$PKGSRC_DIR" ] && cd ${PKGSRC_DIR}
-  source ${PATCH_DIR}/patch.sh
+  cd ${PATCH_DIR}
+  source ${PATCH_DIR}/patch.sh ${ARCH_DIR} ${PKGSRC_DIR}
 fi
