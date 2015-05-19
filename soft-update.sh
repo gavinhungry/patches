@@ -19,12 +19,12 @@ stat -t ${PATCHES} &> /dev/null || die 'No patch files'
 
 _PATCH=${PATCHES[0]}
 PKGBUILD_DIR=$(cat ${_PATCH} | grep ^diff | head -n1 | sed 's/.*\s\(.*\)\.ORIG\/.*/\1/')
-cd ${PATCHER_DIR}/../${PKGBUILD_DIR} || die 'Could not switch to PKGBUILD directory'
+cd ${PATCHER_DIR}/../${PKGBUILD_DIR} &> /dev/null || die 'Could not switch to PKGBUILD directory'
 
 source PKGBUILD || die 'Could not source PKGBUILD'
 
 PKGSRC_DIR_CMD=$(grep srcdir PKGBUILD | awk '{$1=$1}1' | grep ^cd | head -n1)
-eval ${PKGSRC_DIR_CMD} || 'Could not swtich to package source directory'
+eval ${PKGSRC_DIR_CMD} &> /dev/null || 'Could not swtich to package source directory'
 PKGSRC_DIR=$(pwd)
 PKGSRC_DIR_BASE=$(basename ${PKGSRC_DIR})
 
