@@ -22,5 +22,5 @@ done
 
 if [ -x ${PATCH_DIR}/patch.sh ]; then
   [ -d "$PKGSRC_DIR" ] && cd ${PKGSRC_DIR}
-  source ${PATCH_DIR}/patch.sh ${PKGSRC_DIR}
+  source ${PATCH_DIR}/patch.sh
 fi
