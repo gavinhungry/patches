@@ -1,9 +1,8 @@
-for P in ${1}/*.patch; do
-  patch -N -r - -p0 < $P;
-done
+ARCH_DIR=$1
+PKGSRC_DIR=$2
 
-XCHAT_DIR=abs/xchat/src/xchat-2.8.8
-cp patches/xchat/xchat.png $XCHAT_DIR
-cp patches/xchat/empty.png $XCHAT_DIR/src/pixmaps/fileoffer.png
-cp patches/xchat/empty.png $XCHAT_DIR/src/pixmaps/highlight.png
-cp patches/xchat/empty.png $XCHAT_DIR/src/pixmaps/message.png
+inform 'Updating icons'
+cp xchat.png $PKGSRC_DIR
+cp empty.png $PKGSRC_DIR/src/pixmaps/fileoffer.png
+cp empty.png $PKGSRC_DIR/src/pixmaps/highlight.png
+cp empty.png $PKGSRC_DIR/src/pixmaps/message.png
