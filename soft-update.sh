@@ -30,6 +30,6 @@ PKGSRC_DIR_BASE=$(basename ${PKGSRC_DIR})
 
 inform 'Updating patches to' ${PKGSRC_DIR_BASE}
 for PATCH in ${PATCHES[@]}; do
-  perl -pe "s|(^diff(.*?)src/)[^/]*((.*?)src/)*[^/]*|\1\\${PKGSRC_DIR_BASE}\3\\${PKGSRC_DIR_BASE}|g" -i ${PATCH}
-  perl -pe "s|(^(---\|\+\+\+)(.*?)src/)[^/]*|\1\\${PKGSRC_DIR_BASE}|g" -i ${PATCH}
+  perl -pe "s|(^diff(.*?)/src/)[^/]*([^\s]*\s)((.*?)/src/)[^/]*|\1${PKGSRC_DIR_BASE}\3\4${PKGSRC_DIR_BASE}\6|g" -i ${PATCH}
+  perl -pe "s|(^(---\|\+\+\+)(.*?)src/)[^/]*|\1${PKGSRC_DIR_BASE}|g" -i ${PATCH}
 done
