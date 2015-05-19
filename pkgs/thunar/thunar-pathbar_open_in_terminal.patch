@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.8/thunar/thunar-location-buttons.c abs/thunar/src/Thunar-1.6.8/thunar/thunar-location-buttons.c
---- abs/thunar.ORIG/src/Thunar-1.6.8/thunar/thunar-location-buttons.c	2013-05-07 00:23:01.658432393 -0700
-+++ abs/thunar/src/Thunar-1.6.8/thunar/thunar-location-buttons.c	2013-05-07 00:29:49.910201859 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.9/thunar/thunar-location-buttons.c abs/thunar/src/Thunar-1.6.9/thunar/thunar-location-buttons.c
+--- abs/thunar.ORIG/src/Thunar-1.6.9/thunar/thunar-location-buttons.c	2013-05-07 00:23:01.658432393 -0700
++++ abs/thunar/src/Thunar-1.6.9/thunar/thunar-location-buttons.c	2013-05-07 00:29:49.910201859 -0700
 @@ -127,6 +127,8 @@
                                                                           ThunarLocationButtons      *buttons);
  static void           thunar_location_buttons_action_open_in_new_window (GtkAction                  *action,
@@ -68,9 +68,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.8/thunar/thunar-location-buttons.c abs/t
  
  static void
  thunar_location_buttons_action_paste_into_folder (GtkAction             *action,
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.8/thunar/thunar-location-buttons-ui.xml abs/thunar/src/Thunar-1.6.8/thunar/thunar-location-buttons-ui.xml
---- abs/thunar.ORIG/src/Thunar-1.6.8/thunar/thunar-location-buttons-ui.xml	2013-05-07 00:23:01.661765040 -0700
-+++ abs/thunar/src/Thunar-1.6.8/thunar/thunar-location-buttons-ui.xml	2013-05-07 00:29:49.913535048 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.9/thunar/thunar-location-buttons-ui.xml abs/thunar/src/Thunar-1.6.9/thunar/thunar-location-buttons-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.6.9/thunar/thunar-location-buttons-ui.xml	2013-05-07 00:23:01.661765040 -0700
++++ abs/thunar/src/Thunar-1.6.9/thunar/thunar-location-buttons-ui.xml	2013-05-07 00:29:49.913535048 -0700
 @@ -17,9 +17,11 @@
      <menuitem action="location-buttons-open-in-new-tab" />
      <menuitem action="location-buttons-open-in-new-window" />
