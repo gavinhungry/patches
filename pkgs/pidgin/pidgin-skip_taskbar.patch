@@ -1,0 +1,12 @@
+diff -ru abs/pidgin.ORIG/src/pidgin-2.10.11/pidgin/gtkblist.c abs/pidgin/src/pidgin-2.10.11/pidgin/gtkblist.c
+--- abs/pidgin.ORIG/src/pidgin-2.10.11/pidgin/gtkblist.c	2015-05-21 09:43:02.453574627 -0700
++++ abs/pidgin/src/pidgin-2.10.11/pidgin/gtkblist.c	2015-05-21 09:57:50.478755267 -0700
+@@ -5772,6 +5772,8 @@
+ 			 G_CALLBACK(blist_focus_cb), gtkblist);
+ 	GTK_WINDOW(gtkblist->window)->allow_shrink = TRUE;
+ 
++	gtk_window_set_skip_taskbar_hint(gtkblist->window, TRUE);
++
+ 	gtkblist->main_vbox = gtk_vbox_new(FALSE, 0);
+ 	gtk_widget_show(gtkblist->main_vbox);
+ 	gtk_container_add(GTK_CONTAINER(gtkblist->window), gtkblist->main_vbox);
