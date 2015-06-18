@@ -19,6 +19,7 @@ if stat -t ${PATCHES} &> /dev/null; then
   _PATCH=${PATCHES[0]}
   PKGBUILD_DIR=$(cat ${_PATCH} | grep ^diff | head -n1 | sed 's/.*\s\(.*\)\.ORIG\/.*/\1/')
   cd ${PATCHER_DIR}/../${PKGBUILD_DIR} &> /dev/null || die 'Could not switch to PKGBUILD directory'
+  PKGBUILD_DIR=$(pwd)
 
   source PKGBUILD || die 'Could not source PKGBUILD'
 
@@ -27,14 +28,15 @@ if stat -t ${PATCHES} &> /dev/null; then
     echo -e "\n"'PACKAGER+=" [p]"' >> PKGBUILD
   fi
 
-  PKGSRC_DIR_CMD=$(grep srcdir PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
+  PKGSRC_DIR_CMD=$(grep srcdir ${PKGBUILD_DIR}/PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
   if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_CMD=$(grep pkgname PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
+    PKGSRC_DIR_CMD=$(grep pkgname ${PKGBUILD_DIR}/PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
+    cd "${srcdir}"
   fi
 
   if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_CMD=$(grep '^\s*cd\s' PKGBUILD | head -n1)
-    cd ${srcdir}
+    PKGSRC_DIR_CMD=$(grep '^\s*cd\s' ${PKGBUILD_DIR}/PKGBUILD | head -n1)
+    cd "${srcdir}"
   fi
 
   [ -n "$PKGSRC_DIR_CMD" ] || die 'Cound not find package source directory'
