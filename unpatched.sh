@@ -6,9 +6,9 @@ source ${PATCHER_DIR}/abash/abash.sh
 
 for DIR in ${PATCHES_DIR}/* ; do
   PKG=$(basename ${DIR})
-  PACKAGER=$(pacman -Qi ${PKG} 2>&1 | grep ^Packager | cut -d':' -f2 | sed 's/^\s*//g')
+  PACKAGER=$(pacman -Qi ${PKG} 2>&1 | grep ^Packager | cut -d':' -f2-)
 
-  if [[ ${PACKAGER} && ${PACKAGER} != $(gecos ${USER})* ]]; then
+  if [[ ${PACKAGER} != *"[p]" ]]; then
     arge download && pkgsource ${PKG} || echo ${PKG}
   fi
 done

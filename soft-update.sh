@@ -22,6 +22,11 @@ if stat -t ${PATCHES} &> /dev/null; then
 
   source PKGBUILD || die 'Could not source PKGBUILD'
 
+  if [ ! -f .patched ]; then
+    touch .patched
+    echo -e "\n"'PACKAGER+=" [p]"' >> PKGBUILD
+  fi
+
   PKGSRC_DIR_CMD=$(grep srcdir PKGBUILD | grep '^\s*cd\s' | head -n1)
   if [ -z "$PKGSRC_DIR_CMD" ]; then
     PKGSRC_DIR_CMD=$(grep '^\s*cd\s' PKGBUILD | head -n1)
