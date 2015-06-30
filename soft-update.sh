@@ -29,19 +29,28 @@ if stat -t ${PATCHES} &> /dev/null; then
   fi
 
   PKGSRC_DIR_CMD=$(grep srcdir ${PKGBUILD_DIR}/PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
+
+  if [ -z "$PKGSRC_DIR_CMD" ]; then
+    PKGSRC_DIR_CMD=$(grep srcdir ${PKGBUILD_DIR}/PKGBUILD | grep '^\s*cd\s' | head -n1)
+    cd "${PKGBUILD_DIR}"
+  fi
+
   if [ -z "$PKGSRC_DIR_CMD" ]; then
     PKGSRC_DIR_CMD=$(grep pkgname ${PKGBUILD_DIR}/PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
+    cd "${PKGBUILD_DIR}"
     cd "${srcdir}"
   fi
 
   if [ -z "$PKGSRC_DIR_CMD" ]; then
     PKGSRC_DIR_CMD=$(grep '^\s*cd\s' ${PKGBUILD_DIR}/PKGBUILD | head -n1)
+    cd "${PKGBUILD_DIR}"
     cd "${srcdir}"
   fi
 
   [ -n "$PKGSRC_DIR_CMD" ] || die 'Cound not find package source directory'
 
   eval ${PKGSRC_DIR_CMD} &> /dev/null || 'Could not switch to package source directory'
+
   PKGSRC_DIR=$(pwd)
   PKGSRC_DIR_BASE=$(basename ${PKGSRC_DIR})
 

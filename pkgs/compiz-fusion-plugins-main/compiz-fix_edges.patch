@@ -1,9 +1,6 @@
-Description: Fix window edge behaviour
-Author: https://bugs.launchpad.net/bugs/103306
-
-diff -Nur -x '*.orig' -x '*~' compiz-fusion-plugins-main-0.8.4/metadata/wall.xml.in compiz-fusion-plugins-main-0.8.4.new/metadata/wall.xml.in
---- aur/compiz-fusion-plugins-main/src/compiz-plugins-main-0.8.8/metadata/wall.xml.in	2009-10-14 16:33:23.390182291 -0500
-+++ aur/compiz-fusion-plugins-main/src/compiz-plugins-main-0.8.8/metadata/wall.xml.in	2009-10-14 16:34:50.592662841 -0500
+diff -ru aur/compiz-fusion-plugins-main.ORIG/src/plugins-main/metadata/wall.xml.in aur/compiz-fusion-plugins-main/src/plugins-main/metadata/wall.xml.in
+--- aur/compiz-fusion-plugins-main.ORIG/src/plugins-main/metadata/wall.xml.in	2015-06-30 11:06:02.110201770 -0700
++++ aur/compiz-fusion-plugins-main/src/plugins-main/metadata/wall.xml.in	2015-06-30 11:08:23.903532074 -0700
 @@ -280,6 +280,7 @@
  						<_short>Flip Left</_short>
  						<_long>Flip left</_long>
@@ -36,9 +33,9 @@ diff -Nur -x '*.orig' -x '*~' compiz-fusion-plugins-main-0.8.4/metadata/wall.xml
  						<default>
  							<edge name="Bottom"/>
  						</default>
-diff -Nur -x '*.orig' -x '*~' compiz-fusion-plugins-main-0.8.4/src/wall/wall.c compiz-fusion-plugins-main-0.8.4.new/src/wall/wall.c
---- aur/compiz-fusion-plugins-main/src/compiz-plugins-main-0.8.8/src/wall/wall.c	2009-10-14 16:33:23.390182291 -0500
-+++ aur/compiz-fusion-plugins-main/src/compiz-plugins-main-0.8.8/src/wall/wall.c	2009-10-14 16:42:47.275026317 -0500
+diff -ru aur/compiz-fusion-plugins-main.ORIG/src/plugins-main/src/wall/wall.c aur/compiz-fusion-plugins-main/src/plugins-main/src/wall/wall.c
+--- aur/compiz-fusion-plugins-main.ORIG/src/plugins-main/src/wall/wall.c	2015-06-30 11:06:02.206868435 -0700
++++ aur/compiz-fusion-plugins-main/src/plugins-main/src/wall/wall.c	2015-06-30 11:08:23.903532074 -0700
 @@ -111,6 +111,8 @@
      WindowUngrabNotifyProc       windowUngrabNotify;
      ActivateWindowProc           activateWindow;
