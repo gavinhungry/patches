@@ -9,9 +9,9 @@ diff -ru abs/gnupg.ORIG/PKGBUILD abs/gnupg/PKGBUILD
  
  	make
  }
-diff -ru abs/gnupg.ORIG/src/gnupg-2.1.5/g10/keygen.c abs/gnupg/src/gnupg-2.1.5/g10/keygen.c
---- abs/gnupg.ORIG/src/gnupg-2.1.5/g10/keygen.c	2015-01-02 10:25:47.474072420 -0800
-+++ abs/gnupg/src/gnupg-2.1.5/g10/keygen.c	2015-01-02 10:27:25.269643578 -0800
+diff -ru abs/gnupg.ORIG/src/gnupg-2.1.6/g10/keygen.c abs/gnupg/src/gnupg-2.1.6/g10/keygen.c
+--- abs/gnupg.ORIG/src/gnupg-2.1.6/g10/keygen.c	2015-01-02 10:25:47.474072420 -0800
++++ abs/gnupg/src/gnupg-2.1.6/g10/keygen.c	2015-01-02 10:27:25.269643578 -0800
 @@ -2040,6 +2040,7 @@
  
      case PUBKEY_ALGO_RSA:
