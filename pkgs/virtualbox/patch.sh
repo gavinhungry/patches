@@ -5,7 +5,7 @@ cd ${ARCH_DIR}/abs/virtualbox
 source ./PKGBUILD
 
 inform 'Replacing icons'
-for OSIMG in ./src/VirtualBox-${pkgver}/src/VBox/Frontends/VirtualBox/images/os_*; do
+for OSIMG in ./src/VirtualBox-${pkgver}/src/VBox/Frontends/VirtualBox/images/{hidpi,}/os_*; do
   cp ./src/VirtualBox-${pkgver}/src/VBox/Frontends/VirtualBox/images/OSE/about_16px.png ${OSIMG};
 done
 
