@@ -22,6 +22,7 @@ if stat -t ${PATCHES} &> /dev/null; then
   PKGBUILD_DIR=$(pwd)
 
   source PKGBUILD || die 'Could not source PKGBUILD'
+  pkgbase=${pkgname}
 
   # cd $srcdir/foo-$pkgver
   PKGSRC_DIR_CMD=$(grep srcdir ${PKGBUILD_DIR}/PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
