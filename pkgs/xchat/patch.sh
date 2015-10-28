@@ -6,3 +6,5 @@ cp xchat.png $PKGSRC_DIR
 cp empty.png $PKGSRC_DIR/src/pixmaps/fileoffer.png
 cp empty.png $PKGSRC_DIR/src/pixmaps/highlight.png
 cp empty.png $PKGSRC_DIR/src/pixmaps/message.png
+
+cd ${ARCH_DIR}/abs/xchat
