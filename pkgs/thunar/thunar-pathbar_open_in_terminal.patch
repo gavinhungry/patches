@@ -1,6 +1,6 @@
 diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-location-buttons.c abs/thunar/src/Thunar-1.6.10/thunar/thunar-location-buttons.c
---- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-location-buttons.c	2013-05-07 00:23:01.658432393 -0700
-+++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-location-buttons.c	2013-05-07 00:29:49.910201859 -0700
+--- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-location-buttons.c	2015-10-29 16:39:24.932496261 -0700
++++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-location-buttons.c	2015-10-29 16:41:03.755832348 -0700
 @@ -127,6 +127,8 @@
                                                                           ThunarLocationButtons      *buttons);
  static void           thunar_location_buttons_action_open_in_new_window (GtkAction                  *action,
@@ -18,7 +18,7 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-location-buttons.c abs/
    { "location-buttons-create-folder", "folder-new", N_("Create _Folder..."), "", NULL, G_CALLBACK (thunar_location_buttons_action_create_folder), },
    { "location-buttons-empty-trash", NULL, N_("_Empty Trash"), "", N_("Delete all files and folders in the Trash"), G_CALLBACK (thunar_location_buttons_action_empty_trash), },
    { "location-buttons-paste-into-folder", GTK_STOCK_PASTE, N_("Paste Into Folder"), "", NULL, G_CALLBACK (thunar_location_buttons_action_paste_into_folder), },
-@@ -1249,6 +1252,11 @@
+@@ -1255,6 +1258,11 @@
            thunar_gtk_action_set_tooltip (action, _("Open \"%s\" in a new tab"), display_name);
            g_object_set_qdata_full (G_OBJECT (action), thunar_file_quark, g_object_ref (G_OBJECT (file)), (GDestroyNotify) g_object_unref);
  
@@ -30,7 +30,7 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-location-buttons.c abs/
            /* setup the "Create Folder..." action */
            action = gtk_action_group_get_action (buttons->action_group, "location-buttons-create-folder");
            thunar_gtk_action_set_tooltip (action, _("Create a new folder in \"%s\""), display_name);
-@@ -1433,6 +1441,37 @@
+@@ -1439,6 +1447,39 @@
  }
  
  
@@ -55,6 +55,8 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-location-buttons.c abs/
 +      if (strlen(path) > 0) {
 +        g_string_assign (command, "exo-open --launch TerminalEmulator --working-directory ");
 +        g_string_append (command, g_shell_quote (path));
++        g_string_append (command, " ");
++        g_string_append (command, g_shell_quote (path));
 +        system (command->str);
 +      }
 +      g_free (path);
@@ -69,9 +71,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-location-buttons.c abs/
  static void
  thunar_location_buttons_action_paste_into_folder (GtkAction             *action,
 diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-location-buttons-ui.xml abs/thunar/src/Thunar-1.6.10/thunar/thunar-location-buttons-ui.xml
---- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-location-buttons-ui.xml	2013-05-07 00:23:01.661765040 -0700
-+++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-location-buttons-ui.xml	2013-05-07 00:29:49.913535048 -0700
-@@ -17,9 +17,11 @@
+--- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-location-buttons-ui.xml	2015-10-29 16:39:24.932496261 -0700
++++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-location-buttons-ui.xml	2015-10-29 16:39:42.829163426 -0700
+@@ -15,9 +15,11 @@
      <menuitem action="location-buttons-open-in-new-tab" />
      <menuitem action="location-buttons-open-in-new-window" />
      <separator />
