@@ -1,6 +1,6 @@
-diff -ru abs/networkmanager.ORIG/src/NetworkManager/src/rdisc/nm-lndp-rdisc.c abs/networkmanager/src/NetworkManager/src/rdisc/nm-lndp-rdisc.c
---- abs/networkmanager.ORIG/src/NetworkManager/src/rdisc/nm-lndp-rdisc.c	2015-08-05 10:12:49.400767978 -0700
-+++ abs/networkmanager/src/NetworkManager/src/rdisc/nm-lndp-rdisc.c	2015-08-05 10:13:27.824103241 -0700
+diff -ru abs/networkmanager.ORIG/src/NetworkManager-1.0.8/src/rdisc/nm-lndp-rdisc.c abs/networkmanager/src/NetworkManager-1.0.8/src/rdisc/nm-lndp-rdisc.c
+--- abs/networkmanager.ORIG/src/NetworkManager-1.0.8/src/rdisc/nm-lndp-rdisc.c	2015-08-05 10:12:49.400767978 -0700
++++ abs/networkmanager/src/NetworkManager-1.0.8/src/rdisc/nm-lndp-rdisc.c	2015-08-05 10:13:27.824103241 -0700
 @@ -65,7 +65,6 @@
  	error = ndp_msg_send (priv->ndp, msg);
  	ndp_msg_destroy (msg);
