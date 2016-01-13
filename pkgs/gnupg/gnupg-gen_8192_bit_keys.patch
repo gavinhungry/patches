@@ -1,18 +1,18 @@
 diff -ru abs/gnupg.ORIG/PKGBUILD abs/gnupg/PKGBUILD
---- abs/gnupg.ORIG/PKGBUILD	2015-01-02 10:25:47.434071505 -0800
-+++ abs/gnupg/PKGBUILD	2015-01-02 10:26:47.105436946 -0800
-@@ -35,6 +35,7 @@
+--- abs/gnupg.ORIG/PKGBUILD	2016-01-13 13:58:50.020326376 -0800
++++ abs/gnupg/PKGBUILD	2016-01-13 14:02:03.656468401 -0800
+@@ -43,6 +43,7 @@
+ 		--libexecdir=/usr/lib/gnupg \
  		--enable-maintainer-mode \
  		--enable-symcryptrun \
- 		--enable-gpgtar \
 +		--enable-large-secmem
  
  	make
  }
-diff -ru abs/gnupg.ORIG/src/gnupg-2.1.9/g10/keygen.c abs/gnupg/src/gnupg-2.1.9/g10/keygen.c
---- abs/gnupg.ORIG/src/gnupg-2.1.9/g10/keygen.c	2015-01-02 10:25:47.474072420 -0800
-+++ abs/gnupg/src/gnupg-2.1.9/g10/keygen.c	2015-01-02 10:27:25.269643578 -0800
-@@ -2040,6 +2040,7 @@
+diff -ru abs/gnupg.ORIG/src/gnupg-2.1.10/g10/keygen.c abs/gnupg/src/gnupg-2.1.10/g10/keygen.c
+--- abs/gnupg.ORIG/src/gnupg-2.1.10/g10/keygen.c	2016-01-13 13:58:50.026992911 -0800
++++ abs/gnupg/src/gnupg-2.1.10/g10/keygen.c	2016-01-13 13:59:57.122330092 -0800
+@@ -2054,6 +2054,7 @@
  
      case PUBKEY_ALGO_RSA:
        min=1024;
