@@ -27,6 +27,12 @@ if stat -t ${PATCHES} &> /dev/null; then
   # cd $srcdir/foo-$pkgver
   PKGSRC_DIR_CMD=$(grep srcdir ${PKGBUILD_DIR}/PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
 
+  # cd $srcdir/foo-
+  if [ -z "$PKGSRC_DIR_CMD" ]; then
+    PKGSRC_DIR_CMD=$(grep pkgname}\\?-\"\\? ${PKGBUILD_DIR}/PKGBUILD | grep '^\s*cd\s' | head -n1)
+    cd "${PKGBUILD_DIR}"
+  fi
+
   # cd $pkgname
   if [ -z "$PKGSRC_DIR_CMD" ]; then
     PKGSRC_DIR_CMD=$(grep pkgname ${PKGBUILD_DIR}/PKGBUILD | grep '^\s*cd\s' | head -n1)
