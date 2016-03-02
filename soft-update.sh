@@ -67,8 +67,10 @@ if stat -t ${PATCHES} &> /dev/null; then
 
   [ -n "$PKGSRC_DIR_CMD" ] || die 'Cound not find package source directory'
 
-  eval ${PKGSRC_DIR_CMD} &> /dev/null || cd ${srcdir} &> /dev/null
-  eval ${PKGSRC_DIR_CMD} &> /dev/null || die 'Could not switch to package source directory'
+  if ! eval ${PKGSRC_DIR_CMD} &> /dev/null; then
+     cd ${srcdir} &> /dev/null
+     eval ${PKGSRC_DIR_CMD} &> /dev/null || die 'Could not switch to package source directory'
+  fi
 
   PKGSRC_DIR=$(pwd)
   PKGSRC_DIR_BASE=$(basename ${PKGSRC_DIR})
