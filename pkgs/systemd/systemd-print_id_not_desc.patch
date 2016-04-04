@@ -1,19 +1,19 @@
 diff -ru abs/systemd.ORIG/src/systemd/src/core/job.c abs/systemd/src/systemd/src/core/job.c
---- abs/systemd.ORIG/src/systemd/src/core/job.c	2015-12-01 16:02:31.896474985 -0800
-+++ abs/systemd/src/systemd/src/core/job.c	2015-12-01 16:02:49.306272202 -0800
-@@ -754,7 +754,7 @@
+--- abs/systemd.ORIG/src/systemd/src/core/job.c	2016-04-04 12:36:16.863172623 -0700
++++ abs/systemd/src/systemd/src/core/job.c	2016-04-04 12:37:45.667869357 -0700
+@@ -760,7 +760,7 @@
                  return;
  
          DISABLE_WARNING_FORMAT_NONLITERAL;
--        snprintf(buf, sizeof(buf), format, unit_description(u));
-+        snprintf(buf, sizeof(buf), format, strna(u->id));
+-        xsprintf(buf, format, unit_description(u));
++        xsprintf(buf, format, strna(u->id));
          REENABLE_WARNING;
  
          switch (t) {
 diff -ru abs/systemd.ORIG/src/systemd/src/core/unit.c abs/systemd/src/systemd/src/core/unit.c
---- abs/systemd.ORIG/src/systemd/src/core/unit.c	2015-12-01 16:02:31.896474985 -0800
-+++ abs/systemd/src/systemd/src/core/unit.c	2015-12-01 16:03:09.122711431 -0800
-@@ -1349,7 +1349,7 @@
+--- abs/systemd.ORIG/src/systemd/src/core/unit.c	2016-04-04 12:36:16.863172623 -0700
++++ abs/systemd/src/systemd/src/core/unit.c	2016-04-04 12:38:05.347432458 -0700
+@@ -1342,7 +1342,7 @@
  
  void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
          DISABLE_WARNING_FORMAT_NONLITERAL;
