@@ -1,0 +1,65 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-standard-view.c abs/thunar/src/Thunar-1.6.10/thunar/thunar-standard-view.c
+--- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-standard-view.c	2016-05-10 10:47:03.155610975 -0700
++++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-standard-view.c	2016-05-10 16:14:41.541602259 -0700
+@@ -312,6 +312,7 @@
+   ThunarFile             *current_directory;
+ 
+   GtkAction              *action_create_folder;
++  GtkAction              *action_create_empty_file;
+   GtkAction              *action_create_document;
+   GtkAction              *action_properties;
+   GtkAction              *action_cut;
+@@ -403,6 +404,7 @@
+   { "file-context-menu", NULL, N_ ("File Context Menu"), NULL, NULL, NULL, },
+   { "folder-context-menu", NULL, N_ ("Folder Context Menu"), NULL, NULL, NULL, },
+   { "create-folder", "folder-new", N_ ("Create _Folder..."), "<control><shift>N", N_ ("Create an empty folder within the current folder"), G_CALLBACK (thunar_standard_view_action_create_folder), },
++  { "create-empty-file", "gtk-new", N_ ("Create _Empty File..."), "<control><shift>F", N_ ("Create an empty file within the current folder"), G_CALLBACK (thunar_standard_view_action_create_empty_file), },
+   { "properties", GTK_STOCK_PROPERTIES, N_ ("_Properties..."), "<alt>Return", N_ ("View the properties of the selected file"), G_CALLBACK (thunar_standard_view_action_properties), },
+   { "cut", GTK_STOCK_CUT, N_ ("Cu_t"), NULL, NULL, G_CALLBACK (thunar_standard_view_action_cut), },
+   { "copy", GTK_STOCK_COPY, N_ ("_Copy"), NULL, NULL, G_CALLBACK (thunar_standard_view_action_copy), },
+@@ -668,6 +670,7 @@
+ 
+   /* lookup all actions to speed up access later */
+   standard_view->priv->action_create_folder = gtk_action_group_get_action (standard_view->action_group, "create-folder");
++  standard_view->priv->action_create_empty_file = gtk_action_group_get_action (standard_view->action_group, "create-empty-file");
+   standard_view->priv->action_properties = gtk_action_group_get_action (standard_view->action_group, "properties");
+   standard_view->priv->action_cut = gtk_action_group_get_action (standard_view->action_group, "cut");
+   standard_view->priv->action_copy = gtk_action_group_get_action (standard_view->action_group, "copy");
+@@ -682,8 +685,6 @@
+ 
+   /* add the "Create Document" sub menu action */
+   standard_view->priv->action_create_document = thunar_templates_action_new ("create-document", _("Create _Document"));
+-  g_signal_connect (G_OBJECT (standard_view->priv->action_create_document), "create-empty-file",
+-                    G_CALLBACK (thunar_standard_view_action_create_empty_file), standard_view);
+   g_signal_connect (G_OBJECT (standard_view->priv->action_create_document), "create-template",
+                     G_CALLBACK (thunar_standard_view_action_create_template), standard_view);
+   gtk_action_group_add_action (standard_view->action_group, standard_view->priv->action_create_document);
+@@ -1483,7 +1484,8 @@
+ 
+   /* update the "Create Folder"/"Create Document" actions */
+   gtk_action_set_visible (standard_view->priv->action_create_folder, !trashed);
+-  gtk_action_set_visible (standard_view->priv->action_create_document, !trashed);
++  gtk_action_set_visible (standard_view->priv->action_create_empty_file, !trashed);
++  gtk_action_set_visible (standard_view->priv->action_create_document, FALSE);
+ 
+   /* update the "Rename" action */
+   gtk_action_set_visible (standard_view->priv->action_rename, !trashed);
+@@ -4403,6 +4405,7 @@
+ 
+   /* update the "Create Folder"/"Create Document" actions */
+   gtk_action_set_sensitive (standard_view->priv->action_create_folder, !trashed && writable);
++  gtk_action_set_sensitive (standard_view->priv->action_create_empty_file, !trashed && writable);
+   gtk_action_set_sensitive (standard_view->priv->action_create_document, !trashed && writable);
+ 
+   /* update the "Properties" action */
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-standard-view-ui.xml abs/thunar/src/Thunar-1.6.10/thunar/thunar-standard-view-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-standard-view-ui.xml	2016-05-10 10:47:03.152277739 -0700
++++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-standard-view-ui.xml	2016-05-10 16:15:04.277546814 -0700
+@@ -69,6 +69,7 @@
+ 
+   <popup action="folder-context-menu">
+     <menuitem action="create-folder" />
++    <menuitem action="create-empty-file" />
+     <menuitem action="create-document" />
+     <menuitem action="empty-trash" />
+     <separator />
