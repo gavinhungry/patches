@@ -1,7 +1,7 @@
 diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-application.c abs/thunar/src/Thunar-1.6.10/thunar/thunar-application.c
---- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-application.c	2013-05-07 00:23:01.658432393 -0700
-+++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-application.c	2013-05-07 00:29:49.590215696 -0700
-@@ -814,11 +814,8 @@
+--- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-application.c	2016-05-25 14:20:02.497283594 -0700
++++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-application.c	2016-05-25 14:20:02.960607729 -0700
+@@ -869,11 +869,8 @@
  {
    _thunar_return_if_fail (THUNAR_IS_APPLICATION (application));
  
