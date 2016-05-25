@@ -1,7 +1,7 @@
 diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-launcher-ui.xml abs/thunar/src/Thunar-1.6.10/thunar/thunar-launcher-ui.xml
---- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-launcher-ui.xml	2013-05-07 00:23:01.658432393 -0700
-+++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-launcher-ui.xml	2013-05-07 00:29:49.753541967 -0700
-@@ -14,7 +14,6 @@
+--- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-launcher-ui.xml	2016-05-25 14:20:02.493950328 -0700
++++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-launcher-ui.xml	2016-05-25 14:20:03.120604551 -0700
+@@ -12,7 +12,6 @@
      <menu action="file-menu">
        <placeholder name="placeholder-launcher">
          <menuitem action="open" />
@@ -9,7 +9,7 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-launcher-ui.xml abs/thu
          <menuitem action="open-in-new-window" />
          <placeholder name="placeholder-applications" />
          <menuitem action="open-with-other" />
-@@ -38,7 +37,6 @@
+@@ -36,7 +35,6 @@
    <popup action="file-context-menu">
      <placeholder name="placeholder-launcher">
        <menuitem action="open" />
@@ -18,9 +18,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-launcher-ui.xml abs/thu
        <placeholder name="placeholder-applications" />
        <menuitem action="open-with-other" />
 diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-shortcuts-view.c abs/thunar/src/Thunar-1.6.10/thunar/thunar-shortcuts-view.c
---- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-shortcuts-view.c	2013-05-07 00:23:01.658432393 -0700
-+++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-shortcuts-view.c	2013-05-07 00:29:49.753541967 -0700
-@@ -1092,12 +1092,6 @@
+--- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-shortcuts-view.c	2016-05-25 14:20:02.493950328 -0700
++++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-shortcuts-view.c	2016-05-25 14:20:03.120604551 -0700
+@@ -1100,12 +1100,6 @@
    /* set the stock icon */
    image = gtk_image_new_from_stock (GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU);
    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
@@ -34,9 +34,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-shortcuts-view.c abs/th
    /* append the "Open in New Window" menu action */
    item = gtk_image_menu_item_new_with_mnemonic (_("Open in New Window"));
 diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-tree-view.c abs/thunar/src/Thunar-1.6.10/thunar/thunar-tree-view.c
---- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-tree-view.c	2013-05-07 00:23:01.658432393 -0700
-+++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-tree-view.c	2013-05-07 00:29:49.753541967 -0700
-@@ -1119,13 +1119,6 @@
+--- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-tree-view.c	2016-05-25 14:20:02.493950328 -0700
++++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-tree-view.c	2016-05-25 14:20:03.120604551 -0700
+@@ -1289,13 +1289,6 @@
    /* set the stock icon */
    image = gtk_image_new_from_stock (GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU);
    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
