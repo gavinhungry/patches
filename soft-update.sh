@@ -82,6 +82,7 @@ if stat -t ${PATCHES} &> /dev/null; then
   done
 
   cd ${PKGBUILD_DIR} &> /dev/null || die 'Could not switch back to PKGBUILD directory'
+  PKGBUILD_PARENT=$(basename $(realpath ${PKGBUILD_DIR}/..))
 else
   warn 'No patch files'
 fi
