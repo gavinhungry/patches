@@ -6,6 +6,7 @@ cp -r ${PKGBUILD_DIR} ${PKGBUILD_DIR}.ORIG
 
 cd ${PATCHER_DIR}/..
 
+inform 'Hard-updating patches to' ${PKGSRC_DIR_BASE}
 for PATCHFILE in ${PATCHES[@]}; do
   patch -p0 < $PATCHFILE
   diff -ru ${PKGBUILD_PARENT}/${PKG}.ORIG ${PKGBUILD_PARENT}/${PKG} > ${PATCHFILE}
