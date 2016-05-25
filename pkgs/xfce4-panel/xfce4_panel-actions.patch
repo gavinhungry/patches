@@ -1,7 +1,7 @@
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/actions/actions.c abs/xfce4-panel/src/xfce4-panel-4.12.0/plugins/actions/actions.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/actions/actions.c	2013-07-01 18:06:38.974973430 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.0/plugins/actions/actions.c	2013-07-01 18:19:24.308348262 -0700
-@@ -1071,7 +1071,7 @@
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/actions/actions.c	2016-05-25 14:22:00.028270128 -0700
++++ abs/xfce4-panel/src/xfce4-panel-4.12.0/plugins/actions/actions.c	2016-05-25 14:22:00.048269726 -0700
+@@ -1079,7 +1079,7 @@
    GtkWidget           *label;
    GtkWidget           *button;
    GtkWidget           *widget;
@@ -10,7 +10,7 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/actions/actions.c a
    GtkWidget           *child;
    GtkWidget           *box;
    guint                i;
-@@ -1131,16 +1131,8 @@
+@@ -1143,16 +1143,8 @@
      }
    else
      {
@@ -29,7 +29,7 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/actions/actions.c a
  
        button = xfce_arrow_button_new (GTK_ARROW_NONE);
        gtk_widget_set_name (button, "actions-button");
-@@ -1151,7 +1143,8 @@
+@@ -1163,7 +1155,8 @@
            G_CALLBACK (actions_plugin_menu), plugin);
        gtk_widget_show (button);
  
@@ -39,3 +39,4 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.0/plugins/actions/actions.c a
        gtk_container_add (GTK_CONTAINER (button), label);
        mode = xfce_panel_plugin_get_mode (XFCE_PANEL_PLUGIN (plugin));
        gtk_label_set_angle (GTK_LABEL (label),
+Only in abs/xfce4-panel/src/xfce4-panel-4.12.0/plugins/actions: actions.c.orig
