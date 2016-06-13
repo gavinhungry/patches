@@ -1,6 +1,6 @@
-diff -ru abs/freerdp.ORIG/src/FreeRDP-1.2.0-20160107/client/X11/xf_window.c abs/freerdp/src/FreeRDP-1.2.0-20160107/client/X11/xf_window.c
---- abs/freerdp.ORIG/src/FreeRDP-1.2.0-20160107/client/X11/xf_window.c	2016-03-02 06:52:08.513682069 -0800
-+++ abs/freerdp/src/FreeRDP-1.2.0-20160107/client/X11/xf_window.c	2016-03-02 07:21:16.676138830 -0800
+diff -ru abs/freerdp.ORIG/src/FreeRDP-1.2.0-20160606/client/X11/xf_window.c abs/freerdp/src/FreeRDP-1.2.0-20160606/client/X11/xf_window.c
+--- abs/freerdp.ORIG/src/FreeRDP-1.2.0-20160606/client/X11/xf_window.c	2016-03-02 06:52:08.513682069 -0800
++++ abs/freerdp/src/FreeRDP-1.2.0-20160606/client/X11/xf_window.c	2016-03-02 07:21:16.676138830 -0800
 @@ -61,8 +61,8 @@
  #define DEBUG_X11(fmt, ...) do { } while (0)
  #endif
@@ -13,9 +13,9 @@ diff -ru abs/freerdp.ORIG/src/FreeRDP-1.2.0-20160107/client/X11/xf_window.c abs/
  #include "xf_window.h"
  
 Binary files abs/freerdp.ORIG/src/FreeRDP-1.2.0-20160107/.git/index and abs/freerdp/src/FreeRDP-1.2.0-20160107/.git/index differ
-diff -ru abs/freerdp.ORIG/src/FreeRDP-1.2.0-20160107/resources/conv_to_ewm_prop.py abs/freerdp/src/FreeRDP-1.2.0-20160107/resources/conv_to_ewm_prop.py
---- abs/freerdp.ORIG/src/FreeRDP-1.2.0-20160107/resources/conv_to_ewm_prop.py	2016-03-02 06:52:08.533681953 -0800
-+++ abs/freerdp/src/FreeRDP-1.2.0-20160107/resources/conv_to_ewm_prop.py	2016-03-02 07:18:53.018892275 -0800
+diff -ru abs/freerdp.ORIG/src/FreeRDP-1.2.0-20160606/resources/conv_to_ewm_prop.py abs/freerdp/src/FreeRDP-1.2.0-20160606/resources/conv_to_ewm_prop.py
+--- abs/freerdp.ORIG/src/FreeRDP-1.2.0-20160606/resources/conv_to_ewm_prop.py	2016-03-02 06:52:08.533681953 -0800
++++ abs/freerdp/src/FreeRDP-1.2.0-20160606/resources/conv_to_ewm_prop.py	2016-03-02 07:18:53.018892275 -0800
 @@ -1,4 +1,4 @@
 -#!/usr/bin/python
 +#!/usr/bin/python2
