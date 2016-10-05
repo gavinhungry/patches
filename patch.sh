@@ -36,5 +36,5 @@ fi
 
 if [ -f PKGBUILD -a ! -f .patched ]; then
   touch .patched
-  echo -e "\n"'PACKAGER+=" [p]"' >> PKGBUILD
+  echo -e "\n"'[[ "$PACKAGER" != *"[p]" ]] && PACKAGER+=" [p]" || true' >> PKGBUILD
 fi
