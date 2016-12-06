@@ -9,9 +9,9 @@ diff -ru abs/gnupg.ORIG/PKGBUILD abs/gnupg/PKGBUILD
  
  	make
  }
-diff -ru abs/gnupg.ORIG/src/gnupg-2.1.15/g10/keygen.c abs/gnupg/src/gnupg-2.1.15/g10/keygen.c
---- abs/gnupg.ORIG/src/gnupg-2.1.15/g10/keygen.c	2016-02-01 11:59:29.027443392 -0800
-+++ abs/gnupg/src/gnupg-2.1.15/g10/keygen.c	2016-02-01 11:59:34.787231408 -0800
+diff -ru abs/gnupg.ORIG/src/gnupg-2.1.16/g10/keygen.c abs/gnupg/src/gnupg-2.1.16/g10/keygen.c
+--- abs/gnupg.ORIG/src/gnupg-2.1.16/g10/keygen.c	2016-02-01 11:59:29.027443392 -0800
++++ abs/gnupg/src/gnupg-2.1.16/g10/keygen.c	2016-02-01 11:59:34.787231408 -0800
 @@ -2048,6 +2048,10 @@
        def=255;
        max=441;
