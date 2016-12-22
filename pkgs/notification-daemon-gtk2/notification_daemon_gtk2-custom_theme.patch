@@ -1,6 +1,6 @@
 diff -ru aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/themes/standard/theme.c aur/notification-daemon-gtk2/src/notification-daemon-0.5.0/src/themes/standard/theme.c
---- aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2015-06-30 12:06:33.156790867 -0700
-+++ aur/notification-daemon-gtk2/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2015-06-30 14:34:52.236600758 -0700
+--- aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2016-12-22 01:28:09.818624486 -0800
++++ aur/notification-daemon-gtk2/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2016-12-22 01:28:45.606449365 -0800
 @@ -17,7 +17,6 @@
          GtkWidget      *icon;
          GtkWidget      *content_hbox;
@@ -145,7 +145,7 @@ diff -ru aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/the
  
          vbox = gtk_vbox_new (FALSE, 6);
          gtk_widget_show (vbox);
-@@ -885,7 +845,6 @@
+@@ -885,12 +845,11 @@
                                               WIDTH - (1 * 2) - (10 * 2) - req.width - 6, -1);
          }
  
@@ -153,3 +153,9 @@ diff -ru aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/the
          gtk_widget_set_size_request (windata->summary_label,
                                       /* -1: main_vbox border width
                                          -10: vbox border width
+                                         -6: spacing for hbox */
+-                                     WIDTH - (1 * 2) - (10 * 2) - SPACER_LEFT - req.width - (6 * 2), -1);
++                                     WIDTH - (1 * 2) - (10 * 2) - SPACER_LEFT - (6 * 2), -1);
+ }
+ 
+ void
