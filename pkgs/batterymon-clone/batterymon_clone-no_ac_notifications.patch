@@ -1,0 +1,35 @@
+diff -ru aur/batterymon-clone.ORIG/src/batterymon-clone/batterymon aur/batterymon-clone/src/batterymon-clone/batterymon
+--- aur/batterymon-clone.ORIG/src/batterymon-clone/batterymon	2016-12-22 01:32:56.035104205 -0800
++++ aur/batterymon-clone/src/batterymon-clone/batterymon	2016-12-22 01:46:38.976406916 -0800
+@@ -413,13 +413,15 @@
+ 
+     def notify(self, title, message, icon):
+         if pynotify:
+-            n = pynotify.Notification(title, message)
++            n = pynotify.Notification(title, message) if title else None
+             iconf = self.theme.get_icon(icon)
+             logger.debug("DEBUG Notification icon " +iconf)
+             icon = gtk.gdk.pixbuf_new_from_file_at_size(iconf, 46, 46)
+-            n.set_icon_from_pixbuf(icon)
+-            n.show()
+-            logger.debug("Notification shown")
++
++            if n:
++                n.set_icon_from_pixbuf(icon)
++                n.show()
++                logger.debug("Notification shown")
+ 
+ 
+ def parse_args():
+@@ -574,9 +576,9 @@
+     def ac_property_modified(self, present):
+         # TODO: use the appropriate icon, instead of just the "full" versions
+         if present:
+-            self.n.notify(_("On AC"), _("You are currently running on AC"),"charging_full")
++            self.n.notify(None, None, "charging_full")
+         else:
+-            self.n.notify(_("On Battery"), _("AC adapter unplugged, running on battery"),"full")
++            self.n.notify(None, None, "full")
+ 
+     def battery_property_modified(self, battery):
+         # TODO: use the appropriate icon, instead of just the "full" versions
