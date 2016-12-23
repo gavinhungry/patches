@@ -1,6 +1,6 @@
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/actions/actions.c abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/actions/actions.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/actions/actions.c	2016-10-25 09:54:08.883642527 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/actions/actions.c	2016-10-25 09:54:08.903642229 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/actions/actions.c	2016-12-23 11:36:46.975391420 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/actions/actions.c	2016-12-23 11:36:46.995391166 -0800
 @@ -1079,7 +1079,7 @@
    GtkWidget           *label;
    GtkWidget           *button;

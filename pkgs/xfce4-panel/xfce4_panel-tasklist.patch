@@ -1,6 +1,6 @@
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c	2016-10-25 09:54:08.883642527 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c	2016-10-25 09:54:09.516966414 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c	2016-12-23 11:36:46.975391420 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c	2016-12-23 11:36:47.222054966 -0800
 @@ -45,7 +45,7 @@
  
  

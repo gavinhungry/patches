@@ -1,6 +1,6 @@
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/migrate/main.c abs/xfce4-panel/src/xfce4-panel-4.12.1/migrate/main.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/migrate/main.c	2016-10-25 09:54:08.893642378 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/migrate/main.c	2016-10-25 09:54:09.390301637 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/migrate/main.c	2016-12-23 11:36:46.985391293 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.12.1/migrate/main.c	2016-12-23 11:36:47.185388763 -0800
 @@ -127,7 +127,6 @@
                _("Choose below which setup you want for the first startup."));
  
@@ -25,8 +25,8 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/migrate/main.c abs/xfce4-pa
        gtk_dialog_set_default_response (GTK_DIALOG (dialog), default_response);
        result = gtk_dialog_run (GTK_DIALOG (dialog));
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/panel/panel-item-dialog.c abs/xfce4-panel/src/xfce4-panel-4.12.1/panel/panel-item-dialog.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/panel/panel-item-dialog.c	2016-10-25 09:54:08.893642378 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/panel/panel-item-dialog.c	2016-10-25 09:54:09.390301637 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/panel/panel-item-dialog.c	2016-12-23 11:36:46.985391293 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.12.1/panel/panel-item-dialog.c	2016-12-23 11:36:47.185388763 -0800
 @@ -221,7 +221,7 @@
    entry = gtk_entry_new ();
    gtk_box_pack_start (GTK_BOX (hbox), entry, FALSE, FALSE, 0);
@@ -37,8 +37,8 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/panel/panel-item-dialog.c a
    gtk_entry_set_icon_from_stock (GTK_ENTRY (entry), GTK_ENTRY_ICON_PRIMARY, GTK_STOCK_FIND);
  #endif
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/actions/actions.c abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/actions/actions.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/actions/actions.c	2016-10-25 09:54:08.883642527 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/actions/actions.c	2016-10-25 09:54:09.390301637 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/actions/actions.c	2016-12-23 11:36:46.975391420 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/actions/actions.c	2016-12-23 11:36:47.185388763 -0800
 @@ -1017,7 +1017,6 @@
        widget = xfce_panel_create_button ();
        gtk_button_set_relief (GTK_BUTTON (widget), GTK_RELIEF_NONE);
@@ -48,8 +48,8 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/actions/actions.c a
            G_CALLBACK (actions_plugin_action_activate), plugin);
  
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c	2016-10-25 09:54:08.883642527 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c	2016-10-25 09:54:09.390301637 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c	2016-12-23 11:36:46.975391420 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c	2016-12-23 11:36:47.185388763 -0800
 @@ -208,7 +208,6 @@
    gtk_container_add (GTK_CONTAINER (plugin), plugin->button);
    gtk_widget_set_name (plugin->button, "applicationmenu-button");
@@ -67,10 +67,9 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/applicationsmenu/ap
  
        /* check if the label still fits */
        if (xfce_panel_plugin_get_mode (XFCE_PANEL_PLUGIN (plugin)) == XFCE_PANEL_PLUGIN_MODE_DESKBAR
-Only in abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/applicationsmenu: applicationsmenu.c.orig
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/directorymenu/directorymenu.c abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/directorymenu/directorymenu.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/directorymenu/directorymenu.c	2016-10-25 09:54:08.883642527 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/directorymenu/directorymenu.c	2016-10-25 09:54:09.390301637 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/directorymenu/directorymenu.c	2016-12-23 11:36:46.975391420 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/directorymenu/directorymenu.c	2016-12-23 11:36:47.185388763 -0800
 @@ -241,7 +241,6 @@
        plugin->base_directory = g_file_new_for_commandline_arg (path);
  
@@ -88,10 +87,9 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/directorymenu/direc
  
                g_signal_connect_data (G_OBJECT (mi), "activate",
                    G_CALLBACK (directory_menu_plugin_menu_launch_desktop_file),
-Only in abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/directorymenu: directorymenu.c.orig
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/showdesktop/showdesktop.c abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/showdesktop/showdesktop.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/showdesktop/showdesktop.c	2016-10-25 09:54:08.886975811 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/showdesktop/showdesktop.c	2016-10-25 09:54:09.390301637 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/showdesktop/showdesktop.c	2016-12-23 11:36:46.978724711 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/showdesktop/showdesktop.c	2016-12-23 11:36:47.185388763 -0800
 @@ -211,7 +211,6 @@
    else
      text = _("Minimize all open windows and show the desktop");
@@ -101,8 +99,8 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/showdesktop/showdes
  }
  
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c	2016-10-25 09:54:08.883642527 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c	2016-10-25 09:54:09.393634921 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c	2016-12-23 11:36:46.975391420 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-widget.c	2016-12-23 11:36:47.185388763 -0800
 @@ -2491,7 +2491,6 @@
    panel_return_if_fail (XFCE_IS_TASKLIST (child->tasklist));
  
@@ -112,8 +110,8 @@ diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/tasklist/tasklist-w
    /* create the button label */
    if (!child->tasklist->only_minimized
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/windowmenu/windowmenu.c abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/windowmenu/windowmenu.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/windowmenu/windowmenu.c	2016-10-25 09:54:08.883642527 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/windowmenu/windowmenu.c	2016-10-25 09:54:09.393634921 -0700
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/windowmenu/windowmenu.c	2016-12-23 11:36:46.975391420 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/windowmenu/windowmenu.c	2016-12-23 11:36:47.188722054 -0800
 @@ -636,9 +636,6 @@
            if (type == WNCK_WINDOW_DESKTOP || type == WNCK_WINDOW_DOCK)
              goto show_desktop_icon;
