@@ -1,25 +1,25 @@
 diff -ru abs/gnupg.ORIG/PKGBUILD abs/gnupg/PKGBUILD
---- abs/gnupg.ORIG/PKGBUILD	2016-02-01 11:59:29.024110181 -0800
-+++ abs/gnupg/PKGBUILD	2016-02-01 11:59:48.493395031 -0800
-@@ -43,6 +43,7 @@
+--- abs/gnupg.ORIG/PKGBUILD	2016-12-26 00:22:02.782133329 -0800
++++ abs/gnupg/PKGBUILD	2016-12-26 00:28:03.441406458 -0800
+@@ -46,6 +46,7 @@
  		--libexecdir=/usr/lib/gnupg \
  		--enable-maintainer-mode \
  		--enable-symcryptrun \
-+		--enable-large-secmem
++		--enable-large-secmem \
+ 		--disable-libdns # FS#52234
  
  	make
- }
 diff -ru abs/gnupg.ORIG/src/gnupg-2.1.17/g10/keygen.c abs/gnupg/src/gnupg-2.1.17/g10/keygen.c
---- abs/gnupg.ORIG/src/gnupg-2.1.17/g10/keygen.c	2016-02-01 11:59:29.027443392 -0800
-+++ abs/gnupg/src/gnupg-2.1.17/g10/keygen.c	2016-02-01 11:59:34.787231408 -0800
-@@ -2048,6 +2048,10 @@
+--- abs/gnupg.ORIG/src/gnupg-2.1.17/g10/keygen.c	2016-12-26 00:22:02.788799784 -0800
++++ abs/gnupg/src/gnupg-2.1.17/g10/keygen.c	2016-12-26 00:27:27.582419311 -0800
+@@ -2100,6 +2100,10 @@
        def=255;
-       max=441;
        break;
-+
+ 
 +    case PUBKEY_ALGO_RSA:
 +      if (opt.flags.large_rsa) { max = 8192; }
 +      break;
-     }
- 
-   tty_printf(_("%s keys may be between %u and %u bits long.\n"),
++
+     default:
+       *min = opt.compliance == CO_DE_VS ? 2048: 1024;
+       *max = 4096;
