@@ -1,0 +1,15 @@
+diff -ru abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c abs/pidgin/src/pidgin-2.11.0/pidgin/gtkblist.c
+--- abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c	2016-12-29 00:45:11.356588539 -0800
++++ abs/pidgin/src/pidgin-2.11.0/pidgin/gtkblist.c	2016-12-29 00:45:15.446498621 -0800
+@@ -5937,11 +5937,6 @@
+ 	g_signal_connect(G_OBJECT(gtkblist->treeview), "motion-notify-event", G_CALLBACK(pidgin_blist_motion_cb), NULL);
+ 	g_signal_connect(G_OBJECT(gtkblist->treeview), "leave-notify-event", G_CALLBACK(pidgin_blist_leave_cb), NULL);
+ 
+-	/* Tooltips */
+-	pidgin_tooltip_setup_for_treeview(gtkblist->treeview, NULL,
+-			pidgin_blist_create_tooltip,
+-			pidgin_blist_paint_tip);
+-
+ 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(gtkblist->treeview), FALSE);
+ 
+ 	/* expander columns */
