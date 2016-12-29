@@ -1,7 +1,7 @@
 diff -ru abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c abs/pidgin/src/pidgin-2.11.0/pidgin/gtkblist.c
---- abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c	2015-05-21 09:43:02.453574627 -0700
-+++ abs/pidgin/src/pidgin-2.11.0/pidgin/gtkblist.c	2015-05-21 09:57:50.478755267 -0700
-@@ -5772,6 +5772,8 @@
+--- abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c	2016-12-29 10:18:15.920693074 -0800
++++ abs/pidgin/src/pidgin-2.11.0/pidgin/gtkblist.c	2016-12-29 10:18:16.937340142 -0800
+@@ -5780,6 +5780,8 @@
  			 G_CALLBACK(blist_focus_cb), gtkblist);
  	GTK_WINDOW(gtkblist->window)->allow_shrink = TRUE;
  

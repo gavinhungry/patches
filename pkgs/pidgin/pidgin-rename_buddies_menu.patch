@@ -1,7 +1,7 @@
 diff -ru abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c abs/pidgin/src/pidgin-2.11.0/pidgin/gtkblist.c
---- abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c	2014-02-03 11:14:22.424148959 -0800
-+++ abs/pidgin/src/pidgin-2.11.0/pidgin/gtkblist.c	2014-02-03 11:14:25.450836161 -0800
-@@ -3601,25 +3601,25 @@
+--- abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c	2016-12-29 10:18:15.920693074 -0800
++++ abs/pidgin/src/pidgin-2.11.0/pidgin/gtkblist.c	2016-12-29 10:18:16.744010536 -0800
+@@ -3603,25 +3603,25 @@
     gtk_blist_key_press_cb to "Get User Info" on the selected buddy. */
  
  	/* Buddies menu */
@@ -46,7 +46,7 @@ diff -ru abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c abs/pidgin/src/pidg
  
  	/* Accounts menu */
  	{ N_("/_Accounts"), NULL, NULL, 0, "<Branch>", NULL },
-@@ -4469,12 +4469,12 @@
+@@ -4471,12 +4471,12 @@
  
  static const char *require_connection[] =
  {
@@ -65,7 +65,7 @@ diff -ru abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c abs/pidgin/src/pidg
  };
  
  static const int require_connection_size = sizeof(require_connection)
-@@ -4503,10 +4503,10 @@
+@@ -4505,10 +4505,10 @@
  		gtk_widget_set_sensitive(widget, sensitive);
  	}
  
@@ -78,7 +78,7 @@ diff -ru abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c abs/pidgin/src/pidg
  	gtk_widget_set_sensitive(widget, pidgin_blist_joinchat_is_showable());
  
  	widget = gtk_item_factory_get_widget(gtkblist->ift, N_("/Tools/Privacy"));
-@@ -5765,7 +5765,7 @@
+@@ -5773,7 +5773,7 @@
  	gtkblist->empty_avatar = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, 32, 32);
  	gdk_pixbuf_fill(gtkblist->empty_avatar, 0x00000000);
  
@@ -87,7 +87,7 @@ diff -ru abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c abs/pidgin/src/pidg
  	g_signal_connect(G_OBJECT(gtkblist->window), "focus-in-event",
  			 G_CALLBACK(blist_focus_cb), gtkblist);
  	g_signal_connect(G_OBJECT(gtkblist->window), "focus-out-event",
-@@ -5992,22 +5992,22 @@
+@@ -6000,22 +6000,22 @@
  	/* set the Show Offline Buddies option. must be done
  	 * after the treeview or faceprint gets mad. -Robot101
  	 */
@@ -115,7 +115,7 @@ diff -ru abs/pidgin.ORIG/src/pidgin-2.11.0/pidgin/gtkblist.c abs/pidgin/src/pidg
  			purple_prefs_get_bool(PIDGIN_PREFS_ROOT "/blist/show_protocol_icons"));
  
  	if(!strcmp(purple_prefs_get_string(PIDGIN_PREFS_ROOT "/sound/method"), "none"))
-@@ -8223,7 +8223,7 @@
+@@ -8236,7 +8236,7 @@
  
  	g_return_if_fail(m != NULL);
  
