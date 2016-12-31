@@ -1,0 +1,38 @@
+diff -ru abs/xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.8.99.1/src/synaptics.c abs/xf86-input-synaptics/src/xf86-input-synaptics-1.8.99.1/src/synaptics.c
+--- abs/xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.8.99.1/src/synaptics.c	2016-12-30 23:26:47.010763088 -0800
++++ abs/xf86-input-synaptics/src/xf86-input-synaptics-1.8.99.1/src/synaptics.c	2016-12-30 23:28:46.434168310 -0800
+@@ -1796,31 +1796,23 @@
+ 
+     /* palm detection */
+ 
+-    if ((hw->z > para->palm_min_z) && (hw->fingerWidth > para->palm_min_width))
++    if ((hw->z > para->palm_min_z))
+         return FS_BLOCKED;
+ 
+     if (priv->has_mt_palm_detect)
+         return finger;
+ 
+-    if (hw->x == 0 || priv->finger_state == FS_UNTOUCHED)
+-        priv->avg_width = 0;
+-    else
+-        priv->avg_width += (hw->fingerWidth - priv->avg_width + 1) / 2;
+-
+     if (finger != FS_UNTOUCHED && priv->finger_state == FS_UNTOUCHED) {
+-        int safe_width = MAX(hw->fingerWidth, priv->avg_width);
+ 
+         if (hw->numFingers > 1 ||       /* more than one finger -> not a palm */
+-            ((safe_width < 6) && (priv->prev_z < para->finger_high)) || /* thin finger, distinct touch -> not a palm */
+-            ((safe_width < 7) && (priv->prev_z < para->finger_high / 2))) {     /* thin finger, distinct touch -> not a palm */
++            (priv->prev_z < para->finger_high) || /* thin finger, distinct touch -> not a palm */
++            (priv->prev_z < para->finger_high / 2)) {     /* thin finger, distinct touch -> not a palm */
+             /* leave finger value as is */
+         }
+         else if (hw->z > priv->prev_z + 1)      /* z not stable, may be a palm */
+             finger = FS_UNTOUCHED;
+         else if (hw->z < priv->prev_z - 5)      /* z not stable, may be a palm */
+             finger = FS_UNTOUCHED;
+-        else if (hw->fingerWidth > para->palm_min_width)        /* finger width too large -> probably palm */
+-            finger = FS_UNTOUCHED;
+     }
+     priv->prev_z = hw->z;
+ 
