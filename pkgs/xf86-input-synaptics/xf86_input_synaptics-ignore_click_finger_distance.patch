@@ -1,0 +1,38 @@
+diff -ru abs/xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.9.0/src/synaptics.c abs/xf86-input-synaptics/src/xf86-input-synaptics-1.9.0/src/synaptics.c
+--- abs/xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.9.0/src/synaptics.c	2017-01-13 00:44:19.254540738 -0800
++++ abs/xf86-input-synaptics/src/xf86-input-synaptics-1.9.0/src/synaptics.c	2017-01-13 01:08:50.381078889 -0800
+@@ -2648,8 +2648,6 @@
+             hw->slot_state[i] == SLOTSTATE_CLOSE)
+             continue;
+ 
+-        f1 = hw->mt_mask[i];
+-
+         for (j = i + 1; j < hw->num_mt_mask; j++) {
+             ValuatorMask *f2;
+             double x1, x2, y1, y2;
+@@ -2658,23 +2656,8 @@
+                 hw->slot_state[j] == SLOTSTATE_CLOSE)
+                 continue;
+ 
+-            f2 = hw->mt_mask[j];
+-
+-            x1 = valuator_mask_get_double(f1, 0);
+-            y1 = valuator_mask_get_double(f1, 1);
+-
+-            x2 = valuator_mask_get_double(f2, 0);
+-            y2 = valuator_mask_get_double(f2, 1);
+-
+-            /* FIXME: fingers closer together than 30% of touchpad width, but
+-             * really, this should be dependent on the touchpad size. Also,
+-             * you'll need to find a touchpad that doesn't lie about it's
+-             * size. Good luck. */
+-            if (abs(x1 - x2) < (priv->maxx - priv->minx) * .3 &&
+-                abs(y1 - y2) < (priv->maxy - priv->miny) * .3) {
+-                close_point |= (1 << j);
+-                close_point |= (1 << i);
+-            }
++            close_point |= (1 << j);
++            close_point |= (1 << i);
+         }
+     }
+ 
