@@ -1,0 +1,12 @@
+diff -ru abs/grep.ORIG/src/grep-2.27/src/grep.c abs/grep/src/grep-2.27/src/grep.c
+--- abs/grep.ORIG/src/grep-2.27/src/grep.c	2017-01-25 12:37:25.550880052 -0800
++++ abs/grep/src/grep-2.27/src/grep.c	2017-01-25 12:37:53.146788487 -0800
+@@ -50,7 +50,7 @@
+ #include "xalloc.h"
+ #include "xstrtol.h"
+ 
+-#define SEP_CHAR_SELECTED ':'
++#define SEP_CHAR_SELECTED ' '
+ #define SEP_CHAR_REJECTED '-'
+ #define SEP_STR_GROUP    "--"
+ 
