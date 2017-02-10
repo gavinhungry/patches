@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-standard-view.c abs/thunar/src/Thunar-1.6.10/thunar/thunar-standard-view.c
---- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-standard-view.c	2016-05-25 14:20:02.497283594 -0700
-+++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-standard-view.c	2016-05-25 14:20:02.793944371 -0700
+diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-standard-view.c abs/thunar/src/thunar/thunar/thunar-standard-view.c
+--- abs/thunar.ORIG/src/thunar/thunar/thunar-standard-view.c	2017-02-10 11:51:40.785105048 -0800
++++ abs/thunar/src/thunar/thunar/thunar-standard-view.c	2017-02-10 11:51:41.488403202 -0800
 @@ -312,6 +312,7 @@
    ThunarFile             *current_directory;
  
@@ -52,9 +52,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-standard-view.c abs/thu
    gtk_action_set_sensitive (standard_view->priv->action_create_document, !trashed && writable);
  
    /* update the "Properties" action */
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-standard-view-ui.xml abs/thunar/src/Thunar-1.6.10/thunar/thunar-standard-view-ui.xml
---- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-standard-view-ui.xml	2016-05-25 14:20:02.493950328 -0700
-+++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-standard-view-ui.xml	2016-05-25 14:20:02.793944371 -0700
+diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-standard-view-ui.xml abs/thunar/src/thunar/thunar/thunar-standard-view-ui.xml
+--- abs/thunar.ORIG/src/thunar/thunar/thunar-standard-view-ui.xml	2017-02-10 11:51:40.785105048 -0800
++++ abs/thunar/src/thunar/thunar/thunar-standard-view-ui.xml	2017-02-10 11:51:41.488403202 -0800
 @@ -69,6 +69,7 @@
  
    <popup action="folder-context-menu">

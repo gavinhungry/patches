@@ -1,7 +1,7 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-file.c abs/thunar/src/Thunar-1.6.10/thunar/thunar-file.c
---- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-file.c	2016-11-26 01:13:03.912007530 -0800
-+++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-file.c	2016-11-26 01:14:58.510622145 -0800
-@@ -851,7 +851,7 @@
+diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-file.c abs/thunar/src/thunar/thunar/thunar-file.c
+--- abs/thunar.ORIG/src/thunar/thunar/thunar-file.c	2017-02-10 11:51:40.778438715 -0800
++++ abs/thunar/src/thunar/thunar/thunar-file.c	2017-02-10 11:51:41.698392701 -0800
+@@ -878,7 +878,7 @@
          }
  
        /* create a file or directory monitor */
@@ -10,7 +10,7 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-file.c abs/thunar/src/T
        if (G_LIKELY (file_watch->monitor != NULL))
          {
            /* watch monitor for file changes */
-@@ -3852,7 +3852,7 @@
+@@ -3883,7 +3883,7 @@
        file_watch->watch_count = 1;
  
        /* create a file or directory monitor */
@@ -19,10 +19,10 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-file.c abs/thunar/src/T
        if (G_LIKELY (file_watch->monitor != NULL))
          {
            /* watch monitor for file changes */
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-folder.c abs/thunar/src/Thunar-1.6.10/thunar/thunar-folder.c
---- abs/thunar.ORIG/src/Thunar-1.6.10/thunar/thunar-folder.c	2016-11-26 01:13:03.912007530 -0800
-+++ abs/thunar/src/Thunar-1.6.10/thunar/thunar-folder.c	2016-11-26 01:15:19.957654419 -0800
-@@ -569,7 +569,7 @@
+diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-folder.c abs/thunar/src/thunar/thunar/thunar-folder.c
+--- abs/thunar.ORIG/src/thunar/thunar/thunar-folder.c	2017-02-10 11:51:40.778438715 -0800
++++ abs/thunar/src/thunar/thunar/thunar-folder.c	2017-02-10 11:51:41.698392701 -0800
+@@ -576,7 +576,7 @@
  
    /* add us to the file alteration monitor */
    folder->monitor = g_file_monitor_directory (thunar_file_get_file (folder->corresponding_file),
