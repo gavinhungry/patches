@@ -1,12 +1,12 @@
-diff -ru abs/grep.ORIG/src/grep-2.27/src/grep.c abs/grep/src/grep-2.27/src/grep.c
---- abs/grep.ORIG/src/grep-2.27/src/grep.c	2017-01-25 12:37:25.550880052 -0800
-+++ abs/grep/src/grep-2.27/src/grep.c	2017-01-25 12:37:53.146788487 -0800
+diff -ru abs/grep.ORIG/src/grep-3.0/src/grep.c abs/grep/src/grep-3.0/src/grep.c
+--- abs/grep.ORIG/src/grep-3.0/src/grep.c	2017-02-11 21:06:31.365857778 -0800
++++ abs/grep/src/grep-3.0/src/grep.c	2017-02-11 21:07:10.577877690 -0800
 @@ -50,7 +50,7 @@
  #include "xalloc.h"
  #include "xstrtol.h"
  
--#define SEP_CHAR_SELECTED ':'
-+#define SEP_CHAR_SELECTED ' '
- #define SEP_CHAR_REJECTED '-'
- #define SEP_STR_GROUP    "--"
+-enum { SEP_CHAR_SELECTED = ':' };
++enum { SEP_CHAR_SELECTED = ' ' };
+ enum { SEP_CHAR_REJECTED = '-' };
+ static char const SEP_STR_GROUP[] = "--";
  
