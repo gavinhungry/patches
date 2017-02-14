@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-launcher.c abs/thunar/src/thunar/thunar/thunar-launcher.c
---- abs/thunar.ORIG/src/thunar/thunar/thunar-launcher.c	2017-02-10 11:51:40.781771881 -0800
-+++ abs/thunar/src/thunar/thunar/thunar-launcher.c	2017-02-10 11:51:42.785005064 -0800
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.11/thunar/thunar-launcher.c abs/thunar/src/Thunar-1.6.11/thunar/thunar-launcher.c
+--- abs/thunar.ORIG/src/Thunar-1.6.11/thunar/thunar-launcher.c	2017-02-10 11:51:40.781771881 -0800
++++ abs/thunar/src/Thunar-1.6.11/thunar/thunar-launcher.c	2017-02-10 11:51:42.785005064 -0800
 @@ -177,9 +177,9 @@
    { "open", GTK_STOCK_OPEN, N_ ("_Open"), "<control>O", NULL, G_CALLBACK (thunar_launcher_action_open), },
    { "open-in-new-tab", NULL, N_ ("Open in New _Tab"), "<control><shift>P", NULL, G_CALLBACK (thunar_launcher_action_open_in_new_tab), },
