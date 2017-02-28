@@ -1,0 +1,11 @@
+diff -ru abs/bluez.ORIG/PKGBUILD abs/bluez/PKGBUILD
+--- abs/bluez.ORIG/PKGBUILD	2017-02-28 14:02:45.639044383 -0800
++++ abs/bluez/PKGBUILD	2017-02-28 14:03:14.125018672 -0800
+@@ -29,6 +29,7 @@
+           --libexecdir=/usr/lib \
+           --enable-sixaxis \
+           --enable-experimental \
++          --enable-deprecated \
+           --enable-library # this is deprecated
+   make
+ }
