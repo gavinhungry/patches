@@ -1,12 +1,24 @@
 diff -ru abs/grep.ORIG/src/grep-3.0/src/grep.c abs/grep/src/grep-3.0/src/grep.c
---- abs/grep.ORIG/src/grep-3.0/src/grep.c	2017-02-11 21:06:31.365857778 -0800
-+++ abs/grep/src/grep-3.0/src/grep.c	2017-02-11 21:07:10.577877690 -0800
+--- abs/grep.ORIG/src/grep-3.0/src/grep.c	2017-02-28 23:35:57.270745224 -0800
++++ abs/grep/src/grep-3.0/src/grep.c	2017-02-28 23:36:20.788928178 -0800
 @@ -50,7 +50,7 @@
  #include "xalloc.h"
  #include "xstrtol.h"
  
 -enum { SEP_CHAR_SELECTED = ':' };
-+enum { SEP_CHAR_SELECTED = ' ' };
++static char *SEP_CHAR_SELECTED = ':';
  enum { SEP_CHAR_REJECTED = '-' };
  static char const SEP_STR_GROUP[] = "--";
  
+@@ -2460,6 +2460,11 @@
+   /* Changed by -o option */
+   only_matching = false;
+ 
++  char *usespace = getenv ("GREP_USE_SPACE_SEPARATOR");
++  if (usespace != NULL && *usespace == '1') {
++    SEP_CHAR_SELECTED = ' ';
++  }
++
+   /* Internationalization. */
+ #if defined HAVE_SETLOCALE
+   setlocale (LC_ALL, "");
