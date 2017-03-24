@@ -1,6 +1,6 @@
-diff -ru abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/menu.c abs/xchat/src/xchat-2.8.8/src/fe-gtk/menu.c
---- abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/menu.c	2014-06-05 09:39:10.204592866 -0700
-+++ abs/xchat/src/xchat-2.8.8/src/fe-gtk/menu.c	2014-06-05 09:39:13.961259726 -0700
+diff -ru abs/hexchat.ORIG/src/hexchat-2.12.4/src/fe-gtk/menu.c abs/hexchat/src/hexchat-2.12.4/src/fe-gtk/menu.c
+--- abs/hexchat.ORIG/src/hexchat-2.12.4/src/fe-gtk/menu.c	2017-03-24 14:46:09.860589023 -0700
++++ abs/hexchat/src/hexchat-2.12.4/src/fe-gtk/menu.c	2017-03-24 14:57:29.304967723 -0700
 @@ -269,7 +269,7 @@
  	char *path;
  
@@ -10,7 +10,7 @@ diff -ru abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/menu.c abs/xchat/src/xchat-2.
  	else
  	{
  		if (icon)
-@@ -2228,7 +2228,7 @@
+@@ -2435,7 +2435,7 @@
  			goto togitem;
  
  		case M_SEP:
@@ -19,10 +19,10 @@ diff -ru abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/menu.c abs/xchat/src/xchat-2.
  			gtk_widget_set_sensitive (item, FALSE);
  			gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
  			gtk_widget_show (item);
-diff -ru abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c abs/xchat/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c
---- abs/xchat.ORIG/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c	2014-06-05 09:39:10.204592866 -0700
-+++ abs/xchat/src/xchat-2.8.8/src/fe-gtk/plugin-tray.c	2014-06-05 09:39:13.961259726 -0700
-@@ -462,7 +462,7 @@
+diff -ru abs/hexchat.ORIG/src/hexchat-2.12.4/src/fe-gtk/plugin-tray.c abs/hexchat/src/hexchat-2.12.4/src/fe-gtk/plugin-tray.c
+--- abs/hexchat.ORIG/src/hexchat-2.12.4/src/fe-gtk/plugin-tray.c	2017-03-24 14:46:09.860589023 -0700
++++ abs/hexchat/src/hexchat-2.12.4/src/fe-gtk/plugin-tray.c	2017-03-24 14:57:37.544773660 -0700
+@@ -455,7 +455,7 @@
  	if (label)
  		item = gtk_menu_item_new_with_mnemonic (label);
  	else
