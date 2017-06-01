@@ -1,7 +1,7 @@
 diff -ru abs/qemu.ORIG/src/qemu-2.9.0/ui/gtk.c abs/qemu/src/qemu-2.9.0/ui/gtk.c
---- abs/qemu.ORIG/src/qemu-2.9.0/ui/gtk.c	2017-04-21 10:55:50.706721401 -0700
-+++ abs/qemu/src/qemu-2.9.0/ui/gtk.c	2017-04-21 10:56:28.939040457 -0700
-@@ -260,30 +260,28 @@
+--- abs/qemu.ORIG/src/qemu-2.9.0/ui/gtk.c	2017-06-01 14:00:08.665541519 -0700
++++ abs/qemu/src/qemu-2.9.0/ui/gtk.c	2017-06-01 14:00:29.855083431 -0700
+@@ -273,7 +273,6 @@
      const char *status = "";
      gchar *prefix;
      gchar *title;
@@ -9,12 +9,7 @@ diff -ru abs/qemu.ORIG/src/qemu-2.9.0/ui/gtk.c abs/qemu/src/qemu-2.9.0/ui/gtk.c
      bool is_paused = !runstate_is_running();
      int i;
  
-     if (qemu_name) {
--        prefix = g_strdup_printf("QEMU (%s)", qemu_name);
-+        prefix = g_strdup_printf("%s - QEMU", qemu_name);
-     } else {
-         prefix = g_strdup_printf("QEMU");
-     }
+@@ -285,18 +284,17 @@
  
      if (s->ptr_owner != NULL &&
          s->ptr_owner->window == NULL) {
