@@ -1,0 +1,37 @@
+diff -ru abs/qemu.ORIG/src/qemu-2.9.0/ui/gtk.c abs/qemu/src/qemu-2.9.0/ui/gtk.c
+--- abs/qemu.ORIG/src/qemu-2.9.0/ui/gtk.c	2017-04-21 10:55:50.706721401 -0700
++++ abs/qemu/src/qemu-2.9.0/ui/gtk.c	2017-04-21 10:56:28.939040457 -0700
+@@ -260,30 +260,28 @@
+     const char *status = "";
+     gchar *prefix;
+     gchar *title;
+-    const char *grab = "";
+     bool is_paused = !runstate_is_running();
+     int i;
+ 
+     if (qemu_name) {
+-        prefix = g_strdup_printf("QEMU (%s)", qemu_name);
++        prefix = g_strdup_printf("%s - QEMU", qemu_name);
+     } else {
+         prefix = g_strdup_printf("QEMU");
+     }
+ 
+     if (s->ptr_owner != NULL &&
+         s->ptr_owner->window == NULL) {
+-        grab = _(" - Press Ctrl+Alt+G to release grab");
+     }
+ 
+     if (is_paused) {
+-        status = _(" [Paused]");
++        status = _(" [paused]");
+     }
+     s->external_pause_update = true;
+     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(s->pause_item),
+                                    is_paused);
+     s->external_pause_update = false;
+ 
+-    title = g_strdup_printf("%s%s%s", prefix, status, grab);
++    title = g_strdup_printf("%s%s", prefix, status);
+     gtk_window_set_title(GTK_WINDOW(s->window), title);
+     g_free(title);
+ 
