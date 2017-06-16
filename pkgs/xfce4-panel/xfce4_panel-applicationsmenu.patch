@@ -1,12 +1,12 @@
 diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c	2016-12-23 11:36:46.975391420 -0800
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c	2016-12-23 11:36:47.042057242 -0800
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c	2017-06-16 16:11:18.285112502 -0700
++++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c	2017-06-16 16:11:18.461775194 -0700
 @@ -222,7 +222,9 @@
    gtk_widget_show (plugin->icon);
  
    plugin->label = gtk_label_new (DEFAULT_TITLE);
 -  gtk_box_pack_start (GTK_BOX (plugin->box), plugin->label, FALSE, FALSE, 0);
-+  gtk_widget_modify_font (GTK_LABEL (plugin->label), pango_font_description_from_string ("bold"));
++  gtk_widget_modify_font (GTK_LABEL (plugin->label), pango_font_description_from_string ("semibold"));
 +  gtk_box_pack_start (GTK_BOX (plugin->box), plugin->label, TRUE, TRUE, 0);
 +
    plugin->show_button_title = TRUE;
