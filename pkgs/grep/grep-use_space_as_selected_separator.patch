@@ -1,6 +1,6 @@
-diff -ru abs/grep.ORIG/src/grep-3.0/src/grep.c abs/grep/src/grep-3.0/src/grep.c
---- abs/grep.ORIG/src/grep-3.0/src/grep.c	2017-02-28 23:35:57.270745224 -0800
-+++ abs/grep/src/grep-3.0/src/grep.c	2017-02-28 23:36:20.788928178 -0800
+diff -ru abs/grep.ORIG/src/grep-3.1/src/grep.c abs/grep/src/grep-3.1/src/grep.c
+--- abs/grep.ORIG/src/grep-3.1/src/grep.c	2017-02-28 23:35:57.270745224 -0800
++++ abs/grep/src/grep-3.1/src/grep.c	2017-02-28 23:36:20.788928178 -0800
 @@ -50,7 +50,7 @@
  #include "xalloc.h"
  #include "xstrtol.h"
