@@ -1,6 +1,6 @@
-diff -ru abs/systemd.ORIG/src/systemd/src/core/job.c abs/systemd/src/systemd/src/core/job.c
---- abs/systemd.ORIG/src/systemd/src/core/job.c	2016-12-05 16:11:04.808043450 -0800
-+++ abs/systemd/src/systemd/src/core/job.c	2016-12-05 16:12:24.813368656 -0800
+diff -ru abs/systemd.ORIG/src/systemd-stable/src/core/job.c abs/systemd/src/systemd-stable/src/core/job.c
+--- abs/systemd.ORIG/src/systemd-stable/src/core/job.c	2016-12-05 16:11:04.808043450 -0800
++++ abs/systemd/src/systemd-stable/src/core/job.c	2016-12-05 16:12:24.813368656 -0800
 @@ -769,7 +769,7 @@
  
          /* The description might be longer than the buffer, but that's OK, we'll just truncate it here */
@@ -10,9 +10,9 @@ diff -ru abs/systemd.ORIG/src/systemd/src/core/job.c abs/systemd/src/systemd/src
          REENABLE_WARNING;
  
          switch (t) {
-diff -ru abs/systemd.ORIG/src/systemd/src/core/unit.c abs/systemd/src/systemd/src/core/unit.c
---- abs/systemd.ORIG/src/systemd/src/core/unit.c	2016-12-05 16:11:04.808043450 -0800
-+++ abs/systemd/src/systemd/src/core/unit.c	2016-12-05 16:11:56.175988680 -0800
+diff -ru abs/systemd.ORIG/src/systemd-stable/src/core/unit.c abs/systemd/src/systemd-stable/src/core/unit.c
+--- abs/systemd.ORIG/src/systemd-stable/src/core/unit.c	2016-12-05 16:11:04.808043450 -0800
++++ abs/systemd/src/systemd-stable/src/core/unit.c	2016-12-05 16:11:56.175988680 -0800
 @@ -1409,7 +1409,7 @@
  
  void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
