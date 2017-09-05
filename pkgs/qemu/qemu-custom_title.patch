@@ -1,6 +1,6 @@
-diff -ru abs/qemu.ORIG/src/qemu-2.9.0/ui/gtk.c abs/qemu/src/qemu-2.9.0/ui/gtk.c
---- abs/qemu.ORIG/src/qemu-2.9.0/ui/gtk.c	2017-06-01 14:00:08.665541519 -0700
-+++ abs/qemu/src/qemu-2.9.0/ui/gtk.c	2017-06-01 14:00:29.855083431 -0700
+diff -ru abs/qemu.ORIG/src/qemu-2.10.0/ui/gtk.c abs/qemu/src/qemu-2.10.0/ui/gtk.c
+--- abs/qemu.ORIG/src/qemu-2.10.0/ui/gtk.c	2017-06-01 14:00:08.665541519 -0700
++++ abs/qemu/src/qemu-2.10.0/ui/gtk.c	2017-06-01 14:00:29.855083431 -0700
 @@ -273,7 +273,6 @@
      const char *status = "";
      gchar *prefix;
