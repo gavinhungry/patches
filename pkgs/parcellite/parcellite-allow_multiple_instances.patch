@@ -1,0 +1,14 @@
+diff -ru abs/parcellite.ORIG/src/parcellite-1.2.1/src/main.c abs/parcellite/src/parcellite-1.2.1/src/main.c
+--- abs/parcellite.ORIG/src/parcellite-1.2.1/src/main.c	2017-09-07 10:12:28.158693476 -0700
++++ abs/parcellite/src/parcellite-1.2.1/src/main.c	2017-09-07 11:33:05.030240297 -0700
+@@ -2349,10 +2349,6 @@
+ 	if(get_pref_int32("multi_user"))
+ 	  mode|=PROC_MODE_USER_QUALIFY;
+ 	/*g_printf("mode=0x%X\n",mode); */
+-	if(proc_find(PARCELLITE_PROG_NAME,mode,NULL)<2)	/**1 for me, and 1 for a running instance  */
+-		mode=PROG_MODE_DAEMON; /**first instance  */
+-	else
+-		mode=PROG_MODE_CLIENT; /**already running, just access fifos & exit.  */
+ 	
+ 	/**get options/cmd line not parsed.  */
+ 	if( NULL != opts->leftovers)g_print("%s\n",opts->leftovers);
