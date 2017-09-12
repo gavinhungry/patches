@@ -1,0 +1,12 @@
+diff -ru abs/virtualbox.ORIG/src/VirtualBox-5.1.26/src/VBox/ExtPacks/VBoxDTrace/include/VBoxDTraceTypes.h abs/virtualbox/src/VirtualBox-5.1.26/src/VBox/ExtPacks/VBoxDTrace/include/VBoxDTraceTypes.h
+--- abs/virtualbox.ORIG/src/VirtualBox-5.1.26/src/VBox/ExtPacks/VBoxDTrace/include/VBoxDTraceTypes.h	2017-09-12 11:42:35.195595653 -0700
++++ abs/virtualbox/src/VirtualBox-5.1.26/src/VBox/ExtPacks/VBoxDTrace/include/VBoxDTraceTypes.h	2017-09-12 11:43:25.098081615 -0700
+@@ -55,7 +55,7 @@
+ typedef uint32_t                    id_t;
+ typedef uint32_t                    zoneid_t;
+ #endif
+-#if !defined(NGREG) || !defined(RT_OS_LINUX)
++#if !defined(__NGREG) || !defined(RT_OS_LINUX)
+ typedef RTCCINTREG                  greg_t;
+ #else
+ AssertCompileSize(greg_t, sizeof(RTCCINTREG));
