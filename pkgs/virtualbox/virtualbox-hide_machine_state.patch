@@ -1,6 +1,6 @@
-diff -ru abs/virtualbox.ORIG/src/VirtualBox-5.1.26/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp abs/virtualbox/src/VirtualBox-5.1.26/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp
---- abs/virtualbox.ORIG/src/VirtualBox-5.1.26/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-09-12 15:07:51.365291578 -0700
-+++ abs/virtualbox/src/VirtualBox-5.1.26/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-09-12 15:14:34.586004463 -0700
+diff -ru abs/virtualbox.ORIG/src/VirtualBox-5.1.28/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp abs/virtualbox/src/VirtualBox-5.1.28/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp
+--- abs/virtualbox.ORIG/src/VirtualBox-5.1.28/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-09-12 15:07:51.365291578 -0700
++++ abs/virtualbox/src/VirtualBox-5.1.28/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-09-12 15:14:34.586004463 -0700
 @@ -554,8 +554,6 @@
              strSnapshotName = " (" + snapshot.GetName() + ")";
          }
