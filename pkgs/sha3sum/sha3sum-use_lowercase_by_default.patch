@@ -1,12 +1,12 @@
-diff -ru aur/sha3sum.ORIG/src/sha3sum-1.0/src/common.c aur/sha3sum/src/sha3sum-1.0/src/common.c
---- aur/sha3sum.ORIG/src/sha3sum-1.0/src/common.c	2017-03-26 04:21:48.959102458 -0700
-+++ aur/sha3sum/src/sha3sum-1.0/src/common.c	2017-03-26 04:23:03.210447317 -0700
-@@ -486,7 +486,7 @@
-  */
- int run(int argc, char* argv[], libkeccak_generalised_spec_t* restrict gspec, const char* restrict suffix)
+diff -ru aur/sha3sum.ORIG/src/sha3sum-1.1.1/common.c aur/sha3sum/src/sha3sum-1.1.1/common.c
+--- aur/sha3sum.ORIG/src/sha3sum-1.1.1/common.c	2017-10-16 09:40:02.183491626 -0700
++++ aur/sha3sum/src/sha3sum-1.1.1/common.c	2017-10-16 09:40:48.835636124 -0700
+@@ -429,7 +429,7 @@
+ int
+ run(int argc, char *argv[], libkeccak_generalised_spec_t *restrict gspec, const char *restrict suffix)
  {
--  int r, verbose = 0, presentation = REPRESENTATION_UPPER_CASE, hex = 0, check = 0;
-+  int r, verbose = 0, presentation = REPRESENTATION_LOWER_CASE, hex = 0, check = 0;
-   long squeezes = 1;
-   size_t i;
-   libkeccak_spec_t spec;
+-	enum representation style = REPRESENTATION_UPPER_CASE;
++	enum representation style = REPRESENTATION_LOWER_CASE;
+ 	int verbose = 0;
+ 	int hex = 0;
+ 	int check = 0;
