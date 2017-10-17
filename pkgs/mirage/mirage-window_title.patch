@@ -1,0 +1,14 @@
+diff -ru abs/mirage.ORIG/src/mirage-0.9.5.2/mirage.py abs/mirage/src/mirage-0.9.5.2/mirage.py
+--- abs/mirage.ORIG/src/mirage-0.9.5.2/mirage.py	2017-10-17 10:24:55.567036543 -0700
++++ abs/mirage/src/mirage-0.9.5.2/mirage.py	2017-10-17 10:33:31.975734646 -0700
+@@ -4504,9 +4504,7 @@
+ 		if len(self.image_list) == 0:
+ 			title = "Mirage"
+ 		else:
+-			title = "Mirage - " +_("[%(current)i of %(total)i]") % {'current': self.curr_img_in_list+1, 'total': len(self.image_list)} + ' ' + os.path.basename(self.currimg_name)
+-			if self.slideshow_mode:
+-				title = title + ' - ' + _('Slideshow Mode')
++			title = os.path.basename(self.currimg_name) + " - Mirage"
+ 		self.window.set_title(title)
+ 
+ 	def slideshow_controls_show(self):
