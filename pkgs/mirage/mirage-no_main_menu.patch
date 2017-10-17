@@ -1,0 +1,11 @@
+diff -ru abs/mirage.ORIG/src/mirage-0.9.5.2/mirage.py abs/mirage/src/mirage-0.9.5.2/mirage.py
+--- abs/mirage.ORIG/src/mirage-0.9.5.2/mirage.py	2017-10-17 10:24:55.567036543 -0700
++++ abs/mirage/src/mirage-0.9.5.2/mirage.py	2017-10-17 10:29:57.340851328 -0700
+@@ -557,7 +557,6 @@
+ 		self.refresh_recent_files_menu()
+ 		self.window.add_accel_group(self.UIManager.get_accel_group())
+ 		self.menubar = self.UIManager.get_widget('/MainMenu')
+-		vbox.pack_start(self.menubar, False, False, 0)
+ 		self.toolbar = self.UIManager.get_widget('/MainToolbar')
+ 		vbox.pack_start(self.toolbar, False, False, 0)
+ 		self.layout = gtk.Layout()
