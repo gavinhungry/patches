@@ -1,7 +1,7 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.12/thunar/thunar-file.c abs/thunar/src/Thunar-1.6.12/thunar/thunar-file.c
---- abs/thunar.ORIG/src/Thunar-1.6.12/thunar/thunar-file.c	2017-02-10 11:51:40.778438715 -0800
-+++ abs/thunar/src/Thunar-1.6.12/thunar/thunar-file.c	2017-02-10 11:51:41.698392701 -0800
-@@ -878,7 +878,7 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-file.c abs/thunar/src/Thunar-1.6.13/thunar/thunar-file.c
+--- abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-file.c	2017-11-26 22:28:48.118946767 -0800
++++ abs/thunar/src/Thunar-1.6.13/thunar/thunar-file.c	2017-11-26 22:28:48.352275115 -0800
+@@ -881,7 +881,7 @@
          }
  
        /* create a file or directory monitor */
@@ -10,18 +10,18 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.12/thunar/thunar-file.c abs/thunar/src/T
        if (G_LIKELY (file_watch->monitor != NULL))
          {
            /* watch monitor for file changes */
-@@ -3883,7 +3883,7 @@
+@@ -3889,7 +3889,7 @@
        file_watch->watch_count = 1;
  
        /* create a file or directory monitor */
--      file_watch->monitor = g_file_monitor (file->gfile, G_FILE_MONITOR_WATCH_MOUNTS | G_FILE_MONITOR_SEND_MOVED, NULL, NULL);
-+      file_watch->monitor = g_file_monitor (file->gfile, G_FILE_MONITOR_WATCH_MOUNTS, NULL, NULL);
-       if (G_LIKELY (file_watch->monitor != NULL))
+-      file_watch->monitor = g_file_monitor (file->gfile, G_FILE_MONITOR_WATCH_MOUNTS | G_FILE_MONITOR_SEND_MOVED, NULL, &error);
++      file_watch->monitor = g_file_monitor (file->gfile, G_FILE_MONITOR_WATCH_MOUNTS, NULL, &error);
+       if (G_UNLIKELY (file_watch->monitor == NULL))
          {
-           /* watch monitor for file changes */
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.12/thunar/thunar-folder.c abs/thunar/src/Thunar-1.6.12/thunar/thunar-folder.c
---- abs/thunar.ORIG/src/Thunar-1.6.12/thunar/thunar-folder.c	2017-02-10 11:51:40.778438715 -0800
-+++ abs/thunar/src/Thunar-1.6.12/thunar/thunar-folder.c	2017-02-10 11:51:41.698392701 -0800
+           g_debug ("Failed to create file monitor: %s", error->message);
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-folder.c abs/thunar/src/Thunar-1.6.13/thunar/thunar-folder.c
+--- abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-folder.c	2017-11-26 22:28:48.118946767 -0800
++++ abs/thunar/src/Thunar-1.6.13/thunar/thunar-folder.c	2017-11-26 22:28:48.352275115 -0800
 @@ -576,7 +576,7 @@
  
    /* add us to the file alteration monitor */
