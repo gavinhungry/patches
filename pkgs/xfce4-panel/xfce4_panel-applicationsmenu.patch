@@ -1,6 +1,6 @@
-diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c	2017-06-16 16:11:18.285112502 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/applicationsmenu/applicationsmenu.c	2017-06-16 16:11:18.461775194 -0700
+diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/applicationsmenu/applicationsmenu.c abs/xfce4-panel/src/xfce4-panel-4.12.2/plugins/applicationsmenu/applicationsmenu.c
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/applicationsmenu/applicationsmenu.c	2017-06-16 16:11:18.285112502 -0700
++++ abs/xfce4-panel/src/xfce4-panel-4.12.2/plugins/applicationsmenu/applicationsmenu.c	2017-06-16 16:11:18.461775194 -0700
 @@ -222,7 +222,9 @@
    gtk_widget_show (plugin->icon);
  
