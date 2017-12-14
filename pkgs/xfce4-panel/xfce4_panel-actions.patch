@@ -1,6 +1,6 @@
-diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/actions/actions.c abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/actions/actions.c
---- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.1/plugins/actions/actions.c	2017-06-16 16:11:18.285112502 -0700
-+++ abs/xfce4-panel/src/xfce4-panel-4.12.1/plugins/actions/actions.c	2017-06-16 16:11:18.315111827 -0700
+diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/actions/actions.c abs/xfce4-panel/src/xfce4-panel-4.12.2/plugins/actions/actions.c
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/actions/actions.c	2017-06-16 16:11:18.285112502 -0700
++++ abs/xfce4-panel/src/xfce4-panel-4.12.2/plugins/actions/actions.c	2017-06-16 16:11:18.315111827 -0700
 @@ -1079,7 +1079,7 @@
    GtkWidget           *label;
    GtkWidget           *button;
