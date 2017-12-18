@@ -2,7 +2,7 @@
 
 PATCHER_DIR=$(dirname $(realpath $0))
 PATCHES_DIR=${PATCHER_DIR}/pkgs
-source ${PATCHER_DIR}/abash/abash.sh
+source "$PATCHER_DIR"/abash/abash.sh
 
 (arge help ||
 ([ -z "$(nfargs)" ] && ! arge unpatched && ! arge list-unpatched)) &&
