@@ -1,11 +1,7 @@
-ARCH_DIR=$1
-PKGSRC_DIR=$2
+#!/bin/bash
 
 inform 'Executing exo-csource'
-cd ${PKGSRC_DIR}/thunar
-
+cd "$PKGSRC_DIR"/thunar
 exo-csource --strip-comments --strip-content --static --name=thunar_standard_view_ui thunar-standard-view-ui.xml > thunar-standard-view-ui.h
 exo-csource --strip-comments --strip-content --static --name=thunar_location_buttons_ui thunar-location-buttons-ui.xml > thunar-location-buttons-ui.h
 exo-csource --strip-comments --strip-content --static --name=thunar_launcher_ui thunar-launcher-ui.xml > thunar-launcher-ui.h
-
-cd ${ARCH_DIR}/abs/thunar
