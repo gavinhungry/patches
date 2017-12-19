@@ -227,6 +227,8 @@ arge unpatched && _PKGS+=($(getUnpatchedPkgs))
 PKGS=$(echo ${_PKGS[*]} | tr ' ' '\n' | cut -d'/' -f2 | sort -u)
 
 arge download && downloadPkgs $PKGS
-arge hard-update:H && hardUpdatePkgs $PKGS || softUpdatePkgs $PKGS
+
+softUpdatePkgs $PKGS
+arge hard-update:H && hardUpdatePkgs $PKGS
 
 patchPkgs $PKGS
