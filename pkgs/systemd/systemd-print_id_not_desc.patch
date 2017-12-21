@@ -1,19 +1,19 @@
 diff -ru abs/systemd.ORIG/src/systemd-stable/src/core/job.c abs/systemd/src/systemd-stable/src/core/job.c
---- abs/systemd.ORIG/src/systemd-stable/src/core/job.c	2016-12-05 16:11:04.808043450 -0800
-+++ abs/systemd/src/systemd-stable/src/core/job.c	2016-12-05 16:12:24.813368656 -0800
-@@ -769,7 +769,7 @@
+--- abs/systemd.ORIG/src/systemd-stable/src/core/job.c	2017-12-21 09:35:33.145266486 -0800
++++ abs/systemd/src/systemd-stable/src/core/job.c	2017-12-21 09:36:23.294320256 -0800
+@@ -777,7 +777,7 @@
  
          /* The description might be longer than the buffer, but that's OK, we'll just truncate it here */
          DISABLE_WARNING_FORMAT_NONLITERAL;
--        snprintf(buf, sizeof(buf), format, unit_description(u));
-+        snprintf(buf, sizeof(buf), format, strna(u->id));
+-        xsprintf(buf, format, unit_description(u));
++        xsprintf(buf, format, strna(u->id));
          REENABLE_WARNING;
  
          switch (t) {
 diff -ru abs/systemd.ORIG/src/systemd-stable/src/core/unit.c abs/systemd/src/systemd-stable/src/core/unit.c
---- abs/systemd.ORIG/src/systemd-stable/src/core/unit.c	2016-12-05 16:11:04.808043450 -0800
-+++ abs/systemd/src/systemd-stable/src/core/unit.c	2016-12-05 16:11:56.175988680 -0800
-@@ -1409,7 +1409,7 @@
+--- abs/systemd.ORIG/src/systemd-stable/src/core/unit.c	2017-12-21 09:35:33.145266486 -0800
++++ abs/systemd/src/systemd-stable/src/core/unit.c	2017-12-21 09:36:43.897261203 -0800
+@@ -1631,7 +1631,7 @@
  
  void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
          DISABLE_WARNING_FORMAT_NONLITERAL;
