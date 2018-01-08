@@ -1,6 +1,6 @@
-diff -ru abs/cryptsetup.ORIG/encrypt_hook abs/cryptsetup/encrypt_hook
---- abs/cryptsetup.ORIG/encrypt_hook	2015-07-29 11:21:47.637808617 -0700
-+++ abs/cryptsetup/encrypt_hook	2015-07-29 11:28:16.207794863 -0700
+diff -ru abs/cryptsetup.ORIG/hooks-encrypt abs/cryptsetup/hooks-encrypt
+--- abs/cryptsetup.ORIG/hooks-encrypt	2018-01-07 22:35:04.514626428 -0800
++++ abs/cryptsetup/hooks-encrypt	2018-01-07 22:35:04.537959293 -0800
 @@ -33,6 +33,29 @@
          [ ! -f ${ckeyfile} ] && echo "Keyfile could not be opened. Reverting to passphrase."
      fi
@@ -31,7 +31,7 @@ diff -ru abs/cryptsetup.ORIG/encrypt_hook abs/cryptsetup/encrypt_hook
      if [ -n "${cryptdevice}" ]; then
          DEPRECATED_CRYPT=0
          IFS=: read cryptdev cryptname cryptoptions <<EOF
-@@ -61,7 +84,7 @@
+@@ -67,7 +90,7 @@
      done
  
      if resolved=$(resolve_device "${cryptdev}" ${rootdelay}); then
@@ -40,7 +40,7 @@ diff -ru abs/cryptsetup.ORIG/encrypt_hook abs/cryptsetup/encrypt_hook
              [ ${DEPRECATED_CRYPT} -eq 1 ] && warn_deprecated
              dopassphrase=1
              # If keyfile exists, try to use that
-@@ -74,9 +97,7 @@
+@@ -80,9 +103,7 @@
              fi
              # Ask for a passphrase
              if [ ${dopassphrase} -gt 0 ]; then
@@ -51,7 +51,7 @@ diff -ru abs/cryptsetup.ORIG/encrypt_hook abs/cryptsetup/encrypt_hook
                  #loop until we get a real password
                  while ! eval cryptsetup open --type luks ${resolved} ${cryptname} ${cryptargs} ${CSQUIET}; do
                      sleep 2;
-@@ -132,8 +153,10 @@
+@@ -137,8 +158,10 @@
          else
              err "Failed to open encryption mapping: The device ${cryptdev} is not a LUKS volume and the crypto= paramater was not specified."
          fi
