@@ -1,0 +1,18 @@
+diff -ru abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.2/panel/main.c abs/xfce4-panel/src/xfce4-panel-4.12.2/panel/main.c
+--- abs/xfce4-panel.ORIG/src/xfce4-panel-4.12.2/panel/main.c	2017-12-13 14:49:31.000000000 -0800
++++ abs/xfce4-panel/src/xfce4-panel-4.12.2/panel/main.c	2018-01-16 16:43:02.701302316 -0800
+@@ -313,14 +313,6 @@
+ 
+   /* start dbus service */
+   dbus_service = panel_dbus_service_get ();
+-  if (!panel_dbus_service_is_owner (dbus_service))
+-    {
+-      /* quit without error if an instance is running */
+-      succeed = TRUE;
+-
+-      g_print ("%s: %s\n\n", G_LOG_DOMAIN, _("There is already a running instance"));
+-      goto dbus_return;
+-    }
+ 
+   /* start session management */
+   sm_client = xfce_sm_client_get ();
