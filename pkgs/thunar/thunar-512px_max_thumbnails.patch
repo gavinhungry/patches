@@ -1,0 +1,162 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-enum-types.c abs/thunar/src/Thunar-1.6.13/thunar/thunar-enum-types.c
+--- abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-enum-types.c	2018-02-09 09:53:37.489724068 -0800
++++ abs/thunar/src/Thunar-1.6.13/thunar/thunar-enum-types.c	2018-02-09 11:30:20.232352274 -0800
+@@ -127,6 +127,10 @@
+         { THUNAR_ICON_SIZE_LARGE,    "THUNAR_ICON_SIZE_LARGE",    "large",    },
+         { THUNAR_ICON_SIZE_LARGER,   "THUNAR_ICON_SIZE_LARGER",   "larger",   },
+         { THUNAR_ICON_SIZE_LARGEST,  "THUNAR_ICON_SIZE_LARGEST",  "largest",  },
++        { THUNAR_ICON_SIZE_HUGE,     "THUNAR_ICON_SIZE_HUGE",     "huge",     },
++        { THUNAR_ICON_SIZE_HUGER,    "THUNAR_ICON_SIZE_HUGER",    "huger",    },
++        { THUNAR_ICON_SIZE_HUGEST,   "THUNAR_ICON_SIZE_HUGEST",   "hugest",   },
++        { THUNAR_ICON_SIZE_MAX,      "THUNAR_ICON_SIZE_MAX",      "max",      },
+         { 0,                         NULL,                        NULL,       },
+       };
+ 
+@@ -177,6 +181,10 @@
+         { THUNAR_ZOOM_LEVEL_LARGE,    "THUNAR_ZOOM_LEVEL_LARGE",    "large",    },
+         { THUNAR_ZOOM_LEVEL_LARGER,   "THUNAR_ZOOM_LEVEL_LARGER",   "larger",   },
+         { THUNAR_ZOOM_LEVEL_LARGEST,  "THUNAR_ZOOM_LEVEL_LARGEST",  "largest",  },
++        { THUNAR_ZOOM_LEVEL_HUGE,     "THUNAR_ZOOM_LEVEL_HUGE",     "huge",     },
++        { THUNAR_ZOOM_LEVEL_HUGER,    "THUNAR_ZOOM_LEVEL_HUGER",    "huger",    },
++        { THUNAR_ZOOM_LEVEL_HUGEST,   "THUNAR_ZOOM_LEVEL_HUGEST",   "hugest",   },
++        { THUNAR_ZOOM_LEVEL_MAX,      "THUNAR_ZOOM_LEVEL_MAX",      "max",      },
+         { 0,                          NULL,                         NULL,       },
+       };
+ 
+@@ -233,7 +241,11 @@
+     case THUNAR_ZOOM_LEVEL_NORMAL:   return THUNAR_ICON_SIZE_NORMAL;
+     case THUNAR_ZOOM_LEVEL_LARGE:    return THUNAR_ICON_SIZE_LARGE;
+     case THUNAR_ZOOM_LEVEL_LARGER:   return THUNAR_ICON_SIZE_LARGER;
+-    default:                         return THUNAR_ICON_SIZE_LARGEST;
++    case THUNAR_ZOOM_LEVEL_LARGEST:  return THUNAR_ICON_SIZE_LARGEST;
++    case THUNAR_ZOOM_LEVEL_HUGE:     return THUNAR_ICON_SIZE_HUGE;
++    case THUNAR_ZOOM_LEVEL_HUGER:    return THUNAR_ICON_SIZE_HUGER;
++    case THUNAR_ZOOM_LEVEL_HUGEST:   return THUNAR_ICON_SIZE_HUGEST;
++    default:                         return THUNAR_ICON_SIZE_MAX;
+     }
+ }
+ 
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-enum-types.h abs/thunar/src/Thunar-1.6.13/thunar/thunar-enum-types.h
+--- abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-enum-types.h	2018-02-09 09:53:37.483724149 -0800
++++ abs/thunar/src/Thunar-1.6.13/thunar/thunar-enum-types.h	2018-02-09 11:30:20.233352247 -0800
+@@ -125,6 +125,10 @@
+  * @THUNAR_ICON_SIZE_LARGE    : icon size for #THUNAR_ZOOM_LEVEL_LARGE.
+  * @THUNAR_ICON_SIZE_LARGER   : icon size for #THUNAR_ZOOM_LEVEL_LARGER.
+  * @THUNAR_ICON_SIZE_LARGEST  : icon size for #THUNAR_ZOOM_LEVEL_LARGEST.
++ * @THUNAR_ICON_SIZE_HUGE     : icon size for #THUNAR_ZOOM_LEVEL_HUGE.
++ * @THUNAR_ICON_SIZE_HUGER    : icon size for #THUNAR_ZOOM_LEVEL_HUGER.
++ * @THUNAR_ICON_SIZE_HUGEST   : icon size for #THUNAR_ZOOM_LEVEL_HUGEST.
++ * @THUNAR_ICON_SIZE_MAX      : icon size for #THUNAR_ZOOM_LEVEL_MAX.
+  *
+  * Icon sizes matching the various #ThunarZoomLevel<!---->s.
+  **/
+@@ -137,6 +141,10 @@
+   THUNAR_ICON_SIZE_LARGE    = 64,
+   THUNAR_ICON_SIZE_LARGER   = 96,
+   THUNAR_ICON_SIZE_LARGEST  = 128,
++  THUNAR_ICON_SIZE_HUGE     = 192,
++  THUNAR_ICON_SIZE_HUGER    = 256,
++  THUNAR_ICON_SIZE_HUGEST   = 384,
++  THUNAR_ICON_SIZE_MAX      = 512,
+ } ThunarIconSize;
+ 
+ GType thunar_icon_size_get_type (void) G_GNUC_CONST;
+@@ -190,7 +198,11 @@
+  * @THUNAR_ZOOM_LEVEL_NORMAL   : the default zoom level.
+  * @THUNAR_ZOOM_LEVEL_LARGE    : large zoom level.
+  * @THUNAR_ZOOM_LEVEL_LARGER   : larger zoom level.
+- * @THUNAR_ZOOM_LEVEL_LARGEST  : largest possible zoom level.
++ * @THUNAR_ZOOM_LEVEL_LARGEST  : largest zoom level.
++ * @THUNAR_ZOOM_LEVEL_HUGE     : huge zoom level.
++ * @THUNAR_ZOOM_LEVEL_HUGER    : huger zoom level.
++ * @THUNAR_ZOOM_LEVEL_HUGEST   : hugest zoom level.
++ * @THUNAR_ZOOM_LEVEL_MAX      : maximum possible zoom level.
+  *
+  * Lists the various zoom levels supported by Thunar's
+  * folder views.
+@@ -204,6 +216,10 @@
+   THUNAR_ZOOM_LEVEL_LARGE,
+   THUNAR_ZOOM_LEVEL_LARGER,
+   THUNAR_ZOOM_LEVEL_LARGEST,
++  THUNAR_ZOOM_LEVEL_HUGE,
++  THUNAR_ZOOM_LEVEL_HUGER,
++  THUNAR_ZOOM_LEVEL_HUGEST,
++  THUNAR_ZOOM_LEVEL_MAX,
+ 
+   /*< private >*/
+   THUNAR_ZOOM_N_LEVELS,
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-file.c abs/thunar/src/Thunar-1.6.13/thunar/thunar-file.c
+--- abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-file.c	2018-02-09 09:53:37.481724175 -0800
++++ abs/thunar/src/Thunar-1.6.13/thunar/thunar-file.c	2018-02-09 11:31:58.294773484 -0800
+@@ -3509,16 +3509,18 @@
+           g_checksum_free (checksum);
+ 
+           /* The thumbnail is in the format/location
+-           * $XDG_CACHE_HOME/thumbnails/(nromal|large)/MD5_Hash_Of_URI.png
++           * $XDG_CACHE_HOME/thumbnails/(normal|large|max)/MD5_Hash_Of_URI.png
+            * for version 0.8.0 if XDG_CACHE_HOME is defined, otherwise
+-           * /homedir/.thumbnails/(normal|large)/MD5_Hash_Of_URI.png
++           * /homedir/.thumbnails/(normal|large|max)/MD5_Hash_Of_URI.png
+            * will be used, which is also always used for versions prior
+            * to 0.7.0.
++           *
++           * "max" requires patched tumbler
+            */
+ 
+           /* build and check if the thumbnail is in the new location */
+           file->thumbnail_path = g_build_path ("/", g_get_user_cache_dir(),
+-                                               "thumbnails", "normal",
++                                               "thumbnails", "max",
+                                                filename, NULL);
+ 
+           if (!g_file_test(file->thumbnail_path, G_FILE_TEST_EXISTS))
+@@ -3527,7 +3529,7 @@
+               g_free(file->thumbnail_path);
+ 
+               file->thumbnail_path = g_build_filename (xfce_get_homedir (), ".thumbnails",
+-                                                       "normal", filename, NULL);
++                                                       "max", filename, NULL);
+ 
+               if(!g_file_test(file->thumbnail_path, G_FILE_TEST_EXISTS))
+               {
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-icon-factory.h abs/thunar/src/Thunar-1.6.13/thunar/thunar-icon-factory.h
+--- abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-icon-factory.h	2018-02-09 09:53:37.480724189 -0800
++++ abs/thunar/src/Thunar-1.6.13/thunar/thunar-icon-factory.h	2018-02-09 11:30:20.235352194 -0800
+@@ -39,7 +39,7 @@
+  * The icon size which is used for loading and storing
+  * thumbnails in Thunar.
+  **/
+-#define THUNAR_THUMBNAIL_SIZE (128)
++#define THUNAR_THUMBNAIL_SIZE (512)
+ 
+ 
+ 
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-icon-view.c abs/thunar/src/Thunar-1.6.13/thunar/thunar-icon-view.c
+--- abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-icon-view.c	2018-02-09 09:53:37.482724162 -0800
++++ abs/thunar/src/Thunar-1.6.13/thunar/thunar-icon-view.c	2018-02-09 11:30:20.236352167 -0800
+@@ -197,8 +197,12 @@
+       wrap_width = 112;
+       break;
+ 
++    case THUNAR_ZOOM_LEVEL_HUGER:
++      wrap_width = 192;
++      break;
++
+     default:
+-      wrap_width = 128;
++      wrap_width = 384;
+       break;
+     }
+ 
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-thumbnailer.c abs/thunar/src/Thunar-1.6.13/thunar/thunar-thumbnailer.c
+--- abs/thunar.ORIG/src/Thunar-1.6.13/thunar/thunar-thumbnailer.c	2018-02-09 09:53:37.481724175 -0800
++++ abs/thunar/src/Thunar-1.6.13/thunar/thunar-thumbnailer.c	2018-02-09 11:31:39.939250054 -0800
+@@ -671,7 +671,7 @@
+   /* queue thumbnails for the given URIs asynchronously */
+   job->handle_call = thunar_thumbnailer_proxy_queue_async (thumbnailer->thumbnailer_proxy,
+                                                            (const gchar **)uris, mime_hints,
+-                                                           "normal", "foreground", 0,
++                                                           "max", "foreground", 0, // "max" requires patched tumbler
+                                                            thunar_thumbnailer_queue_async_reply,
+                                                            job);
+ 
