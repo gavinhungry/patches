@@ -1,6 +1,6 @@
-diff -ru abs/mirage.ORIG/src/mirage-0.9.5.2/mirage.py abs/mirage/src/mirage-0.9.5.2/mirage.py
---- abs/mirage.ORIG/src/mirage-0.9.5.2/mirage.py	2017-10-17 10:24:55.567036543 -0700
-+++ abs/mirage/src/mirage-0.9.5.2/mirage.py	2017-10-17 10:33:31.975734646 -0700
+diff -ru aur/mirage.ORIG/src/mirage-0.9.5.2/mirage.py aur/mirage/src/mirage-0.9.5.2/mirage.py
+--- aur/mirage.ORIG/src/mirage-0.9.5.2/mirage.py	2018-02-09 15:05:10.176129994 -0800
++++ aur/mirage/src/mirage-0.9.5.2/mirage.py	2018-02-09 15:05:10.802113556 -0800
 @@ -4504,9 +4504,7 @@
  		if len(self.image_list) == 0:
  			title = "Mirage"
