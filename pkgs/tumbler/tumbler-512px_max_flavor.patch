@@ -1,0 +1,13 @@
+diff -ru abs/tumbler.ORIG/src/tumbler-0.2.0/plugins/xdg-cache/xdg-cache-cache.c abs/tumbler/src/tumbler-0.2.0/plugins/xdg-cache/xdg-cache-cache.c
+--- abs/tumbler.ORIG/src/tumbler-0.2.0/plugins/xdg-cache/xdg-cache-cache.c	2018-02-09 10:31:21.159320496 -0800
++++ abs/tumbler/src/tumbler-0.2.0/plugins/xdg-cache/xdg-cache-cache.c	2018-02-09 10:37:03.376588934 -0800
+@@ -136,6 +136,9 @@
+ 
+   flavor = tumbler_thumbnail_flavor_new_large ();
+   cache->flavors = g_list_prepend (cache->flavors, flavor);
++
++  flavor = tumbler_thumbnail_flavor_new("max", 512, 512);
++  cache->flavors = g_list_prepend (cache->flavors, flavor);
+ }
+ 
+ 
