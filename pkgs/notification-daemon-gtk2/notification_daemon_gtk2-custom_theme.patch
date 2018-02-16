@@ -1,6 +1,6 @@
 diff -ru aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/themes/standard/theme.c aur/notification-daemon-gtk2/src/notification-daemon-0.5.0/src/themes/standard/theme.c
---- aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2016-12-22 01:28:09.818624486 -0800
-+++ aur/notification-daemon-gtk2/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2016-12-22 01:28:45.606449365 -0800
+--- aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2018-02-15 22:39:23.305070312 -0800
++++ aur/notification-daemon-gtk2/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2018-02-15 22:41:14.187974770 -0800
 @@ -17,7 +17,6 @@
          GtkWidget      *icon;
          GtkWidget      *content_hbox;
@@ -9,15 +9,12 @@ diff -ru aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/the
          GtkWidget      *body_label;
          GtkWidget      *actions_box;
          GtkWidget      *last_sep;
-@@ -63,15 +62,15 @@
- //#define ENABLE_GRADIENT_LOOK
- 
+@@ -65,13 +64,13 @@
  #ifdef ENABLE_GRADIENT_LOOK
--# define STRIPE_WIDTH  45
-+# define STRIPE_WIDTH  35
+ # define STRIPE_WIDTH  45
  #else
 -# define STRIPE_WIDTH  30
-+# define STRIPE_WIDTH  20
++# define STRIPE_WIDTH  25
  #endif
  
  #define WIDTH         400
@@ -52,16 +49,15 @@ diff -ru aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/the
                  break;
  
          case URGENCY_NORMAL:   // NORMAL
-@@ -418,7 +417,7 @@
-              WindowData *windata,
-              cairo_t    *cr)
- {
--        cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 1.0);
-+        cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.65);
-         cairo_set_line_width (cr, 1.0);
+@@ -477,7 +476,6 @@
+         cr = cairo_create (surface);
  
-         if (windata->has_arrow) {
-@@ -578,7 +577,6 @@
+         fill_background (widget, windata, cr);
+-        draw_border (widget, windata, cr);
+         draw_stripe (widget, windata, cr);
+ 
+         cairo_destroy (cr);
+@@ -578,7 +576,6 @@
          GtkWidget      *main_vbox;
          GtkWidget      *hbox;
          GtkWidget      *vbox;
@@ -69,7 +65,7 @@ diff -ru aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/the
          GtkWidget      *image;
          GtkWidget      *alignment;
          AtkObject      *atkobj;
-@@ -683,7 +681,7 @@
+@@ -683,7 +680,7 @@
                              TRUE,
                              TRUE,
                              0);
@@ -78,7 +74,7 @@ diff -ru aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/the
  
          hbox = gtk_hbox_new (FALSE, 6);
          gtk_widget_show (hbox);
-@@ -706,39 +704,10 @@
+@@ -706,39 +703,10 @@
          atkobj = gtk_widget_get_accessible (windata->summary_label);
          atk_object_set_description (atkobj, "Notification summary text.");
  
@@ -118,7 +114,7 @@ diff -ru aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/the
          windata->content_hbox = gtk_hbox_new (FALSE, 6);
          gtk_box_pack_start (GTK_BOX (vbox),
                              windata->content_hbox,
-@@ -747,21 +716,12 @@
+@@ -747,21 +715,12 @@
                              0);
  
          windata->iconbox = gtk_hbox_new (FALSE, 0);
@@ -145,7 +141,7 @@ diff -ru aur/notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/the
  
          vbox = gtk_vbox_new (FALSE, 6);
          gtk_widget_show (vbox);
-@@ -885,12 +845,11 @@
+@@ -885,12 +844,11 @@
                                               WIDTH - (1 * 2) - (10 * 2) - req.width - 6, -1);
          }
  
