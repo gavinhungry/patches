@@ -1,6 +1,6 @@
 diff -ru abs/thunar.ORIG/src/Thunar-1.6.14/thunar/thunar-standard-view.c abs/thunar/src/Thunar-1.6.14/thunar/thunar-standard-view.c
---- abs/thunar.ORIG/src/Thunar-1.6.14/thunar/thunar-standard-view.c	2017-11-26 22:28:48.122280029 -0800
-+++ abs/thunar/src/Thunar-1.6.14/thunar/thunar-standard-view.c	2017-11-26 22:28:48.298942921 -0800
+--- abs/thunar.ORIG/src/Thunar-1.6.14/thunar/thunar-standard-view.c	2018-02-19 04:49:01.931310357 -0800
++++ abs/thunar/src/Thunar-1.6.14/thunar/thunar-standard-view.c	2018-02-19 04:49:02.331300034 -0800
 @@ -312,6 +312,7 @@
    ThunarFile             *current_directory;
  
@@ -53,8 +53,8 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.14/thunar/thunar-standard-view.c abs/thu
  
    /* update the "Properties" action */
 diff -ru abs/thunar.ORIG/src/Thunar-1.6.14/thunar/thunar-standard-view-ui.xml abs/thunar/src/Thunar-1.6.14/thunar/thunar-standard-view-ui.xml
---- abs/thunar.ORIG/src/Thunar-1.6.14/thunar/thunar-standard-view-ui.xml	2017-11-26 22:28:48.118946767 -0800
-+++ abs/thunar/src/Thunar-1.6.14/thunar/thunar-standard-view-ui.xml	2017-11-26 22:28:48.298942921 -0800
+--- abs/thunar.ORIG/src/Thunar-1.6.14/thunar/thunar-standard-view-ui.xml	2018-02-19 04:49:01.930310382 -0800
++++ abs/thunar/src/Thunar-1.6.14/thunar/thunar-standard-view-ui.xml	2018-02-19 04:49:02.331300034 -0800
 @@ -69,6 +69,7 @@
  
    <popup action="folder-context-menu">
