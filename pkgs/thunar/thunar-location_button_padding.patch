@@ -1,0 +1,32 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.14/thunar/thunar-location-button.c abs/thunar/src/Thunar-1.6.14/thunar/thunar-location-button.c
+--- abs/thunar.ORIG/src/Thunar-1.6.14/thunar/thunar-location-button.c	2018-02-19 04:45:16.142031016 -0800
++++ abs/thunar/src/Thunar-1.6.14/thunar/thunar-location-button.c	2018-02-19 04:45:16.711016909 -0800
+@@ -440,7 +440,7 @@
+   icon_theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (location_button)));
+ 
+   /* update and show the label widget (hide for the local root folder) */
+-  if (thunar_file_is_local (file) && thunar_file_is_root (file)) 
++  if (thunar_file_is_local (file) && (thunar_file_is_home (file) || thunar_file_is_root (file)))
+     {
+       /* hide the alignment in which the label would otherwise show up */
+       gtk_widget_hide (gtk_widget_get_parent (location_button->label));
+@@ -453,7 +453,7 @@
+     }
+ 
+   /* the image is only visible for certain special paths */
+-  if (thunar_file_is_home (file) || thunar_file_is_desktop (file) || thunar_file_is_root (file))
++  if (thunar_file_is_home (file) || thunar_file_is_root (file))
+     {
+       /* determine the icon size for menus (to be compatible with GtkPathBar) */
+       settings = gtk_settings_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (location_button)));
+@@ -535,8 +535,8 @@
+    * the button always requests the same size, no matter if
+    * the label is bold or not.
+    */
+-  requisition->width = MAX (bold_width, normal_width);
+-  requisition->height = MAX (bold_height, normal_height);
++  requisition->width = MAX (bold_width, normal_width) + 4;
++  requisition->height = MAX (bold_height, normal_height) + 4;
+ 
+   /* cleanup */
+   g_object_unref (G_OBJECT (layout));
