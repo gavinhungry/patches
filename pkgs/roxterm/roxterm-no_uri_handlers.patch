@@ -1,7 +1,7 @@
-diff -ru aur/roxterm.ORIG/src/roxterm-3.3.2/src/profilegui.c aur/roxterm/src/roxterm-3.3.2/src/profilegui.c
---- aur/roxterm.ORIG/src/roxterm-3.3.2/src/profilegui.c	2018-01-30 10:02:33.300525295 -0800
-+++ aur/roxterm/src/roxterm-3.3.2/src/profilegui.c	2018-01-30 10:02:33.313858288 -0800
-@@ -529,6 +529,7 @@
+diff -ru aur/roxterm.ORIG/src/roxterm-3.5.2/src/profilegui.c aur/roxterm/src/roxterm-3.5.2/src/profilegui.c
+--- aur/roxterm.ORIG/src/roxterm-3.5.2/src/profilegui.c	2018-03-04 21:25:44.352157105 -0800
++++ aur/roxterm/src/roxterm-3.5.2/src/profilegui.c	2018-03-04 21:26:44.810584620 -0800
+@@ -526,6 +526,7 @@
      pg->list_store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
      for (n = 0; n < G_N_ELEMENTS(labels); ++n)
      {
@@ -9,18 +9,10 @@ diff -ru aur/roxterm.ORIG/src/roxterm-3.3.2/src/profilegui.c aur/roxterm/src/rox
          gtk_list_store_append(pg->list_store, &iter);
          gtk_list_store_set(pg->list_store, &iter,
                  0, gettext(labels[n]), 1, n, -1);
-diff -ru aur/roxterm.ORIG/src/roxterm-3.3.2/src/roxterm.c aur/roxterm/src/roxterm-3.3.2/src/roxterm.c
---- aur/roxterm.ORIG/src/roxterm-3.3.2/src/roxterm.c	2018-01-30 10:02:33.300525295 -0800
-+++ aur/roxterm/src/roxterm-3.3.2/src/roxterm.c	2018-01-30 10:02:33.317191537 -0800
-@@ -3129,7 +3129,6 @@
-     roxterm_apply_title_template(roxterm);
-     roxterm_apply_show_tab_number(roxterm);
-     roxterm_apply_show_tab_status(roxterm);
--    roxterm_apply_match_files(roxterm, vte);
-     roxterm_apply_middle_click_tab(roxterm);
- 
-     roxterm_apply_colour_scheme_from_profile(roxterm);
-@@ -3302,8 +3301,6 @@
+diff -ru aur/roxterm.ORIG/src/roxterm-3.5.2/src/roxterm.c aur/roxterm/src/roxterm-3.5.2/src/roxterm.c
+--- aur/roxterm.ORIG/src/roxterm-3.5.2/src/roxterm.c	2018-03-04 21:25:44.353157101 -0800
++++ aur/roxterm/src/roxterm-3.5.2/src/roxterm.c	2018-03-04 21:27:57.039247937 -0800
+@@ -3064,8 +3064,6 @@
          gtk_widget_show(roxterm->widget);
      }
  
@@ -29,14 +21,3 @@ diff -ru aur/roxterm.ORIG/src/roxterm-3.3.2/src/roxterm.c aur/roxterm/src/roxter
      roxterm_apply_profile(roxterm, vte, FALSE);
      tab_name = global_options_lookup_string("tab-name");
      if (tab_name)
-@@ -3570,10 +3567,6 @@
-         {
-             roxterm_apply_show_tab_status(roxterm);
-         }
--        else if (!strcmp(key, "match_plain_files"))
--        {
--            roxterm_apply_match_files(roxterm, vte);
--        }
-         else if (!strcmp(key, "middle_click_tab"))
-         {
-             roxterm_apply_middle_click_tab(roxterm);
