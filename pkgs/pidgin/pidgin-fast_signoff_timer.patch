@@ -1,6 +1,6 @@
-diff -ru abs/pidgin.ORIG/src/pidgin-2.12.0/pidgin/gtkblist.c abs/pidgin/src/pidgin-2.12.0/pidgin/gtkblist.c
---- abs/pidgin.ORIG/src/pidgin-2.12.0/pidgin/gtkblist.c	2017-03-30 10:32:27.162949822 -0700
-+++ abs/pidgin/src/pidgin-2.12.0/pidgin/gtkblist.c	2017-03-30 10:32:49.396085839 -0700
+diff -ru abs/pidgin.ORIG/src/pidgin-2.13.0/pidgin/gtkblist.c abs/pidgin/src/pidgin-2.13.0/pidgin/gtkblist.c
+--- abs/pidgin.ORIG/src/pidgin-2.13.0/pidgin/gtkblist.c	2017-03-30 10:32:27.162949822 -0700
++++ abs/pidgin/src/pidgin-2.13.0/pidgin/gtkblist.c	2017-03-30 10:32:49.396085839 -0700
 @@ -7489,7 +7489,7 @@
  
  	if(gtknode->recent_signonoff_timer > 0)

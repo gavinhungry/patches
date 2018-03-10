@@ -1,6 +1,6 @@
-diff -ru abs/pidgin.ORIG/src/pidgin-2.12.0/pidgin/gtkblist.c abs/pidgin/src/pidgin-2.12.0/pidgin/gtkblist.c
---- abs/pidgin.ORIG/src/pidgin-2.12.0/pidgin/gtkblist.c	2016-12-29 10:18:15.920693074 -0800
-+++ abs/pidgin/src/pidgin-2.12.0/pidgin/gtkblist.c	2016-12-29 10:18:16.744010536 -0800
+diff -ru abs/pidgin.ORIG/src/pidgin-2.13.0/pidgin/gtkblist.c abs/pidgin/src/pidgin-2.13.0/pidgin/gtkblist.c
+--- abs/pidgin.ORIG/src/pidgin-2.13.0/pidgin/gtkblist.c	2016-12-29 10:18:15.920693074 -0800
++++ abs/pidgin/src/pidgin-2.13.0/pidgin/gtkblist.c	2016-12-29 10:18:16.744010536 -0800
 @@ -3603,25 +3603,25 @@
     gtk_blist_key_press_cb to "Get User Info" on the selected buddy. */
  
