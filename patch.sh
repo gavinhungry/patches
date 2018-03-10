@@ -5,13 +5,15 @@ PATCHES_DIR=${PATCHER_DIR}/pkgs
 source "$PATCHER_DIR"/abash/abash.sh
 
 (arge help ||
-([ -z "$(nfargs)" ] && ! arge unpatched && ! arge list-unpatched)) &&
+([ -z "$(nfargs)" ] &&
+  ! arge unpatched && ! arge list-unpatched && ! arge list-nonlocal:L)) &&
 usage '[OPTION]... PACKAGE [PACKAGE]...
 
   -d, --download          download packages before patching
   -H, --hard-update       rebuild patches by comparing against original packages
   -u, --unpatched         include unpatched installed packages
   -l, --list-unpatched    list unpatched installed packages and exit
+  -L, --list-nonlocal     list packages without patches needing local build
   -h, --help              this message
 '
 
@@ -169,9 +171,18 @@ getUnpatchedPkgs() {
   for DIR in "$PATCHES_DIR"/*/ ; do
     local PKG=$(basename "$DIR")
 
-    [[ "$(pacman -Qi $PKG 2> /dev/null | grep ^Packager)" != *"[p]" ]] && \
-    pacman -Q $PKG &> /dev/null && \
-    ! grep "^${PKG}$" .pkgignore &> /dev/null && \
+    pacman -Q $PKG &> /dev/null &&
+    [[ "$(expac -Q '%p' $PKG)" != *"[p]" ]] &&
+    ! grep "^${PKG}$" .pkgignore &> /dev/null &&
+    echo $PKG
+  done
+}
+
+getNonLocalPkgs() {
+  source $HOME/.makepkg.conf
+  for PKG in $(cat .pkglocal 2> /dev/null); do
+    pacman -Q $PKG &> /dev/null &&
+    [[ "$(expac -Q '%p' $PKG)" != "$PACKAGER"* ]] &&
     echo $PKG
   done
 }
@@ -219,6 +230,11 @@ patchPkgs() {
 
 if arge list-unpatched; then
   getUnpatchedPkgs
+  exit
+fi
+
+if arge list-nonlocal:L; then
+  getNonLocalPkgs
   exit
 fi
 
