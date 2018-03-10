@@ -1,6 +1,6 @@
-diff -ru abs/pidgin.ORIG/src/pidgin-2.12.0/pidgin/gtkblist.c abs/pidgin/src/pidgin-2.12.0/pidgin/gtkblist.c
---- abs/pidgin.ORIG/src/pidgin-2.12.0/pidgin/gtkblist.c	2016-12-29 10:18:15.920693074 -0800
-+++ abs/pidgin/src/pidgin-2.12.0/pidgin/gtkblist.c	2016-12-29 10:18:15.954025765 -0800
+diff -ru abs/pidgin.ORIG/src/pidgin-2.13.0/pidgin/gtkblist.c abs/pidgin/src/pidgin-2.13.0/pidgin/gtkblist.c
+--- abs/pidgin.ORIG/src/pidgin-2.13.0/pidgin/gtkblist.c	2016-12-29 10:18:15.920693074 -0800
++++ abs/pidgin/src/pidgin-2.13.0/pidgin/gtkblist.c	2016-12-29 10:18:15.954025765 -0800
 @@ -5639,7 +5639,7 @@
  			g_signal_connect(G_OBJECT(rend), "editing-started", G_CALLBACK(gtk_blist_renderer_editing_started_cb), NULL);
  			g_signal_connect(G_OBJECT(rend), "editing-canceled", G_CALLBACK(gtk_blist_renderer_editing_cancelled_cb), list);
