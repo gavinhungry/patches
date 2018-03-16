@@ -10,6 +10,7 @@ source "$PATCHER_DIR"/abash/abash.sh
 usage '[OPTION]... PACKAGE [PACKAGE]...
 
   -d, --download          download packages before patching
+  -D, --download-only     download packages without patching
   -H, --hard-update       rebuild patches by comparing against original packages
   -u, --unpatched         include unpatched installed packages
   -l, --list-unpatched    list unpatched installed packages and exit
@@ -242,7 +243,8 @@ _PKGS=($(nfargs))
 arge unpatched && _PKGS+=($(getUnpatchedPkgs))
 PKGS=$(echo ${_PKGS[*]} | tr ' ' '\n' | cut -d'/' -f2 | sort -u)
 
-arge download && downloadPkgs $PKGS
+(arge download || arge download-only:D) && downloadPkgs $PKGS
+arge download-only:D && exit
 
 softUpdatePkgs $PKGS
 arge hard-update:H && hardUpdatePkgs $PKGS
