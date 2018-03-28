@@ -41,6 +41,7 @@ getPkgbuildDir() {
 getPkgSourceDir() {
   local PKGBUILD_DIR=$(getPkgbuildDir $1)
   local srcdir='./src'
+  local TRY_MESON=0
 
   [ -n "$PKGBUILD_DIR" ] || return
   cd "$PKGBUILD_DIR" &> /dev/null || return
@@ -93,13 +94,19 @@ getPkgSourceDir() {
     PKGSRC_DIR_CMD=$(grep '^\s*cd\s' "$PKGBUILD_DIR"/PKGBUILD | head -n1)
     cd "$PKGBUILD_DIR"
     cd "$srcdir"
+    TRY_MESON=1
   fi
 
-  [ -n "$PKGSRC_DIR_CMD" ] || return
+  if [ -n "$PKGSRC_DIR_CMD" ]; then
+    if ! eval "$PKGSRC_DIR_CMD" &> /dev/null; then
+       cd "$srcdir" &> /dev/null
+       eval "$PKGSRC_DIR_CMD" &> /dev/null || return
+    fi
+  fi
 
-  if ! eval "$PKGSRC_DIR_CMD" &> /dev/null; then
-     cd "$srcdir" &> /dev/null
-     eval "$PKGSRC_DIR_CMD" &> /dev/null || return
+  if [ $TRY_MESON == 1 ]; then
+    MESON_DIR=$(grep arch-meson "$PKGBUILD_DIR"/PKGBUILD | awk '{print $2;}')
+    [ -n "$MESON_DIR" ] && cd "$(eval echo "$MESON_DIR")"
   fi
 
   pwd
