@@ -1,6 +1,6 @@
-diff -ru abs/hexchat.ORIG/src/hexchat-2.12.4/src/fe-gtk/menu.c abs/hexchat/src/hexchat-2.12.4/src/fe-gtk/menu.c
---- abs/hexchat.ORIG/src/hexchat-2.12.4/src/fe-gtk/menu.c	2017-03-24 14:46:09.860589023 -0700
-+++ abs/hexchat/src/hexchat-2.12.4/src/fe-gtk/menu.c	2017-03-24 14:57:29.304967723 -0700
+diff -ru abs/hexchat.ORIG/src/hexchat-2.14.1/src/fe-gtk/menu.c abs/hexchat/src/hexchat-2.14.1/src/fe-gtk/menu.c
+--- abs/hexchat.ORIG/src/hexchat-2.14.1/src/fe-gtk/menu.c	2017-03-24 14:46:09.860589023 -0700
++++ abs/hexchat/src/hexchat-2.14.1/src/fe-gtk/menu.c	2017-03-24 14:57:29.304967723 -0700
 @@ -269,7 +269,7 @@
  	char *path;
  
@@ -19,9 +19,9 @@ diff -ru abs/hexchat.ORIG/src/hexchat-2.12.4/src/fe-gtk/menu.c abs/hexchat/src/h
  			gtk_widget_set_sensitive (item, FALSE);
  			gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
  			gtk_widget_show (item);
-diff -ru abs/hexchat.ORIG/src/hexchat-2.12.4/src/fe-gtk/plugin-tray.c abs/hexchat/src/hexchat-2.12.4/src/fe-gtk/plugin-tray.c
---- abs/hexchat.ORIG/src/hexchat-2.12.4/src/fe-gtk/plugin-tray.c	2017-03-24 14:46:09.860589023 -0700
-+++ abs/hexchat/src/hexchat-2.12.4/src/fe-gtk/plugin-tray.c	2017-03-24 14:57:37.544773660 -0700
+diff -ru abs/hexchat.ORIG/src/hexchat-2.14.1/src/fe-gtk/plugin-tray.c abs/hexchat/src/hexchat-2.14.1/src/fe-gtk/plugin-tray.c
+--- abs/hexchat.ORIG/src/hexchat-2.14.1/src/fe-gtk/plugin-tray.c	2017-03-24 14:46:09.860589023 -0700
++++ abs/hexchat/src/hexchat-2.14.1/src/fe-gtk/plugin-tray.c	2017-03-24 14:57:37.544773660 -0700
 @@ -455,7 +455,7 @@
  	if (label)
  		item = gtk_menu_item_new_with_mnemonic (label);
