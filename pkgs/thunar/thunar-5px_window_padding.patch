@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.14/thunar/thunar-window.c abs/thunar/src/Thunar-1.6.14/thunar/thunar-window.c
---- abs/thunar.ORIG/src/Thunar-1.6.14/thunar/thunar-window.c	2018-02-19 04:49:01.933310305 -0800
-+++ abs/thunar/src/Thunar-1.6.14/thunar/thunar-window.c	2018-02-19 04:49:02.151304679 -0800
+diff -ru abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-window.c abs/thunar/src/Thunar-1.6.15/thunar/thunar-window.c
+--- abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-window.c	2018-02-19 04:49:01.933310305 -0800
++++ abs/thunar/src/Thunar-1.6.15/thunar/thunar-window.c	2018-02-19 04:49:02.151304679 -0800
 @@ -851,7 +851,7 @@
      }
  
