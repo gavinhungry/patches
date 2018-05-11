@@ -1,7 +1,7 @@
-diff -ru aur/mirage.ORIG/src/mirage-0.9.5.2/mirage.py aur/mirage/src/mirage-0.9.5.2/mirage.py
---- aur/mirage.ORIG/src/mirage-0.9.5.2/mirage.py	2018-02-09 15:05:10.176129994 -0800
-+++ aur/mirage/src/mirage-0.9.5.2/mirage.py	2018-02-09 15:05:10.780114134 -0800
-@@ -557,7 +557,6 @@
+diff -ru aur/mirage.ORIG/src/mirage-1.0_pre1/mirage.py aur/mirage/src/mirage-1.0_pre1/mirage.py
+--- aur/mirage.ORIG/src/mirage-1.0_pre1/mirage.py	2018-05-11 10:32:19.539846616 -0700
++++ aur/mirage/src/mirage-1.0_pre1/mirage.py	2018-05-11 10:34:01.126131370 -0700
+@@ -492,7 +492,6 @@
  		self.refresh_recent_files_menu()
  		self.window.add_accel_group(self.UIManager.get_accel_group())
  		self.menubar = self.UIManager.get_widget('/MainMenu')
