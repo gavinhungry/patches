@@ -1,7 +1,7 @@
-diff -ru aur/mirage.ORIG/src/mirage-1.0_pre1/mirage.py aur/mirage/src/mirage-1.0_pre1/mirage.py
---- aur/mirage.ORIG/src/mirage-1.0_pre1/mirage.py	2018-05-11 10:32:19.539846616 -0700
-+++ aur/mirage/src/mirage-1.0_pre1/mirage.py	2018-05-11 10:32:46.663291147 -0700
-@@ -619,7 +619,6 @@
+diff -ru aur/mirage.ORIG/src/mirage-0.9.5.2/mirage.py aur/mirage/src/mirage-0.9.5.2/mirage.py
+--- aur/mirage.ORIG/src/mirage-0.9.5.2/mirage.py	2018-02-09 15:05:10.176129994 -0800
++++ aur/mirage/src/mirage-0.9.5.2/mirage.py	2018-02-09 15:05:10.178129942 -0800
+@@ -683,7 +683,6 @@
  		self.layout.connect('drag_motion', self.motion_cb)
  		self.layout.connect('drag_data_received', self.drop_cb)
  		self.layout.add_events(gtk.gdk.KEY_PRESS_MASK | gtk.gdk.POINTER_MOTION_MASK | gtk.gdk.BUTTON_PRESS_MASK | gtk.gdk.BUTTON_MOTION_MASK | gtk.gdk.SCROLL_MASK)
