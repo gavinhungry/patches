@@ -1,6 +1,6 @@
-diff -ru aur/evince2-light.ORIG/src/evince-2.32.0/shell/ev-metadata.c aur/evince2-light/src/evince-2.32.0/shell/ev-metadata.c
---- aur/evince2-light.ORIG/src/evince-2.32.0/shell/ev-metadata.c	2016-05-11 07:53:38.493396205 -0700
-+++ aur/evince2-light/src/evince-2.32.0/shell/ev-metadata.c	2016-05-11 07:54:02.952860945 -0700
+diff -ru aur/evince2.ORIG/src/evince-2.32.0/shell/ev-metadata.c aur/evince2/src/evince-2.32.0/shell/ev-metadata.c
+--- aur/evince2.ORIG/src/evince-2.32.0/shell/ev-metadata.c	2018-05-23 14:41:40.578203677 -0700
++++ aur/evince2/src/evince-2.32.0/shell/ev-metadata.c	2018-05-23 14:41:40.811531279 -0700
 @@ -292,22 +292,5 @@
  gboolean
  ev_is_metadata_supported_for_file (GFile *file)

@@ -1,6 +1,6 @@
-diff -ru aur/evince2-light.ORIG/src/evince-2.32.0/libview/ev-view.c aur/evince2-light/src/evince-2.32.0/libview/ev-view.c
---- aur/evince2-light.ORIG/src/evince-2.32.0/libview/ev-view.c	2016-05-11 07:53:38.490062945 -0700
-+++ aur/evince2-light/src/evince-2.32.0/libview/ev-view.c	2016-05-11 07:55:43.810652676 -0700
+diff -ru aur/evince2.ORIG/src/evince-2.32.0/libview/ev-view.c aur/evince2/src/evince-2.32.0/libview/ev-view.c
+--- aur/evince2.ORIG/src/evince-2.32.0/libview/ev-view.c	2018-05-23 14:41:40.578203677 -0700
++++ aur/evince2/src/evince-2.32.0/libview/ev-view.c	2018-05-23 14:41:40.928195080 -0700
 @@ -3315,13 +3315,6 @@
  	cairo_t   *cr;
  	gint       i;
