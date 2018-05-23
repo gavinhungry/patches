@@ -1,6 +1,6 @@
-diff -ru abs/gimp.ORIG/src/gimp-2.10.0/app/widgets/gimppanedbox.c abs/gimp/src/gimp-2.10.0/app/widgets/gimppanedbox.c
---- abs/gimp.ORIG/src/gimp-2.10.0/app/widgets/gimppanedbox.c	2018-05-17 13:27:52.278208702 -0700
-+++ abs/gimp/src/gimp-2.10.0/app/widgets/gimppanedbox.c	2018-05-17 13:45:42.982893550 -0700
+diff -ru abs/gimp.ORIG/src/gimp-2.10.2/app/widgets/gimppanedbox.c abs/gimp/src/gimp-2.10.2/app/widgets/gimppanedbox.c
+--- abs/gimp.ORIG/src/gimp-2.10.2/app/widgets/gimppanedbox.c	2018-05-17 13:27:52.278208702 -0700
++++ abs/gimp/src/gimp-2.10.2/app/widgets/gimppanedbox.c	2018-05-17 13:45:42.982893550 -0700
 @@ -56,7 +56,7 @@
  #define INSERT_INDEX_UNUSED       G_MININT
  
