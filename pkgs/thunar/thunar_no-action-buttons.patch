@@ -1,0 +1,31 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-history.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-history.c
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-history.c	2018-06-11 14:55:55.279874374 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-history.c	2018-06-11 15:56:21.927492981 -0700
+@@ -167,6 +167,7 @@
+   g_signal_connect (G_OBJECT (history->action_back), "show-menu", G_CALLBACK (thunar_history_show_menu), history);
+ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+   gtk_action_set_sensitive (history->action_back, FALSE);
++  gtk_action_set_visible (history->action_back, FALSE);
+ G_GNUC_END_IGNORE_DEPRECATIONS
+ 
+   /* create the "forward" action */
+@@ -175,6 +176,7 @@
+   g_signal_connect (G_OBJECT (history->action_forward), "show-menu", G_CALLBACK (thunar_history_show_menu), history);
+ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+   gtk_action_set_sensitive (history->action_forward, FALSE);
++  gtk_action_set_visible (history->action_forward, FALSE);
+ G_GNUC_END_IGNORE_DEPRECATIONS
+ }
+ 
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-window.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-window.c
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-window.c	2018-06-11 14:55:55.283207616 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-window.c	2018-06-11 15:55:21.932161795 -0700
+@@ -365,8 +365,6 @@
+   { "zoom-out", "zoom-out-symbolic", N_ ("Zoom _Out"), "<control>minus", N_ ("Show the contents in less detail"), G_CALLBACK (thunar_window_action_zoom_out), },
+   { "zoom-reset", "zoom-original-symbolic", N_ ("Normal Si_ze"), "<control>0", N_ ("Show the contents at the normal size"), G_CALLBACK (thunar_window_action_zoom_reset), },
+   { "go-menu", NULL, N_ ("_Go"), NULL, },
+-  { "open-parent", "go-up-symbolic", N_ ("Open _Parent"), "<alt>Up", N_ ("Open the parent folder"), G_CALLBACK (thunar_window_action_go_up), },
+-  { "open-home", "go-home-symbolic", N_ ("_Home"), "<alt>Home", N_ ("Go to the home folder"), G_CALLBACK (thunar_window_action_open_home), },
+   { "open-desktop", "user-desktop", N_ ("Desktop"), NULL, N_ ("Go to the desktop folder"), G_CALLBACK (thunar_window_action_open_desktop), },
+   { "open-file-system", "drive-harddisk", N_ ("File System"), NULL, N_ ("Browse the file system"), G_CALLBACK (thunar_window_action_open_file_system), },
+   { "open-network", "network-workgroup", N_("B_rowse Network"), NULL, N_ ("Browse local network connections"), G_CALLBACK (thunar_window_action_open_network), },

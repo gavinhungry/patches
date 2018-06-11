@@ -1,7 +1,7 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-emblem-chooser.c abs/thunar/src/Thunar-1.6.15/thunar/thunar-emblem-chooser.c
---- abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-emblem-chooser.c	2018-02-19 04:49:01.933310305 -0800
-+++ abs/thunar/src/Thunar-1.6.15/thunar/thunar-emblem-chooser.c	2018-02-19 04:49:01.959309634 -0800
-@@ -437,7 +437,7 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-emblem-chooser.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-emblem-chooser.c
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-emblem-chooser.c	2018-06-11 11:42:20.833675557 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-emblem-chooser.c	2018-06-11 11:42:20.877008494 -0700
+@@ -441,7 +441,7 @@
    GdkPixbuf   *icon;
  
    /* lookup the icon info for the emblem */
@@ -10,10 +10,10 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-emblem-chooser.c abs/th
    if (G_UNLIKELY (info == NULL))
      return NULL;
  
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-icon-renderer.c abs/thunar/src/Thunar-1.6.15/thunar/thunar-icon-renderer.c
---- abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-icon-renderer.c	2018-02-19 04:49:01.933310305 -0800
-+++ abs/thunar/src/Thunar-1.6.15/thunar/thunar-icon-renderer.c	2018-02-19 04:49:01.959309634 -0800
-@@ -503,7 +503,7 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-icon-renderer.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-icon-renderer.c
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-icon-renderer.c	2018-06-11 11:42:20.833675557 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-icon-renderer.c	2018-06-11 11:42:20.877008494 -0700
+@@ -505,7 +505,7 @@
            for (lp = emblems, position = 0; lp != NULL && position < max_emblems; lp = lp->next)
              {
                /* calculate the emblem size */
@@ -22,7 +22,7 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-icon-renderer.c abs/thu
  
                /* check if we have the emblem in the icon theme */
                emblem = thunar_icon_factory_load_icon (icon_factory, lp->data, emblem_size, FALSE);
-@@ -514,19 +514,6 @@
+@@ -516,19 +516,6 @@
                emblem_area.width = gdk_pixbuf_get_width (emblem);
                emblem_area.height = gdk_pixbuf_get_height (emblem);
  

@@ -1,7 +1,7 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-application.c abs/thunar/src/Thunar-1.6.15/thunar/thunar-application.c
---- abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-application.c	2018-02-19 04:49:01.929310408 -0800
-+++ abs/thunar/src/Thunar-1.6.15/thunar/thunar-application.c	2018-02-19 04:49:02.705290381 -0800
-@@ -869,11 +869,8 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-application.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-application.c
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-application.c	2018-06-11 11:42:20.827008951 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-application.c	2018-06-11 11:42:22.016998052 -0700
+@@ -1135,16 +1135,8 @@
  {
    _thunar_return_if_fail (THUNAR_IS_APPLICATION (application));
  
@@ -9,6 +9,11 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-application.c abs/thuna
 -    {
 -      application->daemon = daemonize;
 -      g_object_notify (G_OBJECT (application), "daemon");
+-
+-      if (daemonize)
+-        g_application_hold (G_APPLICATION (application));
+-      else
+-        g_application_release (G_APPLICATION (application));
 -    }
 +  application->daemon = FALSE;
 +  g_object_notify (G_OBJECT (application), "daemon");
