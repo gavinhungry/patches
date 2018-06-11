@@ -1,7 +1,7 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-progress-dialog.c abs/thunar/src/Thunar-1.6.15/thunar/thunar-progress-dialog.c
---- abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-progress-dialog.c	2018-02-19 04:49:01.937310202 -0800
-+++ abs/thunar/src/Thunar-1.6.15/thunar/thunar-progress-dialog.c	2018-02-19 04:49:02.792288136 -0800
-@@ -148,16 +148,6 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-progress-dialog.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-progress-dialog.c
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-progress-dialog.c	2018-06-11 11:42:20.840342162 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-progress-dialog.c	2018-06-11 11:42:22.163663371 -0700
+@@ -150,19 +150,6 @@
  thunar_progress_dialog_shown (ThunarProgressDialog *dialog)
  {
    _thunar_return_if_fail (THUNAR_IS_PROGRESS_DIALOG (dialog));
@@ -9,7 +9,10 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-progress-dialog.c abs/t
 -  /* show the status icon */
 -  if (dialog->status_icon == NULL)
 -    {
+-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 -      dialog->status_icon = gtk_status_icon_new_from_icon_name ("stock_folder-copy");
+-G_GNUC_END_IGNORE_DEPRECATIONS
+-
 -      thunar_progress_dialog_update_status_icon (dialog);
 -      g_signal_connect_swapped (dialog->status_icon, "button-press-event",
 -                                G_CALLBACK (thunar_progress_dialog_toggled),

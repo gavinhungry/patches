@@ -1,22 +1,23 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-dialogs.c abs/thunar/src/Thunar-1.6.15/thunar/thunar-dialogs.c
---- abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-dialogs.c	2018-02-19 04:49:01.935310253 -0800
-+++ abs/thunar/src/Thunar-1.6.15/thunar/thunar-dialogs.c	2018-02-19 04:49:02.241302356 -0800
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-dialogs.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-dialogs.c
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-dialogs.c	2018-06-11 11:42:20.837008860 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-dialogs.c	2018-06-11 11:42:21.573668781 -0700
 @@ -66,7 +66,6 @@
    ThunarJob         *job = NULL;
    GtkWidget         *dialog;
    GtkWidget         *entry;
 -  GtkWidget         *label;
    GtkWidget         *image;
-   GtkWidget         *table;
+   GtkWidget         *grid;
    GtkWindow         *window;
-@@ -106,26 +105,21 @@
-   if (G_UNLIKELY (window == NULL && screen != NULL))
-     gtk_window_set_screen (GTK_WINDOW (dialog), screen);
+@@ -107,31 +106,25 @@
  
--  table = g_object_new (GTK_TYPE_TABLE, "border-width", 6, "column-spacing", 6, "row-spacing", 3, NULL);
-+  table = g_object_new (GTK_TYPE_TABLE, "border-width", 6, "column-spacing", 6, "row-spacing", 0, NULL);
-   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), table, TRUE, TRUE, 0);
-   gtk_widget_show (table);
+   grid = gtk_grid_new ();
+   gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
+-  gtk_grid_set_row_spacing (GTK_GRID (grid), 3);
++  gtk_grid_set_row_spacing (GTK_GRID (grid), 0);
+   gtk_container_set_border_width (GTK_CONTAINER (grid), 6);
+   gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), grid, TRUE, TRUE, 0);
+   gtk_widget_show (grid);
  
    icon_theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (dialog));
    icon_factory = thunar_icon_factory_get_for_icon_theme (icon_theme);
@@ -25,21 +26,28 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.6.15/thunar/thunar-dialogs.c abs/thunar/sr
    g_object_unref (G_OBJECT (icon_factory));
  
    image = gtk_image_new_from_pixbuf (icon);
--  gtk_misc_set_padding (GTK_MISC (image), 6, 6);
-+  gtk_misc_set_padding (GTK_MISC (image), 2, 2);
-   gtk_table_attach (GTK_TABLE (table), image, 0, 1, 0, 2, GTK_FILL, GTK_FILL, 0, 0);
+-  gtk_widget_set_margin_start (GTK_WIDGET(image), 6);
+-  gtk_widget_set_margin_end (GTK_WIDGET(image), 6);
+-  gtk_widget_set_margin_top (GTK_WIDGET(image), 6);
+-  gtk_widget_set_margin_bottom (GTK_WIDGET(image), 6);
++  gtk_widget_set_margin_start (GTK_WIDGET(image), 2);
++  gtk_widget_set_margin_end (GTK_WIDGET(image), 2);
++  gtk_widget_set_margin_top (GTK_WIDGET(image), 2);
++  gtk_widget_set_margin_bottom (GTK_WIDGET(image), 2);
+   gtk_grid_attach (GTK_GRID (grid), image, 0, 0, 1, 2);
    g_object_unref (G_OBJECT (icon));
    gtk_widget_show (image);
  
 -  label = gtk_label_new (_("Enter the new name:"));
--  gtk_misc_set_alignment (GTK_MISC (label), 0.0f, 0.5f);
--  gtk_table_attach (GTK_TABLE (table), label, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_FILL, 0, 0);
+-  gtk_label_set_xalign (GTK_LABEL (label), 0.0f);
+-  gtk_widget_set_hexpand (label, TRUE);
+-  gtk_grid_attach (GTK_GRID (grid), label, 1, 0, 1, 1);
 -  gtk_widget_show (label);
 -
    entry = gtk_entry_new ();
    gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
-   gtk_table_attach (GTK_TABLE (table), entry, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL, GTK_FILL, 0, 0);
-@@ -168,7 +162,7 @@
+   gtk_widget_set_hexpand (entry, TRUE);
+@@ -176,7 +169,7 @@
      }
  
    /* resize the dialog to make long names fit as much as possible */
