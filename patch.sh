@@ -106,7 +106,10 @@ getPkgSourceDir() {
 
   if [ $TRY_MESON == 1 ]; then
     MESON_DIR=$(grep arch-meson "$PKGBUILD_DIR"/PKGBUILD | awk '{print $2;}')
-    [ -n "$MESON_DIR" ] && cd "$(eval echo "$MESON_DIR")"
+
+    [ -n "$MESON_DIR" ] &&
+    [ "$(eval echo "$MESON_DIR")" != "$(basename "$(pwd -P)")" ] &&
+    cd "$(eval echo "$MESON_DIR")"
   fi
 
   pwd
