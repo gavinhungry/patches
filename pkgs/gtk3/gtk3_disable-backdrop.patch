@@ -1,0 +1,13 @@
+diff -ru abs/gtk3.ORIG/src/gtk/gtk/gtkwindow.c abs/gtk3/src/gtk/gtk/gtkwindow.c
+--- abs/gtk3.ORIG/src/gtk/gtk/gtkwindow.c	2018-06-12 16:09:50.242400148 -0700
++++ abs/gtk3/src/gtk/gtk/gtkwindow.c	2018-06-12 16:10:57.635141173 -0700
+@@ -7955,9 +7955,6 @@
+   GtkWindow *window = GTK_WINDOW (widget);
+   GtkWindowPrivate *priv = window->priv;
+ 
+-  if (event->changed_mask & GDK_WINDOW_STATE_FOCUSED)
+-    ensure_state_flag_backdrop (widget);
+-
+   if (event->changed_mask & GDK_WINDOW_STATE_FULLSCREEN)
+     {
+       priv->fullscreen =
