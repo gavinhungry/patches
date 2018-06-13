@@ -1,6 +1,6 @@
 diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-file.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-file.c
---- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-file.c	2018-06-11 14:55:55.289874099 -0700
-+++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-file.c	2018-06-11 16:07:10.670455209 -0700
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-file.c	2018-06-12 17:14:33.472510085 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-file.c	2018-06-12 17:14:34.672481117 -0700
 @@ -1074,9 +1074,6 @@
            display_name = g_file_info_get_display_name (file->info);
            if (G_LIKELY (display_name != NULL))

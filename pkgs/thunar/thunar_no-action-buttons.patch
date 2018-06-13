@@ -1,6 +1,6 @@
 diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-history.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-history.c
---- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-history.c	2018-06-11 14:55:55.279874374 -0700
-+++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-history.c	2018-06-11 15:56:21.927492981 -0700
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-history.c	2018-06-12 17:14:33.465843579 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-history.c	2018-06-12 17:14:34.405820887 -0700
 @@ -167,6 +167,7 @@
    g_signal_connect (G_OBJECT (history->action_back), "show-menu", G_CALLBACK (thunar_history_show_menu), history);
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
@@ -18,14 +18,27 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-history.c abs/thunar/src
  }
  
 diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-window.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-window.c
---- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-window.c	2018-06-11 14:55:55.283207616 -0700
-+++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-window.c	2018-06-11 15:55:21.932161795 -0700
-@@ -365,8 +365,6 @@
-   { "zoom-out", "zoom-out-symbolic", N_ ("Zoom _Out"), "<control>minus", N_ ("Show the contents in less detail"), G_CALLBACK (thunar_window_action_zoom_out), },
-   { "zoom-reset", "zoom-original-symbolic", N_ ("Normal Si_ze"), "<control>0", N_ ("Show the contents at the normal size"), G_CALLBACK (thunar_window_action_zoom_reset), },
-   { "go-menu", NULL, N_ ("_Go"), NULL, },
--  { "open-parent", "go-up-symbolic", N_ ("Open _Parent"), "<alt>Up", N_ ("Open the parent folder"), G_CALLBACK (thunar_window_action_go_up), },
--  { "open-home", "go-home-symbolic", N_ ("_Home"), "<alt>Home", N_ ("Go to the home folder"), G_CALLBACK (thunar_window_action_open_home), },
-   { "open-desktop", "user-desktop", N_ ("Desktop"), NULL, N_ ("Go to the desktop folder"), G_CALLBACK (thunar_window_action_open_desktop), },
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-window.c	2018-06-12 17:14:33.469176832 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-window.c	2018-06-12 17:14:34.405820887 -0700
+@@ -371,7 +371,7 @@
    { "open-file-system", "drive-harddisk", N_ ("File System"), NULL, N_ ("Browse the file system"), G_CALLBACK (thunar_window_action_open_file_system), },
    { "open-network", "network-workgroup", N_("B_rowse Network"), NULL, N_ ("Browse local network connections"), G_CALLBACK (thunar_window_action_open_network), },
+   { "open-templates", "text-x-generic-template", N_("T_emplates"), NULL, N_ ("Go to the templates folder"), G_CALLBACK (thunar_window_action_open_templates), },
+-  { "open-location", NULL, N_ ("_Open Location..."), "<control>L", N_ ("Specify a location to open"), G_CALLBACK (thunar_window_action_open_location), },
++  { "open-location", NULL, N_ ("_Open Location..."), "<alt>D", N_ ("Specify a location to open"), G_CALLBACK (thunar_window_action_open_location), },
+   { "help-menu", NULL, N_ ("_Help"), NULL, },
+   { "contents", "help-browser", N_ ("_Contents"), "F1", N_ ("Display Thunar user manual"), G_CALLBACK (thunar_window_action_contents), },
+   { "about", "help-about", N_ ("_About"), NULL, N_ ("Display information about Thunar"), G_CALLBACK (thunar_window_action_about), },
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-window-ui.xml abs/thunar/src/Thunar-1.8.0/thunar/thunar-window-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-window-ui.xml	2018-06-12 17:14:33.469176832 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-window-ui.xml	2018-06-12 17:14:34.405820887 -0700
+@@ -124,9 +124,6 @@
+   </popup>
+ 
+   <toolbar name="location-toolbar">
+-    <placeholder name="placeholder-history-actions" />
+-    <toolitem action="open-parent" />
+-    <toolitem action="open-home" />
+   </toolbar>
+ </ui>
+ 
