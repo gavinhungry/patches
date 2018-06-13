@@ -1,6 +1,6 @@
 diff -ru abs/gtk3.ORIG/src/gtk/gtk/gtkwindow.c abs/gtk3/src/gtk/gtk/gtkwindow.c
---- abs/gtk3.ORIG/src/gtk/gtk/gtkwindow.c	2018-06-12 20:19:08.842996740 -0700
-+++ abs/gtk3/src/gtk/gtk/gtkwindow.c	2018-06-12 20:19:53.476785419 -0700
+--- abs/gtk3.ORIG/src/gtk/gtk/gtkwindow.c	2018-06-13 00:59:46.822046705 -0700
++++ abs/gtk3/src/gtk/gtk/gtkwindow.c	2018-06-13 01:14:41.217707719 -0700
 @@ -7438,6 +7438,19 @@
    gtk_widget_register_window (widget, gdk_window);
    gtk_widget_set_realized (widget, TRUE);
@@ -8,7 +8,7 @@ diff -ru abs/gtk3.ORIG/src/gtk/gtk/gtkwindow.c abs/gtk3/src/gtk/gtk/gtkwindow.c
 +  /* Set background color from theme so that the lag
 +   * between resize and content redraw is less noticable.
 +   */
-+  if (!gtk_widget_get_app_paintable (widget))
++  if (!priv->client_decorated && !gtk_widget_get_app_paintable (widget))
 +    {
 +      GtkStyleContext *context;
 +      const GdkRGBA *background_color;
@@ -21,4 +21,3 @@ diff -ru abs/gtk3.ORIG/src/gtk/gtk/gtkwindow.c abs/gtk3/src/gtk/gtk/gtkwindow.c
    attributes.x = allocation.x;
    attributes.y = allocation.y;
    attributes.width = allocation.width;
-Only in abs/gtk3/src/gtk/gtk: gtkwindow.c.orig
