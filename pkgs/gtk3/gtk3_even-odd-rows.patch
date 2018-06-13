@@ -1,6 +1,6 @@
 diff -ru abs/gtk3.ORIG/src/gtk/gtk/gtktreeview.c abs/gtk3/src/gtk/gtk/gtktreeview.c
---- abs/gtk3.ORIG/src/gtk/gtk/gtktreeview.c	2018-06-11 17:03:32.693566080 -0700
-+++ abs/gtk3/src/gtk/gtk/gtktreeview.c	2018-06-11 17:04:39.327970578 -0700
+--- abs/gtk3.ORIG/src/gtk/gtk/gtktreeview.c	2018-06-13 01:21:58.205498574 -0700
++++ abs/gtk3/src/gtk/gtk/gtktreeview.c	2018-06-13 01:21:59.645513300 -0700
 @@ -134,12 +134,18 @@
   * ┊   ┊
   * │   ╰── <column header>
@@ -102,10 +102,9 @@ diff -ru abs/gtk3.ORIG/src/gtk/gtk/gtktreeview.c abs/gtk3/src/gtk/gtk/gtktreevie
  	  cell_offset += gtk_tree_view_column_get_width (column);
  	}
  
-Only in abs/gtk3/src/gtk/gtk: gtktreeview.c.orig
 diff -ru abs/gtk3.ORIG/src/gtk/gtk/theme/Adwaita/_common.scss abs/gtk3/src/gtk/gtk/theme/Adwaita/_common.scss
---- abs/gtk3.ORIG/src/gtk/gtk/theme/Adwaita/_common.scss	2018-06-11 17:03:32.700232517 -0700
-+++ abs/gtk3/src/gtk/gtk/theme/Adwaita/_common.scss	2018-06-11 17:04:39.327970578 -0700
+--- abs/gtk3.ORIG/src/gtk/gtk/theme/Adwaita/_common.scss	2018-06-13 01:21:58.212165308 -0700
++++ abs/gtk3/src/gtk/gtk/theme/Adwaita/_common.scss	2018-06-13 01:21:59.658846770 -0700
 @@ -3609,6 +3609,8 @@
  
  row {
