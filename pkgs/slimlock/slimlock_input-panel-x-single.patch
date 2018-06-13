@@ -1,7 +1,6 @@
-Only in aur/slimlock: slimlock-1.3.6-1-x86_64.pkg.tar
 diff -ru aur/slimlock.ORIG/src/slim-1.3.6/cfg.cpp aur/slimlock/src/slim-1.3.6/cfg.cpp
---- aur/slimlock.ORIG/src/slim-1.3.6/cfg.cpp	2014-08-14 20:12:29.540597719 -0700
-+++ aur/slimlock/src/slim-1.3.6/cfg.cpp	2014-08-14 21:19:03.819951533 -0700
+--- aur/slimlock.ORIG/src/slim-1.3.6/cfg.cpp	2018-06-13 01:18:07.179805417 -0700
++++ aur/slimlock/src/slim-1.3.6/cfg.cpp	2018-06-13 01:18:07.253139499 -0700
 @@ -56,8 +56,10 @@
  	options.insert(option("reboot_msg","The system is rebooting..."));
  	options.insert(option("sessiondir",""));
@@ -14,8 +13,8 @@ diff -ru aur/slimlock.ORIG/src/slim-1.3.6/cfg.cpp aur/slimlock/src/slim-1.3.6/cf
  	options.insert(option("input_panel_y","40%"));
  	options.insert(option("input_name_x","200"));
 diff -ru aur/slimlock.ORIG/src/slim-1.3.6/panel.cpp aur/slimlock/src/slim-1.3.6/panel.cpp
---- aur/slimlock.ORIG/src/slim-1.3.6/panel.cpp	2014-08-14 20:12:29.543931052 -0700
-+++ aur/slimlock/src/slim-1.3.6/panel.cpp	2014-08-14 21:20:55.153463751 -0700
+--- aur/slimlock.ORIG/src/slim-1.3.6/panel.cpp	2018-06-13 01:18:07.183138784 -0700
++++ aur/slimlock/src/slim-1.3.6/panel.cpp	2018-06-13 01:18:07.256472866 -0700
 @@ -168,11 +168,15 @@
  		}
  	}
