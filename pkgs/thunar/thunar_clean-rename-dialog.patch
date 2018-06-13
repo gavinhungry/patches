@@ -1,6 +1,6 @@
 diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-dialogs.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-dialogs.c
---- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-dialogs.c	2018-06-11 11:42:20.837008860 -0700
-+++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-dialogs.c	2018-06-11 11:42:21.573668781 -0700
+--- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-dialogs.c	2018-06-12 17:14:33.472510085 -0700
++++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-dialogs.c	2018-06-12 17:14:33.995830785 -0700
 @@ -66,7 +66,6 @@
    ThunarJob         *job = NULL;
    GtkWidget         *dialog;
