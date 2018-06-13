@@ -239,13 +239,10 @@ patchPkgs() {
   done
 }
 
-if arge list-unpatched; then
-  getUnpatchedPkgs
-  exit
-fi
+arge list-unpatched && getUnpatchedPkgs
+arge list-nonlocal:L && getNonLocalPkgs
 
-if arge list-nonlocal:L; then
-  getNonLocalPkgs
+if arge list-unpatched || arge list-nonlocal:L; then
   exit
 fi
 
