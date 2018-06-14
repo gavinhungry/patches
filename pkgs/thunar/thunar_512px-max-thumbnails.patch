@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-enum-types.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-enum-types.c
---- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-enum-types.c	2018-06-12 17:14:33.472510085 -0700
-+++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-enum-types.c	2018-06-12 17:14:33.685838268 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-enum-types.c abs/thunar/src/Thunar-1.8.1/thunar/thunar-enum-types.c
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-enum-types.c	2018-06-14 00:46:54.387494073 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-enum-types.c	2018-06-14 00:46:54.477494571 -0700
 @@ -128,6 +128,10 @@
          { THUNAR_ICON_SIZE_LARGE,    "THUNAR_ICON_SIZE_LARGE",    "large",    },
          { THUNAR_ICON_SIZE_LARGER,   "THUNAR_ICON_SIZE_LARGER",   "larger",   },
@@ -36,9 +36,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-enum-types.c abs/thunar/
      }
  }
  
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-enum-types.h abs/thunar/src/Thunar-1.8.0/thunar/thunar-enum-types.h
---- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-enum-types.h	2018-06-12 17:14:33.469176832 -0700
-+++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-enum-types.h	2018-06-12 17:14:33.689171521 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-enum-types.h abs/thunar/src/Thunar-1.8.1/thunar/thunar-enum-types.h
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-enum-types.h	2018-06-14 00:46:54.387494073 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-enum-types.h	2018-06-14 00:46:54.477494571 -0700
 @@ -127,6 +127,10 @@
   * @THUNAR_ICON_SIZE_LARGE    : icon size for #THUNAR_ZOOM_LEVEL_LARGE.
   * @THUNAR_ICON_SIZE_LARGER   : icon size for #THUNAR_ZOOM_LEVEL_LARGER.
@@ -85,9 +85,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-enum-types.h abs/thunar/
  
    /*< private >*/
    THUNAR_ZOOM_N_LEVELS,
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-file.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-file.c
---- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-file.c	2018-06-12 17:14:33.472510085 -0700
-+++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-file.c	2018-06-12 17:14:33.689171521 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-file.c abs/thunar/src/Thunar-1.8.1/thunar/thunar-file.c
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-file.c	2018-06-14 00:46:54.387494073 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-file.c	2018-06-14 00:46:54.480827923 -0700
 @@ -3558,16 +3558,18 @@
            g_checksum_free (checksum);
  
@@ -119,9 +119,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-file.c abs/thunar/src/Th
  
                if(!g_file_test(file->thumbnail_path, G_FILE_TEST_EXISTS))
                {
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-icon-factory.h abs/thunar/src/Thunar-1.8.0/thunar/thunar-icon-factory.h
---- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-icon-factory.h	2018-06-12 17:14:33.465843579 -0700
-+++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-icon-factory.h	2018-06-12 17:14:33.689171521 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-icon-factory.h abs/thunar/src/Thunar-1.8.1/thunar/thunar-icon-factory.h
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-icon-factory.h	2018-06-14 00:46:54.384160721 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-icon-factory.h	2018-06-14 00:46:54.480827923 -0700
 @@ -39,7 +39,7 @@
   * The icon size which is used for loading and storing
   * thumbnails in Thunar.
@@ -131,9 +131,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-icon-factory.h abs/thuna
  
  
  
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-icon-view.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-icon-view.c
---- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-icon-view.c	2018-06-12 17:14:33.462510327 -0700
-+++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-icon-view.c	2018-06-12 17:14:33.689171521 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-icon-view.c abs/thunar/src/Thunar-1.8.1/thunar/thunar-icon-view.c
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-icon-view.c	2018-06-14 00:46:54.387494073 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-icon-view.c	2018-06-14 00:46:54.480827923 -0700
 @@ -197,8 +197,12 @@
        wrap_width = 112;
        break;
@@ -148,9 +148,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-icon-view.c abs/thunar/s
        break;
      }
  
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-thumbnailer.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-thumbnailer.c
---- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-thumbnailer.c	2018-06-12 17:14:33.469176832 -0700
-+++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-thumbnailer.c	2018-06-12 17:14:33.689171521 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-thumbnailer.c abs/thunar/src/Thunar-1.8.1/thunar/thunar-thumbnailer.c
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-thumbnailer.c	2018-06-14 00:46:54.384160721 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-thumbnailer.c	2018-06-14 00:46:54.480827923 -0700
 @@ -408,7 +408,7 @@
        thunar_thumbnailer_dbus_call_queue (thumbnailer->thumbnailer_proxy,
                                            (const gchar *const *)uris,

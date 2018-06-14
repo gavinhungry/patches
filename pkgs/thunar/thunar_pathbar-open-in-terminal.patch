@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-location-buttons.c abs/thunar/src/Thunar-1.8.0/thunar/thunar-location-buttons.c
---- abs/thunar.ORIG/src/Thunar-1.8.0/thunar/thunar-location-buttons.c	2018-06-12 17:14:33.472510085 -0700
-+++ abs/thunar/src/Thunar-1.8.0/thunar/thunar-location-buttons.c	2018-06-12 17:14:35.365797714 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-location-buttons.c abs/thunar/src/Thunar-1.8.1/thunar/thunar-location-buttons.c
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-location-buttons.c	2018-06-14 00:46:54.387494073 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-location-buttons.c	2018-06-14 00:46:55.184165154 -0700
 @@ -134,6 +134,8 @@
                                                                             ThunarLocationButtons      *buttons);
  static void           thunar_location_buttons_action_open_in_new_window   (GtkAction                  *action,
