@@ -1,6 +1,6 @@
 diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-launcher.c abs/thunar/src/Thunar-1.8.1/thunar/thunar-launcher.c
---- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-launcher.c	2018-06-14 00:46:54.384160721 -0700
-+++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-launcher.c	2018-06-14 00:46:55.067497841 -0700
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-launcher.c	2018-06-15 16:02:59.449041361 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-launcher.c	2018-06-15 16:26:56.874064941 -0700
 @@ -176,9 +176,9 @@
    { "open", "document-open", N_ ("_Open"), "<control>O", NULL, G_CALLBACK (thunar_launcher_action_open), },
    { "open-in-new-tab", NULL, N_ ("Open in New _Tab"), "<control><shift>P", NULL, G_CALLBACK (thunar_launcher_action_open_in_new_tab), },
@@ -41,6 +41,22 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-launcher.c abs/thunar/sr
                      "tooltip", ngettext ("Open the selected file with the default application",
                                           "Open the selected files with the default applications", n_selected_files),
                      NULL);
+@@ -1002,13 +1002,13 @@
+         }
+ 
+       /* show the toplevel "Open With Other Application" (if not already done by the "Open" action) */
+-      gtk_action_set_visible (launcher->action_open_with_other, !default_is_open_with_other && (n_selected_files == 1));
++      gtk_action_set_visible (launcher->action_open_with_other, !default_is_open_with_other && (n_selected_files == 1) && (n_directories == 0));
+       gtk_action_set_visible (launcher->action_open_with_other_in_menu, FALSE);
+     }
+ G_GNUC_END_IGNORE_DEPRECATIONS
+ 
+   /* add actions for all remaining applications */
+-  if (G_LIKELY (applications != NULL))
++  if (G_LIKELY (applications != NULL) && (n_directories == 0))
+     {
+       /* process all applications and determine the desktop actions */
+       for (lp = applications, n = 0; lp != NULL; lp = lp->next, ++n)
 @@ -1018,7 +1018,7 @@
  
            /* generate a unique label, unique id and tooltip for the application's action */
