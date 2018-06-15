@@ -1,0 +1,81 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-launcher-ui.xml abs/thunar/src/Thunar-1.8.1/thunar/thunar-launcher-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-launcher-ui.xml	2018-06-15 16:02:59.459041049 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-launcher-ui.xml	2018-06-15 16:50:26.181356788 -0700
+@@ -23,13 +23,6 @@
+         </menu>
+         <placeholder name="placeholder-actions" />
+       </placeholder>
+-
+-      <menu action="sendto-menu">
+-        <placeholder name="placeholder-sendto-actions">
+-          <menuitem action="sendto-desktop" />
+-          <separator />
+-        </placeholder>
+-      </menu>
+     </menu>
+   </menubar>
+ 
+@@ -47,12 +40,5 @@
+       </menu>
+       <placeholder name="placeholder-actions" />
+     </placeholder>
+-
+-    <menu action="sendto-menu">
+-      <placeholder name="placeholder-sendto-actions">
+-        <menuitem action="sendto-desktop" />
+-        <separator />
+-      </placeholder>
+-    </menu>
+   </popup>
+ </ui>
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-renamer-dialog-ui.xml abs/thunar/src/Thunar-1.8.1/thunar/thunar-renamer-dialog-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-renamer-dialog-ui.xml	2018-06-15 16:02:59.449041361 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-renamer-dialog-ui.xml	2018-06-15 16:50:20.728138778 -0700
+@@ -20,20 +20,12 @@
+   <menubar name="main-menu">
+     <menu action="file-menu">
+       <placeholder name="placeholder-launcher" />
+-      <separator />
+-      <menu action="sendto-menu">
+-        <placeholder name="placeholder-sendto-actions" />
+-      </menu>
+     </menu>
+   </menubar>
+ 
+   <popup action="file-context-menu">
+     <placeholder name="placeholder-launcher" />
+     <separator />
+-    <menu action="sendto-menu">
+-      <placeholder name="placeholder-sendto-actions" />
+-    </menu>
+-    <separator />
+     <placeholder name="placeholder-renamer-actions" />
+     <separator />
+     <menuitem action="add-files" />
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-window-ui.xml abs/thunar/src/Thunar-1.8.1/thunar/thunar-window-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-window-ui.xml	2018-06-15 16:02:59.449041361 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-window-ui.xml	2018-06-15 16:50:23.164753921 -0700
+@@ -17,11 +17,6 @@
+       <separator />
+       <placeholder name="placeholder-launcher" />
+       <separator />
+-      <menu action="sendto-menu">
+-        <placeholder name="placeholder-sendto-sidepane" />
+-        <placeholder name="placeholder-sendto-actions" />
+-      </menu>
+-      <separator />
+       <placeholder name="placeholder-custom-actions" />
+       <separator />
+       <placeholder name="placeholder-file-properties" />
+@@ -101,11 +96,6 @@
+   <popup action="file-context-menu">
+     <placeholder name="placeholder-launcher" />
+     <separator />
+-    <menu action="sendto-menu">
+-      <placeholder name="placeholder-sendto-sidepane" />
+-      <placeholder name="placeholder-sendto-actions" />
+-    </menu>
+-    <separator />
+     <placeholder name="placeholder-clipboard-actions" />
+     <separator />
+     <placeholder name="placeholder-edit-actions" />
