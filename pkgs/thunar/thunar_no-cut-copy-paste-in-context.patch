@@ -1,0 +1,35 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-standard-view-ui.xml abs/thunar/src/Thunar-1.8.1/thunar/thunar-standard-view-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.8.1/thunar/thunar-standard-view-ui.xml	2018-06-15 17:17:51.392617192 -0700
++++ abs/thunar/src/Thunar-1.8.1/thunar/thunar-standard-view-ui.xml	2018-06-15 17:22:10.094008602 -0700
+@@ -50,14 +50,6 @@
+   </menubar>
+ 
+   <popup action="file-context-menu">
+-    <placeholder name="placeholder-clipboard-actions">
+-      <menuitem action="cut" />
+-      <menuitem action="copy" />
+-      <menuitem action="paste-into-folder" />
+-      <separator />
+-      <menuitem action="move-to-trash" />
+-      <menuitem action="delete" />
+-    </placeholder>
+     <placeholder name="placeholder-edit-actions">
+       <menuitem action="rename" />
+       <menuitem action="restore" />
+@@ -72,16 +64,10 @@
+     <menuitem action="create-document" />
+     <menuitem action="empty-trash" />
+     <separator />
+-    <menuitem action="paste" />
+-    <separator />
+     <placeholder name="placeholder-custom-actions" />
+     <separator />
+     <placeholder name="placeholder-view-items-actions" />
+     <separator />
+-    <menuitem action="zoom-in" />
+-    <menuitem action="zoom-out" />
+-    <menuitem action="zoom-reset" />
+-    <separator />
+     <menuitem action="properties" />
+   </popup>
+ 
