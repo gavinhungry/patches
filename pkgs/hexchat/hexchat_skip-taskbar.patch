@@ -1,6 +1,6 @@
-diff -ru abs/hexchat.ORIG/src/hexchat-2.14.1/src/fe-gtk/maingui.c abs/hexchat/src/hexchat-2.14.1/src/fe-gtk/maingui.c
---- abs/hexchat.ORIG/src/hexchat-2.14.1/src/fe-gtk/maingui.c	2017-03-24 14:46:09.860589023 -0700
-+++ abs/hexchat/src/hexchat-2.14.1/src/fe-gtk/maingui.c	2017-03-24 14:55:34.147672270 -0700
+diff -ru abs/hexchat.ORIG/src/hexchat/src/fe-gtk/maingui.c abs/hexchat/src/hexchat/src/fe-gtk/maingui.c
+--- abs/hexchat.ORIG/src/hexchat/src/fe-gtk/maingui.c	2017-03-24 14:46:09.860589023 -0700
++++ abs/hexchat/src/hexchat/src/fe-gtk/maingui.c	2017-03-24 14:55:34.147672270 -0700
 @@ -3511,6 +3511,8 @@
  		gui->is_tab = TRUE;
  	}
