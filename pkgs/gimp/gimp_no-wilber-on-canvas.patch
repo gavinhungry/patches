@@ -1,6 +1,6 @@
-diff -ru abs/gimp.ORIG/src/gimp-2.10.4/app/display/gimpdisplayshell-callbacks.c abs/gimp/src/gimp-2.10.4/app/display/gimpdisplayshell-callbacks.c
---- abs/gimp.ORIG/src/gimp-2.10.4/app/display/gimpdisplayshell-callbacks.c	2018-05-17 13:27:52.261542353 -0700
-+++ abs/gimp/src/gimp-2.10.4/app/display/gimpdisplayshell-callbacks.c	2018-05-17 13:27:54.974823907 -0700
+diff -ru abs/gimp.ORIG/src/gimp-2.10.6/app/display/gimpdisplayshell-callbacks.c abs/gimp/src/gimp-2.10.6/app/display/gimpdisplayshell-callbacks.c
+--- abs/gimp.ORIG/src/gimp-2.10.6/app/display/gimpdisplayshell-callbacks.c	2018-05-17 13:27:52.261542353 -0700
++++ abs/gimp/src/gimp-2.10.6/app/display/gimpdisplayshell-callbacks.c	2018-05-17 13:27:54.974823907 -0700
 @@ -547,8 +547,6 @@
  
    gimp_display_shell_draw_background (shell, cr);
