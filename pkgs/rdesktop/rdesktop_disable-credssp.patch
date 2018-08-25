@@ -1,0 +1,11 @@
+diff -ru abs/rdesktop.ORIG/PKGBUILD abs/rdesktop/PKGBUILD
+--- abs/rdesktop.ORIG/PKGBUILD	2018-08-24 15:51:47.519446786 -0700
++++ abs/rdesktop/PKGBUILD	2018-08-24 15:52:09.042261818 -0700
+@@ -33,6 +33,7 @@
+   cd ${pkgname}-${pkgver}
+   ./configure --prefix=/usr \
+     --enable-smartcard \
++    --disable-credssp \
+     --with-ipv6
+   make
+ }
