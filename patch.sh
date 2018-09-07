@@ -18,9 +18,6 @@ usage '[OPTION]... PACKAGE [PACKAGE]...
   -h, --help              this message
 '
 
-PATCHER_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
-PATCHES_DIR="$PATCHER_DIR"/pkgs
-
 [ -d "$PATCHES_DIR" ] || die 'Could not find pkgs directory'
 
 getPkgbuildDir() {
