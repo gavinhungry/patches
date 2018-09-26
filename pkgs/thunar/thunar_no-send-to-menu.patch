@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-launcher-ui.xml abs/thunar/src/thunar/thunar/thunar-launcher-ui.xml
---- abs/thunar.ORIG/src/thunar/thunar/thunar-launcher-ui.xml	2018-07-03 09:53:17.021825460 -0700
-+++ abs/thunar/src/thunar/thunar/thunar-launcher-ui.xml	2018-07-03 09:57:32.704630727 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-launcher-ui.xml abs/thunar/src/Thunar-1.8.2/thunar/thunar-launcher-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-launcher-ui.xml	2018-09-26 13:56:04.465968310 -0700
++++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-launcher-ui.xml	2018-09-26 13:56:08.732690678 -0700
 @@ -23,13 +23,6 @@
          </menu>
          <placeholder name="placeholder-actions" />
@@ -28,9 +28,9 @@ diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-launcher-ui.xml abs/thunar/src
 -    </menu>
    </popup>
  </ui>
-diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-renamer-dialog-ui.xml abs/thunar/src/thunar/thunar/thunar-renamer-dialog-ui.xml
---- abs/thunar.ORIG/src/thunar/thunar/thunar-renamer-dialog-ui.xml	2018-07-03 09:53:17.025158828 -0700
-+++ abs/thunar/src/thunar/thunar/thunar-renamer-dialog-ui.xml	2018-07-03 09:57:32.704630727 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-renamer-dialog-ui.xml abs/thunar/src/Thunar-1.8.2/thunar/thunar-renamer-dialog-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-renamer-dialog-ui.xml	2018-09-26 13:56:04.462634933 -0700
++++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-renamer-dialog-ui.xml	2018-09-26 13:56:08.732690678 -0700
 @@ -20,20 +20,12 @@
    <menubar name="main-menu">
      <menu action="file-menu">
@@ -52,35 +52,45 @@ diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-renamer-dialog-ui.xml abs/thun
      <placeholder name="placeholder-renamer-actions" />
      <separator />
      <menuitem action="add-files" />
-diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-shortcuts-pane-ui.xml abs/thunar/src/thunar/thunar/thunar-shortcuts-pane-ui.xml
---- abs/thunar.ORIG/src/thunar/thunar/thunar-shortcuts-pane-ui.xml	2018-07-03 09:53:17.025158828 -0700
-+++ abs/thunar/src/thunar/thunar/thunar-shortcuts-pane-ui.xml	2018-07-03 09:58:19.038483500 -0700
-@@ -8,22 +8,4 @@
-     works, because it's too easy to break something.
-   -->
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-shortcuts-pane.c abs/thunar/src/Thunar-1.8.2/thunar/thunar-shortcuts-pane.c
+--- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-shortcuts-pane.c	2018-09-26 13:56:04.462634933 -0700
++++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-shortcuts-pane.c	2018-09-26 13:56:38.776416257 -0700
+@@ -459,15 +459,7 @@
+ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+       /* add our action group to the new manager */
+       gtk_ui_manager_insert_action_group (ui_manager, shortcuts_pane->action_group, -1);
+-
+-      /* merge our UI control items with the new manager */
+-      shortcuts_pane->ui_merge_id = gtk_ui_manager_add_ui_from_string (ui_manager, thunar_shortcuts_pane_ui, thunar_shortcuts_pane_ui_length, &error);
+ G_GNUC_END_IGNORE_DEPRECATIONS
+-      if (G_UNLIKELY (shortcuts_pane->ui_merge_id == 0))
+-        {
+-          g_error ("Failed to merge ThunarShortcutsPane menus: %s", error->message);
+-          g_error_free (error);
+-        }
+     }
  
--  <menubar name="main-menu">
--    <menu action="file-menu">
--      <menu action="sendto-menu">
--        <placeholder name="placeholder-sendto-sidepane">
--          <menuitem action="sendto-shortcuts" />
--        </placeholder>
--      </menu>
--    </menu>
--  </menubar>
--
--  <popup action="file-context-menu">
--    <menu action="sendto-menu">
--      <placeholder name="placeholder-sendto-sidepane">
--        <menuitem action="sendto-shortcuts" />
--      </placeholder>
--    </menu>
--  </popup>
--
- </ui>
-diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-window-ui.xml abs/thunar/src/thunar/thunar/thunar-window-ui.xml
---- abs/thunar.ORIG/src/thunar/thunar/thunar-window-ui.xml	2018-07-03 09:53:17.025158828 -0700
-+++ abs/thunar/src/thunar/thunar/thunar-window-ui.xml	2018-07-03 09:57:32.704630727 -0700
+   /* notify listeners */
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-shortcuts-pane-ui.h abs/thunar/src/Thunar-1.8.2/thunar/thunar-shortcuts-pane-ui.h
+--- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-shortcuts-pane-ui.h	2018-09-26 13:56:04.462634933 -0700
++++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-shortcuts-pane-ui.h	2018-09-26 13:56:08.732690678 -0700
+@@ -8,12 +8,7 @@
+ static const char thunar_shortcuts_pane_ui[] =
+ #endif
+ {
+-  "<ui><menubar name=\"main-menu\"><menu action=\"file-menu\"><menu action"
+-  "=\"sendto-menu\"><placeholder name=\"placeholder-sendto-sidepane\"><men"
+-  "uitem action=\"sendto-shortcuts\" /></placeholder></menu></menu></menub"
+-  "ar><popup action=\"file-context-menu\"><menu action=\"sendto-menu\"><pl"
+-  "aceholder name=\"placeholder-sendto-sidepane\"><menuitem action=\"sendt"
+-  "o-shortcuts\" /></placeholder></menu></popup></ui>"
++  "<ui></ui>"
+ };
+ 
+ static const unsigned thunar_shortcuts_pane_ui_length = 387u;
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-window-ui.xml abs/thunar/src/Thunar-1.8.2/thunar/thunar-window-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-window-ui.xml	2018-09-26 13:56:04.465968310 -0700
++++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-window-ui.xml	2018-09-26 13:56:08.732690678 -0700
 @@ -17,11 +17,6 @@
        <separator />
        <placeholder name="placeholder-launcher" />

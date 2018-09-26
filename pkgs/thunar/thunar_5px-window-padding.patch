@@ -1,23 +1,27 @@
-diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-application.c abs/thunar/src/thunar/thunar/thunar-application.c
---- abs/thunar.ORIG/src/thunar/thunar/thunar-application.c	2018-06-14 00:46:54.387494073 -0700
-+++ abs/thunar/src/thunar/thunar/thunar-application.c	2018-06-14 00:46:54.537494904 -0700
-@@ -583,10 +583,9 @@
- 
-                                                  /* For the pathbar-buttons any margin looks ugly*/
-   gtk_css_provider_load_from_data (css_provider, ".path-bar-button { margin-right: 0; }"
--
--                                                 /* remove extra border between side pane and view */
--                                                 ".shortcuts-pane { border-right-width: 0px; }"
--                                                 ".standard-view { border-left-width: 0px; }", -1, NULL);
-+                                                 ".sidebar { border-width: 1px; border-style: solid; }"
-+                                                 ".shortcuts-pane, .tree-pane { border-right-width: 0px; }"
-+                                                 ".sidebar ~ grid .standard-view { margin-left: 5px; }", -1, NULL);
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-application.c abs/thunar/src/Thunar-1.8.2/thunar/thunar-application.c
+--- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-application.c	2018-09-26 13:48:34.216751171 -0700
++++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-application.c	2018-09-26 13:48:34.360086379 -0700
+@@ -584,13 +584,11 @@
+   gtk_css_provider_load_from_data (css_provider,
+     /* for the pathbar-buttons any margin looks ugly*/
+     ".path-bar-button { margin-right: 0; }"
+-    /* remove extra border between side pane and view */
+-    ".shortcuts-pane { border-right-width: 0px; }"
++    ".sidebar { border-width: 1px; border-style: solid; }"
++    ".shortcuts-pane, .tree-pane { border-right-width: 0px; }"
++    ".sidebar ~ grid .standard-view { margin-left: 5px; }"
+     /* add missing top border to side pane */
+-    ".shortcuts-pane { border-top-style: solid; }"
+-    /* make border thicker during DnD */
+-    ".standard-view { border-left-width: 0px; }"
+-    ".standard-view:drop(active) { border-width: 2px; }", -1, NULL);
++    ".shortcuts-pane { border-top-style: solid; }", -1, NULL);
    screen = gdk_screen_get_default ();
    gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER (css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
    g_object_unref (css_provider);
-diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c abs/thunar/src/thunar/thunar/thunar-tree-pane.c
---- abs/thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c	2018-06-14 00:46:54.387494073 -0700
-+++ abs/thunar/src/thunar/thunar/thunar-tree-pane.c	2018-06-14 00:46:54.537494904 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-tree-pane.c abs/thunar/src/Thunar-1.8.2/thunar/thunar-tree-pane.c
+--- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-tree-pane.c	2018-09-26 13:48:34.216751171 -0700
++++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-tree-pane.c	2018-09-26 13:48:34.360086379 -0700
 @@ -151,6 +151,9 @@
    g_signal_connect_swapped (G_OBJECT (tree_pane->view), "open-new-tab", G_CALLBACK (thunar_navigator_open_new_tab), tree_pane);
    gtk_container_add (GTK_CONTAINER (tree_pane), tree_pane->view);
@@ -28,10 +32,10 @@ diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c abs/thunar/src/thu
  }
  
  
-diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-window.c abs/thunar/src/thunar/thunar/thunar-window.c
---- abs/thunar.ORIG/src/thunar/thunar/thunar-window.c	2018-06-14 00:46:54.387494073 -0700
-+++ abs/thunar/src/thunar/thunar/thunar-window.c	2018-06-14 00:46:54.537494904 -0700
-@@ -869,7 +869,7 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-window.c abs/thunar/src/Thunar-1.8.2/thunar/thunar-window.c
+--- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-window.c	2018-09-26 13:48:34.220084548 -0700
++++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-window.c	2018-09-26 13:48:34.360086379 -0700
+@@ -874,7 +874,7 @@
      }
  
    window->paned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
@@ -40,7 +44,7 @@ diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-window.c abs/thunar/src/thunar
    gtk_widget_set_hexpand (window->paned, TRUE);
    gtk_widget_set_vexpand (window->paned, TRUE);
    gtk_grid_attach (GTK_GRID (window->grid), window->paned, 0, 4, 1, 1);
-@@ -903,6 +903,9 @@
+@@ -908,6 +908,9 @@
  
    /* allocate the new location bar widget */
    window->location_bar = thunar_location_bar_new ();
