@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-standard-view.c abs/thunar/src/thunar/thunar/thunar-standard-view.c
---- abs/thunar.ORIG/src/thunar/thunar/thunar-standard-view.c	2018-06-14 00:46:54.387494073 -0700
-+++ abs/thunar/src/thunar/thunar/thunar-standard-view.c	2018-06-14 00:46:54.654162217 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-standard-view.c abs/thunar/src/Thunar-1.8.2/thunar/thunar-standard-view.c
+--- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-standard-view.c	2018-09-26 13:48:34.216751171 -0700
++++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-standard-view.c	2018-09-26 13:48:34.483421326 -0700
 @@ -312,6 +312,7 @@
    ThunarFile             *current_directory;
  
@@ -34,7 +34,7 @@ diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-standard-view.c abs/thunar/src
    g_signal_connect (G_OBJECT (standard_view->priv->action_create_document), "create-template",
                      G_CALLBACK (thunar_standard_view_action_create_template), standard_view);
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-@@ -1492,7 +1493,8 @@
+@@ -1494,7 +1495,8 @@
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
    /* update the "Create Folder"/"Create Document" actions */
    gtk_action_set_visible (standard_view->priv->action_create_folder, !trashed);
@@ -44,7 +44,7 @@ diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-standard-view.c abs/thunar/src
  
    /* update the "Rename" action */
    gtk_action_set_visible (standard_view->priv->action_rename, !trashed);
-@@ -4476,6 +4478,7 @@
+@@ -4489,6 +4491,7 @@
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
    /* update the "Create Folder"/"Create Document" actions */
    gtk_action_set_sensitive (standard_view->priv->action_create_folder, !trashed && writable);
@@ -52,10 +52,10 @@ diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-standard-view.c abs/thunar/src
    gtk_action_set_sensitive (standard_view->priv->action_create_document, !trashed && writable);
  
    /* update the "Properties" action */
-diff -ru abs/thunar.ORIG/src/thunar/thunar/thunar-standard-view-ui.xml abs/thunar/src/thunar/thunar/thunar-standard-view-ui.xml
---- abs/thunar.ORIG/src/thunar/thunar/thunar-standard-view-ui.xml	2018-06-14 00:46:54.387494073 -0700
-+++ abs/thunar/src/thunar/thunar/thunar-standard-view-ui.xml	2018-06-14 00:46:54.654162217 -0700
-@@ -69,6 +69,7 @@
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-standard-view-ui.xml abs/thunar/src/Thunar-1.8.2/thunar/thunar-standard-view-ui.xml
+--- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-standard-view-ui.xml	2018-09-26 13:48:34.216751171 -0700
++++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-standard-view-ui.xml	2018-09-26 13:48:34.486754703 -0700
+@@ -71,6 +71,7 @@
  
    <popup action="folder-context-menu">
      <menuitem action="create-folder" />
