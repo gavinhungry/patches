@@ -1,0 +1,23 @@
+diff -ru aur/freerdp-git.ORIG/src/freerdp/client/X11/xf_window.c aur/freerdp-git/src/freerdp/client/X11/xf_window.c
+--- aur/freerdp-git.ORIG/src/freerdp/client/X11/xf_window.c	2018-05-24 09:26:51.672112937 -0700
++++ aur/freerdp-git/src/freerdp/client/X11/xf_window.c	2018-05-24 09:26:51.835448523 -0700
+@@ -63,8 +63,8 @@
+ #define DEBUG_X11(...) do { } while (0)
+ #endif
+ 
+-#include "FreeRDP_Icon_256px.h"
+-#define xf_icon_prop FreeRDP_Icon_256px_prop
++#include "RDP_Icon.h"
++#define xf_icon_prop RDP_Icon_prop
+ 
+ #include "xf_window.h"
+ 
+diff -ru aur/freerdp-git.ORIG/src/freerdp/resources/conv_to_ewm_prop.py aur/freerdp-git/src/freerdp/resources/conv_to_ewm_prop.py
+--- aur/freerdp-git.ORIG/src/freerdp/resources/conv_to_ewm_prop.py	2018-05-24 09:26:51.682113075 -0700
++++ aur/freerdp-git/src/freerdp/resources/conv_to_ewm_prop.py	2018-05-24 09:26:51.835448523 -0700
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2011 Anthony Tong <atong@trustedcs.com>
+ 
