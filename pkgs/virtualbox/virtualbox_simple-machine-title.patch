@@ -1,6 +1,6 @@
-diff -ru abs/virtualbox.ORIG/src/VirtualBox-6.0.0/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp abs/virtualbox/src/VirtualBox-6.0.0/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp
---- abs/virtualbox.ORIG/src/VirtualBox-6.0.0/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-12-19 15:44:10.299951287 -0800
-+++ abs/virtualbox/src/VirtualBox-6.0.0/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-12-19 15:44:11.259930173 -0800
+diff -ru abs/virtualbox.ORIG/src/VirtualBox-6.0.2/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp abs/virtualbox/src/VirtualBox-6.0.2/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp
+--- abs/virtualbox.ORIG/src/VirtualBox-6.0.2/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-12-19 15:44:10.299951287 -0800
++++ abs/virtualbox/src/VirtualBox-6.0.2/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-12-19 15:44:11.259930173 -0800
 @@ -521,18 +521,7 @@
      /* Update window title: */
      if (iElement & UIVisualElement_WindowTitle)
