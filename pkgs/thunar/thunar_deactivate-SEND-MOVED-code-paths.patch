@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-file.c abs/thunar/src/Thunar-1.8.2/thunar/thunar-file.c
---- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-file.c	2018-09-26 13:48:34.223417924 -0700
-+++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-file.c	2018-09-26 13:48:34.546755488 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-file.c abs/thunar/src/Thunar-1.8.3/thunar/thunar-file.c
+--- abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-file.c	2018-09-26 13:48:34.223417924 -0700
++++ abs/thunar/src/Thunar-1.8.3/thunar/thunar-file.c	2018-09-26 13:48:34.546755488 -0700
 @@ -881,7 +881,7 @@
          }
  
@@ -19,9 +19,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-file.c abs/thunar/src/Th
        if (G_UNLIKELY (file_watch->monitor == NULL))
          {
            g_debug ("Failed to create file monitor: %s", error->message);
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-folder.c abs/thunar/src/Thunar-1.8.2/thunar/thunar-folder.c
---- abs/thunar.ORIG/src/Thunar-1.8.2/thunar/thunar-folder.c	2018-09-26 13:48:34.223417924 -0700
-+++ abs/thunar/src/Thunar-1.8.2/thunar/thunar-folder.c	2018-09-26 13:48:34.546755488 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-folder.c abs/thunar/src/Thunar-1.8.3/thunar/thunar-folder.c
+--- abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-folder.c	2018-09-26 13:48:34.223417924 -0700
++++ abs/thunar/src/Thunar-1.8.3/thunar/thunar-folder.c	2018-09-26 13:48:34.546755488 -0700
 @@ -580,7 +580,7 @@
  
    /* add us to the file alteration monitor */
