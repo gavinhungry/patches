@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-application.c abs/thunar/src/Thunar-1.8.3/thunar/thunar-application.c
---- abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-application.c	2018-09-26 13:48:34.216751171 -0700
-+++ abs/thunar/src/Thunar-1.8.3/thunar/thunar-application.c	2018-09-26 13:48:34.360086379 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-application.c abs/thunar/src/Thunar-1.8.4/thunar/thunar-application.c
+--- abs/thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-application.c	2018-09-26 13:48:34.216751171 -0700
++++ abs/thunar/src/Thunar-1.8.4/thunar/thunar-application.c	2018-09-26 13:48:34.360086379 -0700
 @@ -584,13 +584,11 @@
    gtk_css_provider_load_from_data (css_provider,
      /* for the pathbar-buttons any margin looks ugly*/
@@ -19,9 +19,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-application.c abs/thunar
    screen = gdk_screen_get_default ();
    gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER (css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
    g_object_unref (css_provider);
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-tree-pane.c abs/thunar/src/Thunar-1.8.3/thunar/thunar-tree-pane.c
---- abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-tree-pane.c	2018-09-26 13:48:34.216751171 -0700
-+++ abs/thunar/src/Thunar-1.8.3/thunar/thunar-tree-pane.c	2018-09-26 13:48:34.360086379 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-tree-pane.c abs/thunar/src/Thunar-1.8.4/thunar/thunar-tree-pane.c
+--- abs/thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-tree-pane.c	2018-09-26 13:48:34.216751171 -0700
++++ abs/thunar/src/Thunar-1.8.4/thunar/thunar-tree-pane.c	2018-09-26 13:48:34.360086379 -0700
 @@ -151,6 +151,9 @@
    g_signal_connect_swapped (G_OBJECT (tree_pane->view), "open-new-tab", G_CALLBACK (thunar_navigator_open_new_tab), tree_pane);
    gtk_container_add (GTK_CONTAINER (tree_pane), tree_pane->view);
@@ -32,9 +32,9 @@ diff -ru abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-tree-pane.c abs/thunar/s
  }
  
  
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-window.c abs/thunar/src/Thunar-1.8.3/thunar/thunar-window.c
---- abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-window.c	2018-09-26 13:48:34.220084548 -0700
-+++ abs/thunar/src/Thunar-1.8.3/thunar/thunar-window.c	2018-09-26 13:48:34.360086379 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-window.c abs/thunar/src/Thunar-1.8.4/thunar/thunar-window.c
+--- abs/thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-window.c	2018-09-26 13:48:34.220084548 -0700
++++ abs/thunar/src/Thunar-1.8.4/thunar/thunar-window.c	2018-09-26 13:48:34.360086379 -0700
 @@ -874,7 +874,7 @@
      }
  
