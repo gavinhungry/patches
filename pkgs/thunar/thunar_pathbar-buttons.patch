@@ -1,6 +1,6 @@
-diff -ru abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-location-button.c abs/thunar/src/Thunar-1.8.3/thunar/thunar-location-button.c
---- abs/thunar.ORIG/src/Thunar-1.8.3/thunar/thunar-location-button.c	2018-09-26 13:48:34.220084548 -0700
-+++ abs/thunar/src/Thunar-1.8.3/thunar/thunar-location-button.c	2018-09-26 13:48:35.103429438 -0700
+diff -ru abs/thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-location-button.c abs/thunar/src/Thunar-1.8.4/thunar/thunar-location-button.c
+--- abs/thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-location-button.c	2018-09-26 13:48:34.220084548 -0700
++++ abs/thunar/src/Thunar-1.8.4/thunar/thunar-location-button.c	2018-09-26 13:48:35.103429438 -0700
 @@ -394,44 +394,16 @@
    icon_theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (location_button)));
    /* TODO: listen for icon theme changes */
