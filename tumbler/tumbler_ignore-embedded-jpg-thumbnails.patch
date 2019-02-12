@@ -1,0 +1,12 @@
+diff -ru tumbler.ORIG/src/tumbler-0.2.3/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c tumbler/src/tumbler-0.2.3/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c
+--- tumbler.ORIG/src/tumbler-0.2.3/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c	2018-02-09 10:31:21.157320590 -0800
++++ tumbler/src/tumbler-0.2.3/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c	2018-02-09 11:10:28.143193306 -0800
+@@ -698,6 +698,8 @@
+                           gsize         length,
+                           gint          size)
+ {
++  return NULL;
++
+   guint marker_len;
+   guint marker;
+   gsize n;

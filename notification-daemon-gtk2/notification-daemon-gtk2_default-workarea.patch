@@ -1,0 +1,23 @@
+diff -ru notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/daemon/stack.c notification-daemon-gtk2/src/notification-daemon-0.5.0/src/daemon/stack.c
+--- notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/daemon/stack.c	2018-02-15 15:29:07.679257443 -0800
++++ notification-daemon-gtk2/src/notification-daemon-0.5.0/src/daemon/stack.c	2018-02-15 17:29:04.580837224 -0800
+@@ -30,7 +30,7 @@
+ #include <gdk/gdkx.h>
+ 
+ #define NOTIFY_STACK_SPACING 2
+-#define WORKAREA_PADDING 6
++#define WORKAREA_PADDING 4
+ 
+ struct _NotifyStack
+ {
+@@ -105,6 +105,10 @@
+         rect->width = workareas[disp_screen * 4 + 2];
+         rect->height = workareas[disp_screen * 4 + 3];
+ 
++        if (rect->y == 0) {
++          rect->y = 30;
++        }
++
+         XFree (ret_workarea);
+ 
+         return TRUE;

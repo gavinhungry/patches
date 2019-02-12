@@ -1,0 +1,13 @@
+diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-file.c thunar/src/Thunar-1.8.4/thunar/thunar-file.c
+--- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-file.c	2018-09-26 13:48:34.223417924 -0700
++++ thunar/src/Thunar-1.8.4/thunar/thunar-file.c	2018-09-26 13:48:34.793425382 -0700
+@@ -1074,9 +1074,6 @@
+           display_name = g_file_info_get_display_name (file->info);
+           if (G_LIKELY (display_name != NULL))
+             {
+-              if (strcmp (display_name, "/") == 0)
+-                file->display_name = g_strdup (_("File System"));
+-              else
+                 file->display_name = g_strdup (display_name);
+             }
+         }

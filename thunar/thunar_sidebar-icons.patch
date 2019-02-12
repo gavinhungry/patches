@@ -1,0 +1,21 @@
+diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-shortcuts-model.c thunar/src/Thunar-1.8.4/thunar/thunar-shortcuts-model.c
+--- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-shortcuts-model.c	2018-09-26 13:48:34.223417924 -0700
++++ thunar/src/Thunar-1.8.4/thunar/thunar-shortcuts-model.c	2018-09-26 13:48:35.346765955 -0700
+@@ -969,7 +969,7 @@
+   shortcut->group = THUNAR_SHORTCUT_GROUP_NETWORK_DEFAULT;
+   shortcut->name = g_strdup (_("Browse Network"));
+   shortcut->location = g_file_new_for_uri ("network://");
+-  shortcut->gicon = g_themed_icon_new ("network-workgroup");
++  shortcut->gicon = g_themed_icon_new ("network-server");
+   shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
+   thunar_shortcuts_model_add_shortcut (model, shortcut);
+ }
+@@ -1001,7 +1001,7 @@
+       shortcut = g_slice_new0 (ThunarShortcut);
+       shortcut->group = THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT;
+       shortcut->file = file;
+-      shortcut->gicon = g_themed_icon_new ("go-home");
++      shortcut->gicon = g_themed_icon_new ("user-home");
+       shortcut->sort_id = 0;
+       shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
+       thunar_shortcuts_model_add_shortcut (model, shortcut);

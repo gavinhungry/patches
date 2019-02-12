@@ -1,0 +1,23 @@
+diff -ru virtualbox.ORIG/src/VirtualBox-6.0.4/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp virtualbox/src/VirtualBox-6.0.4/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp
+--- virtualbox.ORIG/src/VirtualBox-6.0.4/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-12-19 15:44:10.299951287 -0800
++++ virtualbox/src/VirtualBox-6.0.4/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-12-19 15:44:11.259930173 -0800
+@@ -521,18 +521,7 @@
+     /* Update window title: */
+     if (iElement & UIVisualElement_WindowTitle)
+     {
+-        /* Get machine state: */
+-        KMachineState state = uisession()->machineState();
+-        /* Prepare full name: */
+-        QString strSnapshotName;
+-        if (machine().GetSnapshotCount() > 0)
+-        {
+-            CSnapshot snapshot = machine().GetCurrentSnapshot();
+-            strSnapshotName = " (" + snapshot.GetName() + ")";
+-        }
+-        QString strMachineName = machineName() + strSnapshotName;
+-        if (state != KMachineState_Null)
+-            strMachineName += " [" + gpConverter->toString(state) + "]";
++        QString strMachineName = machineName();
+         /* Unusual on the Mac. */
+ #ifndef VBOX_WS_MAC
+         const QString strUserProductName = uisession()->machineWindowNamePostfix();

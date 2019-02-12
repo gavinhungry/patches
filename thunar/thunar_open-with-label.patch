@@ -1,0 +1,67 @@
+diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-launcher.c thunar/src/Thunar-1.8.4/thunar/thunar-launcher.c
+--- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-launcher.c	2018-09-26 13:48:34.220084548 -0700
++++ thunar/src/Thunar-1.8.4/thunar/thunar-launcher.c	2018-09-26 13:48:35.043428652 -0700
+@@ -176,9 +176,9 @@
+   { "open", "document-open", N_ ("_Open"), "<control>O", NULL, G_CALLBACK (thunar_launcher_action_open), },
+   { "open-in-new-tab", NULL, N_ ("Open in New _Tab"), "<control><shift>P", NULL, G_CALLBACK (thunar_launcher_action_open_in_new_tab), },
+   { "open-in-new-window", NULL, N_ ("Open in New _Window"), "<control><shift>O", NULL, G_CALLBACK (thunar_launcher_action_open_in_new_window), },
+-  { "open-with-other", NULL, N_ ("Open With Other _Application..."), NULL, N_ ("Choose another application with which to open the selected file"), G_CALLBACK (thunar_launcher_action_open_with_other), },
++  { "open-with-other", NULL, N_ ("Open With..."), NULL, N_ ("Choose another application with which to open the selected file"), G_CALLBACK (thunar_launcher_action_open_with_other), },
+   { "open-with-menu", NULL, N_ ("Open With"), NULL, NULL, NULL, },
+-  { "open-with-other-in-menu", NULL, N_ ("Open With Other _Application..."), NULL, N_ ("Choose another application with which to open the selected file"), G_CALLBACK (thunar_launcher_action_open_with_other), },
++  { "open-with-other-in-menu", NULL, N_ ("Open With..."), NULL, N_ ("Choose another application with which to open the selected file"), G_CALLBACK (thunar_launcher_action_open_with_other), },
+   { "sendto-desktop", "user-desktop", "", NULL, NULL, G_CALLBACK (thunar_launcher_action_sendto_desktop), },
+ };
+ 
+@@ -920,7 +920,7 @@
+   else if (G_LIKELY (applications != NULL))
+     {
+       /* turn the "Open" action into "Open With DEFAULT" */
+-      label = g_strdup_printf (_("_Open With \"%s\""), g_app_info_get_name (applications->data));
++      label = g_strdup_printf (_("_Open with %s"), g_app_info_get_name (applications->data));
+       tooltip = g_strdup_printf (ngettext ("Use \"%s\" to open the selected file",
+                                            "Use \"%s\" to open the selected files",
+                                            n_selected_files), g_app_info_get_name (applications->data));
+@@ -950,7 +950,7 @@
+     {
+       /* turn the "Open" action into "Open With Other Application" */
+       g_object_set (G_OBJECT (launcher->action_open),
+-                    "label", _("_Open With Other Application..."),
++                    "label", _("_Open With..."),
+                     "tooltip", _("Choose another application with which to open the selected file"),
+                     NULL);
+       default_is_open_with_other = TRUE;
+@@ -959,7 +959,7 @@
+     {
+       /* we can only show a generic "Open" action */
+       g_object_set (G_OBJECT (launcher->action_open),
+-                    "label", _("_Open With Default Applications"),
++                    "label", _("_Open with Default Applications"),
+                     "tooltip", ngettext ("Open the selected file with the default application",
+                                          "Open the selected files with the default applications", n_selected_files),
+                     NULL);
+@@ -1002,13 +1002,13 @@
+         }
+ 
+       /* show the toplevel "Open With Other Application" (if not already done by the "Open" action) */
+-      gtk_action_set_visible (launcher->action_open_with_other, !default_is_open_with_other && (n_selected_files == 1));
++      gtk_action_set_visible (launcher->action_open_with_other, !default_is_open_with_other && (n_selected_files == 1) && (n_directories == 0));
+       gtk_action_set_visible (launcher->action_open_with_other_in_menu, FALSE);
+     }
+ G_GNUC_END_IGNORE_DEPRECATIONS
+ 
+   /* add actions for all remaining applications */
+-  if (G_LIKELY (applications != NULL))
++  if (G_LIKELY (applications != NULL) && (n_directories == 0))
+     {
+       /* process all applications and determine the desktop actions */
+       for (lp = applications, n = 0; lp != NULL; lp = lp->next, ++n)
+@@ -1018,7 +1018,7 @@
+ 
+           /* generate a unique label, unique id and tooltip for the application's action */
+           name = g_strdup_printf ("thunar-launcher-addon-application%d-%p", n, launcher);
+-          label = g_strdup_printf (_("Open With \"%s\""), g_app_info_get_name (lp->data));
++          label = g_strdup_printf (_("Open with %s"), g_app_info_get_name (lp->data));
+           tooltip = g_strdup_printf (ngettext ("Use \"%s\" to open the selected file",
+                                                "Use \"%s\" to open the selected files",
+                                                n_selected_files), g_app_info_get_name (lp->data));

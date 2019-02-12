@@ -1,8 +1,9 @@
 #!/bin/bash
 
-PATCHER_DIR=$(dirname $(realpath $0))
-PATCHES_DIR=${PATCHER_DIR}/pkgs
-source "$PATCHER_DIR"/abash/abash.sh
+PATCHES_DIR=$(dirname $(realpath $0))
+PKG_SRC_DIR=${PATCHES_DIR}/../packages
+
+source "$PATCHES_DIR"/.abash/abash.sh
 
 (arge help ||
 ([ -z "$(nfargs)" ] &&
@@ -18,8 +19,6 @@ usage '[OPTION]... PACKAGE [PACKAGE]...
   -h, --help              this message
 '
 
-[ -d "$PATCHES_DIR" ] || die 'Could not find pkgs directory'
-
 getPkgbuildDir() {
   [ -n "$1" ] || return
 
@@ -30,7 +29,7 @@ getPkgbuildDir() {
   local PATCH=${PATCHES[0]}
 
   local PKGBUILD_DIR=$(cat "$PATCH" | grep ^diff | head -n1 | sed 's/.*\s\(.*\)\.ORIG\/.*/\1/')
-  cd "$PATCHER_DIR/../$PKGBUILD_DIR" &> /dev/null || return
+  cd "$PKG_SRC_DIR/$PKGBUILD_DIR" &> /dev/null || return
 
   pwd
 }
@@ -151,7 +150,7 @@ hardUpdatePkg() {
   fi
 
   local PARENT_DIR=$(basename $(realpath ${PKGBUILD_DIR}/..))
-  cd "$PATCHER_DIR"/..
+  cd "$PKG_SRC_DIR"
 
   rm -fr "$PKGBUILD_DIR".ORIG
   cp -r "$PKGBUILD_DIR" "$PKGBUILD_DIR".ORIG
@@ -209,7 +208,7 @@ patchPkg() {
     return
   fi
 
-  cd "$PATCHER_DIR"/..
+  cd "$PKG_SRC_DIR"
 
   local PATCHES="$PATCHES_DIR"/$PKG/*.patch
   for PATCH in ${PATCHES[@]}; do
@@ -245,7 +244,7 @@ fi
 
 _PKGS=($(nfargs))
 arge unpatched && _PKGS+=($(getUnpatchedPkgs))
-PKGS=$(echo ${_PKGS[*]} | tr ' ' '\n' | cut -d'/' -f2 | sort -u)
+PKGS=$(echo ${_PKGS[*]} | tr ' ' '\n' | cut -d'/' -f1 | sort -u)
 
 (arge download || arge download-only:D) && downloadPkgs $PKGS
 arge download-only:D && exit

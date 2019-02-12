@@ -1,0 +1,41 @@
+diff -ru pidgin.ORIG/src/pidgin-2.13.0/pidgin/gtkdocklet-gtk.c pidgin/src/pidgin-2.13.0/pidgin/gtkdocklet-gtk.c
+--- pidgin.ORIG/src/pidgin-2.13.0/pidgin/gtkdocklet-gtk.c	2018-08-08 10:44:26.748042993 -0700
++++ pidgin/src/pidgin-2.13.0/pidgin/gtkdocklet-gtk.c	2018-08-08 12:11:35.110524315 -0700
+@@ -31,6 +31,7 @@
+ 
+ /* globals */
+ static GtkStatusIcon *docklet = NULL;
++static GdkPixbuf *blank_icon = NULL;
+ static guint embed_timeout = 0;
+ 
+ /* protos */
+@@ -174,6 +175,11 @@
+ }
+ 
+ static void
++docklet_gtk_status_blank_icon() {
++	gtk_status_icon_set_from_pixbuf(docklet, blank_icon);
++}
++
++static void
+ docklet_gtk_status_set_tooltip(gchar *tooltip)
+ {
+ 	gtk_status_icon_set_tooltip(docklet, tooltip);
+@@ -270,7 +276,7 @@
+ 	docklet_gtk_status_create_ui_op,
+ 	docklet_gtk_status_destroy,
+ 	docklet_gtk_status_update_icon,
+-	NULL,
++	docklet_gtk_status_blank_icon,
+ 	docklet_gtk_status_set_tooltip,
+ 	docklet_gtk_status_position_menu
+ };
+@@ -290,5 +296,7 @@
+ 
+ 	gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(),
+ 		DATADIR G_DIR_SEPARATOR_S "pixmaps" G_DIR_SEPARATOR_S "pidgin" G_DIR_SEPARATOR_S "tray");
+-}
+ 
++	blank_icon = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, 16, 16);
++	gdk_pixbuf_fill(blank_icon, 0x00000000);
++}

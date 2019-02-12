@@ -1,0 +1,157 @@
+diff -ru notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/themes/standard/theme.c notification-daemon-gtk2/src/notification-daemon-0.5.0/src/themes/standard/theme.c
+--- notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2018-02-15 22:39:23.305070312 -0800
++++ notification-daemon-gtk2/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2018-02-15 22:41:14.187974770 -0800
+@@ -17,7 +17,6 @@
+         GtkWidget      *icon;
+         GtkWidget      *content_hbox;
+         GtkWidget      *summary_label;
+-        GtkWidget      *close_button;
+         GtkWidget      *body_label;
+         GtkWidget      *actions_box;
+         GtkWidget      *last_sep;
+@@ -65,13 +64,13 @@
+ #ifdef ENABLE_GRADIENT_LOOK
+ # define STRIPE_WIDTH  45
+ #else
+-# define STRIPE_WIDTH  30
++# define STRIPE_WIDTH  25
+ #endif
+ 
+ #define WIDTH         400
+-#define IMAGE_SIZE    32
++#define IMAGE_SIZE    24
+ #define IMAGE_PADDING 10
+-#define SPACER_LEFT   30
++#define SPACER_LEFT   16
+ #define PIE_RADIUS    12
+ #define PIE_WIDTH     (2 * PIE_RADIUS)
+ #define PIE_HEIGHT    (2 * PIE_RADIUS)
+@@ -79,7 +78,7 @@
+ #define DEFAULT_ARROW_OFFSET  (SPACER_LEFT + 2)
+ #define DEFAULT_ARROW_HEIGHT  14
+ #define DEFAULT_ARROW_WIDTH   28
+-#define BACKGROUND_OPACITY    0.92
++#define BACKGROUND_OPACITY    0.95
+ #define BOTTOM_GRADIENT_HEIGHT 30
+ 
+ #define USE_COMPOSITE
+@@ -161,11 +160,11 @@
+ 
+         switch (windata->urgency) {
+         case URGENCY_LOW:      // LOW
+-                color = style->bg[GTK_STATE_NORMAL];
++                gdk_color_parse ("#B5B5B5", &color);
+                 break;
+ 
+         case URGENCY_CRITICAL: // CRITICAL
+-                gdk_color_parse ("#CC0000", &color);
++                gdk_color_parse ("#B12C2C", &color);
+                 break;
+ 
+         case URGENCY_NORMAL:   // NORMAL
+@@ -477,7 +476,6 @@
+         cr = cairo_create (surface);
+ 
+         fill_background (widget, windata, cr);
+-        draw_border (widget, windata, cr);
+         draw_stripe (widget, windata, cr);
+ 
+         cairo_destroy (cr);
+@@ -578,7 +576,6 @@
+         GtkWidget      *main_vbox;
+         GtkWidget      *hbox;
+         GtkWidget      *vbox;
+-        GtkWidget      *close_button;
+         GtkWidget      *image;
+         GtkWidget      *alignment;
+         AtkObject      *atkobj;
+@@ -683,7 +680,7 @@
+                             TRUE,
+                             TRUE,
+                             0);
+-        gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
++        gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
+ 
+         hbox = gtk_hbox_new (FALSE, 6);
+         gtk_widget_show (hbox);
+@@ -706,39 +703,10 @@
+         atkobj = gtk_widget_get_accessible (windata->summary_label);
+         atk_object_set_description (atkobj, "Notification summary text.");
+ 
+-        /* Add the close button */
+         alignment = gtk_alignment_new (1, 0, 0, 0);
+         gtk_widget_show (alignment);
+         gtk_box_pack_start (GTK_BOX (hbox), alignment, FALSE, FALSE, 0);
+ 
+-        close_button = gtk_button_new ();
+-        windata->close_button = close_button;
+-        gtk_widget_show (close_button);
+-        gtk_container_add (GTK_CONTAINER (alignment), close_button);
+-        gtk_button_set_relief (GTK_BUTTON (close_button), GTK_RELIEF_NONE);
+-        gtk_container_set_border_width (GTK_CONTAINER (close_button), 0);
+-        //gtk_widget_set_size_request(close_button, 20, 20);
+-        g_signal_connect_swapped (G_OBJECT (close_button),
+-                                  "clicked",
+-                                  G_CALLBACK (gtk_widget_destroy),
+-                                  win);
+-
+-        rcstyle = gtk_rc_style_new ();
+-        rcstyle->xthickness = rcstyle->ythickness = 0;
+-        gtk_widget_modify_style (close_button, rcstyle);
+-        g_object_unref (rcstyle);
+-
+-        atkobj = gtk_widget_get_accessible (close_button);
+-        atk_action_set_description (ATK_ACTION (atkobj), 0,
+-                                    "Closes the notification.");
+-        atk_object_set_name (atkobj, "");
+-        atk_object_set_description (atkobj, "Closes the notification.");
+-
+-        image = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
+-                                          GTK_ICON_SIZE_MENU);
+-        gtk_widget_show (image);
+-        gtk_container_add (GTK_CONTAINER (close_button), image);
+-
+         windata->content_hbox = gtk_hbox_new (FALSE, 6);
+         gtk_box_pack_start (GTK_BOX (vbox),
+                             windata->content_hbox,
+@@ -747,21 +715,12 @@
+                             0);
+ 
+         windata->iconbox = gtk_hbox_new (FALSE, 0);
+-        gtk_widget_show (windata->iconbox);
+-        gtk_box_pack_start (GTK_BOX (windata->content_hbox),
+-                            windata->iconbox,
+-                            FALSE,
+-                            FALSE,
+-                            0);
+-        gtk_widget_set_size_request (windata->iconbox, BODY_X_OFFSET, -1);
+-
+         windata->icon = gtk_image_new ();
+-        gtk_box_pack_start (GTK_BOX (windata->iconbox),
+-                            windata->icon,
+-                            TRUE,
+-                            TRUE,
+-                            0);
+-        gtk_misc_set_alignment (GTK_MISC (windata->icon), 0.5, 0.0);
++
++        spacer = gtk_image_new ();
++        gtk_widget_show (spacer);
++        gtk_box_pack_start (GTK_BOX (windata->content_hbox), spacer, FALSE, FALSE, 0);
++        gtk_widget_set_size_request (spacer, SPACER_LEFT, -1);
+ 
+         vbox = gtk_vbox_new (FALSE, 6);
+         gtk_widget_show (vbox);
+@@ -885,12 +844,11 @@
+                                              WIDTH - (1 * 2) - (10 * 2) - req.width - 6, -1);
+         }
+ 
+-        gtk_widget_size_request (windata->close_button, &req);
+         gtk_widget_set_size_request (windata->summary_label,
+                                      /* -1: main_vbox border width
+                                         -10: vbox border width
+                                         -6: spacing for hbox */
+-                                     WIDTH - (1 * 2) - (10 * 2) - SPACER_LEFT - req.width - (6 * 2), -1);
++                                     WIDTH - (1 * 2) - (10 * 2) - SPACER_LEFT - (6 * 2), -1);
+ }
+ 
+ void

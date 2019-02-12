@@ -1,0 +1,116 @@
+diff -ru gtk3.ORIG/src/gtk/gtk/gtktreeview.c gtk3/src/gtk/gtk/gtktreeview.c
+--- gtk3.ORIG/src/gtk/gtk/gtktreeview.c	2018-06-13 01:21:58.205498574 -0700
++++ gtk3/src/gtk/gtk/gtktreeview.c	2018-06-13 01:21:59.645513300 -0700
+@@ -134,12 +134,18 @@
+  * ┊   ┊
+  * │   ╰── <column header>
+  * │
++ * ├── row.even
++ * ├── row.odd
++ * │
+  * ╰── [rubberband]
+  * ]|
+  *
+  * GtkTreeView has a main CSS node with name treeview and style class .view.
+  * It has a subnode with name header, which is the parent for all the column
+  * header widgets' CSS nodes.
++ * For styling rows, there are the row.even and row.odd nodes.  Note that
++ * there is not a node for every row, only a node for the even/odd style.
++ * The row nodes also do not support to box sizing properties (eg. margin).
+  * For rubberband selection, a subnode with name rubberband is used.
+  */
+ 
+@@ -314,6 +320,8 @@
+ 
+   /* CSS nodes */
+   GtkCssNode *header_node;
++  GtkCssNode *even_node;
++  GtkCssNode *odd_node;
+ 
+   /* Scroll position state keeping */
+   GtkTreeRowReference *top_row;
+@@ -900,6 +908,10 @@
+ 
+ static void     grab_focus_and_unset_draw_keyfocus   (GtkTreeView *tree_view);
+ 
++static void gtk_tree_view_row_invalidated (GtkCssNode        *node,
++                                           GtkCssStyleChange *style_change,
++                                           GtkTreeView       *tree_view);
++
+ /* Gestures */
+ static void gtk_tree_view_column_multipress_gesture_pressed (GtkGestureMultiPress *gesture,
+                                                              gint                  n_press,
+@@ -1851,6 +1863,22 @@
+   gtk_css_node_set_state (priv->header_node, gtk_css_node_get_state (widget_node));
+   g_object_unref (priv->header_node);
+ 
++  priv->even_node = gtk_css_node_new ();
++  gtk_css_node_set_name (priv->even_node, I_("row"));
++  g_signal_connect (priv->even_node, "style-changed",
++                    G_CALLBACK (gtk_tree_view_row_invalidated), tree_view);
++  gtk_css_node_insert_after (widget_node, priv->even_node, priv->header_node);
++  gtk_css_node_add_class (priv->even_node, g_quark_from_static_string ("even"));
++  gtk_css_node_set_state (priv->even_node, gtk_css_node_get_state (widget_node));
++
++  priv->odd_node = gtk_css_node_new ();
++  gtk_css_node_set_name (priv->odd_node, I_("row"));
++  g_signal_connect (priv->odd_node, "style-changed",
++                    G_CALLBACK (gtk_tree_view_row_invalidated), tree_view);
++  gtk_css_node_insert_after (widget_node, priv->odd_node, priv->even_node);
++  gtk_css_node_add_class (priv->odd_node, g_quark_from_static_string ("odd"));
++  gtk_css_node_set_state (priv->odd_node, gtk_css_node_get_state (widget_node));
++
+   priv->multipress_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (tree_view));
+   gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (priv->multipress_gesture), 0);
+   g_signal_connect (priv->multipress_gesture, "pressed",
+@@ -3123,6 +3151,15 @@
+ }
+ 
+ static void
++gtk_tree_view_row_invalidated (GtkCssNode        *node,
++                               GtkCssStyleChange *change,
++                               GtkTreeView       *tree_view)
++{
++  if (gtk_css_style_change_affects (change, GTK_CSS_AFFECTS_REDRAW))
++    gtk_widget_queue_draw (GTK_WIDGET (tree_view));
++}
++
++static void
+ gtk_tree_view_multipress_gesture_pressed (GtkGestureMultiPress *gesture,
+                                           gint                  n_press,
+                                           gdouble               x,
+@@ -5266,8 +5303,13 @@
+ 						   GTK_RBNODE_FLAG_SET (node, GTK_RBNODE_IS_PARENT),
+ 						   node->children?TRUE:FALSE);
+ 
+-          gtk_style_context_save (context);
++          if (_gtk_rbtree_node_get_index (tree, node) % 2) {
++            gtk_style_context_save_to_node (context, tree_view->priv->odd_node);
++          } else {
++            gtk_style_context_save_to_node (context, tree_view->priv->even_node);
++          }
+ 
++          gtk_style_context_save (context);
+           state = gtk_cell_renderer_get_state (NULL, widget, flags);
+           gtk_style_context_set_state (context, state);
+ 
+@@ -5455,6 +5497,7 @@
+ 	    }
+ 
+           gtk_style_context_restore (context);
++          gtk_style_context_restore (context);
+ 	  cell_offset += gtk_tree_view_column_get_width (column);
+ 	}
+ 
+diff -ru gtk3.ORIG/src/gtk/gtk/theme/Adwaita/_common.scss gtk3/src/gtk/gtk/theme/Adwaita/_common.scss
+--- gtk3.ORIG/src/gtk/gtk/theme/Adwaita/_common.scss	2018-06-13 01:21:58.212165308 -0700
++++ gtk3/src/gtk/gtk/theme/Adwaita/_common.scss	2018-06-13 01:21:59.658846770 -0700
+@@ -3609,6 +3609,8 @@
+ 
+ row {
+   transition: all 150ms $ease-out-quad;
++  color: $text_color;
++  background-color: $base_color;
+ 
+   &:hover { transition: none; }
+ 

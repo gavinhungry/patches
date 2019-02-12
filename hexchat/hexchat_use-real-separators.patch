@@ -1,0 +1,33 @@
+diff -ru hexchat.ORIG/src/hexchat/src/fe-gtk/menu.c hexchat/src/hexchat/src/fe-gtk/menu.c
+--- hexchat.ORIG/src/hexchat/src/fe-gtk/menu.c	2017-03-24 14:46:09.860589023 -0700
++++ hexchat/src/hexchat/src/fe-gtk/menu.c	2017-03-24 14:57:29.304967723 -0700
+@@ -269,7 +269,7 @@
+ 	char *path;
+ 
+ 	if (!label)
+-		item = gtk_menu_item_new ();
++		item = gtk_separator_menu_item_new ();
+ 	else
+ 	{
+ 		if (icon)
+@@ -2435,7 +2435,7 @@
+ 			goto togitem;
+ 
+ 		case M_SEP:
+-			item = gtk_menu_item_new ();
++			item = gtk_separator_menu_item_new ();
+ 			gtk_widget_set_sensitive (item, FALSE);
+ 			gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+ 			gtk_widget_show (item);
+diff -ru hexchat.ORIG/src/hexchat/src/fe-gtk/plugin-tray.c hexchat/src/hexchat/src/fe-gtk/plugin-tray.c
+--- hexchat.ORIG/src/hexchat/src/fe-gtk/plugin-tray.c	2017-03-24 14:46:09.860589023 -0700
++++ hexchat/src/hexchat/src/fe-gtk/plugin-tray.c	2017-03-24 14:57:37.544773660 -0700
+@@ -455,7 +455,7 @@
+ 	if (label)
+ 		item = gtk_menu_item_new_with_mnemonic (label);
+ 	else
+-		item = gtk_menu_item_new ();
++		item = gtk_separator_menu_item_new ();
+ 	gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+ 	g_signal_connect (G_OBJECT (item), "activate",
+ 							G_CALLBACK (callback), userdata);

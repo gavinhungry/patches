@@ -1,0 +1,12 @@
+diff -ru exo.ORIG/src/exo-0.12.4/exo-helper/main.c exo/src/exo-0.12.4/exo-helper/main.c
+--- exo.ORIG/src/exo-0.12.4/exo-helper/main.c	2013-07-20 03:17:24.444236284 -0700
++++ exo/src/exo-0.12.4/exo-helper/main.c	2013-07-20 03:17:30.287569440 -0700
+@@ -193,7 +193,7 @@
+       if (G_LIKELY (helper != NULL))
+         {
+           /* try to execute the helper with the given parameter */
+-          if (!exo_helper_execute (helper, NULL, (argc > 1) ? argv[1] : NULL, &error))
++          if (!exo_helper_execute (helper, NULL, (argc > 1) ? argv[1] : NULL, &error) && 0)
+             {
+               dialog = gtk_message_dialog_new (NULL, 0, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+                                                "%s.", _(CATEGORY_EXEC_ERRORS[category]));

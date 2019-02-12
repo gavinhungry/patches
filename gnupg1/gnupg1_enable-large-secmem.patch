@@ -1,0 +1,13 @@
+diff -ru gnupg1.ORIG/PKGBUILD gnupg1/PKGBUILD
+--- gnupg1.ORIG/PKGBUILD	2016-12-27 21:58:42.809347461 -0800
++++ gnupg1/PKGBUILD	2016-12-27 21:59:42.407920489 -0800
+@@ -23,7 +23,8 @@
+   cd "${srcdir}/${pkgname_}-${pkgver}"
+   ./configure --prefix=/usr \
+ 	--libexecdir=/usr/lib \
+-	--enable-noexecstack
++	--enable-noexecstack \
++	--enable-large-secmem
+   make
+ 
+ # Further options to prevent DNS leaks when working with TOR
