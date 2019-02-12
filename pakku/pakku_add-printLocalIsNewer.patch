@@ -1,6 +1,6 @@
 diff -ru pakku.ORIG/src/pakku-0.13/doc/pakku.conf.5.in pakku/src/pakku-0.13/doc/pakku.conf.5.in
---- pakku.ORIG/src/pakku-0.13/doc/pakku.conf.5.in	2019-02-06 22:13:44.796078050 -0800
-+++ pakku/src/pakku-0.13/doc/pakku.conf.5.in	2019-02-06 22:18:54.220641997 -0800
+--- pakku.ORIG/src/pakku-0.13/doc/pakku.conf.5.in	2019-02-12 11:50:17.611708861 -0800
++++ pakku/src/pakku-0.13/doc/pakku.conf.5.in	2019-02-12 11:50:17.618375302 -0800
 @@ -78,6 +78,11 @@
  Print warnings during upgrade operation when foreign packages were not found in AUR\&.
  .RE
@@ -14,8 +14,8 @@ diff -ru pakku.ORIG/src/pakku-0.13/doc/pakku.conf.5.in pakku/src/pakku-0.13/doc/
  .RS 4
  Automatically exec the program from root via sudo if it is necessary, allowing you to enter password for sudo only once\&.
 diff -ru pakku.ORIG/src/pakku-0.13/pakku.conf pakku/src/pakku-0.13/pakku.conf
---- pakku.ORIG/src/pakku-0.13/pakku.conf	2019-02-06 22:13:44.796078050 -0800
-+++ pakku/src/pakku-0.13/pakku.conf	2019-02-06 22:18:54.220641997 -0800
+--- pakku.ORIG/src/pakku-0.13/pakku.conf	2019-02-12 11:50:17.611708861 -0800
++++ pakku/src/pakku-0.13/pakku.conf	2019-02-12 11:50:17.618375302 -0800
 @@ -9,6 +9,7 @@
  CheckIgnored
  #IgnoreArch
@@ -25,8 +25,8 @@ diff -ru pakku.ORIG/src/pakku-0.13/pakku.conf pakku/src/pakku-0.13/pakku.conf
  #ViewNoDefault
  
 diff -ru pakku.ORIG/src/pakku-0.13/src/config.nim pakku/src/pakku-0.13/src/config.nim
---- pakku.ORIG/src/pakku-0.13/src/config.nim	2019-02-06 22:13:44.799411468 -0800
-+++ pakku/src/pakku-0.13/src/config.nim	2019-02-06 22:18:54.220641997 -0800
+--- pakku.ORIG/src/pakku-0.13/src/config.nim	2019-02-12 11:50:17.611708861 -0800
++++ pakku/src/pakku-0.13/src/config.nim	2019-02-12 11:50:17.618375302 -0800
 @@ -47,6 +47,7 @@
      checkIgnored*: bool
      ignoreArch*: bool
@@ -55,8 +55,8 @@ diff -ru pakku.ORIG/src/pakku-0.13/src/config.nim pakku/src/pakku-0.13/src/confi
  template withAlpmConfig*(config: Config, passDbs: bool,
    handle: untyped, alpmDbs: untyped, errors: untyped, body: untyped): untyped =
 diff -ru pakku.ORIG/src/pakku-0.13/src/feature/syncinstall.nim pakku/src/pakku-0.13/src/feature/syncinstall.nim
---- pakku.ORIG/src/pakku-0.13/src/feature/syncinstall.nim	2019-02-06 22:13:44.799411468 -0800
-+++ pakku/src/pakku-0.13/src/feature/syncinstall.nim	2019-02-06 22:19:25.641447090 -0800
+--- pakku.ORIG/src/pakku-0.13/src/feature/syncinstall.nim	2019-02-12 11:50:17.615042081 -0800
++++ pakku/src/pakku-0.13/src/feature/syncinstall.nim	2019-02-12 11:50:17.618375302 -0800
 @@ -1032,7 +1032,7 @@
          not rpcInfoTable.hasKey(inst.name):
          printWarning(config.color, tr"$# was not found in AUR" % [inst.name])
