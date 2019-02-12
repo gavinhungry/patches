@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PATCHES_DIR=$(dirname $(realpath $0))
-PKG_SRC_DIR=${PATCHES_DIR}/../packages
+PACKAGES_DIR=${PATCHES_DIR}/../packages
 
 source "$PATCHES_DIR"/.abash/abash.sh
 
@@ -29,7 +29,7 @@ getPkgbuildDir() {
   local PATCH=${PATCHES[0]}
 
   local PKGBUILD_DIR=$(cat "$PATCH" | grep ^diff | head -n1 | sed 's/.*\s\(.*\)\.ORIG\/.*/\1/')
-  cd "$PKG_SRC_DIR/$PKGBUILD_DIR" &> /dev/null || return
+  cd "$PACKAGES_DIR/$PKGBUILD_DIR" &> /dev/null || return
 
   pwd
 }
@@ -150,7 +150,7 @@ hardUpdatePkg() {
   fi
 
   local PARENT_DIR=$(basename $(realpath ${PKGBUILD_DIR}/..))
-  cd "$PKG_SRC_DIR"
+  cd "$PACKAGES_DIR"
 
   rm -fr "$PKGBUILD_DIR".ORIG
   cp -r "$PKGBUILD_DIR" "$PKGBUILD_DIR".ORIG
@@ -208,7 +208,7 @@ patchPkg() {
     return
   fi
 
-  cd "$PKG_SRC_DIR"
+  cd "$PACKAGES_DIR"
 
   local PATCHES="$PATCHES_DIR"/$PKG/*.patch
   for PATCH in ${PATCHES[@]}; do
