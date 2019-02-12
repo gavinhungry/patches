@@ -1,7 +1,7 @@
 diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-dialogs.c thunar/src/Thunar-1.8.4/thunar/thunar-dialogs.c
---- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-dialogs.c	2018-09-26 13:48:34.220084548 -0700
-+++ thunar/src/Thunar-1.8.4/thunar/thunar-dialogs.c	2018-09-26 13:48:34.423420541 -0700
-@@ -66,7 +66,6 @@
+--- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-dialogs.c	2019-02-12 11:51:06.176743199 -0800
++++ thunar/src/Thunar-1.8.4/thunar/thunar-dialogs.c	2019-02-12 11:51:06.696725834 -0800
+@@ -74,7 +74,6 @@
    ThunarJob         *job = NULL;
    GtkWidget         *dialog;
    GtkWidget         *entry;
@@ -9,7 +9,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-dialogs.c thunar/src/Thunar-
    GtkWidget         *image;
    GtkWidget         *grid;
    GtkWindow         *window;
-@@ -107,31 +106,25 @@
+@@ -114,31 +113,25 @@
  
    grid = gtk_grid_new ();
    gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
@@ -47,7 +47,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-dialogs.c thunar/src/Thunar-
    entry = gtk_entry_new ();
    gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
    gtk_widget_set_hexpand (entry, TRUE);
-@@ -176,7 +169,7 @@
+@@ -171,7 +164,7 @@
      }
  
    /* resize the dialog to make long names fit as much as possible */

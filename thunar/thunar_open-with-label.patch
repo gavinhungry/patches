@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-launcher.c thunar/src/Thunar-1.8.4/thunar/thunar-launcher.c
---- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-launcher.c	2018-09-26 13:48:34.220084548 -0700
-+++ thunar/src/Thunar-1.8.4/thunar/thunar-launcher.c	2018-09-26 13:48:35.043428652 -0700
+--- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-launcher.c	2019-02-12 11:51:06.190076087 -0800
++++ thunar/src/Thunar-1.8.4/thunar/thunar-launcher.c	2019-02-12 11:51:08.596662402 -0800
 @@ -176,9 +176,9 @@
    { "open", "document-open", N_ ("_Open"), "<control>O", NULL, G_CALLBACK (thunar_launcher_action_open), },
    { "open-in-new-tab", NULL, N_ ("Open in New _Tab"), "<control><shift>P", NULL, G_CALLBACK (thunar_launcher_action_open_in_new_tab), },
