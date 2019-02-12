@@ -1,0 +1,23 @@
+diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-notify.c thunar/src/Thunar-1.8.4/thunar/thunar-notify.c
+--- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-notify.c	2018-09-26 13:48:34.220084548 -0700
++++ thunar/src/Thunar-1.8.4/thunar/thunar-notify.c	2018-09-26 13:48:35.286765170 -0700
+@@ -174,8 +174,7 @@
+     {
+       summary = _("Writing data to device");
+       message = g_strdup_printf (_("There is data that needs to be written to the "
+-                                   "device \"%s\" before it can be removed. Please "
+-                                   "do not remove the media or disconnect the drive"),
++                                   "device \"%s\" before it can be removed."),
+                                    name);
+     }
+ 
+@@ -213,8 +212,7 @@
+     {
+       summary = _("Writing data to device");
+       message = g_strdup_printf (_("There is data that needs to be written to the "
+-                                   "device \"%s\" before it can be removed. Please "
+-                                   "do not remove the media or disconnect the drive"),
++                                   "device \"%s\" before it can be removed."),
+                                    name);
+     }
+ 

@@ -1,0 +1,12 @@
+diff -ru batterymon-clone.ORIG/src/batterymon-clone/batterymon batterymon-clone/src/batterymon-clone/batterymon
+--- batterymon-clone.ORIG/src/batterymon-clone/batterymon	2016-12-23 12:42:16.587823781 -0800
++++ batterymon-clone/src/batterymon-clone/batterymon	2016-12-23 12:44:55.528547817 -0800
+@@ -497,7 +497,7 @@
+         if hours == 0 and minutes == 0:
+             return "Less than a minute"
+         else:
+-            return self.__format_time(hours, "Hour", "Hours") + " " + self.__format_time(minutes, "Minute", "Minutes")
++            return self.__format_time(hours, "hour", "hours") + " " + self.__format_time(minutes, "minute", "minutes")
+ 
+     def __format_time(self, time, singular, plural):
+         if time == 0:

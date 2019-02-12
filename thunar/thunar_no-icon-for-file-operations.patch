@@ -1,0 +1,23 @@
+diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-progress-dialog.c thunar/src/Thunar-1.8.4/thunar/thunar-progress-dialog.c
+--- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-progress-dialog.c	2018-09-26 13:48:34.223417924 -0700
++++ thunar/src/Thunar-1.8.4/thunar/thunar-progress-dialog.c	2018-09-26 13:48:34.853426167 -0700
+@@ -152,19 +152,6 @@
+ thunar_progress_dialog_shown (ThunarProgressDialog *dialog)
+ {
+   _thunar_return_if_fail (THUNAR_IS_PROGRESS_DIALOG (dialog));
+-
+-  /* show the status icon */
+-  if (dialog->status_icon == NULL)
+-    {
+-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+-      dialog->status_icon = gtk_status_icon_new_from_icon_name ("edit-copy");
+-G_GNUC_END_IGNORE_DEPRECATIONS
+-
+-      thunar_progress_dialog_update_status_icon (dialog);
+-      g_signal_connect_swapped (dialog->status_icon, "button-press-event",
+-                                G_CALLBACK (thunar_progress_dialog_toggled),
+-                                GTK_WIDGET (dialog));
+-    }
+ }
+ 
+ 

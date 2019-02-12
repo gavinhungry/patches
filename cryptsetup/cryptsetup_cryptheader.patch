@@ -1,0 +1,65 @@
+diff -ru cryptsetup.ORIG/hooks-encrypt cryptsetup/hooks-encrypt
+--- cryptsetup.ORIG/hooks-encrypt	2018-01-07 22:35:04.514626428 -0800
++++ cryptsetup/hooks-encrypt	2018-01-07 22:35:04.537959293 -0800
+@@ -33,6 +33,29 @@
+         [ ! -f ${ckeyfile} ] && echo "Keyfile could not be opened. Reverting to passphrase."
+     fi
+ 
++    # support detached headers
++    cheaderfile="/crypto_header"
++    if [ -n "$cryptheader" ]; then
++        IFS=: read chdev chfs chpath <<EOF
++$cryptheader
++EOF
++        if [ "$chdev" = "rootfs" ]; then
++            cheaderfile=$chpath
++        elif resolved=$(resolve_device "${chdev}" ${rootdelay}); then
++            # Use a file on the device
++            mkdir /cheader
++            mount -r -t "$chfs" "$resolved" /cheader
++            dd if="/cheader/$chpath" of="$cheaderfile" >/dev/null 2>&1
++            umount /cheader
++        fi
++
++        if [ -f ${cheaderfile} ]; then
++            cryptargs="${cryptargs} --header ${cheaderfile}"
++        else
++            echo "Detached header could not be opened. Ignoring."
++        fi
++    fi
++
+     if [ -n "${cryptdevice}" ]; then
+         DEPRECATED_CRYPT=0
+         IFS=: read cryptdev cryptname cryptoptions <<EOF
+@@ -67,7 +90,7 @@
+     done
+ 
+     if resolved=$(resolve_device "${cryptdev}" ${rootdelay}); then
+-        if cryptsetup isLuks ${resolved} >/dev/null 2>&1; then
++        if (cryptsetup isLuks ${resolved} >/dev/null 2>&1 || cryptsetup isLuks ${cheaderfile} >/dev/null 2>&1); then
+             [ ${DEPRECATED_CRYPT} -eq 1 ] && warn_deprecated
+             dopassphrase=1
+             # If keyfile exists, try to use that
+@@ -80,9 +103,7 @@
+             fi
+             # Ask for a passphrase
+             if [ ${dopassphrase} -gt 0 ]; then
+-                echo ""
+-                echo "A password is required to access the ${cryptname} volume:"
+-
++                echo -e "\033[2J\033[1;1H"
+                 #loop until we get a real password
+                 while ! eval cryptsetup open --type luks ${resolved} ${cryptname} ${cryptargs} ${CSQUIET}; do
+                     sleep 2;
+@@ -137,8 +158,10 @@
+         else
+             err "Failed to open encryption mapping: The device ${cryptdev} is not a LUKS volume and the crypto= paramater was not specified."
+         fi
++    else
++        err "Could not resolve encryption device: ${cryptdev}"
+     fi
+-    rm -f ${ckeyfile}
++    rm -f ${ckeyfile} ${cheaderfile}
+ }
+ 
+ # vim: set ft=sh ts=4 sw=4 et:

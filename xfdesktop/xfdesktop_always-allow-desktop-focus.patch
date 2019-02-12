@@ -1,0 +1,12 @@
+diff -ru xfdesktop.ORIG/src/xfdesktop-4.12.4/src/xfdesktop-icon-view.c xfdesktop/src/xfdesktop-4.12.4/src/xfdesktop-icon-view.c
+--- xfdesktop.ORIG/src/xfdesktop-4.12.4/src/xfdesktop-icon-view.c	2015-03-10 10:22:43.257771914 -0700
++++ xfdesktop/src/xfdesktop-4.12.4/src/xfdesktop-icon-view.c	2015-03-10 10:23:27.028358887 -0700
+@@ -2022,7 +2022,7 @@
+     GdkScreen *gscreen;
+     GdkWindow *groot;
+     
+-    gtk_window_set_accept_focus(GTK_WINDOW(icon_view->priv->parent_window), FALSE);
++    gtk_window_set_accept_focus(GTK_WINDOW(icon_view->priv->parent_window), TRUE);
+     
+     gscreen = gtk_widget_get_screen(widget);
+     groot = gdk_screen_get_root_window(gscreen);

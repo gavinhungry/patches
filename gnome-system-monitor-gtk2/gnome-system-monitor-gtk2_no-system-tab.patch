@@ -1,0 +1,41 @@
+diff -ru gnome-system-monitor-gtk2.ORIG/src/gnome-system-monitor-2.28.2/src/interface.cpp gnome-system-monitor-gtk2/src/gnome-system-monitor-2.28.2/src/interface.cpp
+--- gnome-system-monitor-gtk2.ORIG/src/gnome-system-monitor-2.28.2/src/interface.cpp	2012-10-02 15:50:04.538479293 -0700
++++ gnome-system-monitor-gtk2/src/gnome-system-monitor-2.28.2/src/interface.cpp	2012-10-02 15:50:28.309097224 -0700
+@@ -686,9 +686,7 @@
+ 	                    TRUE, 
+ 	                    0);
+ 
+-	sysinfo_box = gtk_hbox_new(TRUE, 0); // procman_create_sysinfo_view();
+-	sysinfo_label = gtk_label_new(_("System"));
+-	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), sysinfo_box, sysinfo_label);
++	gtk_container_set_border_width (GTK_CONTAINER (notebook), 5);
+ 
+ 	vbox1 = create_proc_view (procdata);
+ 	tab_label1 = gtk_label_new (_("Processes"));
+@@ -708,8 +706,8 @@
+ 			  G_CALLBACK (cb_change_current_page), procdata);
+ 
+ 	gtk_widget_show_all(notebook); // need to make page switch work
+-	gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), procdata->config.current_tab);
+-	cb_change_current_page (GTK_NOTEBOOK (notebook), procdata->config.current_tab, procdata);
++	gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), PROCMAN_TAB_RESOURCES);
++	cb_change_current_page (GTK_NOTEBOOK (notebook), PROCMAN_TAB_RESOURCES, procdata);
+ 	g_signal_connect (G_OBJECT (app), "delete_event",
+                           G_CALLBACK (cb_app_delete),
+                           procdata);
+diff -ru gnome-system-monitor-gtk2.ORIG/src/gnome-system-monitor-2.28.2/src/procman.h gnome-system-monitor-gtk2/src/gnome-system-monitor-2.28.2/src/procman.h
+--- gnome-system-monitor-gtk2.ORIG/src/gnome-system-monitor-2.28.2/src/procman.h	2012-10-02 15:50:04.538479293 -0700
++++ gnome-system-monitor-gtk2/src/gnome-system-monitor-2.28.2/src/procman.h	2012-10-02 15:50:05.888514386 -0700
+@@ -61,10 +61,10 @@
+ 
+ enum ProcmanTab
+ {
+-	PROCMAN_TAB_SYSINFO,
+ 	PROCMAN_TAB_PROCESSES,
+ 	PROCMAN_TAB_RESOURCES,
+-	PROCMAN_TAB_DISKS
++	PROCMAN_TAB_DISKS,
++	PROCMAN_TAB_SYSINFO
+ };
+ 
+ 

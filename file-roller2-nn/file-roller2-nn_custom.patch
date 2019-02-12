@@ -1,0 +1,92 @@
+diff -ru file-roller2-nn.ORIG/src/file-roller-2.32.2/src/fr-window.c file-roller2-nn/src/file-roller-2.32.2/src/fr-window.c
+--- file-roller2-nn.ORIG/src/file-roller-2.32.2/src/fr-window.c	2014-07-25 11:35:39.689454863 -0700
++++ file-roller2-nn/src/file-roller-2.32.2/src/fr-window.c	2014-07-25 11:38:58.866118289 -0700
+@@ -62,7 +62,7 @@
+ #define MAX_MESSAGE_LENGTH 50
+ 
+ #define PROGRESS_DIALOG_DEFAULT_WIDTH 400
+-#define PROGRESS_TIMEOUT_MSECS 5000
++#define PROGRESS_TIMEOUT_MSECS 2000
+ #define PROGRESS_BAR_HEIGHT 10
+ #undef  LOG_PROGRESS
+ 
+@@ -75,9 +75,6 @@
+ #define DEF_WIN_HEIGHT 480
+ #define DEF_SIDEBAR_WIDTH 200
+ 
+-#define FILE_LIST_ICON_SIZE GTK_ICON_SIZE_LARGE_TOOLBAR
+-#define DIR_TREE_ICON_SIZE GTK_ICON_SIZE_MENU
+-
+ #define BAD_CHARS "/\\*"
+ 
+ static GHashTable     *pixbuf_hash = NULL;
+@@ -2768,12 +2765,13 @@
+ #endif
+ 
+ 	message = get_message_from_action (action);
+-	full_msg = g_strdup_printf ("%s, %s", message, _("please wait..."));
++	full_msg = g_strdup_printf ("%s, %s", message, _("please wait ..."));
+ 	fr_window_push_message (window, full_msg);
+ 
+ 	switch (action) {
+ 	case FR_ACTION_EXTRACTING_FILES:
+-		open_progress_dialog (window, window->priv->ask_to_open_destination_after_extraction || window->priv->convert_data.converting || window->priv->batch_mode);
++		/*open_progress_dialog (window, window->priv->ask_to_open_destination_after_extraction || window->priv->convert_data.converting || window->priv->batch_mode);*/
++		open_progress_dialog (window, TRUE);
+ 		break;
+ 	default:
+ 		open_progress_dialog (window, window->priv->batch_mode);
+@@ -5013,12 +5011,12 @@
+ 	int icon_width, icon_height;
+ 
+ 	gtk_icon_size_lookup_for_settings (gtk_widget_get_settings (GTK_WIDGET (window)),
+-					   FILE_LIST_ICON_SIZE,
++					   gtk_icon_size_from_name("FR_FILE_LIST_ICON_SIZE"),
+ 					   &icon_width, &icon_height);
+ 	file_list_icon_size = MAX (icon_width, icon_height);
+ 
+ 	gtk_icon_size_lookup_for_settings (gtk_widget_get_settings (GTK_WIDGET (window)),
+-					   DIR_TREE_ICON_SIZE,
++					   gtk_icon_size_from_name("FR_DIR_TREE_ICON_SIZE"),
+ 					   &icon_width, &icon_height);
+ 	dir_tree_icon_size = MAX (icon_width, icon_height);
+ 
+@@ -5408,13 +5406,16 @@
+ 				  G_CALLBACK (theme_changed_cb),
+ 				  window);
+ 
++	gtk_icon_size_register("FR_FILE_LIST_ICON_SIZE", 24, 24);
++	gtk_icon_size_register("FR_DIR_TREE_ICON_SIZE", 24, 24);
++
+ 	gtk_icon_size_lookup_for_settings (gtk_widget_get_settings (GTK_WIDGET (window)),
+-					   FILE_LIST_ICON_SIZE,
++					   gtk_icon_size_from_name("FR_FILE_LIST_ICON_SIZE"),
+ 					   &icon_width, &icon_height);
+ 	file_list_icon_size = MAX (icon_width, icon_height);
+ 
+ 	gtk_icon_size_lookup_for_settings (gtk_widget_get_settings (GTK_WIDGET (window)),
+-					   DIR_TREE_ICON_SIZE,
++					   gtk_icon_size_from_name("FR_DIR_TREE_ICON_SIZE"),
+ 					   &icon_width, &icon_height);
+ 	dir_tree_icon_size = MAX (icon_width, icon_height);
+ 
+@@ -5805,16 +5806,16 @@
+ 
+ 	window->priv->location_bar = gtk_ui_manager_get_widget (ui, "/LocationBar");
+ 	gtk_toolbar_set_show_arrow (GTK_TOOLBAR (window->priv->location_bar), FALSE);
+-	gtk_toolbar_set_style (GTK_TOOLBAR (window->priv->location_bar), GTK_TOOLBAR_BOTH_HORIZ);
++	/*gtk_toolbar_set_style (GTK_TOOLBAR (window->priv->location_bar), GTK_TOOLBAR_BOTH_HORIZ);*/
+ 	set_action_important (ui, "/LocationBar/GoBack");
+ 
+ 	/* current location */
+ 
+ 	location_box = gtk_hbox_new (FALSE, 6);
+ 	/* Translators: after the colon there is a folder name. */
+-	window->priv->location_label = gtk_label_new_with_mnemonic (_("_Location:"));
++	/*window->priv->location_label = gtk_label_new_with_mnemonic (_("_Location:"));
+ 	gtk_box_pack_start (GTK_BOX (location_box),
+-			    window->priv->location_label, FALSE, FALSE, 5);
++			    window->priv->location_label, FALSE, FALSE, 5);*/
+ 
+ 	window->priv->location_entry = gtk_entry_new ();
+ 	gtk_entry_set_icon_from_stock (GTK_ENTRY (window->priv->location_entry),

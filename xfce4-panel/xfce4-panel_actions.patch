@@ -1,0 +1,41 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.12.2/plugins/actions/actions.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/actions/actions.c	2017-06-16 16:11:18.285112502 -0700
++++ xfce4-panel/src/xfce4-panel-4.12.2/plugins/actions/actions.c	2017-06-16 16:11:18.315111827 -0700
+@@ -1079,7 +1079,7 @@
+   GtkWidget           *label;
+   GtkWidget           *button;
+   GtkWidget           *widget;
+-  const gchar         *username;
++  gchar               hostname[128];
+   GtkWidget           *child;
+   GtkWidget           *box;
+   guint                i;
+@@ -1143,16 +1143,8 @@
+     }
+   else
+     {
+-      /* get a decent username, not the glib defaults */
+-      username = g_get_real_name ();
+-      if (exo_str_is_empty (username)
+-          || strcmp (username, "Unknown") == 0)
+-        {
+-          username = g_get_user_name ();
+-          if (exo_str_is_empty (username)
+-              || strcmp (username, "somebody") == 0)
+-            username = _("John Doe");
+-        }
++      gethostname(hostname, sizeof hostname);
++      hostname[0] = toupper(hostname[0]);
+ 
+       button = xfce_arrow_button_new (GTK_ARROW_NONE);
+       gtk_widget_set_name (button, "actions-button");
+@@ -1163,7 +1155,8 @@
+           G_CALLBACK (actions_plugin_menu), plugin);
+       gtk_widget_show (button);
+ 
+-      label = gtk_label_new (username);
++      label = gtk_label_new (hostname);
++      gtk_widget_modify_font (GTK_LABEL (label), pango_font_description_from_string ("semibold"));
+       gtk_container_add (GTK_CONTAINER (button), label);
+       mode = xfce_panel_plugin_get_mode (XFCE_PANEL_PLUGIN (plugin));
+       gtk_label_set_angle (GTK_LABEL (label),

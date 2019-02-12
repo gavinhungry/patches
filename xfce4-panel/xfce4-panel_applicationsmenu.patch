@@ -1,0 +1,31 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/applicationsmenu/applicationsmenu.c xfce4-panel/src/xfce4-panel-4.12.2/plugins/applicationsmenu/applicationsmenu.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/applicationsmenu/applicationsmenu.c	2017-06-16 16:11:18.285112502 -0700
++++ xfce4-panel/src/xfce4-panel-4.12.2/plugins/applicationsmenu/applicationsmenu.c	2017-06-16 16:11:18.461775194 -0700
+@@ -222,7 +222,9 @@
+   gtk_widget_show (plugin->icon);
+ 
+   plugin->label = gtk_label_new (DEFAULT_TITLE);
+-  gtk_box_pack_start (GTK_BOX (plugin->box), plugin->label, FALSE, FALSE, 0);
++  gtk_widget_modify_font (GTK_LABEL (plugin->label), pango_font_description_from_string ("semibold"));
++  gtk_box_pack_start (GTK_BOX (plugin->box), plugin->label, TRUE, TRUE, 0);
++
+   plugin->show_button_title = TRUE;
+   gtk_widget_show (plugin->label);
+ 
+@@ -322,10 +324,14 @@
+ 
+     case PROP_SHOW_BUTTON_TITLE:
+       plugin->show_button_title = g_value_get_boolean (value);
+-      if (plugin->show_button_title)
++      if (plugin->show_button_title) {
+         gtk_widget_show (plugin->label);
+-      else
++        gtk_widget_hide (plugin->icon);
++      } else {
+         gtk_widget_hide (plugin->label);
++        gtk_widget_show (plugin->icon);
++      }
++
+       applications_menu_plugin_size_changed (XFCE_PANEL_PLUGIN (plugin),
+           xfce_panel_plugin_get_size (XFCE_PANEL_PLUGIN (plugin)));
+       return;

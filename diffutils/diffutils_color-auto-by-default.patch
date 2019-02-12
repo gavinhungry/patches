@@ -1,0 +1,19 @@
+diff -ru diffutils.ORIG/src/diffutils-3.7/src/diff.h diffutils/src/diffutils-3.7/src/diff.h
+--- diffutils.ORIG/src/diffutils-3.7/src/diff.h	2018-03-20 00:28:37.365520865 -0700
++++ diffutils/src/diffutils-3.7/src/diff.h	2018-03-20 00:29:00.119991772 -0700
+@@ -42,12 +42,12 @@
+ /* When colors should be used in the output.  */
+ enum colors_style
+ {
+-  /* Never output colors.  */
+-  NEVER,
+-
+   /* Output colors if the output is a terminal.  */
+   AUTO,
+ 
++  /* Never output colors.  */
++  NEVER,
++
+   /* Always output colors.  */
+   ALWAYS,
+ };

@@ -1,0 +1,12 @@
+diff -ru sha3sum.ORIG/src/sha3sum-1.1.5/common.c sha3sum/src/sha3sum-1.1.5/common.c
+--- sha3sum.ORIG/src/sha3sum-1.1.5/common.c	2017-10-16 09:40:02.183491626 -0700
++++ sha3sum/src/sha3sum-1.1.5/common.c	2017-10-16 09:40:48.835636124 -0700
+@@ -429,7 +429,7 @@
+ int
+ run(int argc, char *argv[], libkeccak_generalised_spec_t *restrict gspec, const char *restrict suffix)
+ {
+-	enum representation style = REPRESENTATION_UPPER_CASE;
++	enum representation style = REPRESENTATION_LOWER_CASE;
+ 	int verbose = 0;
+ 	int hex = 0;
+ 	int check = 0;

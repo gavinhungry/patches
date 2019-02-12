@@ -1,0 +1,91 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-box.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-box.c	2017-12-14 10:22:51.358648528 -0800
++++ xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-box.c	2017-12-14 10:23:07.121673411 -0800
+@@ -36,7 +36,7 @@
+ #include "systray-box.h"
+ #include "systray-socket.h"
+ 
+-#define SPACING    (2)
++#define SPACING    (6)
+ #define OFFSCREEN  (-9999)
+ 
+ /* some icon implementations request a 1x1 size for invisible icons */
+@@ -651,8 +651,8 @@
+     return hidden_a ? 1 : -1;
+ 
+   /* sort icons by name */
+-  name_a = systray_socket_get_name (XFCE_SYSTRAY_SOCKET (a));
+-  name_b = systray_socket_get_name (XFCE_SYSTRAY_SOCKET (b));
++  name_a = systray_socket_get_sort (XFCE_SYSTRAY_SOCKET (a));
++  name_b = systray_socket_get_sort (XFCE_SYSTRAY_SOCKET (b));
+ 
+ #if GLIB_CHECK_VERSION (2, 16, 0)
+   return g_strcmp0 (name_a, name_b);
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.c xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.c	2017-12-14 10:22:51.358648528 -0800
++++ xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.c	2017-12-14 10:23:09.144967114 -0800
+@@ -56,6 +56,7 @@
+   GdkNativeWindow window;
+ 
+   gchar           *name;
++  gchar           *sort;
+ 
+   guint            is_composited : 1;
+   guint            parent_relative_bg : 1;
+@@ -102,6 +103,7 @@
+ {
+   socket->hidden = FALSE;
+   socket->name = NULL;
++  socket->sort = NULL;
+ }
+ 
+ 
+@@ -112,6 +114,7 @@
+   SystraySocket *socket = XFCE_SYSTRAY_SOCKET (object);
+ 
+   g_free (socket->name);
++  g_free (socket->sort);
+ 
+   G_OBJECT_CLASS (systray_socket_parent_class)->finalize (object);
+ }
+@@ -420,6 +423,28 @@
+ }
+ 
+ 
++
++const gchar *
++systray_socket_get_sort (SystraySocket *socket)
++{
++  panel_return_val_if_fail (XFCE_IS_SYSTRAY_SOCKET (socket), NULL);
++
++  socket->name = systray_socket_get_name(socket);
++  socket->sort = g_strdup(socket->name);
++
++  if (!g_strcmp0(socket->sort, "hexchat")) { g_strlcpy(socket->sort, "zzzzz00", 8); }
++  else if (!g_strcmp0(socket->sort, "pidgin")) { g_strlcpy(socket->sort, "zzzzz10", 8); }
++  else if (!g_strcmp0(socket->sort, "dropbox-tray")) { g_strlcpy(socket->sort, "zzzzz20", 8); }
++  else if (!g_strcmp0(socket->sort, "parcellite")) { g_strlcpy(socket->sort, "zzzzz30", 8); }
++  else if (!g_strcmp0(socket->sort, "blueman-applet")) { g_strlcpy(socket->sort, "zzzzz40", 8); }
++  else if (!g_strcmp0(socket->sort, "networkmanager applet")) { g_strlcpy(socket->sort, "zzzzz50", 8); }
++  else if (!g_strcmp0(socket->sort, "batterymon")) { g_strlcpy(socket->sort, "zzzzz60", 8); }
++  else if (!g_strcmp0(socket->sort, "volatile")) { g_strlcpy(socket->sort, "zzzzz70", 8); }
++
++  return socket->sort;
++}
++
++
+ 
+ GdkNativeWindow *
+ systray_socket_get_window (SystraySocket *socket)
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.h xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.h
+--- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.h	2017-12-14 10:22:51.358648528 -0800
++++ xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.h	2017-12-14 10:23:11.034930087 -0800
+@@ -47,6 +47,8 @@
+ 
+ const gchar     *systray_socket_get_name      (SystraySocket   *socket);
+ 
++const gchar     *systray_socket_get_sort      (SystraySocket   *socket);
++
+ GdkNativeWindow *systray_socket_get_window    (SystraySocket   *socket);
+ 
+ gboolean         systray_socket_get_hidden    (SystraySocket   *socket);
