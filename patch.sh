@@ -159,7 +159,7 @@ hardUpdatePkg() {
   local PATCHES="$PATCHES_DIR"/$PKG/*.patch
   for PATCH in ${PATCHES[@]}; do
     patch -Ns -r - -p0 --no-backup-if-mismatch < "$PATCH"
-    diff -ru "$PARENT_DIR"/$PKG.ORIG "$PARENT_DIR"/$PKG > "$PATCH"
+    diff -ru "$PKG.ORIG" "$PKG" > "$PATCH"
 
     rm -fr "$PKGBUILD_DIR"
     cp -r "$PKGBUILD_DIR".ORIG "$PKGBUILD_DIR"
