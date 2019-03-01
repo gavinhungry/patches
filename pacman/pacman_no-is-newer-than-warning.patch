@@ -1,6 +1,6 @@
-diff -ru pacman.ORIG/src/pacman-5.1.2/src/pacman/util.c pacman/src/pacman-5.1.2/src/pacman/util.c
---- pacman.ORIG/src/pacman-5.1.2/src/pacman/util.c	2016-10-10 15:00:11.373525483 -0700
-+++ pacman/src/pacman-5.1.2/src/pacman/util.c	2016-10-10 15:00:11.413524612 -0700
+diff -ru pacman.ORIG/src/pacman-5.1.3/src/pacman/util.c pacman/src/pacman-5.1.3/src/pacman/util.c
+--- pacman.ORIG/src/pacman-5.1.3/src/pacman/util.c	2016-10-10 15:00:11.373525483 -0700
++++ pacman/src/pacman-5.1.3/src/pacman/util.c	2016-10-10 15:00:11.413524612 -0700
 @@ -1698,6 +1698,10 @@
  					config->colstr.nocolor);
  			break;
