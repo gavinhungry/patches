@@ -1,6 +1,16 @@
+Only in pakku: .patched
+diff -ru pakku.ORIG/PKGBUILD pakku/PKGBUILD
+--- pakku.ORIG/PKGBUILD	2019-03-18 08:34:01.531442411 -0700
++++ pakku/PKGBUILD	2019-03-18 09:02:58.199023986 -0700
+@@ -26,3 +26,5 @@
+   cd "$srcdir/$pkgname-$pkgver"
+   make PREFIX='/usr' DESTDIR="$pkgdir" install
+ }
++
++[[ "$PACKAGER" != *"[p]" ]] && PACKAGER+=" [p]" || true
 diff -ru pakku.ORIG/src/pakku-0.13/doc/pakku.conf.5.in pakku/src/pakku-0.13/doc/pakku.conf.5.in
---- pakku.ORIG/src/pakku-0.13/doc/pakku.conf.5.in	2019-02-12 11:50:17.611708861 -0800
-+++ pakku/src/pakku-0.13/doc/pakku.conf.5.in	2019-02-12 11:50:17.618375302 -0800
+--- pakku.ORIG/src/pakku-0.13/doc/pakku.conf.5.in	2019-03-18 08:34:01.534775824 -0700
++++ pakku/src/pakku-0.13/doc/pakku.conf.5.in	2019-03-18 09:02:58.195690557 -0700
 @@ -78,6 +78,11 @@
  Print warnings during upgrade operation when foreign packages were not found in AUR\&.
  .RE
@@ -14,8 +24,8 @@ diff -ru pakku.ORIG/src/pakku-0.13/doc/pakku.conf.5.in pakku/src/pakku-0.13/doc/
  .RS 4
  Automatically exec the program from root via sudo if it is necessary, allowing you to enter password for sudo only once\&.
 diff -ru pakku.ORIG/src/pakku-0.13/pakku.conf pakku/src/pakku-0.13/pakku.conf
---- pakku.ORIG/src/pakku-0.13/pakku.conf	2019-02-12 11:50:17.611708861 -0800
-+++ pakku/src/pakku-0.13/pakku.conf	2019-02-12 11:50:17.618375302 -0800
+--- pakku.ORIG/src/pakku-0.13/pakku.conf	2019-03-18 08:34:01.531442411 -0700
++++ pakku/src/pakku-0.13/pakku.conf	2019-03-18 09:02:58.195690557 -0700
 @@ -9,6 +9,7 @@
  CheckIgnored
  #IgnoreArch
@@ -25,8 +35,8 @@ diff -ru pakku.ORIG/src/pakku-0.13/pakku.conf pakku/src/pakku-0.13/pakku.conf
  #ViewNoDefault
  
 diff -ru pakku.ORIG/src/pakku-0.13/src/config.nim pakku/src/pakku-0.13/src/config.nim
---- pakku.ORIG/src/pakku-0.13/src/config.nim	2019-02-12 11:50:17.611708861 -0800
-+++ pakku/src/pakku-0.13/src/config.nim	2019-02-12 11:50:17.618375302 -0800
+--- pakku.ORIG/src/pakku-0.13/src/config.nim	2019-03-18 08:34:01.534775824 -0700
++++ pakku/src/pakku-0.13/src/config.nim	2019-03-18 09:03:13.796136128 -0700
 @@ -47,6 +47,7 @@
      checkIgnored*: bool
      ignoreArch*: bool
@@ -43,20 +53,55 @@ diff -ru pakku.ORIG/src/pakku-0.13/src/config.nim pakku/src/pakku-0.13/src/confi
    let sudoExec = options.hasKey("SudoExec")
    let viewNoDefault = options.hasKey("ViewNoDefault")
    let preserveBuilt = toSeq(enumerate[PreserveBuilt]())
-@@ -179,8 +181,8 @@
-     userCacheCurrent: userCacheCurrent, tmpRootInitial: tmpRootInitial,
-     tmpRootCurrent: tmpRootCurrent, color: color, aurRepo: aurRepo, aurComments: aurComments,
-     checkIgnored: checkIgnored, ignoreArch: ignoreArch, printAurNotFound: printAurNotFound,
+@@ -170,17 +172,35 @@
+     raise commandError(trp("could not register '%s' database (%s)\n") %
+       [aurRepo, tra"wrong or NULL argument passed"], colorNeeded = some(color))
+ 
+-  Config(dbs: config.dbs, arch: config.arch, debug: config.debug,
+-    progressBar: config.progressBar, verbosePkgList: config.verbosePkgList,
+-    downloadTimeout: config.downloadTimeout, pgpKeyserver: config.pgpKeyserver,
++  Config(dbs: config.dbs,
++    arch: config.arch,
++    aurComments: aurComments,
++    aurRepo: aurRepo,
++    cache: cache,
++    checkIgnored: checkIgnored,
++    color: color,
++    db: db,
++    debug: config.debug,
+     defaultRoot: config.defaultRoot and config.sysrootOption.isNone,
+-    ignorePkgs: config.ignorePkgs, ignoreGroups: config.ignoreGroups,
+-    root: root, db: db, cache: cache, userCacheInitial: userCacheInitial,
+-    userCacheCurrent: userCacheCurrent, tmpRootInitial: tmpRootInitial,
+-    tmpRootCurrent: tmpRootCurrent, color: color, aurRepo: aurRepo, aurComments: aurComments,
+-    checkIgnored: checkIgnored, ignoreArch: ignoreArch, printAurNotFound: printAurNotFound,
 -    sudoExec: sudoExec, viewNoDefault: viewNoDefault, preserveBuilt: preserveBuilt,
 -    preBuildCommand: preBuildCommand)
-+    printLocalIsNewer: printLocalIsNewer, sudoExec: sudoExec, viewNoDefault: viewNoDefault,
-+    preserveBuilt: preserveBuilt, preBuildCommand: preBuildCommand)
++    downloadTimeout: config.downloadTimeout,
++    ignoreArch: ignoreArch,
++    ignoreGroups: config.ignoreGroups,
++    ignorePkgs: config.ignorePkgs,
++    pgpKeyserver: config.pgpKeyserver,
++    preBuildCommand: preBuildCommand,
++    preserveBuilt: preserveBuilt,
++    printAurNotFound: printAurNotFound,
++    printLocalIsNewer: printLocalIsNewer,
++    progressBar: config.progressBar,
++    root: root,
++    sudoExec: sudoExec,
++    tmpRootCurrent: tmpRootCurrent,
++    tmpRootInitial: tmpRootInitial,
++    userCacheCurrent: userCacheCurrent,
++    userCacheInitial: userCacheInitial,
++    verbosePkgList: config.verbosePkgList,
++    viewNoDefault: viewNoDefault
++  )
  
  template withAlpmConfig*(config: Config, passDbs: bool,
    handle: untyped, alpmDbs: untyped, errors: untyped, body: untyped): untyped =
 diff -ru pakku.ORIG/src/pakku-0.13/src/feature/syncinstall.nim pakku/src/pakku-0.13/src/feature/syncinstall.nim
---- pakku.ORIG/src/pakku-0.13/src/feature/syncinstall.nim	2019-02-12 11:50:17.615042081 -0800
-+++ pakku/src/pakku-0.13/src/feature/syncinstall.nim	2019-02-12 11:50:17.618375302 -0800
+--- pakku.ORIG/src/pakku-0.13/src/feature/syncinstall.nim	2019-03-18 08:34:01.538109236 -0700
++++ pakku/src/pakku-0.13/src/feature/syncinstall.nim	2019-03-18 09:02:58.195690557 -0700
 @@ -1032,7 +1032,7 @@
          not rpcInfoTable.hasKey(inst.name):
          printWarning(config.color, tr"$# was not found in AUR" % [inst.name])
