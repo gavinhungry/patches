@@ -1,0 +1,21 @@
+diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilechooserwidget.c
+--- gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-18 11:16:06.070047782 -0700
++++ gtk3/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-18 16:55:18.132228566 -0700
+@@ -431,7 +431,7 @@
+ #define DEFAULT_RECENT_FILES_LIMIT 50
+ 
+ /* Icon size for if we can't get it from the theme */
+-#define FALLBACK_ICON_SIZE 16
++#define FALLBACK_ICON_SIZE 24
+ 
+ #define PREVIEW_HBOX_SPACING 12
+ #define NUM_LINES 45
+@@ -3685,7 +3685,7 @@
+ 
+   profile_start ("start", NULL);
+ 
+-  if (gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &width, &height))
++  if (gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &width, &height))
+     priv->icon_size = MAX (width, height);
+   else
+     priv->icon_size = FALLBACK_ICON_SIZE;
