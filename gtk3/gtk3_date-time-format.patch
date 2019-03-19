@@ -1,0 +1,46 @@
+diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilechooserwidget.c
+--- gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-19 08:59:54.351066309 -0700
++++ gtk3/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-19 09:09:59.021485723 -0700
+@@ -4743,32 +4743,7 @@
+                                     0, 0, 0);
+   days_ago = g_date_time_difference (now_date, date) / G_TIME_SPAN_DAY;
+ 
+-  /* Translators: see g_date_time_format() for details on the format */
+-  if (days_ago < 1)
+-    {
+-      if (priv->show_time)
+-        format = "";
+-      else if (clock_format == CLOCK_FORMAT_24)
+-        format = _("%H:%M");
+-      else
+-        format = _("%l:%M %p");
+-    }
+-  else if (days_ago < 2)
+-    {
+-      format = _("Yesterday");
+-    }
+-  else if (days_ago < 7)
+-    {
+-      format = "%a"; /* Days from last week */
+-    }
+-  else if (g_date_time_get_year (now) == g_date_time_get_year (time))
+-    {
+-      format = _("%-e %b");
+-    }
+-  else
+-    {
+-      format = N_("%-e %b %Y");
+-    }
++  format = N_("%a %d %b %Y");
+ 
+   date_str = g_date_time_format (time, format);
+   replace_ratio (&date_str);
+@@ -4799,7 +4774,7 @@
+   if (clock_format == CLOCK_FORMAT_24)
+     format = _("%H:%M");
+   else
+-    format = _("%l:%M %p");
++    format = _("%I:%M %p");
+ 
+   date_str = g_date_time_format (time, format);
+   replace_ratio (&date_str);
