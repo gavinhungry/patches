@@ -1,0 +1,98 @@
+diff -ru gtk3.ORIG/src/gtk/gtk/gtkplacessidebar.c gtk3/src/gtk/gtk/gtkplacessidebar.c
+--- gtk3.ORIG/src/gtk/gtk/gtkplacessidebar.c	2019-03-18 11:16:06.076714626 -0700
++++ gtk3/src/gtk/gtk/gtkplacessidebar.c	2019-03-18 16:07:37.312777914 -0700
+@@ -563,33 +563,19 @@
+ static gboolean
+ recent_files_setting_is_enabled (GtkPlacesSidebar *sidebar)
+ {
+-  GtkSettings *settings;
+-  gboolean enabled;
+-
+-  settings = gtk_widget_get_settings (GTK_WIDGET (sidebar));
+-  g_object_get (settings, "gtk-recent-files-enabled", &enabled, NULL);
+-
+-  return enabled;
++  return FALSE;
+ }
+ 
+ static gboolean
+ recent_scheme_is_supported (void)
+ {
+-  const gchar * const *supported;
+-
+-  supported = g_vfs_get_supported_uri_schemes (g_vfs_get_default ());
+-  if (supported != NULL)
+-    return g_strv_contains (supported, "recent");
+-
+   return FALSE;
+ }
+ 
+ static gboolean
+ should_show_recent (GtkPlacesSidebar *sidebar)
+ {
+-  return recent_files_setting_is_enabled (sidebar) &&
+-         ((sidebar->show_recent_set && sidebar->show_recent) ||
+-          (!sidebar->show_recent_set && recent_scheme_is_supported ()));
++  return FALSE;
+ }
+ 
+ static gboolean
+@@ -1114,9 +1100,6 @@
+         }
+     }
+ 
+-  /* XDG directories */
+-  add_special_dirs (sidebar);
+-
+   if (sidebar->show_enter_location)
+     {
+       start_icon = g_themed_icon_new_with_default_fallbacks (ICON_NAME_NETWORK_SERVER);
+@@ -1142,9 +1125,6 @@
+       g_object_unref (start_icon);
+     }
+ 
+-  /* Application-side shortcuts */
+-  add_application_shortcuts (sidebar);
+-
+   /* Cloud providers */
+ #ifdef HAVE_CLOUDPROVIDERS
+   cloud_providers = cloud_providers_collector_get_providers (sidebar->cloud_manager);
+@@ -1359,7 +1339,7 @@
+       start_icon = g_themed_icon_new_with_default_fallbacks (ICON_NAME_FILESYSTEM);
+       add_place (sidebar, PLACES_BUILT_IN,
+                  SECTION_MOUNTS,
+-                 sidebar->hostname, start_icon, NULL, mount_uri,
++                 _("File System"), start_icon, NULL, mount_uri,
+                  NULL, NULL, NULL, NULL, 0,
+                  _("Open the contents of the file system"));
+       g_object_unref (start_icon);
+@@ -1420,9 +1400,6 @@
+       root = sl->data;
+       is_native = g_file_is_native (root);
+ 
+-      if (_gtk_bookmarks_manager_get_is_builtin (sidebar->bookmarks_manager, root))
+-        continue;
+-
+       if (sidebar->local_only && !is_native)
+         continue;
+ 
+@@ -4804,8 +4781,8 @@
+           g_param_spec_boolean ("show-recent",
+                                 P_("Show recent files"),
+                                 P_("Whether the sidebar includes a builtin shortcut for recent files"),
+-                                TRUE,
+-                                G_PARAM_READWRITE);
++                                FALSE,
++                                G_PARAM_READABLE);
+   properties[PROP_SHOW_DESKTOP] =
+           g_param_spec_boolean ("show-desktop",
+                                 P_("Show 'Desktop'"),
+@@ -4841,7 +4818,7 @@
+                                 P_("Show 'Other locations'"),
+                                 P_("Whether the sidebar includes an item to show external locations"),
+                                 FALSE,
+-                                G_PARAM_READWRITE);
++                                G_PARAM_READABLE);
+   properties[PROP_SHOW_STARRED_LOCATION] =
+           g_param_spec_boolean ("show-starred-location",
+                                 P_("Show “Starred Location”"),

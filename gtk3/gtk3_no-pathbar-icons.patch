@@ -1,0 +1,25 @@
+Binary files gtk3.ORIG/src/gtk/.git/index and gtk3/src/gtk/.git/index differ
+diff -ru gtk3.ORIG/src/gtk/gtk/gtkpathbar.c gtk3/src/gtk/gtk/gtkpathbar.c
+--- gtk3.ORIG/src/gtk/gtk/gtkpathbar.c	2019-03-18 11:16:06.076714626 -0700
++++ gtk3/src/gtk/gtk/gtkpathbar.c	2019-03-18 16:29:14.176232406 -0700
+@@ -1566,20 +1566,7 @@
+   switch (button_data->type)
+     {
+     case ROOT_BUTTON:
+-      button_data->image = gtk_image_new ();
+-      child = button_data->image;
+-      button_data->label = NULL;
+       atk_object_set_name (atk_obj, _("File System Root"));
+-      break;
+-    case HOME_BUTTON:
+-    case DESKTOP_BUTTON:
+-      button_data->image = gtk_image_new ();
+-      button_data->label = gtk_label_new (NULL);
+-      child = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+-      gtk_box_pack_start (GTK_BOX (child), button_data->image, FALSE, FALSE, 0);
+-      gtk_box_pack_start (GTK_BOX (child), button_data->label, FALSE, FALSE, 0);
+-      break;
+-    case NORMAL_BUTTON:
+     default:
+       button_data->label = gtk_label_new (NULL);
+       child = button_data->label;
