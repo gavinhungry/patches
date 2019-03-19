@@ -1,0 +1,58 @@
+diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilechooserwidget.c
+--- gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-18 11:16:06.070047782 -0700
++++ gtk3/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-18 18:07:53.821032172 -0700
+@@ -1263,11 +1263,7 @@
+     clear_entry = FALSE;
+ 
+   location_mode_set (impl, LOCATION_MODE_PATH_BAR);
+-
+-  if (file_is_recent_uri (location))
+-    operation_mode_set (impl, OPERATION_MODE_RECENT);
+-  else
+-    change_folder_and_display_error (impl, location, clear_entry);
++  change_folder_and_display_error (impl, location, clear_entry);
+ }
+ 
+ /* Callback used when the places sidebar needs us to display an error message */
+@@ -3932,14 +3928,6 @@
+ 
+   switch (priv->startup_mode)
+     {
+-    case STARTUP_MODE_RECENT:
+-      if (gtk_places_sidebar_get_show_recent (GTK_PLACES_SIDEBAR (priv->places_sidebar)))
+-        {
+-          operation_mode_set (impl, OPERATION_MODE_RECENT);
+-          break;
+-        }
+-      /* else fall thru */
+-
+     case STARTUP_MODE_CWD:
+       switch_to_cwd (impl);
+       break;
+@@ -8301,26 +8289,6 @@
+                                 NULL, NULL,
+                                 NULL,
+                                 G_TYPE_NONE, 0);
+-
+-  /**
+-   * GtkFileChooserWidget::recent-shortcut:
+-   * @widget: the object which received the signal
+-   *
+-   * The ::recent-shortcut signal is a [keybinding signal][GtkBindingSignal]
+-   * which gets emitted when the user asks for it.
+-   *
+-   * This is used to make the file chooser show the Recent location.
+-   *
+-   * The default binding for this signal is `Alt + R`.
+-   */
+-  signals[RECENT_SHORTCUT] =
+-    g_signal_new_class_handler (I_("recent-shortcut"),
+-                                G_OBJECT_CLASS_TYPE (class),
+-                                G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+-                                G_CALLBACK (recent_shortcut_handler),
+-                                NULL, NULL,
+-                                NULL,
+-                                G_TYPE_NONE, 0);
+ 
+   /**
+    * GtkFileChooserWidget::places-shortcut:
