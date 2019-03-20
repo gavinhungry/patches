@@ -31,7 +31,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
 -    {
 -      format = N_("%-e %b %Y");
 -    }
-+  format = N_("%a %d %b %Y");
++  format = N_("%a %b %d %Y");
  
    date_str = g_date_time_format (time, format);
    replace_ratio (&date_str);
@@ -40,7 +40,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
      format = _("%H:%M");
    else
 -    format = _("%l:%M %p");
-+    format = _("%I:%M %p");
++    format = _("%I:%M %p %Z");
  
    date_str = g_date_time_format (time, format);
    replace_ratio (&date_str);
