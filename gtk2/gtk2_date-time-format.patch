@@ -1,0 +1,25 @@
+diff -ru gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c gtk2/src/gtk+/gtk/gtkfilechooserdefault.c
+--- gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:10:39.102087661 -0700
++++ gtk2/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:16:49.302974828 -0700
+@@ -6572,20 +6572,7 @@
+   time_now = time (NULL);
+   g_date_set_time_t (&now, time_now);
+ 
+-  days_diff = g_date_get_julian (&now) - g_date_get_julian (&mtime);
+-
+-  /* Translators: %H means "hours" and %M means "minutes" */
+-  if (days_diff == 0)
+-    format = _("%H:%M");
+-  else if (days_diff == 1)
+-    format = _("Yesterday at %H:%M");
+-  else
+-    {
+-      if (days_diff > 1 && days_diff < 7)
+-        format = "%A"; /* Days from last week */
+-      else
+-        format = "%x"; /* Any other date */
+-    }
++  format = _("%a %b %d %Y%6t%I:%M %p %Z");
+ 
+ #ifdef G_OS_WIN32
+   /* g_locale_from_utf8() returns a string in the system
