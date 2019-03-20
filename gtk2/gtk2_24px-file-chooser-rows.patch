@@ -1,0 +1,21 @@
+diff -ru gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c gtk2/src/gtk+/gtk/gtkfilechooserdefault.c
+--- gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:45:46.936391720 -0700
++++ gtk2/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:53:56.045508383 -0700
+@@ -249,7 +249,7 @@
+ } ShortcutsIndex;
+ 
+ /* Icon size for if we can't get it from the theme */
+-#define FALLBACK_ICON_SIZE 16
++#define FALLBACK_ICON_SIZE 24
+ 
+ #define PREVIEW_HBOX_SPACING 12
+ #define NUM_LINES 45
+@@ -5779,7 +5779,7 @@
+ 
+   settings = gtk_settings_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (impl)));
+ 
+-  if (gtk_icon_size_lookup_for_settings (settings, GTK_ICON_SIZE_MENU, &width, &height))
++  if (gtk_icon_size_lookup_for_settings (settings, GTK_ICON_SIZE_LARGE_TOOLBAR, &width, &height))
+     impl->icon_size = MAX (width, height);
+   else
+     impl->icon_size = FALLBACK_ICON_SIZE;
