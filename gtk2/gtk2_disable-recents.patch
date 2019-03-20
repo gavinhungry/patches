@@ -1,0 +1,35 @@
+diff -ru gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c gtk2/src/gtk+/gtk/gtkfilechooserdefault.c
+--- gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:45:46.936391720 -0700
++++ gtk2/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:51:19.469022084 -0700
+@@ -2209,14 +2209,6 @@
+ 					      G_TYPE_BOOLEAN,   /* pixbuf cell visibility */
+ 					      G_TYPE_POINTER);  /* GCancellable */
+ 
+-  shortcuts_append_search (impl);
+-
+-  if (impl->recent_manager)
+-    {
+-      shortcuts_append_recent (impl);
+-      shortcuts_insert_separator (impl, SHORTCUTS_RECENT_SEPARATOR);
+-    }
+-  
+   if (impl->file_system)
+     {
+       shortcuts_append_cwd (impl);
+@@ -3700,7 +3692,6 @@
+   gtk_toolbar_set_icon_size (GTK_TOOLBAR (toolbar), GTK_ICON_SIZE_MENU);
+ 
+   gtk_box_pack_start (GTK_BOX (vbox), toolbar, FALSE, FALSE, 0);
+-  gtk_widget_show (toolbar);
+ 
+   /* Add bookmark button */
+   icon = g_themed_icon_new_with_default_fallbacks ("list-add-symbolic");
+@@ -6016,7 +6007,7 @@
+   switch (impl->startup_mode)
+     {
+     case STARTUP_MODE_RECENT:
+-      recent_shortcut_handler (impl);
++      home_folder_handler (impl);
+       break;
+ 
+     case STARTUP_MODE_CWD:
