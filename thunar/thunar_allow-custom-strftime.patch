@@ -6,10 +6,10 @@ diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-util.c thunar/src/Thunar-1.8
  
            /* use custom date formatting */
 -          return exo_strdup_strftime (date_custom_style, tfile);
-+          char buffer[80];
-+          strftime (buffer, 80, date_custom_style, tfile);
++          char buf[80];
++          strftime (buf, sizeof (buf), date_custom_style, tfile);
 +
-+          return g_strdup (buffer);
++          return g_strdup (buf);
          }
      }
  
