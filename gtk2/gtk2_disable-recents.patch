@@ -1,7 +1,25 @@
 diff -ru gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c gtk2/src/gtk+/gtk/gtkfilechooserdefault.c
 --- gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:45:46.936391720 -0700
-+++ gtk2/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:51:19.469022084 -0700
-@@ -2209,14 +2209,6 @@
++++ gtk2/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 17:02:17.103856508 -0700
+@@ -1911,8 +1911,6 @@
+   if (where == SHORTCUTS_RECENT)
+     goto out;
+ 
+-  n += 1; /* we always have the recently-used item */
+-
+   if (where == SHORTCUTS_CWD)
+     goto out;
+ 
+@@ -1921,8 +1919,6 @@
+   if (where == SHORTCUTS_RECENT_SEPARATOR)
+     goto out;
+ 
+-  n += 1; /* we always have the separator after the recently-used item */
+-
+   if (where == SHORTCUTS_HOME)
+     goto out;
+ 
+@@ -2209,14 +2205,6 @@
  					      G_TYPE_BOOLEAN,   /* pixbuf cell visibility */
  					      G_TYPE_POINTER);  /* GCancellable */
  
@@ -16,7 +34,7 @@ diff -ru gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c gtk2/src/gtk+/gtk/gtkfil
    if (impl->file_system)
      {
        shortcuts_append_cwd (impl);
-@@ -3700,7 +3692,6 @@
+@@ -3700,7 +3688,6 @@
    gtk_toolbar_set_icon_size (GTK_TOOLBAR (toolbar), GTK_ICON_SIZE_MENU);
  
    gtk_box_pack_start (GTK_BOX (vbox), toolbar, FALSE, FALSE, 0);
@@ -24,7 +42,7 @@ diff -ru gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c gtk2/src/gtk+/gtk/gtkfil
  
    /* Add bookmark button */
    icon = g_themed_icon_new_with_default_fallbacks ("list-add-symbolic");
-@@ -6016,7 +6007,7 @@
+@@ -6016,7 +6003,7 @@
    switch (impl->startup_mode)
      {
      case STARTUP_MODE_RECENT:
