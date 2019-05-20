@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-application.c thunar/src/Thunar-1.8.4/thunar/thunar-application.c
---- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-application.c	2019-02-12 11:51:06.180076421 -0800
-+++ thunar/src/Thunar-1.8.4/thunar/thunar-application.c	2019-02-12 11:51:06.523398289 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-application.c thunar/src/Thunar-1.8.6/thunar/thunar-application.c
+--- thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-application.c	2019-02-12 11:51:06.180076421 -0800
++++ thunar/src/Thunar-1.8.6/thunar/thunar-application.c	2019-02-12 11:51:06.523398289 -0800
 @@ -607,13 +607,11 @@
    gtk_css_provider_load_from_data (css_provider,
      /* for the pathbar-buttons any margin looks ugly*/
@@ -19,9 +19,9 @@ diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-application.c thunar/src/Thu
    screen = gdk_screen_get_default ();
    gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER (css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
    g_object_unref (css_provider);
-diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-tree-pane.c thunar/src/Thunar-1.8.4/thunar/thunar-tree-pane.c
---- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-tree-pane.c	2019-02-12 11:51:06.190076087 -0800
-+++ thunar/src/Thunar-1.8.4/thunar/thunar-tree-pane.c	2019-02-12 11:51:06.523398289 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-tree-pane.c thunar/src/Thunar-1.8.6/thunar/thunar-tree-pane.c
+--- thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-tree-pane.c	2019-02-12 11:51:06.190076087 -0800
++++ thunar/src/Thunar-1.8.6/thunar/thunar-tree-pane.c	2019-02-12 11:51:06.523398289 -0800
 @@ -151,6 +151,9 @@
    g_signal_connect_swapped (G_OBJECT (tree_pane->view), "open-new-tab", G_CALLBACK (thunar_navigator_open_new_tab), tree_pane);
    gtk_container_add (GTK_CONTAINER (tree_pane), tree_pane->view);
@@ -32,9 +32,9 @@ diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-tree-pane.c thunar/src/Thuna
  }
  
  
-diff -ru thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-window.c thunar/src/Thunar-1.8.4/thunar/thunar-window.c
---- thunar.ORIG/src/Thunar-1.8.4/thunar/thunar-window.c	2019-02-12 11:51:06.186742865 -0800
-+++ thunar/src/Thunar-1.8.4/thunar/thunar-window.c	2019-02-12 11:51:06.523398289 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-window.c thunar/src/Thunar-1.8.6/thunar/thunar-window.c
+--- thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-window.c	2019-02-12 11:51:06.186742865 -0800
++++ thunar/src/Thunar-1.8.6/thunar/thunar-window.c	2019-02-12 11:51:06.523398289 -0800
 @@ -874,7 +874,7 @@
      }
  
