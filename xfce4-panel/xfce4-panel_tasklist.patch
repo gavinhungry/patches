@@ -1,6 +1,6 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.12.2/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/tasklist/tasklist-widget.c	2017-06-16 16:11:18.285112502 -0700
-+++ xfce4-panel/src/xfce4-panel-4.12.2/plugins/tasklist/tasklist-widget.c	2017-06-16 16:11:18.908431810 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/tasklist/tasklist-widget.c	2019-06-05 07:08:33.736169773 -0700
++++ xfce4-panel/src/xfce4-panel-4.12.2/plugins/tasklist/tasklist-widget.c	2019-06-05 07:16:58.729809538 -0700
 @@ -45,7 +45,7 @@
  
  
@@ -28,6 +28,25 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/tasklist/tasklist-widge
      }
  
    /* release the lock */
+@@ -2088,15 +2093,15 @@
+                          tasklist->button_relief);
+ 
+   child->box = xfce_hvbox_new (!xfce_tasklist_vertical (tasklist) ?
+-      GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL, FALSE, 6);
++      GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL, FALSE, 2);
+   gtk_container_add (GTK_CONTAINER (child->button), child->box);
+   gtk_widget_show (child->box);
+ 
+   child->icon = xfce_panel_image_new ();
+   if (tasklist->show_labels)
+-    gtk_box_pack_start (GTK_BOX (child->box), child->icon, FALSE, TRUE, 0);
++    gtk_box_pack_start (GTK_BOX (child->box), child->icon, FALSE, TRUE, 4);
+   else
+-    gtk_box_pack_start (GTK_BOX (child->box), child->icon, TRUE, TRUE, 0);
++    gtk_box_pack_start (GTK_BOX (child->box), child->icon, TRUE, TRUE, 4);
+   if (tasklist->minimized_icon_lucency > 0)
+     gtk_widget_show (child->icon);
+ 
 @@ -2493,13 +2498,6 @@
    name = wnck_window_get_name (child->window);
    gtk_widget_set_tooltip_text (GTK_WIDGET (child->button), name);
