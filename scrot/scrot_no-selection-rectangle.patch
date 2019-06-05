@@ -1,6 +1,6 @@
-diff -ru scrot.ORIG/src/scrot-0.8/src/main.c scrot/src/scrot-0.8/src/main.c
---- scrot.ORIG/src/scrot-0.8/src/main.c	2018-07-24 02:19:08.065139702 -0700
-+++ scrot/src/scrot-0.8/src/main.c	2018-07-24 02:36:33.177427382 -0700
+diff -ru scrot.ORIG/src/scrot-0.9/src/main.c scrot/src/scrot-0.9/src/main.c
+--- scrot.ORIG/src/scrot-0.9/src/main.c	2018-07-24 02:19:08.065139702 -0700
++++ scrot/src/scrot-0.9/src/main.c	2018-07-24 02:36:33.177427382 -0700
 @@ -240,16 +240,9 @@
        switch (ev.type) {
          case MotionNotify:
