@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-history.c thunar/src/Thunar-1.8.6/thunar/thunar-history.c
---- thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-history.c	2019-02-12 11:51:06.173409977 -0800
-+++ thunar/src/Thunar-1.8.6/thunar/thunar-history.c	2019-02-12 11:51:07.353370574 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.7/thunar/thunar-history.c thunar/src/Thunar-1.8.7/thunar/thunar-history.c
+--- thunar.ORIG/src/Thunar-1.8.7/thunar/thunar-history.c	2019-02-12 11:51:06.173409977 -0800
++++ thunar/src/Thunar-1.8.7/thunar/thunar-history.c	2019-02-12 11:51:07.353370574 -0800
 @@ -167,6 +167,7 @@
    g_signal_connect (G_OBJECT (history->action_back), "show-menu", G_CALLBACK (thunar_history_show_menu), history);
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
@@ -17,9 +17,9 @@ diff -ru thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-history.c thunar/src/Thunar-
  G_GNUC_END_IGNORE_DEPRECATIONS
  }
  
-diff -ru thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-window.c thunar/src/Thunar-1.8.6/thunar/thunar-window.c
---- thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-window.c	2019-02-12 11:51:06.186742865 -0800
-+++ thunar/src/Thunar-1.8.6/thunar/thunar-window.c	2019-02-12 11:51:07.353370574 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.7/thunar/thunar-window.c thunar/src/Thunar-1.8.7/thunar/thunar-window.c
+--- thunar.ORIG/src/Thunar-1.8.7/thunar/thunar-window.c	2019-02-12 11:51:06.186742865 -0800
++++ thunar/src/Thunar-1.8.7/thunar/thunar-window.c	2019-02-12 11:51:07.353370574 -0800
 @@ -376,7 +376,7 @@
    { "open-file-system", "drive-harddisk", N_ ("File System"), NULL, N_ ("Browse the file system"), G_CALLBACK (thunar_window_action_open_file_system), },
    { "open-network", "network-workgroup", N_("B_rowse Network"), NULL, N_ ("Browse local network connections"), G_CALLBACK (thunar_window_action_open_network), },
@@ -29,9 +29,9 @@ diff -ru thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-window.c thunar/src/Thunar-1
    { "help-menu", NULL, N_ ("_Help"), NULL, },
    { "contents", "help-browser", N_ ("_Contents"), "F1", N_ ("Display Thunar user manual"), G_CALLBACK (thunar_window_action_contents), },
    { "about", "help-about", N_ ("_About"), NULL, N_ ("Display information about Thunar"), G_CALLBACK (thunar_window_action_about), },
-diff -ru thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-window-ui.xml thunar/src/Thunar-1.8.6/thunar/thunar-window-ui.xml
---- thunar.ORIG/src/Thunar-1.8.6/thunar/thunar-window-ui.xml	2019-02-12 11:51:06.190076087 -0800
-+++ thunar/src/Thunar-1.8.6/thunar/thunar-window-ui.xml	2019-02-12 11:51:07.353370574 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.7/thunar/thunar-window-ui.xml thunar/src/Thunar-1.8.7/thunar/thunar-window-ui.xml
+--- thunar.ORIG/src/Thunar-1.8.7/thunar/thunar-window-ui.xml	2019-02-12 11:51:06.190076087 -0800
++++ thunar/src/Thunar-1.8.7/thunar/thunar-window-ui.xml	2019-02-12 11:51:07.353370574 -0800
 @@ -126,9 +126,6 @@
    </popup>
  
