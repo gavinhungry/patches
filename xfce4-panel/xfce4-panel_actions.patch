@@ -1,7 +1,7 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.12.2/plugins/actions/actions.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/actions/actions.c	2017-06-16 16:11:18.285112502 -0700
-+++ xfce4-panel/src/xfce4-panel-4.12.2/plugins/actions/actions.c	2017-06-16 16:11:18.315111827 -0700
-@@ -1079,7 +1079,7 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.14.0/plugins/actions/actions.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/actions/actions.c	2019-08-12 08:03:39.800707338 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/actions/actions.c	2019-08-12 10:16:20.970774982 -0700
+@@ -1150,7 +1150,7 @@
    GtkWidget           *label;
    GtkWidget           *button;
    GtkWidget           *widget;
@@ -10,17 +10,17 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/actions/actions.c xfce4
    GtkWidget           *child;
    GtkWidget           *box;
    guint                i;
-@@ -1143,16 +1143,8 @@
+@@ -1214,16 +1214,8 @@
      }
    else
      {
 -      /* get a decent username, not the glib defaults */
 -      username = g_get_real_name ();
--      if (exo_str_is_empty (username)
+-      if (panel_str_is_empty (username)
 -          || strcmp (username, "Unknown") == 0)
 -        {
 -          username = g_get_user_name ();
--          if (exo_str_is_empty (username)
+-          if (panel_str_is_empty (username)
 -              || strcmp (username, "somebody") == 0)
 -            username = _("John Doe");
 -        }
@@ -29,7 +29,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/actions/actions.c xfce4
  
        button = xfce_arrow_button_new (GTK_ARROW_NONE);
        gtk_widget_set_name (button, "actions-button");
-@@ -1163,7 +1155,8 @@
+@@ -1234,7 +1226,8 @@
            G_CALLBACK (actions_plugin_menu), plugin);
        gtk_widget_show (button);
  
