@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-launcher-ui.xml thunar/src/Thunar-1.8.8/thunar/thunar-launcher-ui.xml
---- thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-launcher-ui.xml	2019-02-12 11:51:06.180076421 -0800
-+++ thunar/src/Thunar-1.8.8/thunar/thunar-launcher-ui.xml	2019-02-12 11:51:08.296672415 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-launcher-ui.xml thunar/src/Thunar-1.8.9/thunar/thunar-launcher-ui.xml
+--- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-launcher-ui.xml	2019-02-12 11:51:06.180076421 -0800
++++ thunar/src/Thunar-1.8.9/thunar/thunar-launcher-ui.xml	2019-02-12 11:51:08.296672415 -0800
 @@ -12,7 +12,6 @@
      <menu action="file-menu">
        <placeholder name="placeholder-launcher">
@@ -17,9 +17,9 @@ diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-launcher-ui.xml thunar/src/T
        <menuitem action="open-in-new-window" />
        <placeholder name="placeholder-applications" />
        <menuitem action="open-with-other" />
-diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-location-buttons.c thunar/src/Thunar-1.8.8/thunar/thunar-location-buttons.c
---- thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-location-buttons.c	2019-02-12 11:51:06.180076421 -0800
-+++ thunar/src/Thunar-1.8.8/thunar/thunar-location-buttons.c	2019-02-12 11:51:08.296672415 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-location-buttons.c thunar/src/Thunar-1.8.9/thunar/thunar-location-buttons.c
+--- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-location-buttons.c	2019-02-12 11:51:06.180076421 -0800
++++ thunar/src/Thunar-1.8.9/thunar/thunar-location-buttons.c	2019-02-12 11:51:08.296672415 -0800
 @@ -181,8 +181,6 @@
  {
    { "location-buttons-down-folder", NULL, "Down Folder", "<alt>Down", NULL, G_CALLBACK (thunar_location_buttons_action_down_folder), },
@@ -49,9 +49,9 @@ diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-location-buttons.c thunar/sr
        /* setup the "Open in New Window" action */
        action = gtk_action_group_get_action (buttons->action_group, "location-buttons-open-in-new-window");
        thunar_gtk_action_set_tooltip (action, _("Open \"%s\" in a new window"), display_name);
-diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-shortcuts-view.c thunar/src/Thunar-1.8.8/thunar/thunar-shortcuts-view.c
---- thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-shortcuts-view.c	2019-02-12 11:51:06.190076087 -0800
-+++ thunar/src/Thunar-1.8.8/thunar/thunar-shortcuts-view.c	2019-02-12 11:51:08.296672415 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-shortcuts-view.c thunar/src/Thunar-1.8.9/thunar/thunar-shortcuts-view.c
+--- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-shortcuts-view.c	2019-02-12 11:51:06.190076087 -0800
++++ thunar/src/Thunar-1.8.9/thunar/thunar-shortcuts-view.c	2019-02-12 11:51:08.296672415 -0800
 @@ -1108,14 +1108,6 @@
    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
  G_GNUC_END_IGNORE_DEPRECATIONS
@@ -67,9 +67,9 @@ diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-shortcuts-view.c thunar/src/
    /* append the "Open in New Window" menu action */
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
    item = gtk_image_menu_item_new_with_mnemonic (_("Open in New Window"));
-diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-tree-view.c thunar/src/Thunar-1.8.8/thunar/thunar-tree-view.c
---- thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-tree-view.c	2019-02-12 11:51:06.180076421 -0800
-+++ thunar/src/Thunar-1.8.8/thunar/thunar-tree-view.c	2019-02-12 11:51:08.300005638 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-tree-view.c thunar/src/Thunar-1.8.9/thunar/thunar-tree-view.c
+--- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-tree-view.c	2019-02-12 11:51:06.180076421 -0800
++++ thunar/src/Thunar-1.8.9/thunar/thunar-tree-view.c	2019-02-12 11:51:08.300005638 -0800
 @@ -1294,13 +1294,6 @@
    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
  G_GNUC_END_IGNORE_DEPRECATIONS

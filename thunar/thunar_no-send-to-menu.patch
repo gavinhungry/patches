@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-launcher-ui.xml thunar/src/Thunar-1.8.8/thunar/thunar-launcher-ui.xml
---- thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-launcher-ui.xml	2019-02-12 11:51:06.180076421 -0800
-+++ thunar/src/Thunar-1.8.8/thunar/thunar-launcher-ui.xml	2019-02-12 11:51:08.453333853 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-launcher-ui.xml thunar/src/Thunar-1.8.9/thunar/thunar-launcher-ui.xml
+--- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-launcher-ui.xml	2019-02-12 11:51:06.180076421 -0800
++++ thunar/src/Thunar-1.8.9/thunar/thunar-launcher-ui.xml	2019-02-12 11:51:08.453333853 -0800
 @@ -23,13 +23,6 @@
          </menu>
          <placeholder name="placeholder-actions" />
@@ -28,9 +28,9 @@ diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-launcher-ui.xml thunar/src/T
 -    </menu>
    </popup>
  </ui>
-diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-renamer-dialog-ui.xml thunar/src/Thunar-1.8.8/thunar/thunar-renamer-dialog-ui.xml
---- thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-renamer-dialog-ui.xml	2019-02-12 11:51:06.186742865 -0800
-+++ thunar/src/Thunar-1.8.8/thunar/thunar-renamer-dialog-ui.xml	2019-02-12 11:51:08.453333853 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-renamer-dialog-ui.xml thunar/src/Thunar-1.8.9/thunar/thunar-renamer-dialog-ui.xml
+--- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-renamer-dialog-ui.xml	2019-02-12 11:51:06.186742865 -0800
++++ thunar/src/Thunar-1.8.9/thunar/thunar-renamer-dialog-ui.xml	2019-02-12 11:51:08.453333853 -0800
 @@ -20,20 +20,12 @@
    <menubar name="main-menu">
      <menu action="file-menu">
@@ -52,9 +52,9 @@ diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-renamer-dialog-ui.xml thunar
      <placeholder name="placeholder-renamer-actions" />
      <separator />
      <menuitem action="add-files" />
-diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-shortcuts-pane.c thunar/src/Thunar-1.8.8/thunar/thunar-shortcuts-pane.c
---- thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-shortcuts-pane.c	2019-02-12 11:51:06.183409643 -0800
-+++ thunar/src/Thunar-1.8.8/thunar/thunar-shortcuts-pane.c	2019-02-12 11:51:08.453333853 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-shortcuts-pane.c thunar/src/Thunar-1.8.9/thunar/thunar-shortcuts-pane.c
+--- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-shortcuts-pane.c	2019-02-12 11:51:06.183409643 -0800
++++ thunar/src/Thunar-1.8.9/thunar/thunar-shortcuts-pane.c	2019-02-12 11:51:08.453333853 -0800
 @@ -459,15 +459,7 @@
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
        /* add our action group to the new manager */
@@ -71,9 +71,9 @@ diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-shortcuts-pane.c thunar/src/
      }
  
    /* notify listeners */
-diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-shortcuts-pane-ui.h thunar/src/Thunar-1.8.8/thunar/thunar-shortcuts-pane-ui.h
---- thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-shortcuts-pane-ui.h	2019-02-12 11:51:06.183409643 -0800
-+++ thunar/src/Thunar-1.8.8/thunar/thunar-shortcuts-pane-ui.h	2019-02-12 11:51:08.453333853 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-shortcuts-pane-ui.h thunar/src/Thunar-1.8.9/thunar/thunar-shortcuts-pane-ui.h
+--- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-shortcuts-pane-ui.h	2019-02-12 11:51:06.183409643 -0800
++++ thunar/src/Thunar-1.8.9/thunar/thunar-shortcuts-pane-ui.h	2019-02-12 11:51:08.453333853 -0800
 @@ -8,12 +8,7 @@
  static const char thunar_shortcuts_pane_ui[] =
  #endif
@@ -88,9 +88,9 @@ diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-shortcuts-pane-ui.h thunar/s
  };
  
  static const unsigned thunar_shortcuts_pane_ui_length = 387u;
-diff -ru thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-window-ui.xml thunar/src/Thunar-1.8.8/thunar/thunar-window-ui.xml
---- thunar.ORIG/src/Thunar-1.8.8/thunar/thunar-window-ui.xml	2019-02-12 11:51:06.190076087 -0800
-+++ thunar/src/Thunar-1.8.8/thunar/thunar-window-ui.xml	2019-02-12 11:51:08.456667075 -0800
+diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-window-ui.xml thunar/src/Thunar-1.8.9/thunar/thunar-window-ui.xml
+--- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-window-ui.xml	2019-02-12 11:51:06.190076087 -0800
++++ thunar/src/Thunar-1.8.9/thunar/thunar-window-ui.xml	2019-02-12 11:51:08.456667075 -0800
 @@ -17,11 +17,6 @@
        <separator />
        <placeholder name="placeholder-launcher" />
