@@ -1,6 +1,6 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/panel-base-window.c xfce4-panel/src/xfce4-panel-4.14.0/panel/panel-base-window.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/panel-base-window.c	2019-08-12 08:03:39.814041016 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.0/panel/panel-base-window.c	2019-08-12 11:56:21.787448299 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/panel-base-window.c	2019-08-12 12:54:49.058828878 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/panel/panel-base-window.c	2019-08-12 12:54:49.228834024 -0700
 @@ -810,15 +810,6 @@
    PanelBaseWindowPrivate *priv = window->priv;
  

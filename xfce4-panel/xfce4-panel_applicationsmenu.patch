@@ -1,6 +1,6 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c xfce4-panel/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c	2019-08-12 08:03:39.804040757 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c	2019-08-12 10:19:57.419423091 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c	2019-08-12 12:54:49.048828575 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c	2019-08-12 12:54:49.105496958 -0700
 @@ -231,7 +231,8 @@
    gtk_widget_show (plugin->icon);
  

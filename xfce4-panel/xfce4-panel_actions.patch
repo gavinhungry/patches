@@ -1,6 +1,6 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.14.0/plugins/actions/actions.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/actions/actions.c	2019-08-12 08:03:39.800707338 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/actions/actions.c	2019-08-12 10:16:20.970774982 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/actions/actions.c	2019-08-12 12:54:49.048828575 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/actions/actions.c	2019-08-12 12:54:49.062162313 -0700
 @@ -1150,7 +1150,7 @@
    GtkWidget           *label;
    GtkWidget           *button;
