@@ -1,0 +1,19 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/panel-base-window.c xfce4-panel/src/xfce4-panel-4.14.0/panel/panel-base-window.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/panel-base-window.c	2019-08-12 08:03:39.814041016 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/panel/panel-base-window.c	2019-08-12 11:56:21.787448299 -0700
+@@ -810,15 +810,6 @@
+   PanelBaseWindowPrivate *priv = window->priv;
+ 
+   panel_return_if_fail (PANEL_IS_BASE_WINDOW (window));
+-
+-  if (priv->borders != borders)
+-    {
+-      priv->borders = borders;
+-      gtk_widget_queue_resize (GTK_WIDGET (window));
+-      /* Re-draw the borders if system colors are being used */
+-      if (window->background_style == PANEL_BG_STYLE_NONE)
+-        panel_base_window_reset_background_css (window);
+-    }
+ }
+ 
+ 
