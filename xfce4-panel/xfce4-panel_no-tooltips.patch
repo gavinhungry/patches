@@ -1,6 +1,6 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/panel-item-dialog.c xfce4-panel/src/xfce4-panel-4.14.0/panel/panel-item-dialog.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/panel-item-dialog.c	2019-08-12 08:03:39.814041016 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.0/panel/panel-item-dialog.c	2019-08-12 10:34:59.279721754 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/panel-item-dialog.c	2019-08-12 12:54:49.058828878 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/panel/panel-item-dialog.c	2019-08-12 12:54:49.355504526 -0700
 @@ -235,7 +235,6 @@
    entry = gtk_entry_new ();
    gtk_box_pack_start (GTK_BOX (hbox), entry, FALSE, FALSE, 0);
@@ -10,8 +10,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/panel-item-dialog.c xfce4
    gtk_widget_show (entry);
  
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.14.0/plugins/actions/actions.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/actions/actions.c	2019-08-12 08:03:39.800707338 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/actions/actions.c	2019-08-12 10:35:16.050171948 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/actions/actions.c	2019-08-12 12:54:49.048828575 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/actions/actions.c	2019-08-12 12:54:49.355504526 -0700
 @@ -1081,7 +1081,6 @@
        widget = xfce_panel_create_button ();
        gtk_button_set_relief (GTK_BUTTON (widget), GTK_RELIEF_NONE);
@@ -21,8 +21,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/actions/actions.c xfce4
            G_CALLBACK (actions_plugin_action_activate), plugin);
  
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c xfce4-panel/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c	2019-08-12 08:03:39.804040757 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c	2019-08-12 10:35:37.037402278 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c	2019-08-12 12:54:49.048828575 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applicationsmenu.c	2019-08-12 12:54:49.355504526 -0700
 @@ -217,7 +217,6 @@
    gtk_container_add (GTK_CONTAINER (plugin), plugin->button);
    gtk_widget_set_name (plugin->button, "applicationmenu-button");
@@ -41,8 +41,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/applicationsmenu/applic
        /* check if the label still fits */
        if (xfce_panel_plugin_get_mode (XFCE_PANEL_PLUGIN (plugin)) == XFCE_PANEL_PLUGIN_MODE_DESKBAR
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/directorymenu/directorymenu.c xfce4-panel/src/xfce4-panel-4.14.0/plugins/directorymenu/directorymenu.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/directorymenu/directorymenu.c	2019-08-12 08:03:39.804040757 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/directorymenu/directorymenu.c	2019-08-12 10:35:52.967830324 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/directorymenu/directorymenu.c	2019-08-12 12:54:49.048828575 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/directorymenu/directorymenu.c	2019-08-12 12:54:49.355504526 -0700
 @@ -237,7 +237,6 @@
        plugin->base_directory = g_file_new_for_commandline_arg (path);
  
@@ -61,8 +61,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/directorymenu/directory
                g_signal_connect_data (G_OBJECT (mi), "activate",
                    G_CALLBACK (directory_menu_plugin_menu_launch_desktop_file),
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/showdesktop/showdesktop.c xfce4-panel/src/xfce4-panel-4.14.0/plugins/showdesktop/showdesktop.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/showdesktop/showdesktop.c	2019-08-12 08:03:39.804040757 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/showdesktop/showdesktop.c	2019-08-12 10:36:08.864924303 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/showdesktop/showdesktop.c	2019-08-12 12:54:49.048828575 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/showdesktop/showdesktop.c	2019-08-12 12:54:49.355504526 -0700
 @@ -243,7 +243,6 @@
    else
      text = _("Minimize all open windows and show the desktop");
@@ -72,8 +72,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/showdesktop/showdesktop
  }
  
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.14.0/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/tasklist/tasklist-widget.c	2019-08-12 08:03:39.804040757 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/tasklist/tasklist-widget.c	2019-08-12 10:36:21.305258804 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/tasklist/tasklist-widget.c	2019-08-12 12:54:49.048828575 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/tasklist/tasklist-widget.c	2019-08-12 12:54:49.355504526 -0700
 @@ -2673,7 +2673,6 @@
    panel_return_if_fail (XFCE_IS_TASKLIST (child->tasklist));
  
@@ -83,8 +83,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/tasklist/tasklist-widge
    ctx = gtk_widget_get_style_context (child->label);
    gtk_style_context_remove_class (ctx, "label-hidden");
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/windowmenu/windowmenu.c xfce4-panel/src/xfce4-panel-4.14.0/plugins/windowmenu/windowmenu.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/windowmenu/windowmenu.c	2019-08-12 08:03:39.804040757 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/windowmenu/windowmenu.c	2019-08-12 10:36:42.285823157 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/windowmenu/windowmenu.c	2019-08-12 12:54:49.048828575 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/windowmenu/windowmenu.c	2019-08-12 12:54:49.358837960 -0700
 @@ -644,10 +644,6 @@
            if (type == WNCK_WINDOW_DESKTOP || type == WNCK_WINDOW_DOCK)
              goto show_desktop_icon;
