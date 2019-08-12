@@ -1,7 +1,7 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-box.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-box.c	2017-12-14 10:22:51.358648528 -0800
-+++ xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-box.c	2017-12-14 10:23:07.121673411 -0800
-@@ -36,7 +36,7 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel-4.14.0/plugins/systray/systray-box.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/systray/systray-box.c	2019-08-12 08:03:39.800707338 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/systray/systray-box.c	2019-08-12 10:30:15.478806488 -0700
+@@ -35,7 +35,7 @@
  #include "systray-box.h"
  #include "systray-socket.h"
  
@@ -10,22 +10,22 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-box.c x
  #define OFFSCREEN  (-9999)
  
  /* some icon implementations request a 1x1 size for invisible icons */
-@@ -651,8 +651,8 @@
+@@ -757,8 +757,8 @@
+   if (hidden_a != hidden_b)
      return hidden_a ? 1 : -1;
  
-   /* sort icons by name */
 -  name_a = systray_socket_get_name (XFCE_SYSTRAY_SOCKET (a));
 -  name_b = systray_socket_get_name (XFCE_SYSTRAY_SOCKET (b));
 +  name_a = systray_socket_get_sort (XFCE_SYSTRAY_SOCKET (a));
 +  name_b = systray_socket_get_sort (XFCE_SYSTRAY_SOCKET (b));
  
- #if GLIB_CHECK_VERSION (2, 16, 0)
-   return g_strcmp0 (name_a, name_b);
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.c xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.c	2017-12-14 10:22:51.358648528 -0800
-+++ xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.c	2017-12-14 10:23:09.144967114 -0800
+   if (name_a != NULL && g_hash_table_lookup_extended (box->names_ordered, name_a, NULL, &value))
+     index_a = GPOINTER_TO_INT (value);
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/systray/systray-socket.c xfce4-panel/src/xfce4-panel-4.14.0/plugins/systray/systray-socket.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/systray/systray-socket.c	2019-08-12 08:03:39.800707338 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/systray/systray-socket.c	2019-08-12 10:31:03.480083170 -0700
 @@ -56,6 +56,7 @@
-   GdkNativeWindow window;
+   Window           window;
  
    gchar           *name;
 +  gchar           *sort;
@@ -48,7 +48,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.
  
    G_OBJECT_CLASS (systray_socket_parent_class)->finalize (object);
  }
-@@ -420,6 +423,28 @@
+@@ -406,6 +409,28 @@
  }
  
  
@@ -75,17 +75,17 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.
 +
 +
  
- GdkNativeWindow *
+ Window *
  systray_socket_get_window (SystraySocket *socket)
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.h xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.h
---- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.h	2017-12-14 10:22:51.358648528 -0800
-+++ xfce4-panel/src/xfce4-panel-4.12.2/plugins/systray/systray-socket.h	2017-12-14 10:23:11.034930087 -0800
-@@ -47,6 +47,8 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/systray/systray-socket.h xfce4-panel/src/xfce4-panel-4.14.0/plugins/systray/systray-socket.h
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/plugins/systray/systray-socket.h	2019-08-12 08:03:39.800707338 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/plugins/systray/systray-socket.h	2019-08-12 10:31:21.913907490 -0700
+@@ -48,6 +48,8 @@
  
  const gchar     *systray_socket_get_name      (SystraySocket   *socket);
  
 +const gchar     *systray_socket_get_sort      (SystraySocket   *socket);
 +
- GdkNativeWindow *systray_socket_get_window    (SystraySocket   *socket);
+ Window          *systray_socket_get_window    (SystraySocket   *socket);
  
  gboolean         systray_socket_get_hidden    (SystraySocket   *socket);

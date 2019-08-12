@@ -1,11 +1,11 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.12.2/panel/main.c xfce4-panel/src/xfce4-panel-4.12.2/panel/main.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.12.2/panel/main.c	2017-12-13 14:49:31.000000000 -0800
-+++ xfce4-panel/src/xfce4-panel-4.12.2/panel/main.c	2018-01-16 16:43:02.701302316 -0800
-@@ -313,14 +313,6 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/main.c xfce4-panel/src/xfce4-panel-4.14.0/panel/main.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/main.c	2019-08-12 08:03:39.814041016 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.0/panel/main.c	2019-08-12 10:33:08.923431294 -0700
+@@ -353,14 +353,6 @@
  
    /* start dbus service */
    dbus_service = panel_dbus_service_get ();
--  if (!panel_dbus_service_is_owner (dbus_service))
+-  if (!panel_dbus_service_is_exported (dbus_service))
 -    {
 -      /* quit without error if an instance is running */
 -      succeed = TRUE;
