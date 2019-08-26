@@ -1,14 +1,18 @@
-diff -ru mirage.ORIG/src/mirage-0.9.5.2/mirage.py mirage/src/mirage-0.9.5.2/mirage.py
---- mirage.ORIG/src/mirage-0.9.5.2/mirage.py	2018-02-09 15:05:10.176129994 -0800
-+++ mirage/src/mirage-0.9.5.2/mirage.py	2018-02-09 15:05:10.802113556 -0800
-@@ -4504,9 +4504,7 @@
+diff -ru mirage.ORIG/src/mirage-1.0_pre2/mirage.py mirage/src/mirage-1.0_pre2/mirage.py
+--- mirage.ORIG/src/mirage-1.0_pre2/mirage.py	2019-08-25 18:14:45.276140358 -0700
++++ mirage/src/mirage-1.0_pre2/mirage.py	2019-08-25 18:14:45.312808076 -0700
+@@ -4503,13 +4503,7 @@
  		if len(self.image_list) == 0:
- 			title = "Mirage"
+ 			title = __appname__
  		else:
--			title = "Mirage - " +_("[%(current)i of %(total)i]") % {'current': self.curr_img_in_list+1, 'total': len(self.image_list)} + ' ' + os.path.basename(self.currimg_name)
--			if self.slideshow_mode:
--				title = title + ' - ' + _('Slideshow Mode')
-+			title = os.path.basename(self.currimg_name) + " - Mirage"
- 		self.window.set_title(title)
+-			subfoldertitle = ''
+-			firstimgindex_curr_subfolder = self.get_firstimgindex_curr_next_prev_subfolder(self.curr_img_in_list)[0]
+-			if firstimgindex_curr_subfolder > -1:
+-				currimg_subfolder = self.curr_img_in_list - firstimgindex_curr_subfolder + 1
+-				numimg_curr_subfolder = self.get_numimg_subfolder(firstimgindex_curr_subfolder)
+-				subfoldertitle = _("%(current)i of %(total)i") % {'current': currimg_subfolder, 'total': numimg_curr_subfolder} + ' '
+-			title = __appname__ + " - " + subfoldertitle + _("[%(current)i of %(total)i]") % {'current': self.curr_img_in_list+1, 'total': len(self.image_list)} + ' ' + os.path.basename(self.currimg.name)
++			title = os.path.basename(self.currimg.name) + ' - ' + __appname__;
  
- 	def slideshow_controls_show(self):
+ 			if self.slideshow_mode:
+ 				title = title + ' - ' + _('Slideshow Mode')
