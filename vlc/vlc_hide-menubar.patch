@@ -1,0 +1,57 @@
+diff -ru vlc.ORIG/src/vlc-3.0.8/modules/gui/qt/main_interface.cpp vlc/src/vlc-3.0.8/modules/gui/qt/main_interface.cpp
+--- vlc.ORIG/src/vlc-3.0.8/modules/gui/qt/main_interface.cpp	2019-08-27 13:33:24.360000724 -0700
++++ vlc/src/vlc-3.0.8/modules/gui/qt/main_interface.cpp	2019-08-27 14:10:53.604055085 -0700
+@@ -163,6 +163,8 @@
+      * Menu Bar *
+      ************/
+     VLCMenuBar::createMenuBar( this, p_intf );
++    menuBar()->setVisible( false );
++
+     CONNECT( THEMIM->getIM(), voutListChanged( vout_thread_t **, int ),
+              THEDP, destroyPopupMenu() );
+ 
+@@ -314,7 +316,7 @@
+ void MainInterface::computeMinimumSize()
+ {
+     int minWidth = 80;
+-    if( menuBar()->isVisible() )
++    if( false )
+         minWidth += controls->sizeHint().width();
+ 
+     setMinimumWidth( minWidth );
+@@ -824,7 +826,7 @@
+                 h = screen.height();
+                 if( !b_minimalView )
+                 {
+-                    if( menuBar()->isVisible() )
++                    if( false )
+                         h -= menuBar()->height();
+                     if( controls->isVisible() )
+                         h -= controls->height();
+@@ -1126,7 +1128,7 @@
+  */
+ void MainInterface::setMinimalView( bool b_minimal )
+ {
+-    bool b_menuBarVisible = menuBar()->isVisible();
++    bool b_menuBarVisible = false;
+     bool b_controlsVisible = controls->isVisible();
+     bool b_statusBarVisible = statusBar()->isVisible();
+     bool b_inputCVisible = inputC->isVisible();
+@@ -1148,7 +1150,7 @@
+             resizeWindow( width(), height() - i_heightChange );
+     }
+ 
+-    menuBar()->setVisible( !b_minimal );
++    menuBar()->setVisible( false );
+     controls->setVisible( !b_minimal );
+     statusBar()->setVisible( !b_minimal && b_statusbarVisible );
+     inputC->setVisible( !b_minimal );
+@@ -1157,7 +1159,7 @@
+     {
+         int i_heightChange = 0;
+ 
+-        if( !b_menuBarVisible && menuBar()->isVisible() )
++        if( !b_menuBarVisible && false )
+             i_heightChange += menuBar()->height();
+         if( !b_controlsVisible && controls->isVisible() )
+             i_heightChange += controls->height();
