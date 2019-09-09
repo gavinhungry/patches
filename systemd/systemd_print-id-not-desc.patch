@@ -1,23 +1,23 @@
 diff -ru systemd.ORIG/src/systemd-stable/src/core/job.c systemd/src/systemd-stable/src/core/job.c
---- systemd.ORIG/src/systemd-stable/src/core/job.c	2019-01-09 10:21:09.102538876 -0800
-+++ systemd/src/systemd-stable/src/core/job.c	2019-01-09 10:31:39.233331651 -0800
-@@ -905,7 +905,7 @@
+--- systemd.ORIG/src/systemd-stable/src/core/job.c	2019-09-09 08:53:53.011990727 -0700
++++ systemd/src/systemd-stable/src/core/job.c	2019-09-09 08:55:05.027279778 -0700
+@@ -889,7 +889,7 @@
           * xsprintf() on purpose here: we are fine with truncation and don't
           * consider that an error. */
          DISABLE_WARNING_FORMAT_NONLITERAL;
--        (void) snprintf(buf, sizeof(buf), format, unit_description(u));
+-        (void) snprintf(buf, sizeof(buf), format, unit_status_string(u));
 +        (void) snprintf(buf, sizeof(buf), format, strna(u->id));
          REENABLE_WARNING;
  
          switch (t) {
 diff -ru systemd.ORIG/src/systemd-stable/src/core/unit.c systemd/src/systemd-stable/src/core/unit.c
---- systemd.ORIG/src/systemd-stable/src/core/unit.c	2019-01-09 10:21:09.102538876 -0800
-+++ systemd/src/systemd-stable/src/core/unit.c	2019-01-09 10:32:55.497521182 -0800
-@@ -1658,7 +1658,7 @@
+--- systemd.ORIG/src/systemd-stable/src/core/unit.c	2019-09-09 08:53:53.015323998 -0700
++++ systemd/src/systemd-stable/src/core/unit.c	2019-09-09 08:55:19.237001807 -0700
+@@ -1664,7 +1664,7 @@
  void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
          const char *d;
  
--        d = unit_description(u);
+-        d = unit_status_string(u);
 +        d = strna(u->id);
          if (log_get_show_color())
                  d = strjoina(ANSI_HIGHLIGHT, d, ANSI_NORMAL);
