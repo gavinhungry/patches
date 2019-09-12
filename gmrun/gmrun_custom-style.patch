@@ -1,6 +1,6 @@
-diff -ru gmrun.ORIG/src/gmrun-0.9.4w/src/main.cc gmrun/src/gmrun-0.9.4w/src/main.cc
---- gmrun.ORIG/src/gmrun-0.9.4w/src/main.cc	2018-07-19 12:00:17.341948710 -0700
-+++ gmrun/src/gmrun-0.9.4w/src/main.cc	2018-07-19 12:00:46.722248686 -0700
+diff -ru gmrun.ORIG/src/gmrun-0.9.5w/src/main.cc gmrun/src/gmrun-0.9.5w/src/main.cc
+--- gmrun.ORIG/src/gmrun-0.9.5w/src/main.cc	2018-07-19 12:00:17.341948710 -0700
++++ gmrun/src/gmrun-0.9.5w/src/main.cc	2018-07-19 12:00:46.722248686 -0700
 @@ -420,12 +420,11 @@
  
    dialog = gtk_dialog_new();
