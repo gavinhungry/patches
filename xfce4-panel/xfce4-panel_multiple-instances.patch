@@ -1,6 +1,6 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/main.c xfce4-panel/src/xfce4-panel-4.14.0/panel/main.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.0/panel/main.c	2019-08-12 12:54:49.058828878 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.0/panel/main.c	2019-08-12 12:54:49.188832814 -0700
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.1/panel/main.c xfce4-panel/src/xfce4-panel-4.14.1/panel/main.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.1/panel/main.c	2019-08-12 12:54:49.058828878 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.1/panel/main.c	2019-08-12 12:54:49.188832814 -0700
 @@ -353,14 +353,6 @@
  
    /* start dbus service */
