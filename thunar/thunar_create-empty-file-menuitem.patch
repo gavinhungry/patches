@@ -1,7 +1,7 @@
-diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-standard-view.c thunar/src/Thunar-1.8.9/thunar/thunar-standard-view.c
---- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-standard-view.c	2019-02-12 11:51:06.183409643 -0800
-+++ thunar/src/Thunar-1.8.9/thunar/thunar-standard-view.c	2019-02-12 11:51:06.866720157 -0800
-@@ -312,6 +312,7 @@
+diff -ru thunar.ORIG/src/thunar-1.8.10/thunar/thunar-standard-view.c thunar/src/thunar-1.8.10/thunar/thunar-standard-view.c
+--- thunar.ORIG/src/thunar-1.8.10/thunar/thunar-standard-view.c	2019-11-11 08:24:30.426793390 -0800
++++ thunar/src/thunar-1.8.10/thunar/thunar-standard-view.c	2019-11-11 08:24:30.726803245 -0800
+@@ -308,6 +308,7 @@
    ThunarFile             *current_directory;
  
    GtkAction              *action_create_folder;
@@ -9,7 +9,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-standard-view.c thunar/src/T
    GtkAction              *action_create_document;
    GtkAction              *action_properties;
    GtkAction              *action_cut;
-@@ -403,6 +404,7 @@
+@@ -400,6 +401,7 @@
    { "file-context-menu", NULL, N_ ("File Context Menu"), NULL, NULL, NULL, },
    { "folder-context-menu", NULL, N_ ("Folder Context Menu"), NULL, NULL, NULL, },
    { "create-folder", "folder-new", N_ ("Create _Folder..."), "<control><shift>N", N_ ("Create an empty folder within the current folder"), G_CALLBACK (thunar_standard_view_action_create_folder), },
@@ -17,7 +17,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-standard-view.c thunar/src/T
    { "properties", "document-properties", N_ ("_Properties..."), "<alt>Return", N_ ("View the properties of the selected file"), G_CALLBACK (thunar_standard_view_action_properties), },
    { "cut", "edit-cut", N_ ("Cu_t"), "<control>X", NULL, G_CALLBACK (thunar_standard_view_action_cut), },
    { "copy", "edit-copy", N_ ("_Copy"), "<control>C", NULL, G_CALLBACK (thunar_standard_view_action_copy), },
-@@ -669,6 +671,7 @@
+@@ -665,6 +667,7 @@
  
    /* lookup all actions to speed up access later */
    standard_view->priv->action_create_folder = gtk_action_group_get_action (standard_view->action_group, "create-folder");
@@ -25,7 +25,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-standard-view.c thunar/src/T
    standard_view->priv->action_properties = gtk_action_group_get_action (standard_view->action_group, "properties");
    standard_view->priv->action_cut = gtk_action_group_get_action (standard_view->action_group, "cut");
    standard_view->priv->action_copy = gtk_action_group_get_action (standard_view->action_group, "copy");
-@@ -684,8 +687,6 @@
+@@ -680,8 +683,6 @@
  
    /* add the "Create Document" sub menu action */
    standard_view->priv->action_create_document = thunar_templates_action_new ("create-document", _("Create _Document"));
@@ -34,7 +34,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-standard-view.c thunar/src/T
    g_signal_connect (G_OBJECT (standard_view->priv->action_create_document), "create-template",
                      G_CALLBACK (thunar_standard_view_action_create_template), standard_view);
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-@@ -1494,7 +1495,8 @@
+@@ -1498,7 +1499,8 @@
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
    /* update the "Create Folder"/"Create Document" actions */
    gtk_action_set_visible (standard_view->priv->action_create_folder, !trashed);
@@ -44,7 +44,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-standard-view.c thunar/src/T
  
    /* update the "Rename" action */
    gtk_action_set_visible (standard_view->priv->action_rename, !trashed);
-@@ -4476,6 +4478,7 @@
+@@ -4519,6 +4521,7 @@
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
    /* update the "Create Folder"/"Create Document" actions */
    gtk_action_set_sensitive (standard_view->priv->action_create_folder, !trashed && writable);
@@ -52,10 +52,10 @@ diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-standard-view.c thunar/src/T
    gtk_action_set_sensitive (standard_view->priv->action_create_document, !trashed && writable);
  
    /* update the "Properties" action */
-diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-standard-view-ui.xml thunar/src/Thunar-1.8.9/thunar/thunar-standard-view-ui.xml
---- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-standard-view-ui.xml	2019-02-12 11:51:06.173409977 -0800
-+++ thunar/src/Thunar-1.8.9/thunar/thunar-standard-view-ui.xml	2019-02-12 11:51:06.866720157 -0800
-@@ -71,6 +71,7 @@
+diff -ru thunar.ORIG/src/thunar-1.8.10/thunar/thunar-standard-view-ui.xml thunar/src/thunar-1.8.10/thunar/thunar-standard-view-ui.xml
+--- thunar.ORIG/src/thunar-1.8.10/thunar/thunar-standard-view-ui.xml	2019-11-11 08:24:30.423459947 -0800
++++ thunar/src/thunar-1.8.10/thunar/thunar-standard-view-ui.xml	2019-11-11 08:24:30.726803245 -0800
+@@ -72,6 +72,7 @@
  
    <popup action="folder-context-menu">
      <menuitem action="create-folder" />

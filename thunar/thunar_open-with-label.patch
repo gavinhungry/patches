@@ -1,7 +1,7 @@
-diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-launcher.c thunar/src/Thunar-1.8.9/thunar/thunar-launcher.c
---- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-launcher.c	2019-02-12 11:51:06.190076087 -0800
-+++ thunar/src/Thunar-1.8.9/thunar/thunar-launcher.c	2019-02-12 11:51:08.596662402 -0800
-@@ -176,9 +176,9 @@
+diff -ru thunar.ORIG/src/thunar-1.8.10/thunar/thunar-launcher.c thunar/src/thunar-1.8.10/thunar/thunar-launcher.c
+--- thunar.ORIG/src/thunar-1.8.10/thunar/thunar-launcher.c	2019-11-11 08:24:30.426793390 -0800
++++ thunar/src/thunar-1.8.10/thunar/thunar-launcher.c	2019-11-11 08:24:31.353490489 -0800
+@@ -179,9 +179,9 @@
    { "open", "document-open", N_ ("_Open"), "<control>O", NULL, G_CALLBACK (thunar_launcher_action_open), },
    { "open-in-new-tab", NULL, N_ ("Open in New _Tab"), "<control><shift>P", NULL, G_CALLBACK (thunar_launcher_action_open_in_new_tab), },
    { "open-in-new-window", NULL, N_ ("Open in New _Window"), "<control><shift>O", NULL, G_CALLBACK (thunar_launcher_action_open_in_new_window), },
@@ -13,7 +13,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-launcher.c thunar/src/Thunar
    { "sendto-desktop", "user-desktop", "", NULL, NULL, G_CALLBACK (thunar_launcher_action_sendto_desktop), },
  };
  
-@@ -920,7 +920,7 @@
+@@ -931,7 +931,7 @@
    else if (G_LIKELY (applications != NULL))
      {
        /* turn the "Open" action into "Open With DEFAULT" */
@@ -22,7 +22,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-launcher.c thunar/src/Thunar
        tooltip = g_strdup_printf (ngettext ("Use \"%s\" to open the selected file",
                                             "Use \"%s\" to open the selected files",
                                             n_selected_files), g_app_info_get_name (applications->data));
-@@ -950,7 +950,7 @@
+@@ -961,7 +961,7 @@
      {
        /* turn the "Open" action into "Open With Other Application" */
        g_object_set (G_OBJECT (launcher->action_open),
@@ -31,7 +31,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-launcher.c thunar/src/Thunar
                      "tooltip", _("Choose another application with which to open the selected file"),
                      NULL);
        default_is_open_with_other = TRUE;
-@@ -959,7 +959,7 @@
+@@ -970,7 +970,7 @@
      {
        /* we can only show a generic "Open" action */
        g_object_set (G_OBJECT (launcher->action_open),
@@ -40,7 +40,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-launcher.c thunar/src/Thunar
                      "tooltip", ngettext ("Open the selected file with the default application",
                                           "Open the selected files with the default applications", n_selected_files),
                      NULL);
-@@ -1002,13 +1002,13 @@
+@@ -1013,13 +1013,13 @@
          }
  
        /* show the toplevel "Open With Other Application" (if not already done by the "Open" action) */
@@ -56,7 +56,7 @@ diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-launcher.c thunar/src/Thunar
      {
        /* process all applications and determine the desktop actions */
        for (lp = applications, n = 0; lp != NULL; lp = lp->next, ++n)
-@@ -1018,7 +1018,7 @@
+@@ -1029,7 +1029,7 @@
  
            /* generate a unique label, unique id and tooltip for the application's action */
            name = g_strdup_printf ("thunar-launcher-addon-application%d-%p", n, launcher);

@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-dialogs.c thunar/src/Thunar-1.8.9/thunar/thunar-dialogs.c
---- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-dialogs.c	2019-02-12 11:51:06.176743199 -0800
-+++ thunar/src/Thunar-1.8.9/thunar/thunar-dialogs.c	2019-02-12 11:51:06.696725834 -0800
+diff -ru thunar.ORIG/src/thunar-1.8.10/thunar/thunar-dialogs.c thunar/src/thunar-1.8.10/thunar/thunar-dialogs.c
+--- thunar.ORIG/src/thunar-1.8.10/thunar/thunar-dialogs.c	2019-11-11 08:24:30.423459947 -0800
++++ thunar/src/thunar-1.8.10/thunar/thunar-dialogs.c	2019-11-11 08:24:30.670134717 -0800
 @@ -74,7 +74,6 @@
    ThunarJob         *job = NULL;
    GtkWidget         *dialog;

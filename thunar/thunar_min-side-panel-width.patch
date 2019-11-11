@@ -1,7 +1,7 @@
-diff -ru thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-window.c thunar/src/Thunar-1.8.9/thunar/thunar-window.c
---- thunar.ORIG/src/Thunar-1.8.9/thunar/thunar-window.c	2019-02-12 11:51:06.186742865 -0800
-+++ thunar/src/Thunar-1.8.9/thunar/thunar-window.c	2019-02-12 11:51:07.186709472 -0800
-@@ -1987,7 +1987,7 @@
+diff -ru thunar.ORIG/src/thunar-1.8.10/thunar/thunar-window.c thunar/src/thunar-1.8.10/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-1.8.10/thunar/thunar-window.c	2019-11-11 08:24:30.426793390 -0800
++++ thunar/src/thunar-1.8.10/thunar/thunar-window.c	2019-11-11 08:24:30.843473745 -0800
+@@ -1991,7 +1991,7 @@
      {
        /* allocate the new side pane widget */
        window->sidepane = g_object_new (type, NULL);
