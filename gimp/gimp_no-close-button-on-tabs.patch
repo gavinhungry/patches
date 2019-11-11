@@ -1,6 +1,6 @@
-diff -ru gimp.ORIG/src/gimp-2.10.12/app/display/gimpimagewindow.c gimp/src/gimp-2.10.12/app/display/gimpimagewindow.c
---- gimp.ORIG/src/gimp-2.10.12/app/display/gimpimagewindow.c	2018-07-19 11:03:46.027889293 -0700
-+++ gimp/src/gimp-2.10.12/app/display/gimpimagewindow.c	2018-07-19 11:10:35.221908993 -0700
+diff -ru gimp.ORIG/src/gimp-2.10.14/app/display/gimpimagewindow.c gimp/src/gimp-2.10.14/app/display/gimpimagewindow.c
+--- gimp.ORIG/src/gimp-2.10.14/app/display/gimpimagewindow.c	2018-07-19 11:03:46.027889293 -0700
++++ gimp/src/gimp-2.10.14/app/display/gimpimagewindow.c	2018-07-19 11:10:35.221908993 -0700
 @@ -2352,8 +2352,6 @@
    GtkWidget *hbox;
    GtkWidget *view;
