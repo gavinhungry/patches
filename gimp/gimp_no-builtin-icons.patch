@@ -1,6 +1,6 @@
-diff -ru gimp.ORIG/src/gimp-2.10.12/app/widgets/gimpthumbbox.c gimp/src/gimp-2.10.12/app/widgets/gimpthumbbox.c
---- gimp.ORIG/src/gimp-2.10.12/app/widgets/gimpthumbbox.c	2019-03-20 17:24:32.610868861 -0700
-+++ gimp/src/gimp-2.10.12/app/widgets/gimpthumbbox.c	2019-03-20 17:30:08.592940315 -0700
+diff -ru gimp.ORIG/src/gimp-2.10.14/app/widgets/gimpthumbbox.c gimp/src/gimp-2.10.14/app/widgets/gimpthumbbox.c
+--- gimp.ORIG/src/gimp-2.10.14/app/widgets/gimpthumbbox.c	2019-03-20 17:24:32.610868861 -0700
++++ gimp/src/gimp-2.10.14/app/widgets/gimpthumbbox.c	2019-03-20 17:30:08.592940315 -0700
 @@ -336,7 +336,6 @@
  
    button = gtk_button_new ();
@@ -9,9 +9,9 @@ diff -ru gimp.ORIG/src/gimp-2.10.12/app/widgets/gimpthumbbox.c gimp/src/gimp-2.1
  
    label = gtk_label_new_with_mnemonic (_("Pr_eview"));
    gtk_label_set_xalign (GTK_LABEL (label), 0.0);
-diff -ru gimp.ORIG/src/gimp-2.10.12/app/widgets/gimpviewrendererimagefile.c gimp/src/gimp-2.10.12/app/widgets/gimpviewrendererimagefile.c
---- gimp.ORIG/src/gimp-2.10.12/app/widgets/gimpviewrendererimagefile.c	2019-03-20 17:24:32.600869097 -0700
-+++ gimp/src/gimp-2.10.12/app/widgets/gimpviewrendererimagefile.c	2019-03-20 17:33:28.788232490 -0700
+diff -ru gimp.ORIG/src/gimp-2.10.14/app/widgets/gimpviewrendererimagefile.c gimp/src/gimp-2.10.14/app/widgets/gimpviewrendererimagefile.c
+--- gimp.ORIG/src/gimp-2.10.14/app/widgets/gimpviewrendererimagefile.c	2019-03-20 17:24:32.600869097 -0700
++++ gimp/src/gimp-2.10.14/app/widgets/gimpviewrendererimagefile.c	2019-03-20 17:33:28.788232490 -0700
 @@ -193,8 +193,7 @@
  
        pixbuf = gtk_icon_theme_load_icon (icon_theme,
@@ -22,9 +22,9 @@ diff -ru gimp.ORIG/src/gimp-2.10.12/app/widgets/gimpviewrendererimagefile.c gimp
      }
  
    return pixbuf;
-diff -ru gimp.ORIG/src/gimp-2.10.12/app/widgets/gimpwidgets-utils.c gimp/src/gimp-2.10.12/app/widgets/gimpwidgets-utils.c
---- gimp.ORIG/src/gimp-2.10.12/app/widgets/gimpwidgets-utils.c	2019-03-20 17:24:32.600869097 -0700
-+++ gimp/src/gimp-2.10.12/app/widgets/gimpwidgets-utils.c	2019-03-20 17:33:20.188434551 -0700
+diff -ru gimp.ORIG/src/gimp-2.10.14/app/widgets/gimpwidgets-utils.c gimp/src/gimp-2.10.14/app/widgets/gimpwidgets-utils.c
+--- gimp.ORIG/src/gimp-2.10.14/app/widgets/gimpwidgets-utils.c	2019-03-20 17:24:32.600869097 -0700
++++ gimp/src/gimp-2.10.14/app/widgets/gimpwidgets-utils.c	2019-03-20 17:33:20.188434551 -0700
 @@ -434,8 +434,7 @@
    if (closest_size != -1)
      size = closest_size;
