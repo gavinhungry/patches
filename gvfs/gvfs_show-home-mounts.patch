@@ -1,0 +1,48 @@
+diff -ru gvfs.ORIG/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c gvfs/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c
+--- gvfs.ORIG/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c	2019-11-14 09:51:12.448822882 -0800
++++ gvfs/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c	2019-11-14 11:22:19.450947229 -0800
+@@ -645,6 +645,7 @@
+   const gchar *home_dir = NULL;
+   const gchar *user_name;
+   gsize user_name_len;
++  gchar *alt_home_path;
+ 
+   g_return_val_if_fail (mount_path != NULL, FALSE);
+ 
+@@ -674,10 +675,27 @@
+ 
+   /* Only display things in
+    * - /media; and
+-   * - $HOME; and
++   * - $HOME; $HOME/.mount and
+    * - /run/media/$USER
+    */
+ 
++  home_dir = g_get_home_dir ();
++  if (home_dir != NULL)
++    {
++      alt_home_path = g_strconcat (home_dir, "/.mount/", NULL);
++
++      if (g_str_has_prefix (mount_path, alt_home_path))
++        {
++          ret = TRUE;
++        }
++
++      g_free (alt_home_path);
++
++      if (ret) {
++        goto out;
++      }
++    }
++
+   /* Hide mounts within a subdirectory starting with a "." - suppose it was a purpose to hide this mount */
+   if (g_strstr_len (mount_path, -1, "/.") != NULL)
+     goto out;
+@@ -690,7 +708,6 @@
+     }
+ 
+   /* Check home dir */
+-  home_dir = g_get_home_dir ();
+   if (home_dir != NULL)
+     {
+       if (g_str_has_prefix (mount_path, home_dir) && mount_path[strlen (home_dir)] == G_DIR_SEPARATOR)
