@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-1.8.10/thunar/thunar-standard-view-ui.xml thunar/src/thunar-1.8.10/thunar/thunar-standard-view-ui.xml
---- thunar.ORIG/src/thunar-1.8.10/thunar/thunar-standard-view-ui.xml	2019-11-11 08:24:30.423459947 -0800
-+++ thunar/src/thunar-1.8.10/thunar/thunar-standard-view-ui.xml	2019-11-11 08:24:30.956810800 -0800
+diff -ru thunar.ORIG/src/thunar-1.8.11/thunar/thunar-standard-view-ui.xml thunar/src/thunar-1.8.11/thunar/thunar-standard-view-ui.xml
+--- thunar.ORIG/src/thunar-1.8.11/thunar/thunar-standard-view-ui.xml	2019-11-11 08:24:30.423459947 -0800
++++ thunar/src/thunar-1.8.11/thunar/thunar-standard-view-ui.xml	2019-11-11 08:24:30.956810800 -0800
 @@ -53,14 +53,6 @@
    </menubar>
  
