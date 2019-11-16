@@ -1,0 +1,46 @@
+diff -ru gvfs.ORIG/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c gvfs/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c
+--- gvfs.ORIG/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c	2019-11-16 02:07:09.242155680 -0800
++++ gvfs/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c	2019-11-16 02:13:17.229882456 -0800
+@@ -645,6 +645,7 @@
+   const gchar *home_dir = NULL;
+   const gchar *user_name;
+   gsize user_name_len;
++  gchar *user_cache_path;
+ 
+   g_return_val_if_fail (mount_path != NULL, FALSE);
+ 
+@@ -673,11 +674,26 @@
+     goto out;
+ 
+   /* Only display things in
++   * - /tmp/.cache/user/$USER/mount; and
+    * - /media; and
+    * - $HOME; and
+    * - /run/media/$USER
+    */
+ 
++  user_name = g_get_user_name ();
++  user_cache_path = g_strconcat ("/tmp/.cache/user/", user_name, "/mount/", NULL);
++
++  if (g_str_has_prefix (mount_path, user_cache_path))
++    {
++      ret = TRUE;
++    }
++
++  g_free (user_cache_path);
++
++  if (ret) {
++    goto out;
++  }
++
+   /* Hide mounts within a subdirectory starting with a "." - suppose it was a purpose to hide this mount */
+   if (g_strstr_len (mount_path, -1, "/.") != NULL)
+     goto out;
+@@ -701,7 +717,6 @@
+     }
+ 
+   /* Check /run/media/$USER/ */
+-  user_name = g_get_user_name ();
+   user_name_len = strlen (user_name);
+   if (strncmp (mount_path, "/run/media/", sizeof ("/run/media/") - 1) == 0 &&
+       strncmp (mount_path + sizeof ("/run/media/") - 1, user_name, user_name_len) == 0 &&
