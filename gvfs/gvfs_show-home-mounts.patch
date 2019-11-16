@@ -14,14 +14,14 @@ diff -ru gvfs.ORIG/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c gvfs/src/
    /* Only display things in
     * - /media; and
 -   * - $HOME; and
-+   * - $HOME; $HOME/.mount and
++   * - $HOME; $HOME/.cache/mount and
     * - /run/media/$USER
     */
  
 +  home_dir = g_get_home_dir ();
 +  if (home_dir != NULL)
 +    {
-+      alt_home_path = g_strconcat (home_dir, "/.mount/", NULL);
++      alt_home_path = g_strconcat (home_dir, "/.cache/mount/", NULL);
 +
 +      if (g_str_has_prefix (mount_path, alt_home_path))
 +        {
