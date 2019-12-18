@@ -1,0 +1,13 @@
+diff -ru xfce4-settings.ORIG/src/xfce4-settings-4.14.1/xfsettingsd/accessibility.c xfce4-settings/src/xfce4-settings-4.14.1/xfsettingsd/accessibility.c
+--- xfce4-settings.ORIG/src/xfce4-settings-4.14.1/xfsettingsd/accessibility.c	2019-12-18 09:38:26.754306352 -0800
++++ xfce4-settings/src/xfce4-settings-4.14.1/xfsettingsd/accessibility.c	2019-12-18 09:39:55.764309412 -0800
+@@ -136,9 +136,6 @@
+ 
+         /* add event filter */
+         XkbSelectEvents (GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), XkbUseCoreKbd, XkbControlsNotifyMask, XkbControlsNotifyMask);
+-
+-        /* monitor all window events */
+-        gdk_window_add_filter (NULL, xfce_accessibility_helper_event_filter, helper);
+ #endif /* !HAVE_LIBNOTIFY */
+     }
+     else
