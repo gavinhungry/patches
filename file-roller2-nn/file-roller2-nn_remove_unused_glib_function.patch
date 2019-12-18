@@ -1,0 +1,37 @@
+diff -ru file-roller2-nn.ORIG/src/file-roller-2.32.2/src/glib-utils.c file-roller2-nn/src/file-roller-2.32.2/src/glib-utils.c
+--- file-roller2-nn.ORIG/src/file-roller-2.32.2/src/glib-utils.c	2019-12-17 22:59:58.489874748 -0800
++++ file-roller2-nn/src/file-roller-2.32.2/src/glib-utils.c	2019-12-17 23:00:03.966541602 -0800
+@@ -542,22 +542,6 @@
+ }
+ 
+ 
+-GPtrArray *
+-g_ptr_array_copy (GPtrArray *array)
+-{
+-	GPtrArray *new_array;
+-	
+-	if (array == NULL)
+-		return NULL;
+-		
+-	new_array = g_ptr_array_sized_new (array->len);
+-	memcpy (new_array->pdata, array->pdata, array->len * sizeof (gpointer)); 
+-	new_array->len = array->len;
+-	
+-	return new_array;
+-}
+-
+-
+ void
+ g_ptr_array_free_full (GPtrArray *array,
+                        GFunc      free_func,
+diff -ru file-roller2-nn.ORIG/src/file-roller-2.32.2/src/glib-utils.h file-roller2-nn/src/file-roller-2.32.2/src/glib-utils.h
+--- file-roller2-nn.ORIG/src/file-roller-2.32.2/src/glib-utils.h	2019-12-17 22:59:58.493208083 -0800
++++ file-roller2-nn/src/file-roller-2.32.2/src/glib-utils.h	2019-12-17 23:00:01.763208192 -0800
+@@ -59,7 +59,6 @@
+ 						  int          last_field);
+ int                 n_fields                     (char       **str_array);
+ char *              get_time_string              (time_t       time);
+-GPtrArray *         g_ptr_array_copy             (GPtrArray   *array);
+ void                g_ptr_array_free_full        (GPtrArray   *array,
+                        				  GFunc        func,
+                        				  gpointer     user_data);
