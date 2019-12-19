@@ -1,6 +1,6 @@
-diff -ru exo.ORIG/src/exo-0.12.10/exo-helper/main.c exo/src/exo-0.12.10/exo-helper/main.c
---- exo.ORIG/src/exo-0.12.10/exo-helper/main.c	2013-07-20 03:17:24.444236284 -0700
-+++ exo/src/exo-0.12.10/exo-helper/main.c	2013-07-20 03:17:30.287569440 -0700
+diff -ru exo.ORIG/src/exo-0.12.11/exo-helper/main.c exo/src/exo-0.12.11/exo-helper/main.c
+--- exo.ORIG/src/exo-0.12.11/exo-helper/main.c	2013-07-20 03:17:24.444236284 -0700
++++ exo/src/exo-0.12.11/exo-helper/main.c	2013-07-20 03:17:30.287569440 -0700
 @@ -193,7 +193,7 @@
        if (G_LIKELY (helper != NULL))
          {
