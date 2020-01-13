@@ -1,6 +1,6 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.1/panel/panel-base-window.c xfce4-panel/src/xfce4-panel-4.14.1/panel/panel-base-window.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.1/panel/panel-base-window.c	2019-08-12 12:54:49.058828878 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.1/panel/panel-base-window.c	2019-08-12 12:54:49.315503315 -0700
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.3/panel/panel-base-window.c xfce4-panel/src/xfce4-panel-4.14.3/panel/panel-base-window.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.3/panel/panel-base-window.c	2019-08-12 12:54:49.058828878 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.3/panel/panel-base-window.c	2019-08-12 12:54:49.315503315 -0700
 @@ -837,5 +837,6 @@
    else if (window->background_style != PANEL_BG_STYLE_NONE)
      return PANEL_BORDER_NONE;
