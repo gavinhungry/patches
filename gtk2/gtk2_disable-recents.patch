@@ -1,6 +1,6 @@
-diff -ru gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c gtk2/src/gtk+/gtk/gtkfilechooserdefault.c
---- gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:45:46.936391720 -0700
-+++ gtk2/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 17:02:17.103856508 -0700
+diff -ru gtk2.ORIG/src/gtk/gtk/gtkfilechooserdefault.c gtk2/src/gtk/gtk/gtkfilechooserdefault.c
+--- gtk2.ORIG/src/gtk/gtk/gtkfilechooserdefault.c	2019-03-20 16:45:46.936391720 -0700
++++ gtk2/src/gtk/gtk/gtkfilechooserdefault.c	2019-03-20 17:02:17.103856508 -0700
 @@ -1911,8 +1911,6 @@
    if (where == SHORTCUTS_RECENT)
      goto out;
