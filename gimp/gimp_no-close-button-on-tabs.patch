@@ -1,7 +1,7 @@
-diff -ru gimp.ORIG/src/gimp-2.10.14/app/display/gimpimagewindow.c gimp/src/gimp-2.10.14/app/display/gimpimagewindow.c
---- gimp.ORIG/src/gimp-2.10.14/app/display/gimpimagewindow.c	2018-07-19 11:03:46.027889293 -0700
-+++ gimp/src/gimp-2.10.14/app/display/gimpimagewindow.c	2018-07-19 11:10:35.221908993 -0700
-@@ -2352,8 +2352,6 @@
+diff -ru gimp.ORIG/src/gimp-2.10.18/app/display/gimpimagewindow.c gimp/src/gimp-2.10.18/app/display/gimpimagewindow.c
+--- gimp.ORIG/src/gimp-2.10.18/app/display/gimpimagewindow.c	2020-02-24 09:11:23.259369588 -0800
++++ gimp/src/gimp-2.10.18/app/display/gimpimagewindow.c	2020-02-24 09:11:24.406068499 -0800
+@@ -2354,8 +2354,6 @@
    GtkWidget *hbox;
    GtkWidget *view;
    GimpImage *image;
@@ -10,7 +10,7 @@ diff -ru gimp.ORIG/src/gimp-2.10.14/app/display/gimpimagewindow.c gimp/src/gimp-
  
    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
    gtk_widget_show (hbox);
-@@ -2371,23 +2369,6 @@
+@@ -2373,23 +2371,6 @@
    if (image)
      gimp_view_set_viewable (GIMP_VIEW (view), GIMP_VIEWABLE (image));
  
