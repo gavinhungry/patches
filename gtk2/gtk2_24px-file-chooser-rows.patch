@@ -1,6 +1,6 @@
-diff -ru gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c gtk2/src/gtk+/gtk/gtkfilechooserdefault.c
---- gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:45:46.936391720 -0700
-+++ gtk2/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:53:56.045508383 -0700
+diff -ru gtk2.ORIG/src/gtk/gtk/gtkfilechooserdefault.c gtk2/src/gtk/gtk/gtkfilechooserdefault.c
+--- gtk2.ORIG/src/gtk/gtk/gtkfilechooserdefault.c	2019-03-20 16:45:46.936391720 -0700
++++ gtk2/src/gtk/gtk/gtkfilechooserdefault.c	2019-03-20 16:53:56.045508383 -0700
 @@ -249,7 +249,7 @@
  } ShortcutsIndex;
  

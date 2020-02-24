@@ -1,6 +1,6 @@
-diff -ru gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c gtk2/src/gtk+/gtk/gtkfilechooserdefault.c
---- gtk2.ORIG/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:10:39.102087661 -0700
-+++ gtk2/src/gtk+/gtk/gtkfilechooserdefault.c	2019-03-20 16:16:49.302974828 -0700
+diff -ru gtk2.ORIG/src/gtk/gtk/gtkfilechooserdefault.c gtk2/src/gtk/gtk/gtkfilechooserdefault.c
+--- gtk2.ORIG/src/gtk/gtk/gtkfilechooserdefault.c	2019-03-20 16:10:39.102087661 -0700
++++ gtk2/src/gtk/gtk/gtkfilechooserdefault.c	2019-03-20 16:16:49.302974828 -0700
 @@ -6572,20 +6572,7 @@
    time_now = time (NULL);
    g_date_set_time_t (&now, time_now);
