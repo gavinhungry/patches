@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-1.8.12/thunar/thunar-util.c thunar/src/thunar-1.8.12/thunar/thunar-util.c
---- thunar.ORIG/src/thunar-1.8.12/thunar/thunar-util.c	2019-11-11 08:24:30.430126833 -0800
-+++ thunar/src/thunar-1.8.12/thunar/thunar-util.c	2019-11-11 08:24:30.613466189 -0800
+diff -ru thunar.ORIG/src/thunar-1.8.13/thunar/thunar-util.c thunar/src/thunar-1.8.13/thunar/thunar-util.c
+--- thunar.ORIG/src/thunar-1.8.13/thunar/thunar-util.c	2019-11-11 08:24:30.430126833 -0800
++++ thunar/src/thunar-1.8.13/thunar/thunar-util.c	2019-11-11 08:24:30.613466189 -0800
 @@ -463,7 +463,10 @@
              return g_strdup ("");
  
