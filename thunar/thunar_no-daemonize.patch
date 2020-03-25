@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-1.8.13/thunar/thunar-application.c thunar/src/thunar-1.8.13/thunar/thunar-application.c
---- thunar.ORIG/src/thunar-1.8.13/thunar/thunar-application.c	2019-11-11 08:24:30.426793390 -0800
-+++ thunar/src/thunar-1.8.13/thunar/thunar-application.c	2019-11-11 08:24:31.013479328 -0800
+diff -ru thunar.ORIG/src/thunar-1.8.14/thunar/thunar-application.c thunar/src/thunar-1.8.14/thunar/thunar-application.c
+--- thunar.ORIG/src/thunar-1.8.14/thunar/thunar-application.c	2019-11-11 08:24:30.426793390 -0800
++++ thunar/src/thunar-1.8.14/thunar/thunar-application.c	2019-11-11 08:24:31.013479328 -0800
 @@ -1148,16 +1148,8 @@
  {
    _thunar_return_if_fail (THUNAR_IS_APPLICATION (application));
