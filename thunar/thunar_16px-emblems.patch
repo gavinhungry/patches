@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-1.8.13/thunar/thunar-emblem-chooser.c thunar/src/thunar-1.8.13/thunar/thunar-emblem-chooser.c
---- thunar.ORIG/src/thunar-1.8.13/thunar/thunar-emblem-chooser.c	2019-11-11 08:24:30.426793390 -0800
-+++ thunar/src/thunar-1.8.13/thunar/thunar-emblem-chooser.c	2019-11-11 08:24:30.440127161 -0800
+diff -ru thunar.ORIG/src/thunar-1.8.14/thunar/thunar-emblem-chooser.c thunar/src/thunar-1.8.14/thunar/thunar-emblem-chooser.c
+--- thunar.ORIG/src/thunar-1.8.14/thunar/thunar-emblem-chooser.c	2019-11-11 08:24:30.426793390 -0800
++++ thunar/src/thunar-1.8.14/thunar/thunar-emblem-chooser.c	2019-11-11 08:24:30.440127161 -0800
 @@ -445,7 +445,7 @@
    GdkPixbuf   *icon;
  
@@ -10,9 +10,9 @@ diff -ru thunar.ORIG/src/thunar-1.8.13/thunar/thunar-emblem-chooser.c thunar/src
    if (G_UNLIKELY (info == NULL))
      return NULL;
  
-diff -ru thunar.ORIG/src/thunar-1.8.13/thunar/thunar-icon-renderer.c thunar/src/thunar-1.8.13/thunar/thunar-icon-renderer.c
---- thunar.ORIG/src/thunar-1.8.13/thunar/thunar-icon-renderer.c	2019-11-11 08:24:30.426793390 -0800
-+++ thunar/src/thunar-1.8.13/thunar/thunar-icon-renderer.c	2019-11-11 08:24:30.440127161 -0800
+diff -ru thunar.ORIG/src/thunar-1.8.14/thunar/thunar-icon-renderer.c thunar/src/thunar-1.8.14/thunar/thunar-icon-renderer.c
+--- thunar.ORIG/src/thunar-1.8.14/thunar/thunar-icon-renderer.c	2019-11-11 08:24:30.426793390 -0800
++++ thunar/src/thunar-1.8.14/thunar/thunar-icon-renderer.c	2019-11-11 08:24:30.440127161 -0800
 @@ -505,7 +505,7 @@
            for (lp = emblems, position = 0; lp != NULL && position < max_emblems; lp = lp->next)
              {

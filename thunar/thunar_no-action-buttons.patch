@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-1.8.13/thunar/thunar-history.c thunar/src/thunar-1.8.13/thunar/thunar-history.c
---- thunar.ORIG/src/thunar-1.8.13/thunar/thunar-history.c	2019-11-11 08:24:30.423459947 -0800
-+++ thunar/src/thunar-1.8.13/thunar/thunar-history.c	2019-11-11 08:24:30.900142272 -0800
+diff -ru thunar.ORIG/src/thunar-1.8.14/thunar/thunar-history.c thunar/src/thunar-1.8.14/thunar/thunar-history.c
+--- thunar.ORIG/src/thunar-1.8.14/thunar/thunar-history.c	2019-11-11 08:24:30.423459947 -0800
++++ thunar/src/thunar-1.8.14/thunar/thunar-history.c	2019-11-11 08:24:30.900142272 -0800
 @@ -167,6 +167,7 @@
    g_signal_connect (G_OBJECT (history->action_back), "show-menu", G_CALLBACK (thunar_history_show_menu), history);
  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
@@ -17,9 +17,9 @@ diff -ru thunar.ORIG/src/thunar-1.8.13/thunar/thunar-history.c thunar/src/thunar
  G_GNUC_END_IGNORE_DEPRECATIONS
  }
  
-diff -ru thunar.ORIG/src/thunar-1.8.13/thunar/thunar-window-ui.xml thunar/src/thunar-1.8.13/thunar/thunar-window-ui.xml
---- thunar.ORIG/src/thunar-1.8.13/thunar/thunar-window-ui.xml	2019-11-11 08:24:30.426793390 -0800
-+++ thunar/src/thunar-1.8.13/thunar/thunar-window-ui.xml	2019-11-11 08:24:30.900142272 -0800
+diff -ru thunar.ORIG/src/thunar-1.8.14/thunar/thunar-window-ui.xml thunar/src/thunar-1.8.14/thunar/thunar-window-ui.xml
+--- thunar.ORIG/src/thunar-1.8.14/thunar/thunar-window-ui.xml	2019-11-11 08:24:30.426793390 -0800
++++ thunar/src/thunar-1.8.14/thunar/thunar-window-ui.xml	2019-11-11 08:24:30.900142272 -0800
 @@ -126,9 +126,6 @@
    </popup>
  
