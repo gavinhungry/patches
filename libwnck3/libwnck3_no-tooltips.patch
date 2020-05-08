@@ -1,0 +1,55 @@
+diff -ru libwnck3.ORIG/src/libwnck/libwnck/pager.c libwnck3/src/libwnck/libwnck/pager.c
+--- libwnck3.ORIG/src/libwnck/libwnck/pager.c	2020-05-06 06:07:24.561748528 -0700
++++ libwnck3/src/libwnck/libwnck/pager.c	2020-05-06 06:07:59.476979671 -0700
+@@ -2191,50 +2191,7 @@
+                           gboolean    keyboard_tip,
+                           GtkTooltip *tooltip)
+ {
+-  int i;
+-  WnckPager *pager;
+-  WnckScreen *screen;
+-  WnckWorkspace *space;
+-  char *name;
+-
+-  pager = WNCK_PAGER (widget);
+-  screen = pager->priv->screen;
+-
+-  i = workspace_at_point (pager, x, y, NULL, NULL);
+-  space = wnck_screen_get_workspace (screen, i);
+-  if (!space)
+-    return GTK_WIDGET_CLASS (wnck_pager_parent_class)->query_tooltip (widget,
+-                                                                      x, y,
+-                                                                      keyboard_tip,
+-                                                                      tooltip);
+-
+-  if (wnck_screen_get_active_workspace (screen) == space)
+-    {
+-      WnckWindow *window;
+-      GdkRectangle workspace_rect;
+-
+-      get_workspace_rect (pager, i, &workspace_rect);
+-
+-      window = window_at_point (pager, space, &workspace_rect, x, y);
+-
+-      if (window)
+-        name = g_strdup_printf (_("Click to start dragging \"%s\""),
+-                                wnck_window_get_name (window));
+-      else
+-        name = g_strdup_printf (_("Current workspace: \"%s\""),
+-                                wnck_workspace_get_name (space));
+-    }
+-  else
+-    {
+-      name = g_strdup_printf (_("Click to switch to \"%s\""),
+-                              wnck_workspace_get_name (space));
+-    }
+-
+-  gtk_tooltip_set_text (tooltip, name);
+-
+-  g_free (name);
+-
+-  return TRUE;
++  return FALSE;
+ }
+ 
+ /**
