@@ -1,6 +1,6 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c	2019-08-12 12:54:49.048828575 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c	2019-08-12 12:54:49.145498169 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c	2020-05-14 23:36:44.157527316 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c	2020-05-14 23:37:34.233062524 -0700
 @@ -35,7 +35,7 @@
  #include "systray-box.h"
  #include "systray-socket.h"
@@ -22,8 +22,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c x
    if (name_a != NULL && g_hash_table_lookup_extended (box->names_ordered, name_a, NULL, &value))
      index_a = GPOINTER_TO_INT (value);
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.c xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.c	2019-08-12 12:54:49.048828575 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.c	2019-08-12 12:54:49.145498169 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.c	2020-05-14 23:36:44.157527316 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.c	2020-05-14 23:39:03.236937973 -0700
 @@ -56,6 +56,7 @@
    Window           window;
  
@@ -48,7 +48,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.
  
    G_OBJECT_CLASS (systray_socket_parent_class)->finalize (object);
  }
-@@ -406,6 +409,28 @@
+@@ -406,6 +409,29 @@
  }
  
  
@@ -61,14 +61,15 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.
 +  socket->name = systray_socket_get_name(socket);
 +  socket->sort = g_strdup(socket->name);
 +
-+  if (!g_strcmp0(socket->sort, "hexchat")) { g_strlcpy(socket->sort, "zzzzz00", 8); }
-+  else if (!g_strcmp0(socket->sort, "pidgin")) { g_strlcpy(socket->sort, "zzzzz10", 8); }
-+  else if (!g_strcmp0(socket->sort, "dropbox-tray")) { g_strlcpy(socket->sort, "zzzzz20", 8); }
-+  else if (!g_strcmp0(socket->sort, "parcellite")) { g_strlcpy(socket->sort, "zzzzz30", 8); }
-+  else if (!g_strcmp0(socket->sort, "blueman-applet")) { g_strlcpy(socket->sort, "zzzzz40", 8); }
-+  else if (!g_strcmp0(socket->sort, "networkmanager applet")) { g_strlcpy(socket->sort, "zzzzz50", 8); }
-+  else if (!g_strcmp0(socket->sort, "batterymon")) { g_strlcpy(socket->sort, "zzzzz60", 8); }
-+  else if (!g_strcmp0(socket->sort, "volatile")) { g_strlcpy(socket->sort, "zzzzz70", 8); }
++  if (!g_strcmp0(socket->sort, "pidgin")) { g_strlcpy(socket->sort, "zzzz100", 8); }
++  else if (!g_strcmp0(socket->sort, "hexchat")) { g_strlcpy(socket->sort, "zzzz120", 8); }
++  else if (!g_strcmp0(socket->sort, "teams")) { g_strlcpy(socket->sort, "zzzz130", 8); }
++  else if (!g_strcmp0(socket->sort, "dropbox-tray")) { g_strlcpy(socket->sort, "zzzz140", 8); }
++  else if (!g_strcmp0(socket->sort, "parcellite")) { g_strlcpy(socket->sort, "zzzz150", 8); }
++  else if (!g_strcmp0(socket->sort, "blueman-applet")) { g_strlcpy(socket->sort, "zzzz160", 8); }
++  else if (!g_strcmp0(socket->sort, "networkmanager applet")) { g_strlcpy(socket->sort, "zzzz170", 8); }
++  else if (!g_strcmp0(socket->sort, "batterymon")) { g_strlcpy(socket->sort, "zzzz180", 8); }
++  else if (!g_strcmp0(socket->sort, "volatile")) { g_strlcpy(socket->sort, "zzzz190", 8); }
 +
 +  return socket->sort;
 +}
@@ -78,8 +79,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.
  Window *
  systray_socket_get_window (SystraySocket *socket)
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.h xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.h
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.h	2019-08-12 12:54:49.048828575 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.h	2019-08-12 12:54:49.145498169 -0700
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.h	2020-05-14 23:36:44.157527316 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.h	2020-05-14 23:37:34.236396003 -0700
 @@ -48,6 +48,8 @@
  
  const gchar     *systray_socket_get_name      (SystraySocket   *socket);
