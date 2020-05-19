@@ -61,15 +61,15 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.
 +  socket->name = systray_socket_get_name(socket);
 +  socket->sort = g_strdup(socket->name);
 +
-+  if (!g_strcmp0(socket->sort, "pidgin")) { g_strlcpy(socket->sort, "zzzz100", 8); }
-+  else if (!g_strcmp0(socket->sort, "hexchat")) { g_strlcpy(socket->sort, "zzzz120", 8); }
-+  else if (!g_strcmp0(socket->sort, "teams")) { g_strlcpy(socket->sort, "zzzz130", 8); }
-+  else if (!g_strcmp0(socket->sort, "dropbox-tray")) { g_strlcpy(socket->sort, "zzzz140", 8); }
-+  else if (!g_strcmp0(socket->sort, "parcellite")) { g_strlcpy(socket->sort, "zzzz150", 8); }
-+  else if (!g_strcmp0(socket->sort, "blueman-applet")) { g_strlcpy(socket->sort, "zzzz160", 8); }
-+  else if (!g_strcmp0(socket->sort, "networkmanager applet")) { g_strlcpy(socket->sort, "zzzz170", 8); }
-+  else if (!g_strcmp0(socket->sort, "batterymon")) { g_strlcpy(socket->sort, "zzzz180", 8); }
-+  else if (!g_strcmp0(socket->sort, "volatile")) { g_strlcpy(socket->sort, "zzzz190", 8); }
++  if (!g_strcmp0(socket->sort, "hexchat")) { g_strlcpy(socket->sort, "zzzz1000", 8); }
++  else if (!g_strcmp0(socket->sort, "teams")) { g_strlcpy(socket->sort, "zzzz1100", 8); }
++  else if (!g_strcmp0(socket->sort, "pidgin")) { g_strlcpy(socket->sort, "zzzz1200", 8); }
++  else if (!g_strcmp0(socket->sort, "dropbox-tray")) { g_strlcpy(socket->sort, "zzzz1300", 8); }
++  else if (!g_strcmp0(socket->sort, "parcellite")) { g_strlcpy(socket->sort, "zzzz1400", 8); }
++  else if (!g_strcmp0(socket->sort, "blueman-applet")) { g_strlcpy(socket->sort, "zzzz1500", 8); }
++  else if (!g_strcmp0(socket->sort, "networkmanager applet")) { g_strlcpy(socket->sort, "zzzz1600", 8); }
++  else if (!g_strcmp0(socket->sort, "batterymon")) { g_strlcpy(socket->sort, "zzzz1700", 8); }
++  else if (!g_strcmp0(socket->sort, "volatile")) { g_strlcpy(socket->sort, "zzzz1800", 8); }
 +
 +  return socket->sort;
 +}
