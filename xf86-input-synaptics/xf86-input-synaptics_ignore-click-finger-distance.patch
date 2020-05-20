@@ -1,6 +1,6 @@
-diff -ru xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.9.0/src/synaptics.c xf86-input-synaptics/src/xf86-input-synaptics-1.9.0/src/synaptics.c
---- xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.9.0/src/synaptics.c	2017-01-13 00:44:19.254540738 -0800
-+++ xf86-input-synaptics/src/xf86-input-synaptics-1.9.0/src/synaptics.c	2017-01-13 01:08:50.381078889 -0800
+diff -ru xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.9.1/src/synaptics.c xf86-input-synaptics/src/xf86-input-synaptics-1.9.1/src/synaptics.c
+--- xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.9.1/src/synaptics.c	2017-01-13 00:44:19.254540738 -0800
++++ xf86-input-synaptics/src/xf86-input-synaptics-1.9.1/src/synaptics.c	2017-01-13 01:08:50.381078889 -0800
 @@ -2648,8 +2648,6 @@
              hw->slot_state[i] == SLOTSTATE_CLOSE)
              continue;
