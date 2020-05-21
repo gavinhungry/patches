@@ -1,0 +1,21 @@
+diff -ru libwnck3.ORIG/src/libwnck/libwnck/pager.c libwnck3/src/libwnck/libwnck/pager.c
+--- libwnck3.ORIG/src/libwnck/libwnck/pager.c	2020-05-21 12:48:46.759132084 -0700
++++ libwnck3/src/libwnck/libwnck/pager.c	2020-05-21 13:38:18.564665577 -0700
+@@ -1290,7 +1290,7 @@
+               for (i = 0; i < horiz_views; i++)
+                 {
+                   /* "+ i" is for the thin lines */
+-                  vx = rect->x + (width_ratio * screen_width) * i + i;
++                  vx = rect->x + (width_ratio * screen_width) * i;
+ 
+                   if (i == horiz_views - 1)
+                     vw = rect->width + rect->x - vx;
+@@ -1304,7 +1304,7 @@
+                       GtkStateFlags rec_state = GTK_STATE_FLAG_NORMAL;
+ 
+                       /* "+ j" is for the thin lines */
+-                      vy = rect->y + (height_ratio * screen_height) * j + j;
++                      vy = rect->y + (height_ratio * screen_height) * j;
+ 
+                       if (j == verti_views - 1)
+                         vh = rect->height + rect->y - vy;
