@@ -1,0 +1,12 @@
+diff -ru pam.ORIG/src/Linux-PAM-1.3.1/modules/pam_unix/support.c pam/src/Linux-PAM-1.3.1/modules/pam_unix/support.c
+--- pam.ORIG/src/Linux-PAM-1.3.1/modules/pam_unix/support.c	2020-05-21 12:26:22.914713378 -0700
++++ pam/src/Linux-PAM-1.3.1/modules/pam_unix/support.c	2020-05-21 12:27:13.473396990 -0700
+@@ -716,7 +716,7 @@
+ #ifdef HAVE_PAM_FAIL_DELAY
+ 	if (off(UNIX_NODELAY, ctrl)) {
+ 		D(("setting delay"));
+-		(void) pam_fail_delay(pamh, 2000000);	/* 2 sec delay for on failure */
++		(void) pam_fail_delay(pamh, 1000000);	/* 1 sec delay for on failure */
+ 	}
+ #endif
+ 
