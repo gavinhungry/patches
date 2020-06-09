@@ -1,0 +1,98 @@
+diff -ru xsecurelock.ORIG/src/xsecurelock-1.7.0/helpers/auth_x11.c xsecurelock/src/xsecurelock-1.7.0/helpers/auth_x11.c
+--- xsecurelock.ORIG/src/xsecurelock-1.7.0/helpers/auth_x11.c	2020-06-08 16:07:36.855772199 -0700
++++ xsecurelock/src/xsecurelock-1.7.0/helpers/auth_x11.c	2020-06-09 13:58:07.374647259 -0700
+@@ -741,19 +741,23 @@
+ }
+ 
+ void BuildTitle(char *output, size_t output_size, const char *input) {
+-  if (show_username) {
+-    size_t username_len = strlen(username);
+-    StrAppend(&output, &output_size, username, username_len);
+-  }
++  int show_prefix = strcmp(input, "...") != 0;
+ 
+-  if (show_username && show_hostname) {
+-    StrAppend(&output, &output_size, "@", 1);
+-  }
++  if (show_prefix) {
++    if (show_username) {
++      size_t username_len = strlen(username);
++      StrAppend(&output, &output_size, username, username_len);
++    }
+ 
+-  if (show_hostname) {
+-    size_t hostname_len =
+-        show_hostname > 1 ? strlen(hostname) : strcspn(hostname, ".");
+-    StrAppend(&output, &output_size, hostname, hostname_len);
++    if (show_username && show_hostname) {
++      StrAppend(&output, &output_size, "@", 1);
++    }
++
++    if (show_hostname) {
++      size_t hostname_len =
++          show_hostname > 1 ? strlen(hostname) : strcspn(hostname, ".");
++      StrAppend(&output, &output_size, hostname, hostname_len);
++    }
+   }
+ 
+   if (*input == 0) {
+@@ -761,9 +765,12 @@
+     return;
+   }
+ 
+-  if (show_username || show_hostname) {
+-    StrAppend(&output, &output_size, " - ", 3);
++  if (show_prefix) {
++    if (show_username || show_hostname) {
++      StrAppend(&output, &output_size, " - ", 3);
++    }
+   }
++
+   strncpy(output, input, output_size - 1);
+   output[output_size - 1] = 0;
+ }
+@@ -898,22 +905,6 @@
+ 
+     DrawString(i, cx - tw_str / 2, y, is_warning, str, len_str);
+     y += th;
+-
+-    DrawString(i, cx - tw_indicators / 2, y, indicators_warning, indicators,
+-               len_indicators);
+-    y += th;
+-
+-    if (have_multiple_layouts) {
+-      DrawString(i, cx - tw_switch_layout / 2, y, 0, switch_layout,
+-                 len_switch_layout);
+-      y += th;
+-    }
+-
+-    if (have_switch_user_command) {
+-      DrawString(i, cx - tw_switch_user / 2, y, 0, switch_user,
+-                 len_switch_user);
+-      // y += th;
+-    }
+   }
+ 
+   // Make the things just drawn appear on the screen as soon as possible.
+@@ -1424,10 +1415,10 @@
+         }
+         explicit_bzero(message, strlen(message));
+         free(message);
+-        DisplayMessage("Processing...", "", 0);
++        DisplayMessage("...", "", 0);
+         break;
+       case PTYPE_PROMPT_LIKE_PASSWORD:
+-        if (Prompt(message, &response, 0)) {
++        if (Prompt("", &response, 0)) {
+           WritePacket(responsefd[1], PTYPE_RESPONSE_LIKE_PASSWORD, response);
+           explicit_bzero(response, strlen(response));
+           free(response);
+@@ -1436,7 +1427,7 @@
+         }
+         explicit_bzero(message, strlen(message));
+         free(message);
+-        DisplayMessage("Processing...", "", 0);
++        DisplayMessage("...", "", 0);
+         break;
+       case 0:
+         goto done;
