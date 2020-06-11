@@ -1,0 +1,29 @@
+diff -ru xsecurelock.ORIG/src/xsecurelock-1.7.0/env_info.c xsecurelock/src/xsecurelock-1.7.0/env_info.c
+--- xsecurelock.ORIG/src/xsecurelock-1.7.0/env_info.c	2020-06-08 16:07:36.855772199 -0700
++++ xsecurelock/src/xsecurelock-1.7.0/env_info.c	2020-06-09 14:36:58.772972981 -0700
+@@ -8,6 +8,7 @@
+ #include "logging.h"
+ #include "mlock_page.h"
+ #include "util.h"
++#include "env_settings.h" // for GetIntSetting
+ 
+ int GetHostName(char* hostname_buf, size_t hostname_buflen) {
+   if (gethostname(hostname_buf, hostname_buflen)) {
+@@ -23,6 +24,8 @@
+   struct passwd pwd_storage;
+   char* pwd_buf;
+   long pwd_bufsize = sysconf(_SC_GETPW_R_SIZE_MAX);
++  int uid = GetIntSetting("XSECURELOCK_USER_ID", getuid());
++
+   if (pwd_bufsize < 0) {
+     pwd_bufsize = 1 << 20;
+   }
+@@ -36,7 +39,7 @@
+     // hash on modern systems.
+     LogErrno("mlock");
+   }
+-  getpwuid_r(getuid(), &pwd_storage, pwd_buf, (size_t)pwd_bufsize, &pwd);
++  getpwuid_r(uid, &pwd_storage, pwd_buf, (size_t)pwd_bufsize, &pwd);
+   if (!pwd) {
+     LogErrno("getpwuid_r");
+     free(pwd_buf);
