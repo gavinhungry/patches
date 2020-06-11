@@ -1,6 +1,6 @@
-diff -ru pidgin.ORIG/src/pidgin-2.13.0/pidgin/gtkcellrendererexpander.c pidgin/src/pidgin-2.13.0/pidgin/gtkcellrendererexpander.c
---- pidgin.ORIG/src/pidgin-2.13.0/pidgin/gtkcellrendererexpander.c	2016-12-29 10:18:15.917359805 -0800
-+++ pidgin/src/pidgin-2.13.0/pidgin/gtkcellrendererexpander.c	2016-12-29 10:18:16.350684785 -0800
+diff -ru pidgin.ORIG/src/pidgin-2.14.1/pidgin/gtkcellrendererexpander.c pidgin/src/pidgin-2.14.1/pidgin/gtkcellrendererexpander.c
+--- pidgin.ORIG/src/pidgin-2.14.1/pidgin/gtkcellrendererexpander.c	2016-12-29 10:18:15.917359805 -0800
++++ pidgin/src/pidgin-2.14.1/pidgin/gtkcellrendererexpander.c	2016-12-29 10:18:16.350684785 -0800
 @@ -264,12 +264,6 @@
  			    cell_area->x + cell->xpad + (width / 2),
  			    cell_area->y + cell->ypad + (height / 2),
