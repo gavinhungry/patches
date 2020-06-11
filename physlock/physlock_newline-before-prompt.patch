@@ -1,0 +1,12 @@
+diff -ru physlock.ORIG/src/src/main.c physlock/src/src/main.c
+--- physlock.ORIG/src/src/main.c	2020-06-09 16:56:32.889053880 -0700
++++ physlock/src/src/main.c	2020-06-09 17:06:43.850220149 -0700
+@@ -180,7 +180,7 @@
+ 	dup2(vt.fd, 2);
+ 
+ 	if (options->prompt != NULL && options->prompt[0] != '\0') {
+-		fprintf(vt.ios, "%s\n\n", options->prompt);
++		fprintf(vt.ios, "\n%s\n\n", options->prompt);
+ 	}
+ 
+ 	locked = 1;
