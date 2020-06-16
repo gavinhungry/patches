@@ -1,0 +1,33 @@
+diff -ru xsecurelock.ORIG/src/xsecurelock-1.7.0/main.c xsecurelock/src/xsecurelock-1.7.0/main.c
+--- xsecurelock.ORIG/src/xsecurelock-1.7.0/main.c	2020-06-16 12:19:53.829490534 -0700
++++ xsecurelock/src/xsecurelock-1.7.0/main.c	2020-06-16 13:58:21.336004731 -0700
+@@ -1104,6 +1104,9 @@
+   int background_window_mapped = 0, background_window_visible = 0,
+       auth_window_mapped = 0, saver_window_mapped = 0,
+       need_to_reinstate_grabs = 0, xss_lock_notified = 0;
++
++  int is_init = 1;
++
+   for (;;) {
+     // Watch children WATCH_CHILDREN_HZ times per second.
+     fd_set in_fds;
+@@ -1119,6 +1122,10 @@
+     enum WatchChildrenState requested_saver_state =
+         blanked ? WATCH_CHILDREN_SAVER_DISABLED : xss_requested_saver_state;
+ 
++    if (is_init && requested_saver_state == xss_requested_saver_state) {
++      requested_saver_state = WATCH_CHILDREN_FORCE_AUTH;
++    }
++
+     // Now check status of our children.
+     if (WatchChildren(display, auth_window, saver_window, requested_saver_state,
+                       NULL)) {
+@@ -1497,6 +1504,8 @@
+         xss_lock_notified = 1;
+       }
+     }
++
++    is_init = 0;
+   }
+ 
+ done:
