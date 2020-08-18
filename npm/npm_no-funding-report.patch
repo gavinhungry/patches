@@ -1,6 +1,6 @@
-diff -ru npm.ORIG/src/cli-6.14.7/lib/install.js npm/src/cli-6.14.7/lib/install.js
---- npm.ORIG/src/cli-6.14.7/lib/install.js	2020-07-22 11:11:47.288455732 -0700
-+++ npm/src/cli-6.14.7/lib/install.js	2020-07-22 11:17:12.648129197 -0700
+diff -ru npm.ORIG/src/cli-6.14.8/lib/install.js npm/src/cli-6.14.8/lib/install.js
+--- npm.ORIG/src/cli-6.14.8/lib/install.js	2020-07-22 11:11:47.288455732 -0700
++++ npm/src/cli-6.14.8/lib/install.js	2020-07-22 11:17:12.648129197 -0700
 @@ -908,9 +908,6 @@
      fund,
      idealTree
