@@ -1,18 +1,16 @@
-diff -ru pakku.ORIG/src/pakku-0.14/doc/pakku.conf.5.in pakku/src/pakku-0.14/doc/pakku.conf.5.in
---- pakku.ORIG/src/pakku-0.14/doc/pakku.conf.5.in	2019-12-21 14:44:00.706886968 -0800
-+++ pakku/src/pakku-0.14/doc/pakku.conf.5.in	2019-12-21 15:01:36.581087532 -0800
-@@ -83,6 +83,11 @@
- Print warnings during upgrade operation when local packages are newer than those found in remote repositories\&.
- .RE
- .PP
-+\fBPromptImportKeys\fR
-+.RS 4
-+Prompt to import missing signing keys\&.
-+.RE
-+.PP
- \fBSudoExec\fR
- .RS 4
- Automatically exec the program from root via sudo if it is necessary, allowing you to enter password for sudo only once\&.
+diff -ru pakku.ORIG/src/pakku-0.14/doc/pakku.conf.5.txt pakku/src/pakku-0.14/doc/pakku.conf.5.txt
+--- pakku.ORIG/src/pakku-0.14/doc/pakku.conf.5.txt  2020-09-16 16:04:25.835699842 -0700
++++ pakku/src/pakku-0.14/doc/pakku.conf.5.txt 2020-09-16 16:05:40.985701735 -0700
+@@ -47,6 +47,9 @@
+  Print warnings during upgrade operation when local packages are newer
+  than those found in remote repositories.
+ 
++*PromptImportKeys*::
++ Prompt to import missing signing keys.
++
+ *SudoExec*::
+  Automatically exec the program from root via sudo if it is necessary,
+  allowing you to enter password for sudo only once.
 diff -ru pakku.ORIG/src/pakku-0.14/pakku.conf pakku/src/pakku-0.14/pakku.conf
 --- pakku.ORIG/src/pakku-0.14/pakku.conf	2019-12-21 14:44:00.706886968 -0800
 +++ pakku/src/pakku-0.14/pakku.conf	2019-12-21 15:01:36.581087532 -0800
