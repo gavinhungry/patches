@@ -1,24 +1,20 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/pager/pager.c xfce4-panel/src/xfce4-panel-4.14.4/plugins/pager/pager.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/pager/pager.c	2020-05-21 12:50:39.973711325 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/pager/pager.c	2020-05-21 13:37:44.689977199 -0700
-@@ -721,18 +721,12 @@
-   if (mode == XFCE_PANEL_PLUGIN_MODE_VERTICAL ||
-       mode == XFCE_PANEL_PLUGIN_MODE_DESKBAR)
-     min_width = nat_width = xfce_panel_plugin_get_size (XFCE_PANEL_PLUGIN (plugin));
--  else if (plugin->miniature_view)
--    {
--      n_workspaces = wnck_screen_get_workspace_count (plugin->wnck_screen);
--      n_cols = MAX (1, (n_workspaces + plugin->rows - 1) / plugin->rows);
+--- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/pager/pager.c	2020-10-02 15:51:07.734998009 -0700
++++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/pager/pager.c	2020-10-02 16:23:04.744798095 -0700
+@@ -725,14 +725,13 @@
+     {
+       n_workspaces = wnck_screen_get_workspace_count (plugin->wnck_screen);
+       n_cols = MAX (1, (n_workspaces + plugin->rows - 1) / plugin->rows);
 -      min_width = nat_width = (gint) (xfce_panel_plugin_get_size (XFCE_PANEL_PLUGIN (plugin)) / plugin->rows * plugin->ratio * n_cols);
--    }
+     }
  
    if (minimum_width != NULL)
 -    *minimum_width = min_width;
-+    *minimum_width = MAX (1, min_width - 2);
++    *minimum_width = min_width - n_cols - 2;
  
    if (natural_width != NULL)
 -    *natural_width = nat_width;
-+    *natural_width = MAX (1, nat_width - 2);
++    *natural_width = nat_width - n_cols - 2;
  }
  
  static void
