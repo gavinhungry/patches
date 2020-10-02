@@ -6,7 +6,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/tasklist/tasklist-widge
  
  #define DEFAULT_BUTTON_SIZE          (25)
 -#define DEFAULT_MAX_BUTTON_LENGTH    (200)
-+#define DEFAULT_MAX_BUTTON_LENGTH    (320)
++#define DEFAULT_MAX_BUTTON_LENGTH    (300)
  #define DEFAULT_MIN_BUTTON_LENGTH    (DEFAULT_MAX_BUTTON_LENGTH / 4)
  #define DEFAULT_ICON_LUCENCY         (50)
  #define DEFAULT_ELLIPSIZE_MODE       (PANGO_ELLIPSIZE_END)
