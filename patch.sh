@@ -85,6 +85,13 @@ getPkgSourceDir() {
     cd "$srcdir"
   fi
 
+  if [ -z "$PKGSRC_DIR_CMD" ]; then
+    PKGSRC_DIR_STR=$(grep make "$PKGBUILD_DIR"/PKGBUILD | sed 's/.*-C "\(.*\)".*/\1/g' | head -n1)
+    PKGSRC_DIR_CMD="cd $PKGSRC_DIR_STR"
+    cd "$PKGBUILD_DIR"
+    cd "$srcdir"
+  fi
+
   # cd
   if [ -z "$PKGSRC_DIR_CMD" ]; then
     PKGSRC_DIR_CMD=$(grep '^\s*cd\s' "$PKGBUILD_DIR"/PKGBUILD | head -n1)
