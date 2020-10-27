@@ -1,6 +1,6 @@
-diff -ru npm.ORIG/src/cli-7.0.5/lib/utils/reify-output.js npm/src/cli-7.0.5/lib/utils/reify-output.js
---- npm.ORIG/src/cli-7.0.5/lib/utils/reify-output.js	2020-10-27 08:12:18.166522623 -0700
-+++ npm/src/cli-7.0.5/lib/utils/reify-output.js	2020-10-27 08:17:43.631256451 -0700
+diff -ru npm.ORIG/src/cli-7.0.6/lib/utils/reify-output.js npm/src/cli-7.0.6/lib/utils/reify-output.js
+--- npm.ORIG/src/cli-7.0.6/lib/utils/reify-output.js	2020-10-27 08:12:18.166522623 -0700
++++ npm/src/cli-7.0.6/lib/utils/reify-output.js	2020-10-27 08:17:43.631256451 -0700
 @@ -76,7 +76,6 @@
      output(JSON.stringify(summary, 0, 2))
    } else {
