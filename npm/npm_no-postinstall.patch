@@ -5,9 +5,9 @@ Only in npm/src/cli-7.0.5/node_modules/node-gyp/gyp/pylib/gyp: __init__.pyc
 Only in npm/src/cli-7.0.5/node_modules/node-gyp/gyp/pylib/gyp: input.pyc
 Only in npm/src/cli-7.0.5/node_modules/node-gyp/gyp/pylib/gyp: simple_copy.pyc
 Only in npm/src/cli-7.0.5/node_modules/node-gyp/gyp/pylib/gyp: xcode_emulation.pyc
-diff -ru npm.ORIG/src/cli-7.0.6/node_modules/@npmcli/run-script/lib/run-script-pkg.js npm/src/cli-7.0.6/node_modules/@npmcli/run-script/lib/run-script-pkg.js
---- npm.ORIG/src/cli-7.0.6/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2020-10-27 08:12:18.173189249 -0700
-+++ npm/src/cli-7.0.6/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2020-10-27 08:57:02.774609042 -0700
+diff -ru npm.ORIG/src/cli-7.0.7/node_modules/@npmcli/run-script/lib/run-script-pkg.js npm/src/cli-7.0.7/node_modules/@npmcli/run-script/lib/run-script-pkg.js
+--- npm.ORIG/src/cli-7.0.7/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2020-10-27 08:12:18.173189249 -0700
++++ npm/src/cli-7.0.7/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2020-10-27 08:57:02.774609042 -0700
 @@ -1,3 +1,4 @@
 +const npm = require('../../../../lib/npm')
  const makeSpawnArgs = require('./make-spawn-args.js')
