@@ -1,13 +1,13 @@
-diff -ru thunar.ORIG/src/thunar-1.8.15/thunar/thunar-util.c thunar/src/thunar-1.8.15/thunar/thunar-util.c
---- thunar.ORIG/src/thunar-1.8.15/thunar/thunar-util.c	2019-11-11 08:24:30.430126833 -0800
-+++ thunar/src/thunar-1.8.15/thunar/thunar-util.c	2019-11-11 08:24:30.613466189 -0800
+diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-util.c thunar/src/thunar-1.8.16/thunar/thunar-util.c
+--- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-util.c	2020-11-02 11:53:09.076395962 -0800
++++ thunar/src/thunar-1.8.16/thunar/thunar-util.c	2020-11-02 11:54:58.646003075 -0800
 @@ -463,7 +463,10 @@
              return g_strdup ("");
  
            /* use custom date formatting */
--          return exo_strdup_strftime (date_custom_style, tfile);
+-          return exo_strdup_strftime (date_custom_style, &tfile);
 +          char buf[80];
-+          strftime (buf, sizeof (buf), date_custom_style, tfile);
++          strftime (buf, sizeof (buf), date_custom_style, &tfile);
 +
 +          return g_strdup (buf);
          }
