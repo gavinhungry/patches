@@ -1,20 +1,13 @@
-Only in npm/src/cli-7.0.5/node_modules/node-gyp/gyp/pylib/gyp: common.pyc
-Only in npm/src/cli-7.0.5/node_modules/node-gyp/gyp/pylib/gyp/generator: __init__.pyc
-Only in npm/src/cli-7.0.5/node_modules/node-gyp/gyp/pylib/gyp/generator: make.pyc
-Only in npm/src/cli-7.0.5/node_modules/node-gyp/gyp/pylib/gyp: __init__.pyc
-Only in npm/src/cli-7.0.5/node_modules/node-gyp/gyp/pylib/gyp: input.pyc
-Only in npm/src/cli-7.0.5/node_modules/node-gyp/gyp/pylib/gyp: simple_copy.pyc
-Only in npm/src/cli-7.0.5/node_modules/node-gyp/gyp/pylib/gyp: xcode_emulation.pyc
-diff -ru npm.ORIG/src/cli-7.0.7/node_modules/@npmcli/run-script/lib/run-script-pkg.js npm/src/cli-7.0.7/node_modules/@npmcli/run-script/lib/run-script-pkg.js
---- npm.ORIG/src/cli-7.0.7/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2020-10-27 08:12:18.173189249 -0700
-+++ npm/src/cli-7.0.7/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2020-10-27 08:57:02.774609042 -0700
+diff -ru npm.ORIG/src/cli-7.0.9/node_modules/@npmcli/run-script/lib/run-script-pkg.js npm/src/cli-7.0.9/node_modules/@npmcli/run-script/lib/run-script-pkg.js
+--- npm.ORIG/src/cli-7.0.9/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2020-11-09 14:53:05.493827413 -0800
++++ npm/src/cli-7.0.9/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2020-11-09 14:53:05.757160089 -0800
 @@ -1,3 +1,4 @@
 +const npm = require('../../../../lib/npm')
  const makeSpawnArgs = require('./make-spawn-args.js')
  const promiseSpawn = require('@npmcli/promise-spawn')
  const packageEnvs = require('./package-envs.js')
-@@ -20,6 +21,13 @@
-     banner = true,
+@@ -25,6 +26,13 @@
+     signalTimeout = 500,
    } = options
  
 +  const no_postinstall = (npm.config.get('no-postinstall') || '')
