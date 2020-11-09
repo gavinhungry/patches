@@ -1,0 +1,13 @@
+diff -ru npm.ORIG/src/cli-7.0.9/Makefile npm/src/cli-7.0.9/Makefile
+--- npm.ORIG/src/cli-7.0.9/Makefile	2020-11-09 14:53:05.483827439 -0800
++++ npm/src/cli-7.0.9/Makefile	2020-11-09 14:53:05.863826488 -0800
+@@ -28,6 +28,9 @@
+ 
+ all: docs
+ 
++install: all
++	node bin/npm-cli.js install -g -f ${NPMOPTS} $(shell node bin/npm-cli.js pack | tail -1)
++
+ docs: mandocs htmldocs
+ 
+ mandocs: dev-deps $(mandocs)
