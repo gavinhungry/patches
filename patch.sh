@@ -46,57 +46,51 @@ getPkgSourceDir() {
   local pkgbase=${pkgbase:-$pkgname}
 
   # cd $srcdir/foo-$pkgver
-  local PKGSRC_DIR_CMD=$(grep srcdir "$PKGBUILD_DIR"/PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
+  local PKGSRC_DIR_CMD=$(grep srcdir PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
 
-  # cd $srcdir/foo-
+  # cd $pkgname-foo
   if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_CMD=$(grep pkgname}\\?-\"\\? "$PKGBUILD_DIR"/PKGBUILD | grep '^\s*cd\s' | head -n1)
-    cd "$PKGBUILD_DIR"
+    PKGSRC_DIR_CMD=$(grep pkgname}\\?-\"\\? PKGBUILD | grep '^\s*cd\s' | head -n1)
   fi
 
   # cd $srcdir/$pkgname
   if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_CMD=$(grep pkgname "$PKGBUILD_DIR"/PKGBUILD | grep srcdir | grep '^\s*cd\s' | head -n1)
-    cd "$PKGBUILD_DIR"
+    PKGSRC_DIR_CMD=$(grep pkgname PKGBUILD | grep srcdir | grep '^\s*cd\s' | head -n1)
   fi
 
   # cd $pkgname
   if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_CMD=$(grep pkgname "$PKGBUILD_DIR"/PKGBUILD | grep '^\s*cd\s' | head -n1)
-    cd "$PKGBUILD_DIR"
-    cd "$srcdir"
+    PKGSRC_DIR_CMD=$(grep pkgname PKGBUILD | grep '^\s*cd\s' | head -n1)
   fi
 
   # cd $pkgver
   if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_CMD=$(grep pkgver "$PKGBUILD_DIR"/PKGBUILD | grep '^\s*cd\s' | head -n1)
+    PKGSRC_DIR_CMD=$(grep pkgver PKGBUILD | grep '^\s*cd\s' | head -n1)
   fi
 
   # cd $srcdir/foo
   if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_CMD=$(grep srcdir "$PKGBUILD_DIR"/PKGBUILD | grep '^\s*cd\s' | head -n1)
-    cd "$PKGBUILD_DIR"
+    PKGSRC_DIR_CMD=$(grep srcdir PKGBUILD | grep '^\s*cd\s' | head -n1)
   fi
 
   # cd $pkgname-$pkgver
   if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_CMD=$(grep pkgname "$PKGBUILD_DIR"/PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
-    cd "$PKGBUILD_DIR"
-    cd "$srcdir"
+    PKGSRC_DIR_CMD=$(grep pkgname PKGBUILD | grep pkgver | grep '^\s*cd\s' | head -n1)
+  fi
+
+  # cd $pkgbase-foo
+  if [ -z "$PKGSRC_DIR_CMD" ]; then
+    PKGSRC_DIR_CMD=$(grep pkgbase}\\?-\"\\? PKGBUILD | grep '^\s*cd\s' | head -n1)
   fi
 
   if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_STR=$(grep make "$PKGBUILD_DIR"/PKGBUILD | sed 's/.*-C "\(.*\)".*/\1/g' | head -n1)
+    PKGSRC_DIR_STR=$(grep make PKGBUILD | sed 's/.*-C "\(.*\)".*/\1/g' | head -n1)
     PKGSRC_DIR_CMD="cd $PKGSRC_DIR_STR"
-    cd "$PKGBUILD_DIR"
-    cd "$srcdir"
   fi
 
   # cd
   if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_CMD=$(grep '^\s*cd\s' "$PKGBUILD_DIR"/PKGBUILD | head -n1)
-    cd "$PKGBUILD_DIR"
-    cd "$srcdir"
+    PKGSRC_DIR_CMD=$(grep '^\s*cd\s' PKGBUILD | head -n1)
     TRY_MESON=1
   fi
 
