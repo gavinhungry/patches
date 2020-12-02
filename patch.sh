@@ -84,8 +84,8 @@ getPkgSourceDir() {
   fi
 
   if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_STR=$(grep make PKGBUILD | sed 's/.*-C "\(.*\)".*/\1/g' | head -n1)
-    PKGSRC_DIR_CMD="cd $PKGSRC_DIR_STR"
+    PKGSRC_DIR_STR=$(grep '\s*make\s' PKGBUILD | sed 's/.*-C "\(.*\)".*/\1/g' | head -n1)
+    [ -n "$PKGSRC_DIR_STR" ] && PKGSRC_DIR_CMD="cd $PKGSRC_DIR_STR"
   fi
 
   # cd
@@ -95,9 +95,11 @@ getPkgSourceDir() {
   fi
 
   if [ -n "$PKGSRC_DIR_CMD" ]; then
+    cd "$srcdir" &> /dev/null
+
     if ! eval "$PKGSRC_DIR_CMD" &> /dev/null; then
-       cd "$srcdir" &> /dev/null
-       eval "$PKGSRC_DIR_CMD" &> /dev/null || return
+      cd "$PKGBUILD_DIR" &> /dev/null
+      eval "$PKGSRC_DIR_CMD" &> /dev/null || return
     fi
   fi
 
@@ -123,7 +125,7 @@ softUpdatePkg() {
 
   if [ ! -d "$PKGSRC_DIR" ]; then
     err "Could not find $PKG package source directory"
-    return
+    return 1
   fi
 
   inform "Soft-updating $PKG patches to $PKGSRC_DIR_BASE"
@@ -147,7 +149,7 @@ hardUpdatePkg() {
 
   if [ ! -d "$PKGBUILD_DIR" ]; then
     err "Could not find $PKG PKGBUILD directory"
-    return
+    return 1
   fi
 
   local PARENT_DIR=$(basename $(realpath ${PKGBUILD_DIR}/..))
@@ -205,7 +207,6 @@ patchPkg() {
   local PKGSRC_DIR=$(getPkgSourceDir $PKG)
 
   if [ ! -d "$PKGSRC_DIR" ]; then
-    err "Could not find $PKG package source directory"
     return
   fi
 
