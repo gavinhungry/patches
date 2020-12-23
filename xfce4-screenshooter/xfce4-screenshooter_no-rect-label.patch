@@ -1,11 +1,11 @@
-diff -ru xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.9.7/lib/screenshooter-capture.c xfce4-screenshooter/src/xfce4-screenshooter-1.9.7/lib/screenshooter-capture.c
---- xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.9.7/lib/screenshooter-capture.c	2019-09-17 13:39:05.079023238 -0700
-+++ xfce4-screenshooter/src/xfce4-screenshooter-1.9.7/lib/screenshooter-capture.c	2019-09-17 13:43:44.091138869 -0700
-@@ -740,7 +740,6 @@
-                            event->x + x_offset,
-                            event->y + y_offset);
+diff -ru xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.9.8/lib/screenshooter-capture.c xfce4-screenshooter/src/xfce4-screenshooter-1.9.8/lib/screenshooter-capture.c
+--- xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.9.8/lib/screenshooter-capture.c	2020-12-23 14:34:31.485002107 -0800
++++ xfce4-screenshooter/src/xfce4-screenshooter-1.9.8/lib/screenshooter-capture.c	2020-12-23 14:36:24.296531431 -0800
+@@ -821,7 +821,6 @@
+                        event->x + x_offset,
+                        event->y + y_offset);
  
--          gtk_label_set_text (GTK_LABEL (rbdata->size_label), coords);
-           g_free (coords);
-         }
+-      gtk_label_set_text (GTK_LABEL (rbdata->size_label), coords);
+       g_free (coords);
  
+       region = cairo_region_create_rectangle (&old_rect);
