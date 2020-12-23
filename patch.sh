@@ -83,15 +83,15 @@ getPkgSourceDir() {
     PKGSRC_DIR_CMD=$(grep pkgbase}\\?-\"\\? PKGBUILD | grep '^\s*cd\s' | head -n1)
   fi
 
-  if [ -z "$PKGSRC_DIR_CMD" ]; then
-    PKGSRC_DIR_STR=$(grep '\s*make\s' PKGBUILD | sed 's/.*-C "\(.*\)".*/\1/g' | head -n1)
-    [ -n "$PKGSRC_DIR_STR" ] && PKGSRC_DIR_CMD="cd $PKGSRC_DIR_STR"
-  fi
-
   # cd
   if [ -z "$PKGSRC_DIR_CMD" ]; then
     PKGSRC_DIR_CMD=$(grep '^\s*cd\s' PKGBUILD | head -n1)
-    TRY_MESON=1
+    [ -n "$PKGSRC_DIR_CMD" ] && TRY_MESON=1
+  fi
+
+  if [ -z "$PKGSRC_DIR_CMD" ]; then
+    PKGSRC_DIR_STR=$(grep '\s*make\s' PKGBUILD | sed 's/.*-C "\(.*\)".*/\1/g' | head -n1)
+    [ -n "$PKGSRC_DIR_STR" ] && PKGSRC_DIR_CMD="cd $PKGSRC_DIR_STR"
   fi
 
   if [ -n "$PKGSRC_DIR_CMD" ]; then
