@@ -1,6 +1,6 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.14.4/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/tasklist/tasklist-widget.c	2019-08-12 12:54:49.048828575 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/tasklist/tasklist-widget.c	2019-08-12 12:54:49.395505737 -0700
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widget.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widget.c	2020-12-26 22:42:39.582677791 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widget.c	2020-12-26 22:42:39.832673639 -0800
 @@ -46,7 +46,7 @@
  
  
@@ -10,7 +10,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/tasklist/tasklist-widge
  #define DEFAULT_MIN_BUTTON_LENGTH    (DEFAULT_MAX_BUTTON_LENGTH / 4)
  #define DEFAULT_ICON_LUCENCY         (50)
  #define DEFAULT_ELLIPSIZE_MODE       (PANGO_ELLIPSIZE_END)
-@@ -1730,9 +1730,14 @@
+@@ -1729,9 +1729,14 @@
              }
          }
  
@@ -28,7 +28,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/tasklist/tasklist-widge
      }
    /* set the toggle button state for the group button */
    if (class_group)
-@@ -2246,7 +2251,7 @@
+@@ -2247,7 +2252,7 @@
                                                    | GDK_SMOOTH_SCROLL_MASK);
  
    child->box = gtk_box_new (!xfce_tasklist_vertical (tasklist) ?
@@ -37,7 +37,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/tasklist/tasklist-widge
    gtk_container_add (GTK_CONTAINER (child->button), child->box);
    gtk_widget_show (child->box);
  
-@@ -2265,9 +2270,9 @@
+@@ -2266,9 +2271,9 @@
    g_free (css_string);
  
    if (tasklist->show_labels)
@@ -49,7 +49,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/tasklist/tasklist-widge
    if (tasklist->minimized_icon_lucency > 0)
      gtk_widget_show (child->icon);
  
-@@ -2678,16 +2683,7 @@
+@@ -2691,16 +2696,7 @@
    ctx = gtk_widget_get_style_context (child->label);
    gtk_style_context_remove_class (ctx, "label-hidden");
  
@@ -67,7 +67,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/tasklist/tasklist-widge
      {
        if ((!child->tasklist->only_minimized
            && wnck_window_is_minimized (child->window))
-@@ -2772,45 +2768,6 @@
+@@ -2785,45 +2781,6 @@
              }
          }
      }
@@ -113,7 +113,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/tasklist/tasklist-widge
  }
  
  
-@@ -2828,6 +2785,7 @@
+@@ -2841,6 +2798,7 @@
  
    /* make sure we don't have two active windows (bug #6474) */
    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);

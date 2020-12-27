@@ -1,7 +1,7 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/applicationsmenu/applicationsmenu.c xfce4-panel/src/xfce4-panel-4.14.4/plugins/applicationsmenu/applicationsmenu.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/applicationsmenu/applicationsmenu.c	2019-08-12 12:54:49.048828575 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/applicationsmenu/applicationsmenu.c	2019-08-12 12:54:49.105496958 -0700
-@@ -231,7 +231,8 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/applicationsmenu/applicationsmenu.c xfce4-panel/src/xfce4-panel-4.16.0/plugins/applicationsmenu/applicationsmenu.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/applicationsmenu/applicationsmenu.c	2020-12-26 22:42:39.582677791 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.0/plugins/applicationsmenu/applicationsmenu.c	2020-12-26 22:42:39.622677127 -0800
+@@ -236,7 +236,8 @@
    gtk_widget_show (plugin->icon);
  
    plugin->label = gtk_label_new (DEFAULT_TITLE);
@@ -11,7 +11,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/applicationsmenu/applic
    plugin->show_button_title = TRUE;
    gtk_widget_show (plugin->label);
  
-@@ -335,10 +336,13 @@
+@@ -342,10 +343,13 @@
  
      case PROP_SHOW_BUTTON_TITLE:
        plugin->show_button_title = g_value_get_boolean (value);

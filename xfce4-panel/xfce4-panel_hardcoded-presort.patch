@@ -1,16 +1,16 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c	2020-05-14 23:36:44.157527316 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c	2020-05-14 23:37:34.233062524 -0700
-@@ -35,7 +35,7 @@
- #include "systray-box.h"
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel-4.16.0/plugins/systray/systray-box.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/systray/systray-box.c	2020-12-26 22:42:39.582677791 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.0/plugins/systray/systray-box.c	2020-12-26 22:42:39.652676628 -0800
+@@ -36,7 +36,7 @@
  #include "systray-socket.h"
+ #include "sn-config.h"
  
 -#define SPACING    (2)
 +#define SPACING    (6)
  #define OFFSCREEN  (-9999)
  
  /* some icon implementations request a 1x1 size for invisible icons */
-@@ -757,8 +757,8 @@
+@@ -742,8 +742,8 @@
    if (hidden_a != hidden_b)
      return hidden_a ? 1 : -1;
  
@@ -21,9 +21,9 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-box.c x
  
    if (name_a != NULL && g_hash_table_lookup_extended (box->names_ordered, name_a, NULL, &value))
      index_a = GPOINTER_TO_INT (value);
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.c xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.c	2020-05-14 23:36:44.157527316 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.c	2020-05-14 23:39:03.236937973 -0700
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/systray/systray-socket.c xfce4-panel/src/xfce4-panel-4.16.0/plugins/systray/systray-socket.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/systray/systray-socket.c	2020-12-26 22:42:39.582677791 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.0/plugins/systray/systray-socket.c	2020-12-26 22:42:39.652676628 -0800
 @@ -56,6 +56,7 @@
    Window           window;
  
@@ -48,7 +48,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.
  
    G_OBJECT_CLASS (systray_socket_parent_class)->finalize (object);
  }
-@@ -406,6 +409,29 @@
+@@ -418,6 +421,29 @@
  }
  
  
@@ -78,9 +78,9 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.
  
  Window *
  systray_socket_get_window (SystraySocket *socket)
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.h xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.h
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.h	2020-05-14 23:36:44.157527316 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.4/plugins/systray/systray-socket.h	2020-05-14 23:37:34.236396003 -0700
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/systray/systray-socket.h xfce4-panel/src/xfce4-panel-4.16.0/plugins/systray/systray-socket.h
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/systray/systray-socket.h	2020-12-26 22:42:39.582677791 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.0/plugins/systray/systray-socket.h	2020-12-26 22:42:39.652676628 -0800
 @@ -48,6 +48,8 @@
  
  const gchar     *systray_socket_get_name      (SystraySocket   *socket);
