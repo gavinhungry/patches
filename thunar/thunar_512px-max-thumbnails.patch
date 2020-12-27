@@ -1,7 +1,7 @@
-diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.c thunar/src/thunar-1.8.16/thunar/thunar-enum-types.c
---- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.c	2019-11-11 08:24:30.426793390 -0800
-+++ thunar/src/thunar-1.8.16/thunar/thunar-enum-types.c	2019-11-11 08:24:30.500129132 -0800
-@@ -140,6 +140,8 @@
+diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-enum-types.c thunar/src/thunar-4.16.0/thunar/thunar-enum-types.c
+--- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-enum-types.c	2020-12-26 22:33:39.641604763 -0800
++++ thunar/src/thunar-4.16.0/thunar/thunar-enum-types.c	2020-12-26 22:33:39.704937056 -0800
+@@ -180,6 +180,8 @@
          { THUNAR_ICON_SIZE_160,  "THUNAR_ICON_SIZE_160",       "160px",  },
          { THUNAR_ICON_SIZE_192,  "THUNAR_ICON_SIZE_192",       "192px",  },
          { THUNAR_ICON_SIZE_256,  "THUNAR_ICON_SIZE_256",       "256px",  },
@@ -10,7 +10,7 @@ diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.c thunar/src/thu
          /* Support of old type-strings for two thunar stable releases. Old strings will be transformed to new ones on write*/
          { THUNAR_ICON_SIZE_16,   "THUNAR_ICON_SIZE_SMALLEST",  "16px",   },
          { THUNAR_ICON_SIZE_24,   "THUNAR_ICON_SIZE_SMALLER",   "24px",   },
-@@ -207,6 +209,8 @@
+@@ -247,6 +249,8 @@
          { THUNAR_ZOOM_LEVEL_250_PERCENT, "THUNAR_ZOOM_LEVEL_250_PERCENT",   "250%", },
          { THUNAR_ZOOM_LEVEL_300_PERCENT, "THUNAR_ZOOM_LEVEL_300_PERCENT",   "300%", },
          { THUNAR_ZOOM_LEVEL_400_PERCENT, "THUNAR_ZOOM_LEVEL_400_PERCENT",   "400%", },
@@ -19,7 +19,7 @@ diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.c thunar/src/thu
          /* Support of old type-strings for two thunar stable releases. Old strings will be transformed to new ones on write*/
          { THUNAR_ZOOM_LEVEL_25_PERCENT,  "THUNAR_ZOOM_LEVEL_SMALLEST",      "25%",  },
          { THUNAR_ZOOM_LEVEL_38_PERCENT,  "THUNAR_ZOOM_LEVEL_SMALLER",       "38%",  },
-@@ -275,6 +279,7 @@
+@@ -315,6 +319,7 @@
        {
          { THUNAR_THUMBNAIL_SIZE_NORMAL,  "THUNAR_THUMBNAIL_SIZE_NORMAL", "normal", },
          { THUNAR_THUMBNAIL_SIZE_LARGE,   "THUNAR_THUMBNAIL_SIZE_LARGE",  "large",  },
@@ -27,7 +27,7 @@ diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.c thunar/src/thu
          { 0,                             NULL,                           NULL,     },
        };
  
-@@ -317,6 +322,8 @@
+@@ -381,6 +386,8 @@
      case THUNAR_ZOOM_LEVEL_250_PERCENT: return THUNAR_ICON_SIZE_160;
      case THUNAR_ZOOM_LEVEL_300_PERCENT: return THUNAR_ICON_SIZE_192;
      case THUNAR_ZOOM_LEVEL_400_PERCENT: return THUNAR_ICON_SIZE_256;
@@ -36,7 +36,7 @@ diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.c thunar/src/thu
      default:                            return THUNAR_ICON_SIZE_64; // default = 100 %zoom
      }
  }
-@@ -326,6 +333,9 @@
+@@ -390,6 +397,9 @@
  static ThunarThumbnailSize
  thunar_icon_size_to_thumbnail_size (ThunarIconSize icon_size)
  {
@@ -46,10 +46,10 @@ diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.c thunar/src/thu
    if (icon_size > THUNAR_ICON_SIZE_128)
      return THUNAR_THUMBNAIL_SIZE_LARGE;
  
-diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.h thunar/src/thunar-1.8.16/thunar/thunar-enum-types.h
---- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.h	2019-11-11 08:24:30.426793390 -0800
-+++ thunar/src/thunar-1.8.16/thunar/thunar-enum-types.h	2019-11-11 08:24:30.500129132 -0800
-@@ -137,6 +137,8 @@
+diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-enum-types.h thunar/src/thunar-4.16.0/thunar/thunar-enum-types.h
+--- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-enum-types.h	2020-12-26 22:33:39.644938041 -0800
++++ thunar/src/thunar-4.16.0/thunar/thunar-enum-types.h	2020-12-26 22:33:39.704937056 -0800
+@@ -140,6 +140,8 @@
    THUNAR_ICON_SIZE_160  = 160,
    THUNAR_ICON_SIZE_192  = 192,
    THUNAR_ICON_SIZE_256  = 256,
@@ -58,7 +58,7 @@ diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.h thunar/src/thu
  } ThunarIconSize;
  
  GType thunar_icon_size_get_type (void) G_GNUC_CONST;
-@@ -166,11 +168,13 @@
+@@ -169,11 +171,13 @@
   * ThunarThumbnailSize:
   * @THUNAR_THUMBNAIL_NORMAL      : max 128px x 128px
   * @THUNAR_THUMBNAIL_LARGE       : max 256px x 256px
@@ -73,7 +73,7 @@ diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.h thunar/src/thu
  } ThunarThumbnailSize;
  
  GType       thunar_thumbnail_size_get_type (void)                               G_GNUC_CONST;
-@@ -216,6 +220,8 @@
+@@ -239,6 +243,8 @@
    THUNAR_ZOOM_LEVEL_250_PERCENT,
    THUNAR_ZOOM_LEVEL_300_PERCENT,
    THUNAR_ZOOM_LEVEL_400_PERCENT,
@@ -82,9 +82,9 @@ diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-enum-types.h thunar/src/thu
  
    /*< private >*/
    THUNAR_ZOOM_N_LEVELS,
-diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-icon-view.c thunar/src/thunar-1.8.16/thunar/thunar-icon-view.c
---- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-icon-view.c	2019-11-11 08:24:30.426793390 -0800
-+++ thunar/src/thunar-1.8.16/thunar/thunar-icon-view.c	2019-11-11 08:24:30.500129132 -0800
+diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-icon-view.c thunar/src/thunar-4.16.0/thunar/thunar-icon-view.c
+--- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-icon-view.c	2020-12-26 22:33:39.644938041 -0800
++++ thunar/src/thunar-4.16.0/thunar/thunar-icon-view.c	2020-12-26 22:33:39.704937056 -0800
 @@ -197,8 +197,12 @@
        wrap_width = 112;
        break;

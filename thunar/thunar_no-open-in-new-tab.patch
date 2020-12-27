@@ -1,86 +1,28 @@
-diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-launcher-ui.xml thunar/src/thunar-1.8.16/thunar/thunar-launcher-ui.xml
---- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-launcher-ui.xml	2019-11-11 08:24:30.423459947 -0800
-+++ thunar/src/thunar-1.8.16/thunar/thunar-launcher-ui.xml	2019-11-11 08:24:31.240153435 -0800
-@@ -12,7 +12,6 @@
-     <menu action="file-menu">
-       <placeholder name="placeholder-launcher">
-         <menuitem action="open" />
--        <menuitem action="open-in-new-tab" />
-         <menuitem action="open-in-new-window" />
-         <placeholder name="placeholder-applications" />
-         <menuitem action="open-with-other" />
-@@ -36,7 +35,6 @@
-   <popup action="file-context-menu">
-     <placeholder name="placeholder-launcher">
-       <menuitem action="open" />
--      <menuitem action="open-in-new-tab" />
-       <menuitem action="open-in-new-window" />
-       <placeholder name="placeholder-applications" />
-       <menuitem action="open-with-other" />
-diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-location-buttons.c thunar/src/thunar-1.8.16/thunar/thunar-location-buttons.c
---- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-location-buttons.c	2019-11-11 08:24:30.426793390 -0800
-+++ thunar/src/thunar-1.8.16/thunar/thunar-location-buttons.c	2019-11-11 08:24:31.240153435 -0800
-@@ -181,8 +181,6 @@
- {
-   { "location-buttons-down-folder", NULL, "Down Folder", "<alt>Down", NULL, G_CALLBACK (thunar_location_buttons_action_down_folder), },
-   { "location-buttons-context-menu", NULL, "Context Menu", NULL, "", NULL, },
--  { "location-buttons-open", "document-open", N_("_Open"), "", NULL, G_CALLBACK (thunar_location_buttons_action_open), },
--  { "location-buttons-open-in-new-tab", NULL, N_("Open in New Tab"), "", NULL, G_CALLBACK (thunar_location_buttons_action_open_in_new_tab), },
-   { "location-buttons-open-in-new-window", NULL, N_("Open in New Window"), "", NULL, G_CALLBACK (thunar_location_buttons_action_open_in_new_window), },
-   { "location-buttons-create-folder", "folder-new", N_("Create _Folder..."), "", NULL, G_CALLBACK (thunar_location_buttons_action_create_folder), },
-   { "location-buttons-empty-trash", NULL, N_("_Empty Trash"), "", N_("Delete all files and folders in the Trash"), G_CALLBACK (thunar_location_buttons_action_empty_trash), },
-@@ -1250,19 +1248,6 @@
-       clipboard = thunar_clipboard_manager_get_for_display (gtk_widget_get_display (GTK_WIDGET (buttons)));
+diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-launcher.c thunar/src/thunar-4.16.0/thunar/thunar-launcher.c
+--- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-launcher.c	2020-12-26 22:33:39.644938041 -0800
++++ thunar/src/thunar-4.16.0/thunar/thunar-launcher.c	2020-12-26 22:33:40.231595073 -0800
+@@ -2852,8 +2852,6 @@
  
- G_GNUC_BEGIN_IGNORE_DEPRECATIONS
--      /* setup the "Open" action */
--      action = gtk_action_group_get_action (buttons->action_group, "location-buttons-open");
--      thunar_gtk_action_set_tooltip (action, _("Open \"%s\" in this window"), display_name);
--      g_object_set_qdata_full (G_OBJECT (action), thunar_file_quark, g_object_ref (G_OBJECT (file)), (GDestroyNotify) g_object_unref);
--      gtk_action_set_sensitive (action, (file != buttons->current_directory));
--      gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_action_create_menu_item (action));
--
--      /* setup the "Open in New Tab" action */
--      action = gtk_action_group_get_action (buttons->action_group, "location-buttons-open-in-new-tab");
--      thunar_gtk_action_set_tooltip (action, _("Open \"%s\" in a new tab"), display_name);
--      g_object_set_qdata_full (G_OBJECT (action), thunar_file_quark, g_object_ref (G_OBJECT (file)), (GDestroyNotify) g_object_unref);
--      gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_action_create_menu_item (action));
--
-       /* setup the "Open in New Window" action */
-       action = gtk_action_group_get_action (buttons->action_group, "location-buttons-open-in-new-window");
-       thunar_gtk_action_set_tooltip (action, _("Open \"%s\" in a new window"), display_name);
-diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-shortcuts-view.c thunar/src/thunar-1.8.16/thunar/thunar-shortcuts-view.c
---- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-shortcuts-view.c	2019-11-11 08:24:30.430126833 -0800
-+++ thunar/src/thunar-1.8.16/thunar/thunar-shortcuts-view.c	2019-11-11 08:24:31.240153435 -0800
-@@ -1113,14 +1113,6 @@
+   if (launcher->n_files_to_process == launcher->n_directories_to_process && launcher->n_directories_to_process >= 1)
+     {
+-      if (support_tabs)
+-        thunar_launcher_append_menu_item (launcher, GTK_MENU_SHELL (menu), THUNAR_LAUNCHER_ACTION_OPEN_IN_TAB, FALSE);
+       thunar_launcher_append_menu_item (launcher, GTK_MENU_SHELL (menu), THUNAR_LAUNCHER_ACTION_OPEN_IN_WINDOW, FALSE);
+     }
+ 
+diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-shortcuts-view.c thunar/src/thunar-4.16.0/thunar/thunar-shortcuts-view.c
+--- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-shortcuts-view.c	2020-12-26 22:33:39.644938041 -0800
++++ thunar/src/thunar-4.16.0/thunar/thunar-shortcuts-view.c	2020-12-26 22:33:40.231595073 -0800
+@@ -1127,12 +1127,6 @@
    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
  G_GNUC_END_IGNORE_DEPRECATIONS
  
 -  /* append the "Open in New Tab" menu action */
--G_GNUC_BEGIN_IGNORE_DEPRECATIONS
--  item = gtk_image_menu_item_new_with_mnemonic (_("Open in New Tab"));
--G_GNUC_END_IGNORE_DEPRECATIONS
+-  item = gtk_menu_item_new_with_mnemonic (_("Open in New Tab"));
 -  g_signal_connect_swapped (G_OBJECT (item), "activate", G_CALLBACK (thunar_shortcuts_view_open_in_new_tab_clicked), view);
 -  gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 -  gtk_widget_show (item);
 -
    /* append the "Open in New Window" menu action */
- G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-   item = gtk_image_menu_item_new_with_mnemonic (_("Open in New Window"));
-diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-tree-view.c thunar/src/thunar-1.8.16/thunar/thunar-tree-view.c
---- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-tree-view.c	2019-11-11 08:24:30.423459947 -0800
-+++ thunar/src/thunar-1.8.16/thunar/thunar-tree-view.c	2019-11-11 08:24:31.240153435 -0800
-@@ -1302,13 +1302,6 @@
-   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
- G_GNUC_END_IGNORE_DEPRECATIONS
- 
--  /* append the "Open in New Tab" menu action */
--  item = gtk_menu_item_new_with_mnemonic (_("Open in New _Tab"));
--  g_signal_connect_swapped (G_OBJECT (item), "activate", G_CALLBACK (thunar_tree_view_action_open_in_new_tab), view);
--  gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
--  gtk_widget_set_sensitive (item, (file != NULL || device != NULL));
--  gtk_widget_show (item);
--
-   /* append the "Open in New Window" menu action */
-   item = gtk_menu_item_new_with_mnemonic (_("Open in New _Window"));
-   g_signal_connect_swapped (G_OBJECT (item), "activate", G_CALLBACK (thunar_tree_view_action_open_in_new_window), view);
+   item = gtk_menu_item_new_with_mnemonic (_("Open in New Window"));
+   g_signal_connect_swapped (G_OBJECT (item), "activate", G_CALLBACK (thunar_shortcuts_view_open_in_new_window_clicked), view);
