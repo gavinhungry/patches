@@ -1,9 +1,9 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.14.4/panel/panel-base-window.c xfce4-panel/src/xfce4-panel-4.14.4/panel/panel-base-window.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.14.4/panel/panel-base-window.c	2019-08-12 12:54:49.058828878 -0700
-+++ xfce4-panel/src/xfce4-panel-4.14.4/panel/panel-base-window.c	2019-08-12 12:54:49.315503315 -0700
-@@ -837,5 +837,6 @@
-   else if (window->background_style != PANEL_BG_STYLE_NONE)
-     return PANEL_BORDER_NONE;
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/panel/panel-base-window.c xfce4-panel/src/xfce4-panel-4.16.0/panel/panel-base-window.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.0/panel/panel-base-window.c	2020-12-26 22:42:39.579344513 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.0/panel/panel-base-window.c	2020-12-26 22:42:39.772674636 -0800
+@@ -850,5 +850,6 @@
+     return PANEL_BORDER_TOP | PANEL_BORDER_BOTTOM
+            | PANEL_BORDER_LEFT | PANEL_BORDER_RIGHT;
  
 +  priv->borders = PANEL_BORDER_NONE;
    return priv->borders;
