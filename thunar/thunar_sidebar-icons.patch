@@ -1,21 +1,54 @@
-diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-shortcuts-model.c thunar/src/thunar-1.8.16/thunar/thunar-shortcuts-model.c
---- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-shortcuts-model.c	2019-11-11 08:24:30.430126833 -0800
-+++ thunar/src/thunar-1.8.16/thunar/thunar-shortcuts-model.c	2019-11-11 08:24:31.640166566 -0800
-@@ -969,7 +969,7 @@
-   shortcut->group = THUNAR_SHORTCUT_GROUP_NETWORK_DEFAULT;
-   shortcut->name = g_strdup (_("Browse Network"));
-   shortcut->location = g_file_new_for_uri ("network://");
--  shortcut->gicon = g_themed_icon_new ("network-workgroup");
-+  shortcut->gicon = g_themed_icon_new ("network-server");
-   shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
-   thunar_shortcuts_model_add_shortcut (model, shortcut);
- }
-@@ -1001,7 +1001,7 @@
-       shortcut = g_slice_new0 (ThunarShortcut);
+diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-shortcuts-model.c thunar/src/thunar-4.16.0/thunar/thunar-shortcuts-model.c
+--- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-shortcuts-model.c	2020-12-26 22:33:39.641604763 -0800
++++ thunar/src/thunar-4.16.0/thunar/thunar-shortcuts-model.c	2020-12-26 22:33:40.494924081 -0800
+@@ -1039,7 +1039,7 @@
+       shortcut->name = g_strdup (_("Browse Network"));
+       shortcut->tooltip = g_strdup (_("Browse local network connections"));
+       shortcut->location = g_file_new_for_uri ("network://");
+-      shortcut->gicon = g_themed_icon_new ("network-workgroup");
++      shortcut->gicon = g_themed_icon_new ("network-server");
+       shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
+       thunar_shortcuts_model_add_shortcut (model, shortcut);
+     }
+@@ -1073,7 +1073,7 @@
        shortcut->group = THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT;
+       shortcut->tooltip = g_strdup (_("Open the home folder"));
        shortcut->file = file;
 -      shortcut->gicon = g_themed_icon_new ("go-home");
 +      shortcut->gicon = g_themed_icon_new ("user-home");
        shortcut->sort_id = 0;
        shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
        thunar_shortcuts_model_add_shortcut (model, shortcut);
+diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-shortcuts-model.h thunar/src/thunar-4.16.0/thunar/thunar-shortcuts-model.h
+--- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-shortcuts-model.h	2020-12-26 22:33:39.641604763 -0800
++++ thunar/src/thunar-4.16.0/thunar/thunar-shortcuts-model.h	2020-12-26 22:33:40.494924081 -0800
+@@ -74,18 +74,18 @@
+ 
+ enum _ThunarShortcutGroup
+ {
+-  /* THUNAR_SHORTCUT_GROUP_PLACES */
+-  THUNAR_SHORTCUT_GROUP_PLACES_HEADER      = (1 << 0),  /* places header */
+-  THUNAR_SHORTCUT_GROUP_PLACES_COMPUTER    = (1 << 1),  /* computer */
+-  THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT     = (1 << 2),  /* home and desktop */
+-  THUNAR_SHORTCUT_GROUP_PLACES_TRASH       = (1 << 3),  /* trash */
+-  THUNAR_SHORTCUT_GROUP_PLACES_BOOKMARKS   = (1 << 4),  /* gtk-bookmarks */
+-
+   /* THUNAR_SHORTCUT_GROUP_DEVICES */
+-  THUNAR_SHORTCUT_GROUP_DEVICES_HEADER     = (1 << 5),  /* devices header */
+-  THUNAR_SHORTCUT_GROUP_DEVICES_FILESYSTEM = (1 << 6),  /* local filesystem */
+-  THUNAR_SHORTCUT_GROUP_DEVICES_VOLUMES    = (1 << 7),  /* local ThunarDevices */
+-  THUNAR_SHORTCUT_GROUP_DEVICES_MOUNTS     = (1 << 8),  /* local mounts, like cameras and archives */
++  THUNAR_SHORTCUT_GROUP_DEVICES_HEADER     = (1 << 0),  /* devices header */
++  THUNAR_SHORTCUT_GROUP_DEVICES_FILESYSTEM = (1 << 1),  /* local filesystem */
++  THUNAR_SHORTCUT_GROUP_DEVICES_VOLUMES    = (1 << 2),  /* local ThunarDevices */
++  THUNAR_SHORTCUT_GROUP_DEVICES_MOUNTS     = (1 << 3),  /* local mounts, like cameras and archives */
++
++  /* THUNAR_SHORTCUT_GROUP_PLACES */
++  THUNAR_SHORTCUT_GROUP_PLACES_HEADER      = (1 << 4),  /* places header */
++  THUNAR_SHORTCUT_GROUP_PLACES_COMPUTER    = (1 << 5),  /* computer */
++  THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT     = (1 << 6),  /* home and desktop */
++  THUNAR_SHORTCUT_GROUP_PLACES_TRASH       = (1 << 7),  /* trash */
++  THUNAR_SHORTCUT_GROUP_PLACES_BOOKMARKS   = (1 << 8),  /* gtk-bookmarks */
+ 
+   /* THUNAR_SHORTCUT_GROUP_NETWORK */
+   THUNAR_SHORTCUT_GROUP_NETWORK_HEADER     = (1 << 9),  /* network header */

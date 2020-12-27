@@ -1,12 +1,12 @@
-diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-window.c thunar/src/thunar-1.8.16/thunar/thunar-window.c
---- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-window.c	2019-11-11 08:24:30.426793390 -0800
-+++ thunar/src/thunar-1.8.16/thunar/thunar-window.c	2019-11-11 08:24:30.843473745 -0800
-@@ -1991,7 +1991,7 @@
+diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-window.c thunar/src/thunar-4.16.0/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-window.c	2020-12-26 22:33:39.644938041 -0800
++++ thunar/src/thunar-4.16.0/thunar/thunar-window.c	2020-12-26 22:33:39.968266064 -0800
+@@ -2157,7 +2157,7 @@
      {
        /* allocate the new side pane widget */
        window->sidepane = g_object_new (type, NULL);
 -      gtk_widget_set_size_request (window->sidepane, 0, -1);
 +      gtk_widget_set_size_request (window->sidepane, 165, -1);
-       thunar_component_set_ui_manager (THUNAR_COMPONENT (window->sidepane), window->ui_manager);
-       exo_binding_new (G_OBJECT (window), "show-hidden", G_OBJECT (window->sidepane), "show-hidden");
        exo_binding_new (G_OBJECT (window), "current-directory", G_OBJECT (window->sidepane), "current-directory");
+       g_signal_connect_swapped (G_OBJECT (window->sidepane), "change-directory", G_CALLBACK (thunar_window_set_current_directory), window);
+       g_signal_connect_swapped (G_OBJECT (window->sidepane), "open-new-tab", G_CALLBACK (thunar_window_notebook_open_new_tab), window);

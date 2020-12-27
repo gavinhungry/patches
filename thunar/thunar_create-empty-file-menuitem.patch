@@ -1,65 +1,42 @@
-diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-standard-view.c thunar/src/thunar-1.8.16/thunar/thunar-standard-view.c
---- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-standard-view.c	2019-11-11 08:24:30.426793390 -0800
-+++ thunar/src/thunar-1.8.16/thunar/thunar-standard-view.c	2019-11-11 08:24:30.726803245 -0800
-@@ -308,6 +308,7 @@
-   ThunarFile             *current_directory;
+diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-launcher.c thunar/src/thunar-4.16.0/thunar/thunar-launcher.c
+--- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-launcher.c	2020-12-26 22:33:39.644938041 -0800
++++ thunar/src/thunar-4.16.0/thunar/thunar-launcher.c	2020-12-26 22:33:39.924933442 -0800
+@@ -252,7 +252,7 @@
+     { THUNAR_LAUNCHER_ACTION_RENAME,           "<Actions>/ThunarStandardView/rename",              "F2",                XFCE_GTK_MENU_ITEM,       N_ ("_Rename..."),                      NULL,                                                                                            NULL,                   G_CALLBACK (thunar_launcher_action_rename),              },
+     { THUNAR_LAUNCHER_ACTION_EMPTY_TRASH,      "<Actions>/ThunarWindow/empty-trash",               "",                  XFCE_GTK_IMAGE_MENU_ITEM, N_ ("_Empty Trash"),                    N_ ("Delete all files and folders in the Trash"),                                                NULL,                   G_CALLBACK (thunar_launcher_action_empty_trash),         },
+     { THUNAR_LAUNCHER_ACTION_CREATE_FOLDER,    "<Actions>/ThunarStandardView/create-folder",       "<Primary><shift>N", XFCE_GTK_IMAGE_MENU_ITEM, N_ ("Create _Folder..."),               N_ ("Create an empty folder within the current folder"),                                         "folder-new",           G_CALLBACK (thunar_launcher_action_create_folder),       },
+-    { THUNAR_LAUNCHER_ACTION_CREATE_DOCUMENT,  "<Actions>/ThunarStandardView/create-document",     "",                  XFCE_GTK_IMAGE_MENU_ITEM, N_ ("Create _Document"),                N_ ("Create a new document from a template"),                                                    "document-new",         G_CALLBACK (NULL),                                       },
++    { THUNAR_LAUNCHER_ACTION_CREATE_EMPTY_FILE,"<Actions>/ThunarStandardView/create-empty-file",   "<Primary><shift>F", XFCE_GTK_IMAGE_MENU_ITEM, N_ ("Create _Empty File..."),           N_ ("Create an empty file within the current folder"),                                           "gtk-new",              G_CALLBACK (thunar_launcher_action_create_document),     },
  
-   GtkAction              *action_create_folder;
-+  GtkAction              *action_create_empty_file;
-   GtkAction              *action_create_document;
-   GtkAction              *action_properties;
-   GtkAction              *action_cut;
-@@ -400,6 +401,7 @@
-   { "file-context-menu", NULL, N_ ("File Context Menu"), NULL, NULL, NULL, },
-   { "folder-context-menu", NULL, N_ ("Folder Context Menu"), NULL, NULL, NULL, },
-   { "create-folder", "folder-new", N_ ("Create _Folder..."), "<control><shift>N", N_ ("Create an empty folder within the current folder"), G_CALLBACK (thunar_standard_view_action_create_folder), },
-+  { "create-empty-file", "gtk-new", N_ ("Create _Empty File..."), "<control><shift>F", N_ ("Create an empty file within the current folder"), G_CALLBACK (thunar_standard_view_action_create_empty_file), },
-   { "properties", "document-properties", N_ ("_Properties..."), "<alt>Return", N_ ("View the properties of the selected file"), G_CALLBACK (thunar_standard_view_action_properties), },
-   { "cut", "edit-cut", N_ ("Cu_t"), "<control>X", NULL, G_CALLBACK (thunar_standard_view_action_cut), },
-   { "copy", "edit-copy", N_ ("_Copy"), "<control>C", NULL, G_CALLBACK (thunar_standard_view_action_copy), },
-@@ -665,6 +667,7 @@
+     { THUNAR_LAUNCHER_ACTION_RESTORE,          "<Actions>/ThunarLauncher/restore",                 "",                  XFCE_GTK_MENU_ITEM,       N_ ("_Restore"),                        NULL,                                                                                            NULL,                   G_CALLBACK (thunar_launcher_action_restore),             },
+     { THUNAR_LAUNCHER_ACTION_MOVE_TO_TRASH,    "<Actions>/ThunarLauncher/move-to-trash",           "",                  XFCE_GTK_IMAGE_MENU_ITEM, N_ ("Mo_ve to Trash"),                  NULL,                                                                                            "user-trash",           G_CALLBACK (thunar_launcher_action_move_to_trash),       },
+@@ -1450,6 +1450,7 @@
+         return NULL;
  
-   /* lookup all actions to speed up access later */
-   standard_view->priv->action_create_folder = gtk_action_group_get_action (standard_view->action_group, "create-folder");
-+  standard_view->priv->action_create_empty_file = gtk_action_group_get_action (standard_view->action_group, "create-empty-file");
-   standard_view->priv->action_properties = gtk_action_group_get_action (standard_view->action_group, "properties");
-   standard_view->priv->action_cut = gtk_action_group_get_action (standard_view->action_group, "cut");
-   standard_view->priv->action_copy = gtk_action_group_get_action (standard_view->action_group, "copy");
-@@ -680,8 +683,6 @@
+       case THUNAR_LAUNCHER_ACTION_CREATE_FOLDER:
++      case THUNAR_LAUNCHER_ACTION_CREATE_EMPTY_FILE:
+         if (launcher->files_are_selected && launcher->single_directory_to_process)
+           parent = launcher->single_folder;
+         else
+diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-launcher.h thunar/src/thunar-4.16.0/thunar/thunar-launcher.h
+--- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-launcher.h	2020-12-26 22:33:39.644938041 -0800
++++ thunar/src/thunar-4.16.0/thunar/thunar-launcher.h	2020-12-26 22:33:39.924933442 -0800
+@@ -52,6 +52,7 @@
+   THUNAR_LAUNCHER_ACTION_RENAME,
+   THUNAR_LAUNCHER_ACTION_EMPTY_TRASH,
+   THUNAR_LAUNCHER_ACTION_CREATE_FOLDER,
++  THUNAR_LAUNCHER_ACTION_CREATE_EMPTY_FILE,
+   THUNAR_LAUNCHER_ACTION_CREATE_DOCUMENT,
+   THUNAR_LAUNCHER_ACTION_RESTORE,
+   THUNAR_LAUNCHER_ACTION_MOVE_TO_TRASH,
+diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-menu.c thunar/src/thunar-4.16.0/thunar/thunar-menu.c
+--- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-menu.c	2020-12-26 22:33:39.644938041 -0800
++++ thunar/src/thunar-4.16.0/thunar/thunar-menu.c	2020-12-26 22:33:39.924933442 -0800
+@@ -257,6 +257,7 @@
+     {
+       item_added = FALSE;
+       item_added |= (thunar_launcher_append_menu_item (menu->launcher, GTK_MENU_SHELL (menu), THUNAR_LAUNCHER_ACTION_CREATE_FOLDER, force) != NULL);
++      item_added |= (thunar_launcher_append_menu_item (menu->launcher, GTK_MENU_SHELL (menu), THUNAR_LAUNCHER_ACTION_CREATE_EMPTY_FILE, force) != NULL);
  
-   /* add the "Create Document" sub menu action */
-   standard_view->priv->action_create_document = thunar_templates_action_new ("create-document", _("Create _Document"));
--  g_signal_connect (G_OBJECT (standard_view->priv->action_create_document), "create-empty-file",
--                    G_CALLBACK (thunar_standard_view_action_create_empty_file), standard_view);
-   g_signal_connect (G_OBJECT (standard_view->priv->action_create_document), "create-template",
-                     G_CALLBACK (thunar_standard_view_action_create_template), standard_view);
- G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-@@ -1498,7 +1499,8 @@
- G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-   /* update the "Create Folder"/"Create Document" actions */
-   gtk_action_set_visible (standard_view->priv->action_create_folder, !trashed);
--  gtk_action_set_visible (standard_view->priv->action_create_document, !trashed);
-+  gtk_action_set_visible (standard_view->priv->action_create_empty_file, !trashed);
-+  gtk_action_set_visible (standard_view->priv->action_create_document, FALSE);
- 
-   /* update the "Rename" action */
-   gtk_action_set_visible (standard_view->priv->action_rename, !trashed);
-@@ -4519,6 +4521,7 @@
- G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-   /* update the "Create Folder"/"Create Document" actions */
-   gtk_action_set_sensitive (standard_view->priv->action_create_folder, !trashed && writable);
-+  gtk_action_set_sensitive (standard_view->priv->action_create_empty_file, !trashed && writable);
-   gtk_action_set_sensitive (standard_view->priv->action_create_document, !trashed && writable);
- 
-   /* update the "Properties" action */
-diff -ru thunar.ORIG/src/thunar-1.8.16/thunar/thunar-standard-view-ui.xml thunar/src/thunar-1.8.16/thunar/thunar-standard-view-ui.xml
---- thunar.ORIG/src/thunar-1.8.16/thunar/thunar-standard-view-ui.xml	2019-11-11 08:24:30.423459947 -0800
-+++ thunar/src/thunar-1.8.16/thunar/thunar-standard-view-ui.xml	2019-11-11 08:24:30.726803245 -0800
-@@ -72,6 +72,7 @@
- 
-   <popup action="folder-context-menu">
-     <menuitem action="create-folder" />
-+    <menuitem action="create-empty-file" />
-     <menuitem action="create-document" />
-     <menuitem action="empty-trash" />
-     <separator />
+       /* No document creation for tree-view */
+       if (menu->type != THUNAR_MENU_TYPE_CONTEXT_TREE_VIEW)
