@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-shortcuts-model.c thunar/src/thunar-4.16.0/thunar/thunar-shortcuts-model.c
---- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-shortcuts-model.c	2020-12-26 22:33:39.641604763 -0800
-+++ thunar/src/thunar-4.16.0/thunar/thunar-shortcuts-model.c	2020-12-26 22:33:40.494924081 -0800
+diff -ru thunar.ORIG/src/thunar-4.16.1/thunar/thunar-shortcuts-model.c thunar/src/thunar-4.16.1/thunar/thunar-shortcuts-model.c
+--- thunar.ORIG/src/thunar-4.16.1/thunar/thunar-shortcuts-model.c	2020-12-26 22:33:39.641604763 -0800
++++ thunar/src/thunar-4.16.1/thunar/thunar-shortcuts-model.c	2020-12-26 22:33:40.494924081 -0800
 @@ -1039,7 +1039,7 @@
        shortcut->name = g_strdup (_("Browse Network"));
        shortcut->tooltip = g_strdup (_("Browse local network connections"));
@@ -19,9 +19,9 @@ diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-shortcuts-model.c thunar/sr
        shortcut->sort_id = 0;
        shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
        thunar_shortcuts_model_add_shortcut (model, shortcut);
-diff -ru thunar.ORIG/src/thunar-4.16.0/thunar/thunar-shortcuts-model.h thunar/src/thunar-4.16.0/thunar/thunar-shortcuts-model.h
---- thunar.ORIG/src/thunar-4.16.0/thunar/thunar-shortcuts-model.h	2020-12-26 22:33:39.641604763 -0800
-+++ thunar/src/thunar-4.16.0/thunar/thunar-shortcuts-model.h	2020-12-26 22:33:40.494924081 -0800
+diff -ru thunar.ORIG/src/thunar-4.16.1/thunar/thunar-shortcuts-model.h thunar/src/thunar-4.16.1/thunar/thunar-shortcuts-model.h
+--- thunar.ORIG/src/thunar-4.16.1/thunar/thunar-shortcuts-model.h	2020-12-26 22:33:39.641604763 -0800
++++ thunar/src/thunar-4.16.1/thunar/thunar-shortcuts-model.h	2020-12-26 22:33:40.494924081 -0800
 @@ -74,18 +74,18 @@
  
  enum _ThunarShortcutGroup
