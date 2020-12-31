@@ -1,40 +1,77 @@
 diff -ru gtk3.ORIG/src/gtk/gtk/gtkcalendar.c gtk3/src/gtk/gtk/gtkcalendar.c
---- gtk3.ORIG/src/gtk/gtk/gtkcalendar.c	2020-12-30 18:16:43.527424322 -0800
-+++ gtk3/src/gtk/gtk/gtkcalendar.c	2020-12-30 20:14:48.824686979 -0800
-@@ -115,16 +115,36 @@
- static guint
- week_of_year (guint year, guint mm, guint dd)
- {
+--- gtk3.ORIG/src/gtk/gtk/gtkcalendar.c	2020-12-31 12:05:55.591757909 -0800
++++ gtk3/src/gtk/gtk/gtkcalendar.c	2020-12-31 12:44:55.179756968 -0800
+@@ -128,6 +128,42 @@
+   return week;
+ }
+ 
++static guint
++intel_work_week_of_year (guint year, guint mm, guint dd)
++{
 +  GDateTime *nyd;
-   GDateTime *dt;
++  GDateTime *dt;
 +  guint nyd_week;
 +  guint nyd_day;
-   guint week;
- 
++  guint ww;
++
 +  nyd = g_date_time_new_local (year, 1, 1, 1, 1, 1);
 +  if (nyd == NULL)
 +    return 1;
 +
 +  nyd_day = g_date_time_get_day_of_week (nyd);
 +
-   dt = g_date_time_new_local (year, mm, dd, 1, 1, 1);
-   if (dt == NULL)
-     return 1;
- 
++  dt = g_date_time_new_local (year, mm, dd, 1, 1, 1);
++  if (dt == NULL)
++    return 1;
++
 +  nyd_week = g_date_time_get_week_of_year (nyd);
-   week = g_date_time_get_week_of_year (dt);
++  ww = g_date_time_get_week_of_year (dt);
 +
 +  g_date_time_unref (nyd);
-   g_date_time_unref (dt);
- 
-+  if (mm == 1 && nyd_week == week) {
++  g_date_time_unref (dt);
++
++  if (mm == 1 && nyd_week == ww) {
 +    return 1;
 +  }
 +
 +  if (nyd_week != 1 && nyd_day != 7) {
-+    return week + 1;
++    return ww + 1;
 +  }
 +
-   return week;
- }
++  return ww;
++}
++
+ /* Spacing around day/week headers and main area, inside those windows */
+ #define CALENDAR_MARGIN          0
+ 
+@@ -2441,7 +2477,7 @@
+ 
+   for (row = 0; row < 6; row++)
+     {
+-      gint year, month, week;
++      gint year, month, ww;
+ 
+       year = priv->year;
+       month = priv->month + priv->day_month[row][6] - MONTH_CURRENT;
+@@ -2459,19 +2495,9 @@
+ 
+       month += 1;
+ 
+-      week = week_of_year (year, month, priv->day[row][6]);
++      ww = intel_work_week_of_year (year, month, priv->day[row][6]);
++      g_snprintf (buffer, sizeof (buffer), "%02d", ww);
+ 
+-      /* Translators: this defines whether the week numbers should use
+-       * localized digits or the ones used in English (0123...).
+-       *
+-       * Translate to "%Id" if you want to use localized digits, or
+-       * translate to "%d" otherwise.
+-       *
+-       * Note that translating this doesn't guarantee that you get localized
+-       * digits. That needs support from your system and locale definition
+-       * too.
+-       */
+-      g_snprintf (buffer, sizeof (buffer), C_("calendar:week:digits", "%d"), week);
+       pango_layout_set_text (layout, buffer, -1);
+       pango_layout_get_pixel_extents (layout, NULL, &logical_rect);
  
