@@ -1,6 +1,6 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widget.c	2020-12-26 22:42:39.582677791 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widget.c	2020-12-26 22:42:39.832673639 -0800
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widget.c	2020-12-30 15:10:14.511304419 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widget.c	2020-12-30 15:10:14.894631932 -0800
 @@ -46,7 +46,7 @@
  
  
@@ -28,28 +28,48 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widge
      }
    /* set the toggle button state for the group button */
    if (class_group)
-@@ -2247,7 +2252,7 @@
+@@ -2247,14 +2252,15 @@
                                                    | GDK_SMOOTH_SCROLL_MASK);
  
    child->box = gtk_box_new (!xfce_tasklist_vertical (tasklist) ?
 -      GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL, 6);
-+      GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL, 2);
++      GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL, 0);
    gtk_container_add (GTK_CONTAINER (child->button), child->box);
    gtk_widget_show (child->box);
  
-@@ -2266,9 +2271,9 @@
-   g_free (css_string);
- 
-   if (tasklist->show_labels)
--    gtk_box_pack_start (GTK_BOX (child->box), child->icon, FALSE, TRUE, 0);
-+    gtk_box_pack_start (GTK_BOX (child->box), child->icon, FALSE, TRUE, 4);
-   else
--    gtk_box_pack_start (GTK_BOX (child->box), child->icon, TRUE, TRUE, 0);
-+    gtk_box_pack_start (GTK_BOX (child->box), child->icon, TRUE, TRUE, 4);
-   if (tasklist->minimized_icon_lucency > 0)
+   provider = gtk_css_provider_new ();
+   /* silly workaround for gtkcss only accepting "." as decimal separator and floats returning
+      with "," as decimal separator in some locales */
+-  css_string = g_strdup_printf ("image { padding: 3px; } image.minimized { opacity: %d.%02d; }",
++  css_string = g_strdup_printf ("image { padding: %s; } image.minimized { opacity: %d.%02d; }",
++                                (tasklist->show_labels ? "3px 0 3px 8px" : "3px"),
+                                 tasklist->minimized_icon_lucency / 100,
+                                 tasklist->minimized_icon_lucency % 100);
+   gtk_css_provider_load_from_data (provider, css_string, -1, NULL);
+@@ -2273,7 +2279,7 @@
      gtk_widget_show (child->icon);
  
-@@ -2691,16 +2696,7 @@
+   child->label = gtk_label_new (NULL);
+-  gtk_box_pack_start (GTK_BOX (child->box), child->label, TRUE, TRUE, 0);
++  gtk_box_pack_start (GTK_BOX (child->box), child->label, TRUE, TRUE, 6);
+   if (!xfce_tasklist_vertical (tasklist))
+     {
+       /* gtk_box_reorder_child (GTK_BOX (child->box), child->icon, 0); */
+@@ -2290,13 +2296,6 @@
+       /* TODO can we already ellipsize here yet? */
+     }
+ 
+-  provider = gtk_css_provider_new ();
+-  gtk_css_provider_load_from_data (provider, ".label-hidden { opacity: 0.75; }", -1, NULL);
+-  gtk_style_context_add_provider (gtk_widget_get_style_context (child->label),
+-                                  GTK_STYLE_PROVIDER (provider),
+-                                  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+-  g_object_unref (provider);
+-
+   /* don't show the label if we're in iconbox style */
+   if (tasklist->show_labels)
+     gtk_widget_show (child->label);
+@@ -2691,16 +2690,7 @@
    ctx = gtk_widget_get_style_context (child->label);
    gtk_style_context_remove_class (ctx, "label-hidden");
  
@@ -67,7 +87,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widge
      {
        if ((!child->tasklist->only_minimized
            && wnck_window_is_minimized (child->window))
-@@ -2785,45 +2781,6 @@
+@@ -2785,45 +2775,6 @@
              }
          }
      }
@@ -113,7 +133,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/plugins/tasklist/tasklist-widge
  }
  
  
-@@ -2841,6 +2798,7 @@
+@@ -2841,6 +2792,7 @@
  
    /* make sure we don't have two active windows (bug #6474) */
    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);

@@ -1,6 +1,6 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/panel/panel-base-window.c xfce4-panel/src/xfce4-panel-4.16.0/panel/panel-base-window.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.0/panel/panel-base-window.c	2020-12-26 22:42:39.579344513 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.0/panel/panel-base-window.c	2020-12-26 22:42:39.712675631 -0800
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.0/panel/panel-base-window.c	2020-12-30 15:10:14.507971136 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.0/panel/panel-base-window.c	2020-12-30 15:10:14.594636486 -0800
 @@ -825,15 +825,6 @@
    PanelBaseWindowPrivate *priv = window->priv;
  
@@ -17,3 +17,10 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.0/panel/panel-base-window.c xfce4
  }
  
  
+@@ -850,5 +841,6 @@
+     return PANEL_BORDER_TOP | PANEL_BORDER_BOTTOM
+            | PANEL_BORDER_LEFT | PANEL_BORDER_RIGHT;
+ 
++  priv->borders = PANEL_BORDER_NONE;
+   return priv->borders;
+ }
