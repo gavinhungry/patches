@@ -1,11 +1,12 @@
 diff -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c
 --- xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c	2020-12-26 23:40:05.992441840 -0800
 +++ xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c	2020-12-30 18:09:40.710586813 -0800
-@@ -277,6 +277,7 @@
+@@ -277,6 +277,8 @@
    GtkCalendarDisplayOptions display_options;
  
    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 +  gtk_window_set_default_size(GTK_WINDOW(window), 210, 0);
++  gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
    gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
    gtk_window_set_skip_taskbar_hint(GTK_WINDOW(window), TRUE);
    gtk_window_set_skip_pager_hint(GTK_WINDOW(window), TRUE);
