@@ -1,0 +1,40 @@
+diff -ru gtk3.ORIG/src/gtk/gtk/gtkcalendar.c gtk3/src/gtk/gtk/gtkcalendar.c
+--- gtk3.ORIG/src/gtk/gtk/gtkcalendar.c	2020-12-30 18:16:43.527424322 -0800
++++ gtk3/src/gtk/gtk/gtkcalendar.c	2020-12-30 20:14:48.824686979 -0800
+@@ -115,16 +115,36 @@
+ static guint
+ week_of_year (guint year, guint mm, guint dd)
+ {
++  GDateTime *nyd;
+   GDateTime *dt;
++  guint nyd_week;
++  guint nyd_day;
+   guint week;
+ 
++  nyd = g_date_time_new_local (year, 1, 1, 1, 1, 1);
++  if (nyd == NULL)
++    return 1;
++
++  nyd_day = g_date_time_get_day_of_week (nyd);
++
+   dt = g_date_time_new_local (year, mm, dd, 1, 1, 1);
+   if (dt == NULL)
+     return 1;
+ 
++  nyd_week = g_date_time_get_week_of_year (nyd);
+   week = g_date_time_get_week_of_year (dt);
++
++  g_date_time_unref (nyd);
+   g_date_time_unref (dt);
+ 
++  if (mm == 1 && nyd_week == week) {
++    return 1;
++  }
++
++  if (nyd_week != 1 && nyd_day != 7) {
++    return week + 1;
++  }
++
+   return week;
+ }
+ 
