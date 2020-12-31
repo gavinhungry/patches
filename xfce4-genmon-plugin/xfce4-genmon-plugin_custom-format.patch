@@ -1,0 +1,40 @@
+diff -ru xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin-4.1.0/panel-plugin/main.c xfce4-genmon-plugin/src/xfce4-genmon-plugin-4.1.0/panel-plugin/main.c
+--- xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin-4.1.0/panel-plugin/main.c	2020-12-26 23:57:53.701507209 -0800
++++ xfce4-genmon-plugin/src/xfce4-genmon-plugin-4.1.0/panel-plugin/main.c	2020-12-30 18:12:32.657904540 -0800
+@@ -350,17 +350,11 @@
+     /* Test if a ToolTip is given */
+     begin=strstr(p_poPlugin->acValue, "<tool>");
+     end=strstr(p_poPlugin->acValue, "</tool>");
+-    if (begin && end && begin < end)
++    if (begin && end && begin < end) {
+         acToolTips = g_strndup (begin + 6, end - begin - 6);
+-    else
+-        acToolTips = g_strdup_printf ("%s\n"
+-            "----------------\n"
+-            "%s\n"
+-            "Period (s): %.2f", poConf->acTitle, poConf->acCmd,
+-            (float)poConf->iPeriod_ms / 1000);
+-
+-    gtk_widget_set_tooltip_markup (GTK_WIDGET (poMonitor->wEventBox),acToolTips);
+-    g_free (acToolTips);
++        gtk_widget_set_tooltip_markup (GTK_WIDGET (poMonitor->wEventBox),acToolTips);
++        g_free (acToolTips);
++    }
+ 
+     return (0);
+ 
+@@ -631,12 +625,11 @@
+   font = pango_font_description_from_string(poConf->acFont);
+   if (G_LIKELY (font))
+   {
+-    css = g_strdup_printf("label { font-family: %s; font-size: %dpt; font-style: %s; font-weight: %s }",
++    css = g_strdup_printf("label { padding-top: 1px; font-family: %s; font-size: %dpx; font-style: %s; font-weight: 600; }",
+                           pango_font_description_get_family (font),
+                           pango_font_description_get_size (font) / PANGO_SCALE,
+                           (pango_font_description_get_style(font) == PANGO_STYLE_ITALIC ||
+-                           pango_font_description_get_style(font) == PANGO_STYLE_OBLIQUE) ? "italic" : "normal",
+-                          (pango_font_description_get_weight(font) >= PANGO_WEIGHT_BOLD) ? "bold" : "normal");
++                           pango_font_description_get_style(font) == PANGO_STYLE_OBLIQUE) ? "italic" : "normal");
+     pango_font_description_free (font);
+   }
+   else

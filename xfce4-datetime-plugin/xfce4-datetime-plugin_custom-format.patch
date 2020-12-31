@@ -1,0 +1,103 @@
+diff -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c
+--- xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c	2020-12-26 23:40:05.992441840 -0800
++++ xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c	2020-12-30 18:09:40.710586813 -0800
+@@ -277,6 +277,7 @@
+   GtkCalendarDisplayOptions display_options;
+ 
+   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
++  gtk_window_set_default_size(GTK_WINDOW(window), 210, 0);
+   gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
+   gtk_window_set_skip_taskbar_hint(GTK_WINDOW(window), TRUE);
+   gtk_window_set_skip_pager_hint(GTK_WINDOW(window), TRUE);
+@@ -352,12 +353,11 @@
+   font = pango_font_description_from_string(datetime->date_font);
+   if (G_LIKELY (font))
+   {
+-    css = g_strdup_printf("label { font-family: %s; font-size: %dpt; font-style: %s; font-weight: %s }",
++    css = g_strdup_printf("label { padding-top: 1px; font-family: %s; font-size: %dpx; font-style: %s; font-weight: 600; }",
+                           pango_font_description_get_family (font),
+                           pango_font_description_get_size (font) / PANGO_SCALE,
+                           (pango_font_description_get_style(font) == PANGO_STYLE_ITALIC ||
+-                           pango_font_description_get_style(font) == PANGO_STYLE_OBLIQUE) ? "italic" : "normal",
+-                          (pango_font_description_get_weight(font) >= PANGO_WEIGHT_BOLD) ? "bold" : "normal");
++                           pango_font_description_get_style(font) == PANGO_STYLE_OBLIQUE) ? "italic" : "normal");
+     pango_font_description_free (font);
+   }
+   else
+@@ -397,12 +397,11 @@
+   font = pango_font_description_from_string(datetime->time_font);
+   if (G_LIKELY (font))
+   {
+-    css = g_strdup_printf("label { font-family: %s; font-size: %dpt; font-style: %s; font-weight: %s }",
++    css = g_strdup_printf("label { padding-top: 1px; font-family: %s; font-size: %dpx; font-style: %s; font-weight: 600; }",
+                           pango_font_description_get_family (font),
+                           pango_font_description_get_size (font) / PANGO_SCALE,
+                           (pango_font_description_get_style(font) == PANGO_STYLE_ITALIC ||
+-                           pango_font_description_get_style(font) == PANGO_STYLE_OBLIQUE) ? "italic" : "normal",
+-                          (pango_font_description_get_weight(font) >= PANGO_WEIGHT_BOLD) ? "bold" : "normal");
++                           pango_font_description_get_style(font) == PANGO_STYLE_OBLIQUE) ? "italic" : "normal");
+     pango_font_description_free (font);
+   }
+   else
+@@ -681,15 +680,29 @@
+  */
+ static void datetime_create_widget(t_datetime * datetime)
+ {
++  gchar * css;
++  GtkCssProvider *css_provider;
++
+   GtkOrientation orientation;
+   orientation = xfce_panel_plugin_get_orientation(datetime->plugin);
+ 
+   /* create button */
+   datetime->button = xfce_panel_create_toggle_button();
++
++  css = g_strdup_printf("button { margin-right: 0; }");
++  css_provider = gtk_css_provider_new ();
++
++  gtk_css_provider_load_from_data (css_provider, css, strlen(css), NULL);
++    gtk_style_context_add_provider (
++      GTK_STYLE_CONTEXT (gtk_widget_get_style_context (GTK_WIDGET (datetime->button))),
++      GTK_STYLE_PROVIDER (css_provider),
++      GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
++  g_free(css);
++
+   gtk_widget_show(datetime->button);
+ 
+   /* create a box which can be easily adapted to the panel orientation */
+-  datetime->box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
++  datetime->box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+ 
+   gtk_widget_show(datetime->box);
+   gtk_container_add(GTK_CONTAINER(datetime->button), datetime->box);
+@@ -697,21 +710,20 @@
+   /* create time and date lines */
+   datetime->time_label = gtk_label_new("");
+   datetime->date_label = gtk_label_new("");
+-  gtk_label_set_justify(GTK_LABEL(datetime->time_label), GTK_JUSTIFY_CENTER);
+-  gtk_label_set_justify(GTK_LABEL(datetime->date_label), GTK_JUSTIFY_CENTER);
++  gtk_label_set_justify(GTK_LABEL(datetime->time_label), GTK_JUSTIFY_RIGHT);
++  gtk_label_set_justify(GTK_LABEL(datetime->date_label), GTK_JUSTIFY_RIGHT);
++
++  gtk_widget_set_size_request(GTK_BOX(datetime->box), 160, 16);
+ 
+-  /* add time and date lines to the box */
+-  gtk_box_pack_start(GTK_BOX(datetime->box),
+-      datetime->time_label, TRUE, FALSE, 0);
+-  gtk_box_pack_start(GTK_BOX(datetime->box),
+-      datetime->date_label, TRUE, FALSE, 0);
++  /* add date and time lines to the box */
++  gtk_box_pack_end(GTK_BOX(datetime->box),
++      datetime->date_label, FALSE, FALSE, 0);
++  gtk_box_pack_end(GTK_BOX(datetime->box),
++      datetime->time_label, FALSE, FALSE, 0);
+ 
+   /* connect widget signals to functions */
+   g_signal_connect(datetime->button, "button-press-event",
+       G_CALLBACK(datetime_clicked), datetime);
+-
+-  /* set orientation according to the panel orientation */
+-  datetime_set_mode(datetime->plugin, orientation, datetime);
+ }
+ 
+ /*
