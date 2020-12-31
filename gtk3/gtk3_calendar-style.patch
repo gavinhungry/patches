@@ -1,0 +1,50 @@
+diff -ru gtk3.ORIG/src/gtk/gtk/gtkcalendar.c gtk3/src/gtk/gtk/gtkcalendar.c
+--- gtk3.ORIG/src/gtk/gtk/gtkcalendar.c	2020-12-30 18:16:43.527424322 -0800
++++ gtk3/src/gtk/gtk/gtkcalendar.c	2020-12-31 00:49:51.365122664 -0800
+@@ -131,8 +131,8 @@
+ /* Spacing around day/week headers and main area, inside those windows */
+ #define CALENDAR_MARGIN          0
+ 
+-#define DAY_XSEP                 0 /* not really good for small calendar */
+-#define DAY_YSEP                 0 /* not really good for small calendar */
++#define DAY_XSEP                 2 /* not really good for small calendar */
++#define DAY_YSEP                 2 /* not really good for small calendar */
+ 
+ #define SCROLL_DELAY_FACTOR      5
+ 
+@@ -559,7 +559,7 @@
+                                            g_param_spec_int ("vertical-separation",
+                                                              P_("Vertical separation"),
+                                                              P_("Space between day headers and main area"),
+-                                                             0, G_MAXINT, 4,
++                                                             0, G_MAXINT, 8,
+                                                              GTK_PARAM_READABLE));
+ 
+   /**
+@@ -2050,7 +2050,8 @@
+       priv->day_name_h = (priv->max_label_char_ascent
+                           + priv->max_label_char_descent
+                           + day_name_padding.top + day_name_padding.bottom
+-                          + calendar_margin);
++                          + calendar_margin
++                          + 6);
+       calendar_margin = calendar_ysep;
+     }
+   else
+@@ -2353,6 +2354,7 @@
+    * Write the labels
+    */
+   layout = gtk_widget_create_pango_layout (widget, NULL);
++  pango_layout_set_font_description (layout, pango_font_description_from_string ("semibold"));
+ 
+   for (i = 0; i < 7; i++)
+     {
+@@ -2437,6 +2439,8 @@
+    */
+ 
+   layout = gtk_widget_create_pango_layout (widget, NULL);
++  pango_layout_set_font_description (layout, pango_font_description_from_string ("semibold"));
++  
+   day_height = calendar_row_height (calendar);
+ 
+   for (row = 0; row < 6; row++)
