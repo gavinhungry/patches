@@ -80,7 +80,7 @@ diff -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin
 +  gtk_label_set_justify(GTK_LABEL(datetime->time_label), GTK_JUSTIFY_RIGHT);
 +  gtk_label_set_justify(GTK_LABEL(datetime->date_label), GTK_JUSTIFY_RIGHT);
 +
-+  gtk_widget_set_size_request(GTK_BOX(datetime->box), 160, 16);
++  gtk_widget_set_size_request(GTK_BOX(datetime->box), -1, 16);
  
 -  /* add time and date lines to the box */
 -  gtk_box_pack_start(GTK_BOX(datetime->box),
