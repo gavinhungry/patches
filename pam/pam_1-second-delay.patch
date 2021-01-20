@@ -1,19 +1,19 @@
-diff -ru pam.ORIG/src/Linux-PAM-1.5.0/modules/pam_faillock/pam_faillock.c pam/src/Linux-PAM-1.5.0/modules/pam_faillock/pam_faillock.c
---- pam.ORIG/src/Linux-PAM-1.5.0/modules/pam_faillock/pam_faillock.c	2020-08-19 13:13:09.984256067 -0700
-+++ pam/src/Linux-PAM-1.5.0/modules/pam_faillock/pam_faillock.c	2020-08-19 13:34:27.619201772 -0700
-@@ -685,7 +685,7 @@
- 	if (rv != PAM_SUCCESS)
+diff -ru pam.ORIG/src/Linux-PAM-1.5.1/modules/pam_faillock/pam_faillock.c pam/src/Linux-PAM-1.5.1/modules/pam_faillock/pam_faillock.c
+--- pam.ORIG/src/Linux-PAM-1.5.1/modules/pam_faillock/pam_faillock.c	2021-01-20 12:40:25.396590263 -0800
++++ pam/src/Linux-PAM-1.5.1/modules/pam_faillock/pam_faillock.c	2021-01-20 12:43:05.457641277 -0800
+@@ -659,7 +659,7 @@
  		goto err;
  
--	pam_fail_delay(pamh, 2000000);	/* 2 sec delay on failure */
-+	pam_fail_delay(pamh, 1000000);	/* 1 sec delay on failure */
+ 	if (!(opts.flags & FAILLOCK_FLAG_NO_DELAY)) {
+-		pam_fail_delay(pamh, 2000000);	/* 2 sec delay on failure */
++		pam_fail_delay(pamh, 1000000);	/* 1 sec delay on failure */
+ 	}
  
  	if ((rv=get_pam_user(pamh, &opts)) != PAM_SUCCESS) {
- 		goto err;
-diff -ru pam.ORIG/src/Linux-PAM-1.5.0/modules/pam_unix/support.c pam/src/Linux-PAM-1.5.0/modules/pam_unix/support.c
---- pam.ORIG/src/Linux-PAM-1.5.0/modules/pam_unix/support.c	2020-08-19 13:13:09.974255754 -0700
-+++ pam/src/Linux-PAM-1.5.0/modules/pam_unix/support.c	2020-08-19 13:34:33.845897252 -0700
-@@ -686,7 +686,7 @@
+diff -ru pam.ORIG/src/Linux-PAM-1.5.1/modules/pam_unix/support.c pam/src/Linux-PAM-1.5.1/modules/pam_unix/support.c
+--- pam.ORIG/src/Linux-PAM-1.5.1/modules/pam_unix/support.c	2021-01-20 12:40:25.386590405 -0800
++++ pam/src/Linux-PAM-1.5.1/modules/pam_unix/support.c	2021-01-20 12:43:01.094370432 -0800
+@@ -673,7 +673,7 @@
  #ifdef HAVE_PAM_FAIL_DELAY
  	if (off(UNIX_NODELAY, ctrl)) {
  		D(("setting delay"));

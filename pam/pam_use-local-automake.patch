@@ -1,12 +1,13 @@
 diff -ru pam.ORIG/PKGBUILD pam/PKGBUILD
---- pam.ORIG/PKGBUILD	2020-05-21 12:30:50.515391044 -0700
-+++ pam/PKGBUILD	2020-05-21 12:30:58.082359713 -0700
-@@ -24,6 +24,8 @@
+--- pam.ORIG/PKGBUILD	2021-01-20 12:40:25.349924257 -0800
++++ pam/PKGBUILD	2021-01-20 12:41:06.819335063 -0800
+@@ -28,6 +28,9 @@
  
  build() {
    cd Linux-PAM-$pkgver
 +  aclocal
 +  automake
-   ./configure --libdir=/usr/lib --sbindir=/usr/bin --disable-db
-   make
- }
++
+   ./configure \
+     --libdir=/usr/lib \
+     --sbindir=/usr/bin \
