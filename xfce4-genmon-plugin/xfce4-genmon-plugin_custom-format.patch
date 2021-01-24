@@ -1,6 +1,6 @@
-diff -ru xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin-4.1.0/panel-plugin/main.c xfce4-genmon-plugin/src/xfce4-genmon-plugin-4.1.0/panel-plugin/main.c
---- xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin-4.1.0/panel-plugin/main.c	2020-12-26 23:57:53.701507209 -0800
-+++ xfce4-genmon-plugin/src/xfce4-genmon-plugin-4.1.0/panel-plugin/main.c	2020-12-30 18:12:32.657904540 -0800
+diff -ru xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin-4.1.1/panel-plugin/main.c xfce4-genmon-plugin/src/xfce4-genmon-plugin-4.1.1/panel-plugin/main.c
+--- xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin-4.1.1/panel-plugin/main.c	2020-12-26 23:57:53.701507209 -0800
++++ xfce4-genmon-plugin/src/xfce4-genmon-plugin-4.1.1/panel-plugin/main.c	2020-12-30 18:12:32.657904540 -0800
 @@ -350,17 +350,11 @@
      /* Test if a ToolTip is given */
      begin=strstr(p_poPlugin->acValue, "<tool>");
