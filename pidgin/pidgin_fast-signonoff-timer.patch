@@ -6,7 +6,7 @@ diff -ru pidgin.ORIG/src/pidgin-2.14.1/pidgin/gtkblist.c pidgin/src/pidgin-2.14.
  	if(gtknode->recent_signonoff_timer > 0)
  		purple_timeout_remove(gtknode->recent_signonoff_timer);
 -	gtknode->recent_signonoff_timer = purple_timeout_add_seconds(10,
-+	gtknode->recent_signonoff_timer = purple_timeout_add_seconds(4,
++	gtknode->recent_signonoff_timer = purple_timeout_add_seconds(2,
  			(GSourceFunc)buddy_signonoff_timeout_cb, buddy);
  }
  
