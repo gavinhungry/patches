@@ -1,50 +1,40 @@
-diff -ru gmrun.ORIG/src/gmrun-0.9.5w/src/main.cc gmrun/src/gmrun-0.9.5w/src/main.cc
---- gmrun.ORIG/src/gmrun-0.9.5w/src/main.cc	2018-07-19 12:00:17.341948710 -0700
-+++ gmrun/src/gmrun-0.9.5w/src/main.cc	2018-07-19 12:00:46.722248686 -0700
-@@ -420,12 +420,11 @@
+diff -ru gmrun.ORIG/src/gmrun-1.0w/src/main.c gmrun/src/gmrun-1.0w/src/main.c
+--- gmrun.ORIG/src/gmrun-1.0w/src/main.c	2021-02-08 13:55:06.238496790 -0800
++++ gmrun/src/gmrun-1.0w/src/main.c	2021-02-12 00:26:08.085540101 -0800
+@@ -521,12 +521,11 @@
  
-   dialog = gtk_dialog_new();
-   gtk_widget_realize(dialog);
--  gdk_window_set_decorations(dialog->window, GDK_DECOR_BORDER);
-   gtk_widget_set_name(dialog, "Msh_Run_Window");
--  gtk_window_set_title(GTK_WINDOW(dialog), "Execute program feat. completion");
-+  gtk_window_set_title(GTK_WINDOW(dialog), "gmrun");
-   gtk_window_set_policy(GTK_WINDOW(dialog), FALSE, FALSE, TRUE);
-   // gtk_window_set_position(GTK_WINDOW(win), GTK_WIN_POS_CENTER);
--  gtk_container_set_border_width(GTK_CONTAINER(dialog), 4);
-+  gtk_container_set_border_width(GTK_CONTAINER(dialog), 2);
-   gtk_signal_connect(GTK_OBJECT(dialog), "destroy",
-                      GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
+    // this removes the title bar..
+    GdkWindow *gwin = gtk_widget_get_window (GTK_WIDGET(dialog));
+-   gdk_window_set_decorations (gwin, GDK_DECOR_BORDER);
  
-@@ -434,22 +433,12 @@
-   gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), hhbox, FALSE, FALSE, 0);
+    gtk_widget_set_name (GTK_WIDGET (dialog), "gmrun");
+-   gtk_window_set_title (GTK_WINDOW(window), "A simple launcher with completion");
++   gtk_window_set_title (GTK_WINDOW(window), "gmrun");
  
-   GtkWidget *label = gtk_label_new("Run program:");
--  gtk_widget_show(label);
--  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
--  gtk_misc_set_padding(GTK_MISC(label), 10, 0);
--  gtk_box_pack_start(GTK_BOX(hhbox), label, FALSE, FALSE, 0);
--
--  label_search = gtk_label_new("");
--  gtk_widget_show(label_search);
--  gtk_misc_set_alignment(GTK_MISC(label_search), 1.0, 0.5);
--  gtk_misc_set_padding(GTK_MISC(label_search), 10, 0);
--  gtk_box_pack_start(GTK_BOX(hhbox), label_search, TRUE, TRUE, 0);
+-   gtk_container_set_border_width(GTK_CONTAINER(dialog), 4);
++   gtk_container_set_border_width(GTK_CONTAINER(dialog), 2);
+    g_signal_connect(G_OBJECT(dialog), "destroy",
+                   G_CALLBACK(gmrun_exit), NULL);
  
-   compline = gtk_completion_line_new();
-   gtk_widget_set_name(compline, "Msh_Run_Compline");
-   int prefs_width;
-   if (!configuration.get_int("Width", prefs_width))
--    prefs_width = 500;
-+    prefs_width = 350;
+@@ -534,12 +533,9 @@
+    gtk_box_pack_start (GTK_BOX (main_vbox), hhbox, FALSE, FALSE, 0);
  
-   // don't show files starting with "." by default
-   if (!configuration.get_int("ShowDotFiles", GTK_COMPLETION_LINE(compline)->show_dot_files))
-@@ -513,6 +502,7 @@
+    GtkWidget *label = gtk_label_new("Run program:");
+-   gtk_box_pack_start (GTK_BOX(hhbox), label, FALSE, FALSE, 10);
+-   gtkcompat_widget_set_halign_left (GTK_WIDGET (label));
+    wlabel = label;
  
-   gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ALWAYS);
+    label_search = gtk_label_new("");
+-   gtk_box_pack_start (GTK_BOX (hhbox), label_search, FALSE, TRUE, 0);
+    wlabel_search = label_search;
  
-+  gtk_widget_hide(gtk_dialog_get_action_area(GTK_DIALOG(dialog)));
-   gtk_widget_show(dialog);
+    compline = gtk_completion_line_new();
+@@ -606,7 +602,7 @@
+                                    window_geom.height);
+    } else {
+       /* default width = 450 */
+-      gtk_window_set_default_size (GTK_WINDOW (dialog), 450, -1);
++      gtk_window_set_default_size (GTK_WINDOW (dialog), 350, -1);
+    }
  
-   gtk_window_set_focus(GTK_WINDOW(dialog), compline);
+    // window icon
