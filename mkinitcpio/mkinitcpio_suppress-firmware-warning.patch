@@ -1,0 +1,13 @@
+diff -ru mkinitcpio.ORIG/src/mkinitcpio-30/functions mkinitcpio/src/mkinitcpio-30/functions
+--- mkinitcpio.ORIG/src/mkinitcpio-30/functions	2021-02-25 13:48:47.934474252 -0800
++++ mkinitcpio/src/mkinitcpio-30/functions	2021-02-25 13:50:54.519226256 -0800
+@@ -412,8 +412,7 @@
+     fi
+ 
+     if (( ${#firmware[*]} )); then
+-        add_firmware "${firmware[@]}" ||
+-            warning 'Possibly missing firmware for module: %s' "$target"
++        add_firmware "${firmware[@]}"
+     fi
+ 
+     # handle module quirks
