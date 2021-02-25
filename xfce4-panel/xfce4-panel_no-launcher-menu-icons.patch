@@ -1,6 +1,6 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.1/plugins/launcher/launcher.c xfce4-panel/src/xfce4-panel-4.16.1/plugins/launcher/launcher.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.1/plugins/launcher/launcher.c	2021-01-14 10:16:48.404391772 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.1/plugins/launcher/launcher.c	2021-01-14 10:16:50.917674731 -0800
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.2/plugins/launcher/launcher.c xfce4-panel/src/xfce4-panel-4.16.2/plugins/launcher/launcher.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.2/plugins/launcher/launcher.c	2021-01-14 10:16:48.404391772 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.2/plugins/launcher/launcher.c	2021-01-14 10:16:50.917674731 -0800
 @@ -1614,8 +1614,8 @@
    GtkArrowType    arrow_type;
    guint           n;

@@ -1,6 +1,6 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.1/plugins/launcher/launcher.c xfce4-panel/src/xfce4-panel-4.16.1/plugins/launcher/launcher.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.1/plugins/launcher/launcher.c	2020-12-30 15:10:14.511304419 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.1/plugins/launcher/launcher.c	2020-12-30 15:10:14.651302293 -0800
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.2/plugins/launcher/launcher.c xfce4-panel/src/xfce4-panel-4.16.2/plugins/launcher/launcher.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.2/plugins/launcher/launcher.c	2020-12-30 15:10:14.511304419 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.2/plugins/launcher/launcher.c	2020-12-30 15:10:14.651302293 -0800
 @@ -2274,12 +2274,7 @@
  launcher_plugin_arrow_visibility (LauncherPlugin *plugin)
  {
