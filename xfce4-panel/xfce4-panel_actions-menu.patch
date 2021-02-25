@@ -1,6 +1,6 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.1/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.16.1/plugins/actions/actions.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.1/plugins/actions/actions.c	2020-12-30 15:10:14.507971136 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.1/plugins/actions/actions.c	2020-12-30 15:10:14.527970832 -0800
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.2/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.16.2/plugins/actions/actions.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.2/plugins/actions/actions.c	2020-12-30 15:10:14.507971136 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.2/plugins/actions/actions.c	2020-12-30 15:10:14.527970832 -0800
 @@ -1311,6 +1311,7 @@
        gtk_widget_show (button);
  
