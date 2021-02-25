@@ -1,6 +1,6 @@
-diff -ru npm.ORIG/src/cli-7.0.7/lib/cli.js npm/src/cli-7.0.7/lib/cli.js
---- npm.ORIG/src/cli-7.0.7/lib/cli.js	2020-11-13 10:04:02.327076442 -0800
-+++ npm/src/cli-7.0.7/lib/cli.js	2020-11-13 10:13:35.154293900 -0800
+diff -ru npm.ORIG/src/cli-7.5.6/lib/cli.js npm/src/cli-7.5.6/lib/cli.js
+--- npm.ORIG/src/cli-7.5.6/lib/cli.js	2020-11-13 10:04:02.327076442 -0800
++++ npm/src/cli-7.5.6/lib/cli.js	2020-11-13 10:13:35.154293900 -0800
 @@ -57,7 +57,7 @@
      else {
        npm.config.set('usage', false)
