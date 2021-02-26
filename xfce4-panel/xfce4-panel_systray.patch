@@ -75,7 +75,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.2/plugins/systray/systray-socket.
 +  if (!g_strcmp0(socket->sort, "hexchat")) { g_strlcpy(socket->sort, "zzzz1000", 8); }
 +  else if (!g_strcmp0(socket->sort, "teams")) { g_strlcpy(socket->sort, "zzzz1100", 8); }
 +  else if (!g_strcmp0(socket->sort, "pidgin")) { g_strlcpy(socket->sort, "zzzz1200", 8); }
-+  else if (!g_strcmp0(socket->sort, "dropbox-tray")) { g_strlcpy(socket->sort, "zzzz1300", 8); }
++  else if (!g_strcmp0(socket->sort, "dropbox-tray.py")) { g_strlcpy(socket->sort, "zzzz1300", 8); }
 +  else if (!g_strcmp0(socket->sort, "parcellite")) { g_strlcpy(socket->sort, "zzzz1400", 8); }
 +  else if (!g_strcmp0(socket->sort, "blueman-applet")) { g_strlcpy(socket->sort, "zzzz1500", 8); }
 +  else if (!g_strcmp0(socket->sort, "networkmanager applet")) { g_strlcpy(socket->sort, "zzzz1600", 8); }
