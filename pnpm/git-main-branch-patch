@@ -1,0 +1,29 @@
+--- pnpm/dist/pnpm.js.ORIG	2021-02-25 18:03:07.996705321 -0800
++++ pnpm/dist/pnpm.js	2021-02-25 18:07:01.558711420 -0800
+@@ -74351,7 +74351,7 @@
+       const parsedSpec = await parsePref_1.default(wantedDependency.pref);
+       if (!parsedSpec)
+         return null;
+-      const commit = await resolveRef(parsedSpec.fetchSpec, (_a = parsedSpec.gitCommittish) !== null && _a !== void 0 ? _a : "master", parsedSpec.gitRange);
++      const commit = await resolveRef(parsedSpec.fetchSpec, (_a = parsedSpec.gitCommittish) !== null && _a !== void 0 ? _a : "main", parsedSpec.gitRange);
+       let resolution;
+       if (parsedSpec.hosted && !isSsh(parsedSpec.fetchSpec)) {
+         const hosted = parsedSpec.hosted;
+@@ -74399,7 +74399,16 @@
+     if (ref.match(/^[0-9a-f]{40}$/)) {
+       return ref;
+     }
+-    const refs = await getRepoRefs(repo, range ? null : ref);
++    let refs = await getRepoRefs(repo, range ? null : ref);
++
++    if (
++      ref === 'main' &&
++      Object.hasOwnProperty.call(refs)
++    ) {
++      ref = 'master';
++      refs = await getRepoRefs(repo, range ? null : ref);
++    }
++
+     return resolveRefFromRefs(refs, repo, ref, range);
+   }
+   function resolveRefFromRefs(refs, repo, ref, range) {
