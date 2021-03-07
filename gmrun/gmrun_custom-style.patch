@@ -1,6 +1,6 @@
-diff -ru gmrun.ORIG/src/gmrun-1.0w/src/main.c gmrun/src/gmrun-1.0w/src/main.c
---- gmrun.ORIG/src/gmrun-1.0w/src/main.c	2021-02-08 13:55:06.238496790 -0800
-+++ gmrun/src/gmrun-1.0w/src/main.c	2021-02-12 00:26:08.085540101 -0800
+diff -ru gmrun.ORIG/src/gmrun-1.1w/src/main.c gmrun/src/gmrun-1.1w/src/main.c
+--- gmrun.ORIG/src/gmrun-1.1w/src/main.c	2021-02-08 13:55:06.238496790 -0800
++++ gmrun/src/gmrun-1.1w/src/main.c	2021-02-12 00:26:08.085540101 -0800
 @@ -521,12 +521,11 @@
  
     // this removes the title bar..
