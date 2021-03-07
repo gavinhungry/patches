@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.16.3/thunar/thunar-launcher.c thunar/src/thunar-4.16.3/thunar/thunar-launcher.c
---- thunar.ORIG/src/thunar-4.16.3/thunar/thunar-launcher.c	2021-01-13 09:20:01.795139780 -0800
-+++ thunar/src/thunar-4.16.3/thunar/thunar-launcher.c	2021-01-13 09:25:46.663049264 -0800
+diff -ru thunar.ORIG/src/thunar-4.16.4/thunar/thunar-launcher.c thunar/src/thunar-4.16.4/thunar/thunar-launcher.c
+--- thunar.ORIG/src/thunar-4.16.4/thunar/thunar-launcher.c	2021-01-13 09:20:01.795139780 -0800
++++ thunar/src/thunar-4.16.4/thunar/thunar-launcher.c	2021-01-13 09:25:46.663049264 -0800
 @@ -253,7 +253,7 @@
      { THUNAR_LAUNCHER_ACTION_RENAME,           "<Actions>/ThunarStandardView/rename",              "F2",                XFCE_GTK_MENU_ITEM,       N_ ("_Rename..."),                      NULL,                                                                                            NULL,                   G_CALLBACK (thunar_launcher_action_rename),              },
      { THUNAR_LAUNCHER_ACTION_EMPTY_TRASH,      "<Actions>/ThunarWindow/empty-trash",               "",                  XFCE_GTK_IMAGE_MENU_ITEM, N_ ("_Empty Trash"),                    N_ ("Delete all files and folders in the Trash"),                                                NULL,                   G_CALLBACK (thunar_launcher_action_empty_trash),         },
@@ -18,9 +18,9 @@ diff -ru thunar.ORIG/src/thunar-4.16.3/thunar/thunar-launcher.c thunar/src/thuna
          if (THUNAR_IS_TREE_VIEW (launcher->widget) && launcher->files_are_selected && launcher->single_directory_to_process)
            parent = launcher->single_folder;
          else
-diff -ru thunar.ORIG/src/thunar-4.16.3/thunar/thunar-launcher.h thunar/src/thunar-4.16.3/thunar/thunar-launcher.h
---- thunar.ORIG/src/thunar-4.16.3/thunar/thunar-launcher.h	2021-01-13 09:20:01.795139780 -0800
-+++ thunar/src/thunar-4.16.3/thunar/thunar-launcher.h	2021-01-13 09:23:46.694941848 -0800
+diff -ru thunar.ORIG/src/thunar-4.16.4/thunar/thunar-launcher.h thunar/src/thunar-4.16.4/thunar/thunar-launcher.h
+--- thunar.ORIG/src/thunar-4.16.4/thunar/thunar-launcher.h	2021-01-13 09:20:01.795139780 -0800
++++ thunar/src/thunar-4.16.4/thunar/thunar-launcher.h	2021-01-13 09:23:46.694941848 -0800
 @@ -52,6 +52,7 @@
    THUNAR_LAUNCHER_ACTION_RENAME,
    THUNAR_LAUNCHER_ACTION_EMPTY_TRASH,
@@ -29,9 +29,9 @@ diff -ru thunar.ORIG/src/thunar-4.16.3/thunar/thunar-launcher.h thunar/src/thuna
    THUNAR_LAUNCHER_ACTION_CREATE_DOCUMENT,
    THUNAR_LAUNCHER_ACTION_RESTORE,
    THUNAR_LAUNCHER_ACTION_MOVE_TO_TRASH,
-diff -ru thunar.ORIG/src/thunar-4.16.3/thunar/thunar-menu.c thunar/src/thunar-4.16.3/thunar/thunar-menu.c
---- thunar.ORIG/src/thunar-4.16.3/thunar/thunar-menu.c	2021-01-13 09:20:01.795139780 -0800
-+++ thunar/src/thunar-4.16.3/thunar/thunar-menu.c	2021-01-13 09:25:11.510271000 -0800
+diff -ru thunar.ORIG/src/thunar-4.16.4/thunar/thunar-menu.c thunar/src/thunar-4.16.4/thunar/thunar-menu.c
+--- thunar.ORIG/src/thunar-4.16.4/thunar/thunar-menu.c	2021-01-13 09:20:01.795139780 -0800
++++ thunar/src/thunar-4.16.4/thunar/thunar-menu.c	2021-01-13 09:25:11.510271000 -0800
 @@ -257,6 +257,7 @@
      {
        item_added = FALSE;
