@@ -1,7 +1,7 @@
-diff -ru npm.ORIG/src/cli-7.6.0/node_modules/@npmcli/run-script/lib/run-script-pkg.js npm/src/cli-7.6.0/node_modules/@npmcli/run-script/lib/run-script-pkg.js
---- npm.ORIG/src/cli-7.6.0/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2020-11-09 14:53:05.493827413 -0800
-+++ npm/src/cli-7.6.0/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2020-11-09 14:53:05.530493989 -0800
-@@ -19,7 +19,7 @@
+diff -ru npm.ORIG/src/cli-7.6.1/node_modules/@npmcli/run-script/lib/run-script-pkg.js npm/src/cli-7.6.1/node_modules/@npmcli/run-script/lib/run-script-pkg.js
+--- npm.ORIG/src/cli-7.6.1/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2021-03-07 12:30:51.145034635 -0800
++++ npm/src/cli-7.6.1/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2021-03-07 12:30:51.195033760 -0800
+@@ -20,7 +20,7 @@
      args = [],
      stdioString = false,
      // note: only used when stdio:inherit
