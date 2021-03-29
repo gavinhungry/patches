@@ -1,12 +1,11 @@
-diff -ru npm.ORIG/src/cli-7.6.3/lib/cli.js npm/src/cli-7.6.3/lib/cli.js
---- npm.ORIG/src/cli-7.6.3/lib/cli.js	2021-03-11 09:32:23.018205674 -0800
-+++ npm/src/cli-7.6.3/lib/cli.js	2021-03-11 09:32:23.211535991 -0800
-@@ -59,7 +59,7 @@
-     else {
-       npm.config.set('usage', false)
-       npm.argv.unshift(cmd)
--      npm.commands.help(npm.argv, errorHandler)
-+      npm.commands.help([], errorHandler)
-     }
-   })
- }
+diff -ru npm.ORIG/src/cli-7.7.5/lib/cli.js npm/src/cli-7.7.5/lib/cli.js
+--- npm.ORIG/src/cli-7.7.5/lib/cli.js	2021-03-29 10:53:37.703481157 -0700
++++ npm/src/cli-7.7.5/lib/cli.js	2021-03-29 10:57:17.923188665 -0700
+@@ -67,7 +67,6 @@
+         if (cmd) {
+           const didYouMean = require('./utils/did-you-mean.js')
+           const suggestions = await didYouMean(npm, npm.localPrefix, cmd)
+-          npm.output(`Unknown command: "${cmd}"${suggestions}\n\nTo see a list of supported npm commands, run:\n  npm help`)
+         } else
+           npm.output(npm.usage)
+         process.exitCode = 1
