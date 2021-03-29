@@ -7,7 +7,7 @@ diff -ru vte3.ORIG/src/vte/src/drawing-cairo.cc vte3/src/vte/src/drawing-cairo.c
          m_char_spacing.right = (m_cell_width - m_fonts[VTE_DRAW_NORMAL]->width() + 1) / 2;
 -        m_cell_height = m_fonts[VTE_DRAW_NORMAL]->height() * cell_height_scale;
 -        m_char_spacing.top = (m_cell_height - m_fonts[VTE_DRAW_NORMAL]->height() + 1) / 2;
-+        m_cell_height = (m_fonts[VTE_DRAW_NORMAL]->height() * cell_height_scale) - 1;
++        m_cell_height = (m_fonts[VTE_DRAW_NORMAL]->height() * cell_height_scale) - 2;
 +        m_char_spacing.top = ((m_cell_height - m_fonts[VTE_DRAW_NORMAL]->height() + 1) / 2) - 1;
          m_char_spacing.bottom = (m_cell_height - m_fonts[VTE_DRAW_NORMAL]->height()) / 2;
  
@@ -20,7 +20,7 @@ diff -ru vte3.ORIG/src/vte/src/vte.cc vte3/src/vte/src/vte.cc
          cell_height = MAX(cell_height, 2);
          char_ascent = MAX(char_ascent, 1);
 -        char_descent = MAX(char_descent, 1);
-+        char_descent = MAX(char_descent, 1) - 1;
++        char_descent = MAX(char_descent, 1) - 2;
  
          /* For convenience only. */
          char_height = char_ascent + char_descent;
