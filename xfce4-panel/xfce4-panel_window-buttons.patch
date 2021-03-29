@@ -20,7 +20,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.2/plugins/tasklist/tasklist-widge
 +      /* bold only active tasks */
 +      if (child->window == active_window) {
 +        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), TRUE);
-+        gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string ("semibold"));
++        gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string ("medium"));
 +      } else {
 +          gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
 +          gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string (""));
