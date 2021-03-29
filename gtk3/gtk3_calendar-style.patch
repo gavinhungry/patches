@@ -35,7 +35,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkcalendar.c gtk3/src/gtk/gtk/gtkcalendar.c
     * Write the labels
     */
    layout = gtk_widget_create_pango_layout (widget, NULL);
-+  pango_layout_set_font_description (layout, pango_font_description_from_string ("semibold"));
++  pango_layout_set_font_description (layout, pango_font_description_from_string ("medium"));
  
    for (i = 0; i < 7; i++)
      {
@@ -43,7 +43,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkcalendar.c gtk3/src/gtk/gtk/gtkcalendar.c
     */
  
    layout = gtk_widget_create_pango_layout (widget, NULL);
-+  pango_layout_set_font_description (layout, pango_font_description_from_string ("semibold"));
++  pango_layout_set_font_description (layout, pango_font_description_from_string ("medium"));
 +  
    day_height = calendar_row_height (calendar);
  
