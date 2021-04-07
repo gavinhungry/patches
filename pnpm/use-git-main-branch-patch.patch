@@ -5,7 +5,7 @@ diff -ru pnpm.ORIG/PKGBUILD pnpm/PKGBUILD
  
  package() {
  	npm install -g --user root --prefix "$pkgdir"/usr "$srcdir/$pkgname-$pkgver.tgz"
-+	patch ../pkg/pnpm/usr/lib/node_modules/pnpm/dist/pnpm.js < ../git-main-branch.patch
++	patch ../pkg/pnpm/usr/lib/node_modules/pnpm/dist/pnpm.cjs < ../git-main-branch.patch
 +
  	local _npmdir="$pkgdir/usr/lib/node_modules/$pkgname"
  	find "$pkgdir"/usr -type d -exec chmod 755 {} +

@@ -1,19 +1,21 @@
---- pnpm/dist/pnpm.js.ORIG	2021-02-25 18:03:07.996705321 -0800
-+++ pnpm/dist/pnpm.js	2021-02-25 18:07:01.558711420 -0800
-@@ -74351,7 +74351,7 @@
-       const parsedSpec = await parsePref_1.default(wantedDependency.pref);
-       if (!parsedSpec)
+diff -ru pnpm.ORIG/pkg/pnpm/usr/lib/node_modules/pnpm/dist/pnpm.cjs pnpm/pkg/usr/lib/node_modules/pnpm/dist/pnpm.cjs
+--- pnpm.ORIG/pkg/pnpm/usr/lib/node_modules/pnpm/dist/pnpm.cjs	1985-10-26 01:15:00.000000000 -0700
++++ pnpm/pkg/usr/lib/node_modules/pnpm/dist/pnpm.cjs	2021-04-06 22:44:41.798294479 -0700
+@@ -60108,7 +60108,7 @@
+       const parsedSpec = await (0, parsePref_1.default)(wantedDependency.pref);
+       if (parsedSpec == null)
          return null;
--      const commit = await resolveRef(parsedSpec.fetchSpec, (_a = parsedSpec.gitCommittish) !== null && _a !== void 0 ? _a : "master", parsedSpec.gitRange);
-+      const commit = await resolveRef(parsedSpec.fetchSpec, (_a = parsedSpec.gitCommittish) !== null && _a !== void 0 ? _a : "main", parsedSpec.gitRange);
+-      const pref = parsedSpec.gitCommittish == null || parsedSpec.gitCommittish === "" ? "master" : parsedSpec.gitCommittish;
++      const pref = parsedSpec.gitCommittish == null || parsedSpec.gitCommittish === "" ? "main" : parsedSpec.gitCommittish;
+       const commit = await resolveRef(parsedSpec.fetchSpec, pref, parsedSpec.gitRange);
        let resolution;
-       if (parsedSpec.hosted && !isSsh(parsedSpec.fetchSpec)) {
-         const hosted = parsedSpec.hosted;
-@@ -74399,7 +74399,16 @@
-     if (ref.match(/^[0-9a-f]{40}$/)) {
+       if (parsedSpec.hosted != null && !isSsh(parsedSpec.fetchSpec)) {
+@@ -60157,7 +60157,17 @@
+     if (ref.match(/^[0-9a-f]{40}$/) != null) {
        return ref;
      }
 -    const refs = await getRepoRefs(repo, range ? null : ref);
++
 +    let refs = await getRepoRefs(repo, range ? null : ref);
 +
 +    if (
