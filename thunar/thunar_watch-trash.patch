@@ -1,0 +1,31 @@
+https://gitlab.xfce.org/xfce/thunar/-/merge_requests/66#note_28357
+0001-Regression-in-shortcuts-view-Watch-trash-and-root-fo.patch
+
+diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c thunar/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c
+--- thunar.ORIG/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c	2021-04-09 15:44:07.576687780 -0700
++++ thunar/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c	2021-04-09 15:44:28.996408138 -0700
+@@ -1212,6 +1212,13 @@
+   _thunar_return_if_fail (THUNAR_IS_SHORTCUTS_MODEL (model));
+   _thunar_return_if_fail (shortcut->file == NULL || THUNAR_IS_FILE (shortcut->file));
+ 
++  if (G_LIKELY (shortcut->file != NULL))
++    {
++      /* watch the trash and root for changes */
++      if (thunar_file_is_trashed (shortcut->file) && thunar_file_is_root (shortcut->file))
++        thunar_file_watch (shortcut->file);
++    }
++
+   if (path == NULL)
+     {
+       /* insert the new shortcut to the shortcuts list */
+@@ -1651,6 +1658,10 @@
+ {
+   if (G_LIKELY (shortcut->file != NULL))
+     {
++      /* drop the file watch */
++      if (thunar_file_is_trashed (shortcut->file) && thunar_file_is_root (shortcut->file))
++        thunar_file_unwatch (shortcut->file);
++
+       g_object_unref (shortcut->file);
+     }
+ 
