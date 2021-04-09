@@ -1,6 +1,6 @@
-diff -ru pidgin.ORIG/src/pidgin-2.14.2/pidgin/gtkblist.c pidgin/src/pidgin-2.14.2/pidgin/gtkblist.c
---- pidgin.ORIG/src/pidgin-2.14.2/pidgin/gtkblist.c	2016-12-29 10:18:15.920693074 -0800
-+++ pidgin/src/pidgin-2.14.2/pidgin/gtkblist.c	2016-12-29 10:18:16.550680930 -0800
+diff -ru pidgin.ORIG/src/pidgin-2.14.3/pidgin/gtkblist.c pidgin/src/pidgin-2.14.3/pidgin/gtkblist.c
+--- pidgin.ORIG/src/pidgin-2.14.3/pidgin/gtkblist.c	2016-12-29 10:18:15.920693074 -0800
++++ pidgin/src/pidgin-2.14.3/pidgin/gtkblist.c	2016-12-29 10:18:16.550680930 -0800
 @@ -5937,11 +5937,6 @@
  	g_signal_connect(G_OBJECT(gtkblist->treeview), "motion-notify-event", G_CALLBACK(pidgin_blist_motion_cb), NULL);
  	g_signal_connect(G_OBJECT(gtkblist->treeview), "leave-notify-event", G_CALLBACK(pidgin_blist_leave_cb), NULL);
