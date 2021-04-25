@@ -1,6 +1,6 @@
-diff -ru npm.ORIG/src/cli-7.10.0/node_modules/@npmcli/run-script/lib/run-script-pkg.js npm/src/cli-7.10.0/node_modules/@npmcli/run-script/lib/run-script-pkg.js
---- npm.ORIG/src/cli-7.10.0/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2021-03-11 09:32:23.028205518 -0800
-+++ npm/src/cli-7.10.0/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2021-03-11 09:32:23.074871456 -0800
+diff -ru npm.ORIG/src/cli-7.11.1/node_modules/@npmcli/run-script/lib/run-script-pkg.js npm/src/cli-7.11.1/node_modules/@npmcli/run-script/lib/run-script-pkg.js
+--- npm.ORIG/src/cli-7.11.1/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2021-03-11 09:32:23.028205518 -0800
++++ npm/src/cli-7.11.1/node_modules/@npmcli/run-script/lib/run-script-pkg.js	2021-03-11 09:32:23.074871456 -0800
 @@ -20,7 +20,7 @@
      args = [],
      stdioString = false,
