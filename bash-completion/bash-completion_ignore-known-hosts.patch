@@ -1,0 +1,22 @@
+diff -ru bash-completion.ORIG/src/bash-completion-2.11/bash_completion bash-completion/src/bash-completion-2.11/bash_completion
+--- bash-completion.ORIG/src/bash-completion-2.11/bash_completion	2021-04-29 22:41:59.412408845 -0700
++++ bash-completion/src/bash-completion-2.11/bash_completion	2021-04-29 22:42:04.715665076 -0700
+@@ -1687,18 +1687,6 @@
+         done
+     fi
+ 
+-    if [[ ! -v configfile ]]; then
+-        # Global and user known_hosts files
+-        for i in /etc/ssh/ssh_known_hosts /etc/ssh/ssh_known_hosts2 \
+-            /etc/known_hosts /etc/known_hosts2 ~/.ssh/known_hosts \
+-            ~/.ssh/known_hosts2; do
+-            [[ -r $i ]] && kh+=("$i")
+-        done
+-        for i in /etc/ssh2/knownhosts ~/.ssh2/hostkeys; do
+-            [[ -d $i ]] && khd+=("$i"/*pub)
+-        done
+-    fi
+-
+     # If we have known_hosts files to use
+     if ((${#kh[@]} + ${#khd[@]} > 0)); then
+         if ((${#kh[@]} > 0)); then
