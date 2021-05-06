@@ -1,6 +1,6 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.2/plugins/pager/pager.c xfce4-panel/src/xfce4-panel-4.16.2/plugins/pager/pager.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.2/plugins/pager/pager.c	2020-12-30 15:10:14.507971136 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.2/plugins/pager/pager.c	2020-12-30 15:10:14.774633754 -0800
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/pager/pager.c xfce4-panel/src/xfce4-panel-4.16.3/plugins/pager/pager.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/pager/pager.c	2020-12-30 15:10:14.507971136 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/pager/pager.c	2020-12-30 15:10:14.774633754 -0800
 @@ -777,14 +777,13 @@
      {
        n_workspaces = wnck_screen_get_workspace_count (plugin->wnck_screen);
