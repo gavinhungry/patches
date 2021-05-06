@@ -1,7 +1,7 @@
-diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-window.c thunar/src/thunar-4.16.6/thunar/thunar-window.c
---- thunar.ORIG/src/thunar-4.16.6/thunar/thunar-window.c	2020-12-26 22:33:39.644938041 -0800
-+++ thunar/src/thunar-4.16.6/thunar/thunar-window.c	2020-12-26 22:33:40.098263929 -0800
-@@ -809,8 +809,9 @@
+diff -ru thunar.ORIG/src/thunar-4.16.7/thunar/thunar-window.c thunar/src/thunar-4.16.7/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-4.16.7/thunar/thunar-window.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.7/thunar/thunar-window.c	2021-05-06 16:23:05.723528522 -0700
+@@ -815,8 +815,9 @@
    /* add the location bar itself */
    gtk_container_add (GTK_CONTAINER (tool_item), window->location_bar);
  
