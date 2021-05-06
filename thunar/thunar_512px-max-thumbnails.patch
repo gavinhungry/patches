@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-enum-types.c thunar/src/thunar-4.16.6/thunar/thunar-enum-types.c
---- thunar.ORIG/src/thunar-4.16.6/thunar/thunar-enum-types.c	2020-12-26 22:33:39.641604763 -0800
-+++ thunar/src/thunar-4.16.6/thunar/thunar-enum-types.c	2020-12-26 22:33:39.704937056 -0800
+diff -ru thunar.ORIG/src/thunar-4.16.7/thunar/thunar-enum-types.c thunar/src/thunar-4.16.7/thunar/thunar-enum-types.c
+--- thunar.ORIG/src/thunar-4.16.7/thunar/thunar-enum-types.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.7/thunar/thunar-enum-types.c	2021-05-06 16:23:05.316866877 -0700
 @@ -180,6 +180,8 @@
          { THUNAR_ICON_SIZE_160,  "THUNAR_ICON_SIZE_160",       "160px",  },
          { THUNAR_ICON_SIZE_192,  "THUNAR_ICON_SIZE_192",       "192px",  },
@@ -46,9 +46,9 @@ diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-enum-types.c thunar/src/thu
    if (icon_size > THUNAR_ICON_SIZE_128)
      return THUNAR_THUMBNAIL_SIZE_LARGE;
  
-diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-enum-types.h thunar/src/thunar-4.16.6/thunar/thunar-enum-types.h
---- thunar.ORIG/src/thunar-4.16.6/thunar/thunar-enum-types.h	2020-12-26 22:33:39.644938041 -0800
-+++ thunar/src/thunar-4.16.6/thunar/thunar-enum-types.h	2020-12-26 22:33:39.704937056 -0800
+diff -ru thunar.ORIG/src/thunar-4.16.7/thunar/thunar-enum-types.h thunar/src/thunar-4.16.7/thunar/thunar-enum-types.h
+--- thunar.ORIG/src/thunar-4.16.7/thunar/thunar-enum-types.h	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.7/thunar/thunar-enum-types.h	2021-05-06 16:23:05.316866877 -0700
 @@ -140,6 +140,8 @@
    THUNAR_ICON_SIZE_160  = 160,
    THUNAR_ICON_SIZE_192  = 192,
@@ -82,9 +82,9 @@ diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-enum-types.h thunar/src/thu
  
    /*< private >*/
    THUNAR_ZOOM_N_LEVELS,
-diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-icon-view.c thunar/src/thunar-4.16.6/thunar/thunar-icon-view.c
---- thunar.ORIG/src/thunar-4.16.6/thunar/thunar-icon-view.c	2020-12-26 22:33:39.644938041 -0800
-+++ thunar/src/thunar-4.16.6/thunar/thunar-icon-view.c	2020-12-26 22:33:39.704937056 -0800
+diff -ru thunar.ORIG/src/thunar-4.16.7/thunar/thunar-icon-view.c thunar/src/thunar-4.16.7/thunar/thunar-icon-view.c
+--- thunar.ORIG/src/thunar-4.16.7/thunar/thunar-icon-view.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.7/thunar/thunar-icon-view.c	2021-05-06 16:23:05.316866877 -0700
 @@ -197,8 +197,12 @@
        wrap_width = 112;
        break;

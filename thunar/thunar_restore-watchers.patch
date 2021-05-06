@@ -1,7 +1,6 @@
-https://gitlab.xfce.org/xfce/thunar/-/merge_requests/66
-diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c thunar/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c
---- thunar.ORIG/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c	2021-04-09 15:55:50.727366979 -0700
-+++ thunar/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c	2021-04-09 15:56:38.966720831 -0700
+diff -ru thunar.ORIG/src/thunar-4.16.7/thunar/thunar-shortcuts-model.c thunar/src/thunar-4.16.7/thunar/thunar-shortcuts-model.c
+--- thunar.ORIG/src/thunar-4.16.7/thunar/thunar-shortcuts-model.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.7/thunar/thunar-shortcuts-model.c	2021-05-06 16:23:06.086857369 -0700
 @@ -132,6 +132,10 @@
                                                                       GFile                     *other_file,
                                                                       GFileMonitorEvent          event_type,
@@ -13,9 +12,9 @@ diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c thunar/sr
  static void               thunar_shortcuts_model_device_added       (ThunarDeviceMonitor       *device_monitor,
                                                                       ThunarDevice              *device,
                                                                       ThunarShortcutsModel      *model);
-@@ -1212,6 +1216,19 @@
-   _thunar_return_if_fail (THUNAR_IS_SHORTCUTS_MODEL (model));
-   _thunar_return_if_fail (shortcut->file == NULL || THUNAR_IS_FILE (shortcut->file));
+@@ -1219,6 +1223,19 @@
+         thunar_file_watch (shortcut->file);
+     }
  
 +  /* we want to stay informed about changes to the file */
 +  if (G_LIKELY (shortcut->file != NULL))
@@ -33,47 +32,42 @@ diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c thunar/sr
    if (path == NULL)
      {
        /* insert the new shortcut to the shortcuts list */
-@@ -1313,40 +1330,47 @@
+@@ -1320,9 +1337,6 @@
    _thunar_return_if_fail (THUNAR_IS_SHORTCUTS_MODEL (model));
    _thunar_return_if_fail (name == NULL || g_utf8_validate (name, -1, NULL));
  
 -  shortcut = g_slice_new0 (ThunarShortcut);
 -  shortcut->group = THUNAR_SHORTCUT_GROUP_PLACES_BOOKMARKS;
--
--  /* handle local and remote files differently */
-+  /* handle local and remove files differently */
-   if (thunar_shortcuts_model_local_file (file_path))
-     {
+-  shortcut->location = g_object_ref (file_path);
+ 
+   /* handle local and remote files differently */
+   /* If we dont have a thunar-file, we need to set the gicon manually */
+@@ -1331,21 +1345,42 @@
        /* try to open the file corresponding to the uri */
        file = thunar_file_get (file_path, NULL);
        if (G_UNLIKELY (file == NULL))
+-          shortcut->gicon = g_themed_icon_new ("folder");
+-      else
 +        return;
 +
 +      /* make sure the file refers to a directory */
 +      if (G_UNLIKELY (thunar_file_is_directory (file)))
-         {
--          shortcut->gicon = g_themed_icon_new ("folder");
--          shortcut->location = g_object_ref (file_path);
++        {
 +          /* create the shortcut entry */
 +          shortcut = g_slice_new0 (ThunarShortcut);
 +          shortcut->group = THUNAR_SHORTCUT_GROUP_PLACES_BOOKMARKS;
-+          shortcut->file = file;
+           shortcut->file = file;
 +          shortcut->sort_id = row_num;
 +          shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
 +          shortcut->name = g_strdup (name);
 +
 +          /* append the shortcut to the list */
 +          thunar_shortcuts_model_add_shortcut (model, shortcut);
-         }
-       else
-         {
--          /* make sure the file refers to a directory */
--          if (G_UNLIKELY (thunar_file_is_directory (file)))
--            shortcut->file = file;
--          else
--            g_object_unref (file);
++        }
++      else
++        {
 +          g_object_unref (file);
-         }
++        }
      }
    else
      {
@@ -81,9 +75,9 @@ diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c thunar/sr
 +      shortcut = g_slice_new0 (ThunarShortcut);
 +      shortcut->group = THUNAR_SHORTCUT_GROUP_PLACES_BOOKMARKS;
        shortcut->gicon = g_themed_icon_new ("folder-remote");
-       shortcut->location = g_object_ref (file_path);
 -    }
--
++      shortcut->location = g_object_ref (file_path);
+ 
 -  shortcut->sort_id = row_num;
 -  shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
 -  shortcut->name = g_strdup (name);
@@ -99,7 +93,7 @@ diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c thunar/sr
  }
  
  
-@@ -1518,6 +1542,74 @@
+@@ -1517,6 +1552,74 @@
  
  
  static void
@@ -174,13 +168,16 @@ diff -ru thunar.ORIG/src/thunar-4.16.6/thunar/thunar-shortcuts-model.c thunar/sr
  thunar_shortcuts_model_device_added (ThunarDeviceMonitor  *device_monitor,
                                       ThunarDevice         *device,
                                       ThunarShortcutsModel *model)
-@@ -1651,6 +1743,13 @@
+@@ -1650,10 +1753,13 @@
  {
    if (G_LIKELY (shortcut->file != NULL))
      {
+-      /* drop the file watch on trash */
+-      if (thunar_g_file_is_trash (thunar_file_get_file (shortcut->file)))
+-        thunar_file_unwatch (shortcut->file);
 +      /* drop the file watch */
 +      thunar_file_unwatch (shortcut->file);
-+
+ 
 +      /* unregister from the file */
 +      g_signal_handlers_disconnect_matched (shortcut->file,
 +                                            G_SIGNAL_MATCH_DATA, 0,
