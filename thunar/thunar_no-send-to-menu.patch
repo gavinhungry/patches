@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.16.7/thunar/thunar-launcher.c thunar/src/thunar-4.16.7/thunar/thunar-launcher.c
---- thunar.ORIG/src/thunar-4.16.7/thunar/thunar-launcher.c	2021-05-06 16:23:05.256867618 -0700
-+++ thunar/src/thunar-4.16.7/thunar/thunar-launcher.c	2021-05-06 16:23:05.903526299 -0700
+diff -ru thunar.ORIG/src/thunar-4.16.8/thunar/thunar-launcher.c thunar/src/thunar-4.16.8/thunar/thunar-launcher.c
+--- thunar.ORIG/src/thunar-4.16.8/thunar/thunar-launcher.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.8/thunar/thunar-launcher.c	2021-05-06 16:23:05.903526299 -0700
 @@ -244,7 +244,6 @@
  
      /* For backward compatibility the old accel paths are re-used. Currently not possible to automatically migrate to new accel paths. */
