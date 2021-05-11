@@ -1,4 +1,4 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/pager/pager.c xfce4-panel/src/xfce4-panel-4.16.3/plugins/pager/pager.c
+ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/pager/pager.c xfce4-panel/src/xfce4-panel-4.16.3/plugins/pager/pager.c
 --- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/pager/pager.c	2020-12-30 15:10:14.507971136 -0800
 +++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/pager/pager.c	2020-12-30 15:10:14.774633754 -0800
 @@ -777,14 +777,13 @@
@@ -10,11 +10,11 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/pager/pager.c xfce4-pan
  
    if (minimum_width != NULL)
 -    *minimum_width = min_width;
-+    *minimum_width = min_width - n_cols - 2;
++    *minimum_width = 2 * min_width;
  
    if (natural_width != NULL)
 -    *natural_width = nat_width;
-+    *natural_width = nat_width - n_cols - 2;
++    *natural_width = 2 * nat_width;
  }
  
  static void
