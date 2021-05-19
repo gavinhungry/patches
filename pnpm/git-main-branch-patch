@@ -1,31 +1,31 @@
-diff -ru pnpm.ORIG/pkg/pnpm/usr/lib/node_modules/pnpm/dist/pnpm.cjs pnpm/pkg/usr/lib/node_modules/pnpm/dist/pnpm.cjs
---- pnpm.ORIG/pkg/pnpm/usr/lib/node_modules/pnpm/dist/pnpm.cjs	1985-10-26 01:15:00.000000000 -0700
-+++ pnpm/pkg/usr/lib/node_modules/pnpm/dist/pnpm.cjs	2021-04-06 22:44:41.798294479 -0700
-@@ -60108,7 +60108,7 @@
-       const parsedSpec = await (0, parsePref_1.default)(wantedDependency.pref);
-       if (parsedSpec == null)
-         return null;
--      const pref = parsedSpec.gitCommittish == null || parsedSpec.gitCommittish === "" ? "master" : parsedSpec.gitCommittish;
-+      const pref = parsedSpec.gitCommittish == null || parsedSpec.gitCommittish === "" ? "main" : parsedSpec.gitCommittish;
-       const commit = await resolveRef(parsedSpec.fetchSpec, pref, parsedSpec.gitRange);
-       let resolution;
-       if (parsedSpec.hosted != null && !isSsh(parsedSpec.fetchSpec)) {
-@@ -60157,7 +60157,17 @@
-     if (ref.match(/^[0-9a-f]{40}$/) != null) {
-       return ref;
+diff -ru pnpm.ORIG/pkg/usr/lib/node_modules/pnpm/dist/pnpm.cjs pnpm/pkg/usr/lib/node_modules/pnpm/dist/pnpm.cjs
+--- pnpm.ORIG/pkg/usr/lib/node_modules/pnpm/dist/pnpm.cjs	2021-05-19 12:17:24.429087580 -0700
++++ pnpm/pkg/usr/lib/node_modules/pnpm/dist/pnpm.cjs	2021-05-19 12:19:24.745565791 -0700
+@@ -61433,7 +61433,7 @@
+         const parsedSpec = await parsePref_1.default(wantedDependency.pref);
+         if (parsedSpec == null)
+           return null;
+-        const pref = parsedSpec.gitCommittish == null || parsedSpec.gitCommittish === "" ? "master" : parsedSpec.gitCommittish;
++        const pref = parsedSpec.gitCommittish == null || parsedSpec.gitCommittish === "" ? "main" : parsedSpec.gitCommittish;
+         const commit = await resolveRef(parsedSpec.fetchSpec, pref, parsedSpec.gitRange);
+         let resolution;
+         if (parsedSpec.hosted != null && !isSsh(parsedSpec.fetchSpec)) {
+@@ -61482,7 +61482,17 @@
+       if (ref.match(/^[0-9a-f]{40}$/) != null) {
+         return ref;
+       }
+-      const refs = await getRepoRefs(repo, range ? null : ref);
++
++      let refs = await getRepoRefs(repo, range ? null : ref);
++
++      if (
++        ref === 'main' &&
++        Object.hasOwnProperty.call(refs)
++      ) {
++        ref = 'master';
++        refs = await getRepoRefs(repo, range ? null : ref);
++      }
++
+       return resolveRefFromRefs(refs, repo, ref, range);
      }
--    const refs = await getRepoRefs(repo, range ? null : ref);
-+
-+    let refs = await getRepoRefs(repo, range ? null : ref);
-+
-+    if (
-+      ref === 'main' &&
-+      Object.hasOwnProperty.call(refs)
-+    ) {
-+      ref = 'master';
-+      refs = await getRepoRefs(repo, range ? null : ref);
-+    }
-+
-     return resolveRefFromRefs(refs, repo, ref, range);
-   }
-   function resolveRefFromRefs(refs, repo, ref, range) {
+     function resolveRefFromRefs(refs, repo, ref, range) {
