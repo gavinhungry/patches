@@ -1,0 +1,12 @@
+diff -ru evince.ORIG/src/evince/shell/ev-sidebar.c evince/src/evince/shell/ev-sidebar.c
+--- evince.ORIG/src/evince/shell/ev-sidebar.c	2021-05-24 09:58:32.391212757 -0700
++++ evince/src/evince/shell/ev-sidebar.c	2021-05-24 11:13:55.841807179 -0700
+@@ -211,7 +211,7 @@
+ 	gtk_widget_set_halign (switcher, GTK_ALIGN_FILL);
+ 	gtk_widget_set_hexpand (switcher, TRUE);
+ 	gtk_box_set_homogeneous (GTK_BOX (switcher), TRUE);
+-	gtk_widget_show (priv->switcher);
++	gtk_widget_hide (priv->switcher);
+ 
+ 	stack = gtk_stack_new ();
+ 	priv->stack = stack;
