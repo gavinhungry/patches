@@ -1,0 +1,16 @@
+diff -ru evince.ORIG/src/evince/libview/ev-view.c evince/src/evince/libview/ev-view.c
+--- evince.ORIG/src/evince/libview/ev-view.c	2021-05-24 09:58:32.387879430 -0700
++++ evince/src/evince/libview/ev-view.c	2021-05-24 10:04:42.017121183 -0700
+@@ -8736,11 +8736,7 @@
+ ev_view_set_loading (EvView 	  *view,
+ 		     gboolean      loading)
+ {
+-	if (view->loading == loading)
+-		return;
+-
+-	view->loading = loading;
+-	g_object_notify (G_OBJECT (view), "is-loading");
++	return;
+ }
+ 
+ /**

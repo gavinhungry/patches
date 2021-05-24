@@ -1,0 +1,12 @@
+diff -ru evince.ORIG/src/evince/shell/ev-window.c evince/src/evince/shell/ev-window.c
+--- evince.ORIG/src/evince/shell/ev-window.c	2021-05-24 09:58:32.391212757 -0700
++++ evince/src/evince/shell/ev-window.c	2021-05-24 10:00:46.797600380 -0700
+@@ -1461,7 +1461,7 @@
+ 		monitor_get_dimensions (window, &monitor_width, &monitor_height);
+ 		if (monitor_width > 0 && monitor_height > 0) {
+ 			request_width = MIN (request_width, monitor_width);
+-			request_height = MIN (request_height, monitor_height);
++			request_height = monitor_height;
+ 		}
+ 
+ 		if (request_width > 0 && request_height > 0) {

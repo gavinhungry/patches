@@ -1,7 +1,7 @@
-diff -ru evince2.ORIG/src/evince-2.32.0/shell/ev-metadata.c evince2/src/evince-2.32.0/shell/ev-metadata.c
---- evince2.ORIG/src/evince-2.32.0/shell/ev-metadata.c	2018-05-23 14:41:40.578203677 -0700
-+++ evince2/src/evince-2.32.0/shell/ev-metadata.c	2018-05-23 14:41:40.811531279 -0700
-@@ -292,22 +292,5 @@
+diff -ru evince.ORIG/src/evince/shell/ev-metadata.c evince/src/evince/shell/ev-metadata.c
+--- evince.ORIG/src/evince/shell/ev-metadata.c	2021-05-24 09:58:32.391212757 -0700
++++ evince/src/evince/shell/ev-metadata.c	2021-05-24 10:01:48.950806109 -0700
+@@ -304,22 +304,5 @@
  gboolean
  ev_is_metadata_supported_for_file (GFile *file)
  {
