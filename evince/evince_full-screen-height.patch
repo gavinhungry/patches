@@ -1,7 +1,47 @@
 diff -ru evince.ORIG/src/evince/shell/ev-window.c evince/src/evince/shell/ev-window.c
 --- evince.ORIG/src/evince/shell/ev-window.c	2021-05-24 09:58:32.391212757 -0700
-+++ evince/src/evince/shell/ev-window.c	2021-05-24 10:00:46.797600380 -0700
-@@ -1461,7 +1461,7 @@
++++ evince/src/evince/shell/ev-window.c	2021-05-24 10:33:35.280378140 -0700
+@@ -1410,39 +1410,10 @@
+ static void
+ setup_document_from_metadata (EvWindow *window)
+ {
+-	gint    page, n_pages;
+-	gint    width;
+-	gint    height;
+ 	gdouble width_ratio;
+ 	gdouble height_ratio;
+ 	EvWindowPrivate *priv = GET_PRIVATE (window);
+ 
+-	if (!priv->metadata)
+-		return;
+-
+-	setup_sidebar_from_metadata (window);
+-
+-	/* Make sure to not open a document on the last page,
+-	 * since closing it on the last page most likely means the
+-	 * user was finished reading the document. In that case, reopening should
+-	 * show the first page. */
+-	page = ev_document_model_get_page (priv->model);
+-	n_pages = ev_document_get_n_pages (priv->document);
+-	if (page == n_pages - 1)
+-		ev_document_model_set_page (priv->model, 0);
+-
+-	if (ev_metadata_get_int (priv->metadata, "window_width", &width) &&
+-	    ev_metadata_get_int (priv->metadata, "window_height", &height))
+-		return; /* size was already set in setup_size_from_metadata */
+-
+-	/* Following code is intended to be executed first time a document is opened
+-	 * in Evince, that's why is located *after* the previous return that exits
+-	 * when evince metadata for window_width{height} already exists. */
+-	if (n_pages == 1)
+-		ev_document_model_set_dual_page (priv->model, FALSE);
+-	else if (n_pages == 2)
+-		ev_document_model_set_dual_page_odd_pages_left (priv->model, TRUE);
+-
+ 	g_settings_get (priv->default_settings, "window-ratio", "(dd)", &width_ratio, &height_ratio);
+ 	if (width_ratio > 0. && height_ratio > 0.) {
+ 		gdouble    document_width;
+@@ -1461,7 +1432,7 @@
  		monitor_get_dimensions (window, &monitor_width, &monitor_height);
  		if (monitor_width > 0 && monitor_height > 0) {
  			request_width = MIN (request_width, monitor_width);
