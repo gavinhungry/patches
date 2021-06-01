@@ -1,0 +1,21 @@
+diff -ru pakku.ORIG/src/pakku/src/wrapper/alpm.nim pakku/src/pakku/src/wrapper/alpm.nim
+--- pakku.ORIG/src/pakku/src/wrapper/alpm.nim	2021-06-01 12:19:14.794764482 -0700
++++ pakku/src/pakku/src/wrapper/alpm.nim	2021-06-01 12:26:31.227934287 -0700
+@@ -43,9 +43,6 @@
+ proc release*(handle: ptr AlpmHandle): cint
+   {.cdecl, importc: "alpm_release".}
+ 
+-proc setArch*(handle: ptr AlpmHandle, arch: cstring): cint
+-  {.cdecl, importc: "alpm_option_set_arch".}
+-
+ proc vercmp*(a: cstring, b: cstring): cint
+   {.cdecl, importc: "alpm_pkg_vercmp".}
+ 
+@@ -137,7 +134,6 @@
+           .replace("%s", "$#") % [dbName, $handle.errno.errorAlpm]
+ 
+     try:
+-      discard handle.setArch(arch)
+       body
+     finally:
+       discard handle.release()
