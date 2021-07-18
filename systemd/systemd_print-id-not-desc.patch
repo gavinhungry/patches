@@ -1,24 +1,21 @@
 diff -ru systemd.ORIG/src/systemd-stable/src/core/job.c systemd/src/systemd-stable/src/core/job.c
---- systemd.ORIG/src/systemd-stable/src/core/job.c	2019-09-09 08:53:53.011990727 -0700
-+++ systemd/src/systemd-stable/src/core/job.c	2019-09-09 08:55:05.027279778 -0700
-@@ -889,7 +889,7 @@
-          * xsprintf() on purpose here: we are fine with truncation and don't
-          * consider that an error. */
-         DISABLE_WARNING_FORMAT_NONLITERAL;
--        (void) snprintf(buf, sizeof(buf), format, unit_status_string(u));
-+        (void) snprintf(buf, sizeof(buf), format, strna(u->id));
-         REENABLE_WARNING;
+--- systemd.ORIG/src/systemd-stable/src/core/job.c	2021-07-14 00:21:38.994352080 -0700
++++ systemd/src/systemd-stable/src/core/job.c	2021-07-14 00:25:13.487462743 -0700
+@@ -566,7 +566,7 @@
+         /* Log to the console second. */
+         if (do_console) {
+                 DISABLE_WARNING_FORMAT_NONLITERAL;
+-                unit_status_printf(u, STATUS_TYPE_NORMAL, "", format, ident);
++                unit_status_printf(u, STATUS_TYPE_NORMAL, "", format, strna(u->id));
+                 REENABLE_WARNING;
+         }
+ }
+@@ -729,7 +729,7 @@
+                 DISABLE_WARNING_FORMAT_NONLITERAL;
+                 unit_status_printf(u,
+                                    result == JOB_DONE ? STATUS_TYPE_NORMAL : STATUS_TYPE_NOTICE,
+-                                   status, format, ident);
++                                   status, format, strna(u->id));
+                 REENABLE_WARNING;
  
-         switch (t) {
-diff -ru systemd.ORIG/src/systemd-stable/src/core/unit.c systemd/src/systemd-stable/src/core/unit.c
---- systemd.ORIG/src/systemd-stable/src/core/unit.c	2019-09-09 08:53:53.015323998 -0700
-+++ systemd/src/systemd-stable/src/core/unit.c	2019-09-09 08:55:19.237001807 -0700
-@@ -1664,7 +1664,7 @@
- void unit_status_printf(Unit *u, const char *status, const char *unit_status_msg_format) {
-         const char *d;
- 
--        d = unit_status_string(u);
-+        d = strna(u->id);
-         if (log_get_show_color())
-                 d = strjoina(ANSI_HIGHLIGHT, d, ANSI_NORMAL);
- 
+                 if (t == JOB_START && result == JOB_FAILED) {
