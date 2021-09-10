@@ -1,6 +1,6 @@
-diff -ru npm.ORIG/src/cli-7.22.0/lib/cli.js npm/src/cli-7.22.0/lib/cli.js
---- npm.ORIG/src/cli-7.22.0/lib/cli.js	2021-08-16 07:59:00.578188175 -0700
-+++ npm/src/cli-7.22.0/lib/cli.js	2021-08-16 08:16:40.890524815 -0700
+diff -ru npm.ORIG/src/cli-7.23.0/lib/cli.js npm/src/cli-7.23.0/lib/cli.js
+--- npm.ORIG/src/cli-7.23.0/lib/cli.js	2021-08-16 07:59:00.578188175 -0700
++++ npm/src/cli-7.23.0/lib/cli.js	2021-08-16 08:16:40.890524815 -0700
 @@ -65,7 +65,6 @@
      if (!impl) {
        const didYouMean = require('./utils/did-you-mean.js')
