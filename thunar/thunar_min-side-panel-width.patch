@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.16.8/thunar/thunar-window.c thunar/src/thunar-4.16.8/thunar/thunar-window.c
---- thunar.ORIG/src/thunar-4.16.8/thunar/thunar-window.c	2021-05-06 16:23:05.256867618 -0700
-+++ thunar/src/thunar-4.16.8/thunar/thunar-window.c	2021-05-06 16:23:05.590196835 -0700
+diff -ru thunar.ORIG/src/thunar-4.16.9/thunar/thunar-window.c thunar/src/thunar-4.16.9/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-4.16.9/thunar/thunar-window.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.9/thunar/thunar-window.c	2021-05-06 16:23:05.590196835 -0700
 @@ -2172,7 +2172,7 @@
      {
        /* allocate the new side pane widget */

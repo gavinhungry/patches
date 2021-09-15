@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.16.8/thunar/thunar-launcher.c thunar/src/thunar-4.16.8/thunar/thunar-launcher.c
---- thunar.ORIG/src/thunar-4.16.8/thunar/thunar-launcher.c	2021-05-06 16:23:05.256867618 -0700
-+++ thunar/src/thunar-4.16.8/thunar/thunar-launcher.c	2021-05-06 16:23:05.950192390 -0700
+diff -ru thunar.ORIG/src/thunar-4.16.9/thunar/thunar-launcher.c thunar/src/thunar-4.16.9/thunar/thunar-launcher.c
+--- thunar.ORIG/src/thunar-4.16.9/thunar/thunar-launcher.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.9/thunar/thunar-launcher.c	2021-05-06 16:23:05.950192390 -0700
 @@ -240,7 +240,7 @@
      { THUNAR_LAUNCHER_ACTION_EXECUTE,          "<Actions>/ThunarLauncher/execute",                 "",                  XFCE_GTK_IMAGE_MENU_ITEM, NULL,                                   NULL,                                                                                            "system-run",           G_CALLBACK (thunar_launcher_action_open),                },
      { THUNAR_LAUNCHER_ACTION_OPEN_IN_TAB,      "<Actions>/ThunarLauncher/open-in-new-tab",         "<Primary><shift>P", XFCE_GTK_MENU_ITEM,       NULL,                                   NULL,                                                                                            NULL,                   G_CALLBACK (thunar_launcher_action_open_in_new_tabs),    },

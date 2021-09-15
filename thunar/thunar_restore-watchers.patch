@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.16.8/thunar/thunar-shortcuts-model.c thunar/src/thunar-4.16.8/thunar/thunar-shortcuts-model.c
---- thunar.ORIG/src/thunar-4.16.8/thunar/thunar-shortcuts-model.c	2021-05-06 16:23:05.256867618 -0700
-+++ thunar/src/thunar-4.16.8/thunar/thunar-shortcuts-model.c	2021-05-06 16:23:06.086857369 -0700
+diff -ru thunar.ORIG/src/thunar-4.16.9/thunar/thunar-shortcuts-model.c thunar/src/thunar-4.16.9/thunar/thunar-shortcuts-model.c
+--- thunar.ORIG/src/thunar-4.16.9/thunar/thunar-shortcuts-model.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.9/thunar/thunar-shortcuts-model.c	2021-05-06 16:23:06.086857369 -0700
 @@ -132,6 +132,10 @@
                                                                       GFile                     *other_file,
                                                                       GFileMonitorEvent          event_type,
