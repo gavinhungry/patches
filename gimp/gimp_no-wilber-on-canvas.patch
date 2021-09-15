@@ -1,6 +1,6 @@
-diff -ru gimp.ORIG/src/gimp-2.10.26/app/display/gimpdisplayshell-callbacks.c gimp/src/gimp-2.10.26/app/display/gimpdisplayshell-callbacks.c
---- gimp.ORIG/src/gimp-2.10.26/app/display/gimpdisplayshell-callbacks.c	2020-02-24 09:11:23.259369588 -0800
-+++ gimp/src/gimp-2.10.26/app/display/gimpdisplayshell-callbacks.c	2020-02-24 09:11:25.219424703 -0800
+diff -ru gimp.ORIG/src/gimp-2.10.28/app/display/gimpdisplayshell-callbacks.c gimp/src/gimp-2.10.28/app/display/gimpdisplayshell-callbacks.c
+--- gimp.ORIG/src/gimp-2.10.28/app/display/gimpdisplayshell-callbacks.c	2020-02-24 09:11:23.259369588 -0800
++++ gimp/src/gimp-2.10.28/app/display/gimpdisplayshell-callbacks.c	2020-02-24 09:11:25.219424703 -0800
 @@ -602,8 +602,6 @@
  {
    cairo_save (cr);
