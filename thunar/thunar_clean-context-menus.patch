@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.16.9/thunar/thunar-details-view.c thunar/src/thunar-4.16.9/thunar/thunar-details-view.c
---- thunar.ORIG/src/thunar-4.16.9/thunar/thunar-details-view.c	2021-05-06 16:23:05.256867618 -0700
-+++ thunar/src/thunar-4.16.9/thunar/thunar-details-view.c	2021-05-06 16:23:05.453531856 -0700
+diff -ru thunar.ORIG/src/thunar-4.16.10/thunar/thunar-details-view.c thunar/src/thunar-4.16.10/thunar/thunar-details-view.c
+--- thunar.ORIG/src/thunar-4.16.10/thunar/thunar-details-view.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.10/thunar/thunar-details-view.c	2021-05-06 16:23:05.453531856 -0700
 @@ -989,8 +989,6 @@
    ThunarDetailsView *details_view = THUNAR_DETAILS_VIEW (standard_view);
  
@@ -10,9 +10,9 @@ diff -ru thunar.ORIG/src/thunar-4.16.9/thunar/thunar-details-view.c thunar/src/t
  }
  
  
-diff -ru thunar.ORIG/src/thunar-4.16.9/thunar/thunar-standard-view.c thunar/src/thunar-4.16.9/thunar/thunar-standard-view.c
---- thunar.ORIG/src/thunar-4.16.9/thunar/thunar-standard-view.c	2021-05-06 16:23:05.256867618 -0700
-+++ thunar/src/thunar-4.16.9/thunar/thunar-standard-view.c	2021-05-06 16:23:05.453531856 -0700
+diff -ru thunar.ORIG/src/thunar-4.16.10/thunar/thunar-standard-view.c thunar/src/thunar-4.16.10/thunar/thunar-standard-view.c
+--- thunar.ORIG/src/thunar-4.16.10/thunar/thunar-standard-view.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.10/thunar/thunar-standard-view.c	2021-05-06 16:23:05.453531856 -0700
 @@ -3503,8 +3503,6 @@
      {
        thunar_menu_add_sections (context_menu, THUNAR_MENU_SECTION_OPEN

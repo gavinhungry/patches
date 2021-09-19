@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.16.9/thunar/thunar-progress-dialog.c thunar/src/thunar-4.16.9/thunar/thunar-progress-dialog.c
---- thunar.ORIG/src/thunar-4.16.9/thunar/thunar-progress-dialog.c	2021-05-06 16:23:05.256867618 -0700
-+++ thunar/src/thunar-4.16.9/thunar/thunar-progress-dialog.c	2021-05-06 16:23:05.813527410 -0700
+diff -ru thunar.ORIG/src/thunar-4.16.10/thunar/thunar-progress-dialog.c thunar/src/thunar-4.16.10/thunar/thunar-progress-dialog.c
+--- thunar.ORIG/src/thunar-4.16.10/thunar/thunar-progress-dialog.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.10/thunar/thunar-progress-dialog.c	2021-05-06 16:23:05.813527410 -0700
 @@ -152,19 +152,6 @@
  thunar_progress_dialog_shown (ThunarProgressDialog *dialog)
  {
