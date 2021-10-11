@@ -1,0 +1,26 @@
+diff --color -ru yubioath-desktop.ORIG/src/yubioath-desktop/qml/SystemTray.qml yubioath-desktop/src/yubioath-desktop/qml/SystemTray.qml
+--- yubioath-desktop.ORIG/src/yubioath-desktop/qml/SystemTray.qml	2021-10-11 12:45:34.281884502 -0700
++++ yubioath-desktop/src/yubioath-desktop/qml/SystemTray.qml	2021-10-11 12:45:35.965212233 -0700
+@@ -7,7 +7,7 @@
+     icon.source: Qt.platform.os == "osx" ? "../images/menubaricon.png" : "../images/windowicon.png"
+     icon.mask: Qt.platform.os == "osx"
+     onActivated: {
+-        if (reason === SystemTrayIcon.DoubleClick) {
++        if (reason === SystemTrayIcon.Trigger) {
+             showWindow()
+         } else {
+             sysTrayInstantiator.model = getFavoriteEntries()
+@@ -43,13 +43,5 @@
+             text: qsTr("Show Yubico Authenticator")
+             onTriggered: showWindow()
+         }
+-
+-        MenuSeparator {
+-        }
+-
+-        MenuItem {
+-            text: qsTr("Quit")
+-            onTriggered: Qt.quit()
+-        }
+     }
+ }
