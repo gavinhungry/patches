@@ -1,6 +1,6 @@
-diff -ru pidgin.ORIG/src/pidgin-2.14.7/pidgin/gtkstatusbox.c pidgin/src/pidgin-2.14.7/pidgin/gtkstatusbox.c
---- pidgin.ORIG/src/pidgin-2.14.7/pidgin/gtkstatusbox.c	2016-12-29 10:18:15.900693460 -0800
-+++ pidgin/src/pidgin-2.14.7/pidgin/gtkstatusbox.c	2016-12-29 10:18:16.154021909 -0800
+diff -ru pidgin.ORIG/src/pidgin-2.14.8/pidgin/gtkstatusbox.c pidgin/src/pidgin-2.14.8/pidgin/gtkstatusbox.c
+--- pidgin.ORIG/src/pidgin-2.14.8/pidgin/gtkstatusbox.c	2016-12-29 10:18:15.900693460 -0800
++++ pidgin/src/pidgin-2.14.8/pidgin/gtkstatusbox.c	2016-12-29 10:18:16.154021909 -0800
 @@ -442,8 +442,7 @@
  static void
  setup_icon_box(PidginStatusBox *status_box)

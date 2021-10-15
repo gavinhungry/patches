@@ -1,6 +1,6 @@
-diff -ru pidgin.ORIG/src/pidgin-2.14.7/pidgin/gtkdocklet-gtk.c pidgin/src/pidgin-2.14.7/pidgin/gtkdocklet-gtk.c
---- pidgin.ORIG/src/pidgin-2.14.7/pidgin/gtkdocklet-gtk.c	2018-08-08 10:44:26.748042993 -0700
-+++ pidgin/src/pidgin-2.14.7/pidgin/gtkdocklet-gtk.c	2018-08-08 12:11:35.110524315 -0700
+diff -ru pidgin.ORIG/src/pidgin-2.14.8/pidgin/gtkdocklet-gtk.c pidgin/src/pidgin-2.14.8/pidgin/gtkdocklet-gtk.c
+--- pidgin.ORIG/src/pidgin-2.14.8/pidgin/gtkdocklet-gtk.c	2018-08-08 10:44:26.748042993 -0700
++++ pidgin/src/pidgin-2.14.8/pidgin/gtkdocklet-gtk.c	2018-08-08 12:11:35.110524315 -0700
 @@ -31,6 +31,7 @@
  
  /* globals */
