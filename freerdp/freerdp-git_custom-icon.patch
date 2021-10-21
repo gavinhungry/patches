@@ -1,6 +1,6 @@
-diff -ru freerdp.ORIG/src/freerdp-2.4.0/client/X11/xf_window.c freerdp/src/freerdp-2.4.0/client/X11/xf_window.c
---- freerdp.ORIG/src/freerdp-2.4.0/client/X11/xf_window.c	2020-05-29 09:55:34.968255271 -0700
-+++ freerdp/src/freerdp-2.4.0/client/X11/xf_window.c	2020-05-29 09:55:35.018257192 -0700
+diff -ru freerdp.ORIG/src/freerdp-2.4.1/client/X11/xf_window.c freerdp/src/freerdp-2.4.1/client/X11/xf_window.c
+--- freerdp.ORIG/src/freerdp-2.4.1/client/X11/xf_window.c	2020-05-29 09:55:34.968255271 -0700
++++ freerdp/src/freerdp-2.4.1/client/X11/xf_window.c	2020-05-29 09:55:35.018257192 -0700
 @@ -66,8 +66,8 @@
  	} while (0)
  #endif
@@ -12,9 +12,9 @@ diff -ru freerdp.ORIG/src/freerdp-2.4.0/client/X11/xf_window.c freerdp/src/freer
  
  #include "xf_window.h"
  
-diff -ru freerdp.ORIG/src/freerdp-2.4.0/resources/conv_to_ewm_prop.py freerdp/src/freerdp-2.4.0/resources/conv_to_ewm_prop.py
---- freerdp.ORIG/src/freerdp-2.4.0/resources/conv_to_ewm_prop.py	2020-05-29 09:55:34.994922962 -0700
-+++ freerdp/src/freerdp-2.4.0/resources/conv_to_ewm_prop.py	2020-05-29 09:55:35.018257192 -0700
+diff -ru freerdp.ORIG/src/freerdp-2.4.1/resources/conv_to_ewm_prop.py freerdp/src/freerdp-2.4.1/resources/conv_to_ewm_prop.py
+--- freerdp.ORIG/src/freerdp-2.4.1/resources/conv_to_ewm_prop.py	2020-05-29 09:55:34.994922962 -0700
++++ freerdp/src/freerdp-2.4.1/resources/conv_to_ewm_prop.py	2020-05-29 09:55:35.018257192 -0700
 @@ -1,4 +1,4 @@
 -#!/usr/bin/python
 +#!/usr/bin/python2
