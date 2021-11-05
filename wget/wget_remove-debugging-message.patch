@@ -1,0 +1,11 @@
+diff --color -ru wget.ORIG/src/wget-1.21.2/src/gnutls.c wget/src/wget-1.21.2/src/gnutls.c
+--- wget.ORIG/src/wget-1.21.2/src/gnutls.c	2021-11-05 13:46:07.203052640 -0700
++++ wget/src/wget-1.21.2/src/gnutls.c	2021-11-05 13:46:16.236411185 -0700
+@@ -99,7 +99,6 @@
+ bool
+ ssl_init (void)
+ {
+-  fprintf(stderr,"SSL_INIT\n");
+   /* Becomes true if GnuTLS is initialized. */
+   const char *ca_directory;
+   DIR *dir;
