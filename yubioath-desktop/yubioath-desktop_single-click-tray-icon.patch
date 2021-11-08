@@ -1,6 +1,6 @@
-diff --color -ru yubioath-desktop.ORIG/src/yubioath-desktop/qml/SystemTray.qml yubioath-desktop/src/yubioath-desktop/qml/SystemTray.qml
---- yubioath-desktop.ORIG/src/yubioath-desktop/qml/SystemTray.qml	2021-10-11 12:45:34.281884502 -0700
-+++ yubioath-desktop/src/yubioath-desktop/qml/SystemTray.qml	2021-10-11 12:45:35.965212233 -0700
+diff -ru yubioath-desktop.ORIG/src/yubioath-desktop/qml/SystemTray.qml yubioath-desktop/src/yubioath-desktop/qml/SystemTray.qml
+--- yubioath-desktop.ORIG/src/yubioath-desktop/qml/SystemTray.qml	2021-11-07 21:51:47.790292581 -0800
++++ yubioath-desktop/src/yubioath-desktop/qml/SystemTray.qml	2021-11-07 21:51:47.836959190 -0800
 @@ -7,7 +7,7 @@
      icon.source: Qt.platform.os == "osx" ? "../images/menubaricon.png" : "../images/windowicon.png"
      icon.mask: Qt.platform.os == "osx"

@@ -1,61 +1,50 @@
-diff --color -ru yubioath-desktop.ORIG/src/yubioath-desktop/qml/CredentialCard.qml yubioath-desktop/src/yubioath-desktop/qml/CredentialCard.qml
---- yubioath-desktop.ORIG/src/yubioath-desktop/qml/CredentialCard.qml	2021-10-11 12:50:35.744462081 -0700
-+++ yubioath-desktop/src/yubioath-desktop/qml/CredentialCard.qml	2021-10-11 12:51:09.321069416 -0700
-@@ -294,18 +294,7 @@
+diff -ru yubioath-desktop.ORIG/src/yubioath-desktop/qml/CredentialCard.qml yubioath-desktop/src/yubioath-desktop/qml/CredentialCard.qml
+--- yubioath-desktop.ORIG/src/yubioath-desktop/qml/CredentialCard.qml	2021-11-07 21:51:47.790292581 -0800
++++ yubioath-desktop/src/yubioath-desktop/qml/CredentialCard.qml	2021-11-07 21:51:47.803625898 -0800
+@@ -318,19 +318,7 @@
+         onTriggered: navigator.snackBarInfo(qsTr("Touch your YubiKey"))
+     }
  
-         anchors.fill: parent
- 
--        CredentialCardIcon {
--            id: icon
--            anchors.verticalCenter: parent.verticalCenter
--            anchors.left: parent.left
--            anchors.leftMargin: 4
--            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
--            size: 40
--            Accessible.ignored: true
--        }
 -
-         ColumnLayout {
--            anchors.left: icon.right
-             anchors.leftMargin: 12
-             anchors.verticalCenter: parent.verticalCenter
-             spacing: 0
-@@ -320,7 +309,7 @@
-             Label {
-                 id: nameLbl
-                 text: formattedName()
--                Layout.maximumWidth: credentialCard.width - 106
-+                Layout.maximumWidth: credentialCard.width - 50
-                 font.pixelSize: 14
-                 elide: Text.ElideRight
-                 color: primaryColor
-@@ -344,7 +333,7 @@
-         ToolButton {
-             id: favoriteBtn
-             Layout.alignment: Qt.AlignRight | Qt.AlignTop
--            visible: favorite || credentialCard.hovered || credentialCard.GridView.isCurrentItem
-+            visible: false
- 
-             anchors.top: parent.top
-             anchors.right: parent.right
-@@ -412,7 +401,7 @@
-             iconWidth: 18
-             iconHeight: 18
-             source: "../images/touch.svg"
--            visible: touchCredentialNoCode
-+            visible: touchCredentialNoCode && credentialCard.GridView.isCurrentItem
+-    CredentialCardIcon {
+-        id: icon
+-        anchors.verticalCenter: parent.verticalCenter
+-        anchors.left: parent.left
+-        anchors.leftMargin: 4
+-        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+-        size: 40
+-        Accessible.ignored: true
+-    }
+-
+     ColumnLayout {
+-        anchors.left: icon.right
+         anchors.leftMargin: 12
+         anchors.verticalCenter: parent.verticalCenter
+         spacing: 0
+@@ -347,7 +335,7 @@
+             text: searchQuery.length > 0 ? colorizeMatch(formattedName(), searchQuery) : formattedName()
+             textFormat: searchQuery.length > 0 ? TextEdit.RichText : TextEdit.PlainText
+             clip: true
+-            Layout.maximumWidth: credentialCard.width - 106
++            Layout.maximumWidth: credentialCard.width - 50
+             font.pixelSize: 14
+             elide: Text.ElideRight
              color: primaryColor
-             opacity: lowEmphasis
-             Layout.alignment: Qt.AlignRight
-diff --color -ru yubioath-desktop.ORIG/src/yubioath-desktop/qml/CredentialsSection.qml yubioath-desktop/src/yubioath-desktop/qml/CredentialsSection.qml
---- yubioath-desktop.ORIG/src/yubioath-desktop/qml/CredentialsSection.qml	2021-10-11 12:50:35.744462081 -0700
-+++ yubioath-desktop/src/yubioath-desktop/qml/CredentialsSection.qml	2021-10-11 12:50:44.847778930 -0700
-@@ -7,7 +7,7 @@
-  GridView {
-         id: grid
-         property var columnWidth: app.width/model.count
--        property var idealCellHeight: 76
-+        property var idealCellHeight: 64
-         property var idealCellWidth: columnWidth > 300 ? columnWidth : 300
-         anchors.fill: parent
-         ScrollBar.vertical: ScrollBar {
+@@ -398,7 +386,7 @@
+         iconWidth: 18
+         iconHeight: 18
+         source: "../images/star.svg" 
+-        visible: favorite
++        visible: false
+         color: primaryColor
+         opacity: lowEmphasis
+         Layout.alignment: Qt.AlignRight
+@@ -413,7 +401,7 @@
+         iconWidth: 18
+         iconHeight: 18
+         source: "../images/touch.svg"
+-        visible: touchCredentialNoCode
++        visible: touchCredentialNoCode && credentialCard.GridView.isCurrentItem
+         color: primaryColor
+         opacity: lowEmphasis
+         Layout.alignment: Qt.AlignRight
