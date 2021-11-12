@@ -1,0 +1,31 @@
+diff --color -ru solaar.ORIG/src/Solaar/lib/solaar/ui/notify.py solaar/src/Solaar/lib/solaar/ui/notify.py
+--- solaar.ORIG/src/Solaar/lib/solaar/ui/notify.py	2021-11-12 10:33:12.169280022 -0800
++++ solaar/src/Solaar/lib/solaar/ui/notify.py	2021-11-12 10:38:44.525981975 -0800
+@@ -96,13 +96,6 @@
+             n.set_urgency(Notify.Urgency.NORMAL)
+             n.set_hint('desktop-entry', GLib.Variant('s', NAME.lower()))
+ 
+-            try:
+-                # if _log.isEnabledFor(_DEBUG):
+-                #     _log.debug("showing %s", n)
+-                n.show()
+-            except Exception:
+-                _log.exception('showing %s', n)
+-
+     def show(dev, reason=None, icon=None, progress=None):
+         """Show a notification with title and text.
+         Optionally displays the `progress` integer value
+@@ -135,13 +128,6 @@
+             if progress:
+                 n.set_hint('value', GLib.Variant('i', progress))
+ 
+-            try:
+-                # if _log.isEnabledFor(_DEBUG):
+-                #     _log.debug("showing %s", n)
+-                n.show()
+-            except Exception:
+-                _log.exception('showing %s', n)
+-
+ else:
+     init = lambda: False
+     uninit = lambda: None
