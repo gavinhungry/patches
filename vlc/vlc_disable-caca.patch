@@ -1,0 +1,12 @@
+diff --color -ru vlc.ORIG/PKGBUILD vlc/PKGBUILD
+--- vlc.ORIG/PKGBUILD	2021-11-15 06:37:12.207515748 -0800
++++ vlc/PKGBUILD	2021-11-15 06:37:22.474191618 -0800
+@@ -200,7 +200,7 @@
+     --enable-svg \
+     --enable-svgdec \
+     --enable-aa \
+-    --enable-caca \
++    --disable-caca \
+     --enable-pulse \
+     --enable-alsa \
+     --enable-jack \
