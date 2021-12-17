@@ -1,0 +1,33 @@
+diff --color -ru thunar.ORIG/src/thunar-4.16.10/thunar/thunar-file.c thunar/src/thunar-4.16.10/thunar/thunar-file.c
+--- thunar.ORIG/src/thunar-4.16.10/thunar/thunar-file.c	2021-12-17 13:57:43.196664820 -0800
++++ thunar/src/thunar-4.16.10/thunar/thunar-file.c	2021-12-17 14:26:18.494145140 -0800
+@@ -3310,6 +3310,9 @@
+   guint32   uid;
+   gchar   **emblem_names;
+   GList    *emblems = NULL;
++  gchar    *path;
++  gchar    *documents_path;
++  gchar    *pictures_path;
+ 
+   _thunar_return_val_if_fail (THUNAR_IS_FILE (file), NULL);
+ 
+@@ -3326,7 +3329,18 @@
+     }
+ 
+   if (thunar_file_is_symlink (file))
+-    emblems = g_list_prepend (emblems, THUNAR_FILE_EMBLEM_NAME_SYMBOLIC_LINK);
++  {
++    path = g_file_get_path (file->gfile);
++    documents_path = g_build_filename (g_get_home_dir(), "Library", "Documents", NULL);
++    pictures_path = g_build_filename (g_get_home_dir(), "Library", "Pictures", NULL);
++
++    if (strcmp(path, documents_path) != 0 && strcmp(path, pictures_path) != 0)
++      emblems = g_list_prepend (emblems, THUNAR_FILE_EMBLEM_NAME_SYMBOLIC_LINK);
++
++    g_free (path);
++    g_free (documents_path);
++    g_free (pictures_path);
++  }
+ 
+   /* determine the user ID of the file owner */
+   /* TODO what are we going to do here on non-UNIX systems? */
