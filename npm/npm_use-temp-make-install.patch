@@ -1,6 +1,6 @@
-diff -ru npm.ORIG/src/cli-8.1.4/Makefile npm/src/cli-8.1.4/Makefile
---- npm.ORIG/src/cli-8.1.4/Makefile	2021-03-11 09:32:23.014872392 -0800
-+++ npm/src/cli-8.1.4/Makefile	2021-03-11 09:32:23.598196625 -0800
+diff -ru npm.ORIG/src/cli-8.2.0/Makefile npm/src/cli-8.2.0/Makefile
+--- npm.ORIG/src/cli-8.2.0/Makefile	2021-03-11 09:32:23.014872392 -0800
++++ npm/src/cli-8.2.0/Makefile	2021-03-11 09:32:23.598196625 -0800
 @@ -28,6 +28,9 @@
  
  all: docs
