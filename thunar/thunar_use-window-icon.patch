@@ -1,0 +1,12 @@
+diff --color -ru thunar.ORIG/src/thunar-4.16.10/thunar/thunar-window.c thunar/src/thunar-4.16.10/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-4.16.10/thunar/thunar-window.c	2021-12-16 15:54:18.063015552 -0800
++++ thunar/src/thunar-4.16.10/thunar/thunar-window.c	2021-12-16 15:59:33.249644268 -0800
+@@ -2141,7 +2141,7 @@
+ {
+   gboolean      change_window_icon;
+   GtkIconTheme *icon_theme;
+-  const gchar  *icon_name = "folder";
++  const gchar  *icon_name = "thunar-window";
+ 
+   g_object_get (window->preferences, "misc-change-window-icon", &change_window_icon, NULL);
+ 
