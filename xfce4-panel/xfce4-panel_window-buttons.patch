@@ -1,6 +1,6 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widget.c	2020-12-30 15:10:14.511304419 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widget.c	2020-12-30 15:10:14.894631932 -0800
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widget.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widget.c	2021-12-17 22:27:37.615375364 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widget.c	2021-12-17 22:35:40.372116165 -0800
 @@ -46,7 +46,7 @@
  
  
@@ -10,25 +10,26 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widge
  #define DEFAULT_MIN_BUTTON_LENGTH    (DEFAULT_MAX_BUTTON_LENGTH / 4)
  #define DEFAULT_ICON_LUCENCY         (50)
  #define DEFAULT_ELLIPSIZE_MODE       (PANGO_ELLIPSIZE_END)
-@@ -1729,9 +1729,14 @@
+@@ -1730,9 +1730,15 @@
              }
          }
  
 -      /* set the toggle button state */
 -      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button),
 -                                    !!(child->window == active_window));
-+      /* bold only active tasks */
++      /* bold only active tasks - disabled for now */
 +      if (child->window == active_window) {
 +        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), TRUE);
-+        gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string ("medium"));
++        // gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string ("medium"));
 +      } else {
 +          gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
-+          gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string (""));
 +      }
++
++      gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string (""));
      }
    /* set the toggle button state for the group button */
    if (class_group)
-@@ -2247,14 +2252,15 @@
+@@ -2248,14 +2254,15 @@
                                                    | GDK_SMOOTH_SCROLL_MASK);
  
    child->box = gtk_box_new (!xfce_tasklist_vertical (tasklist) ?
@@ -46,7 +47,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widge
                                  tasklist->minimized_icon_lucency / 100,
                                  tasklist->minimized_icon_lucency % 100);
    gtk_css_provider_load_from_data (provider, css_string, -1, NULL);
-@@ -2273,7 +2279,7 @@
+@@ -2274,7 +2281,7 @@
      gtk_widget_show (child->icon);
  
    child->label = gtk_label_new (NULL);
@@ -55,7 +56,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widge
    if (!xfce_tasklist_vertical (tasklist))
      {
        /* gtk_box_reorder_child (GTK_BOX (child->box), child->icon, 0); */
-@@ -2290,13 +2296,6 @@
+@@ -2291,13 +2298,6 @@
        /* TODO can we already ellipsize here yet? */
      }
  
@@ -69,7 +70,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widge
    /* don't show the label if we're in iconbox style */
    if (tasklist->show_labels)
      gtk_widget_show (child->label);
-@@ -2691,16 +2690,7 @@
+@@ -2692,16 +2692,7 @@
    ctx = gtk_widget_get_style_context (child->label);
    gtk_style_context_remove_class (ctx, "label-hidden");
  
@@ -87,7 +88,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widge
      {
        if ((!child->tasklist->only_minimized
            && wnck_window_is_minimized (child->window))
-@@ -2785,45 +2775,6 @@
+@@ -2786,45 +2777,6 @@
              }
          }
      }
@@ -133,7 +134,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/tasklist/tasklist-widge
  }
  
  
-@@ -2841,6 +2792,7 @@
+@@ -2842,6 +2794,7 @@
  
    /* make sure we don't have two active windows (bug #6474) */
    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
