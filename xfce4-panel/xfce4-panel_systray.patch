@@ -59,7 +59,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.
  
    G_OBJECT_CLASS (systray_socket_parent_class)->finalize (object);
  }
-@@ -418,6 +421,31 @@
+@@ -418,6 +421,32 @@
  }
  
  
@@ -74,6 +74,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.
 +
 +  if (!g_strcmp0(socket->sort, "hexchat")) { g_strlcpy(socket->sort, "zzzz2000", 8); }
 +  else if (!g_strcmp0(socket->sort, "discord")) { g_strlcpy(socket->sort, "zzzz2050", 8); }
++  else if (!g_strcmp0(socket->sort, "steam")) { g_strlcpy(socket->sort, "zzzz2060", 8); }
 +  else if (!g_strcmp0(socket->sort, "pidgin")) { g_strlcpy(socket->sort, "zzzz2100", 8); }
 +  else if (!g_strcmp0(socket->sort, "teams")) { g_strlcpy(socket->sort, "zzzz2200", 8); }
 +  else if (!g_strcmp0(socket->sort, "dropbox-tray.py")) { g_strlcpy(socket->sort, "zzzz2300", 8); }
