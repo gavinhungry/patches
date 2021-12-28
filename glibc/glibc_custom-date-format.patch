@@ -1,0 +1,12 @@
+diff --color -ru glibc.ORIG/src/glibc/localedata/locales/en_US glibc/src/glibc/localedata/locales/en_US
+--- glibc.ORIG/src/glibc/localedata/locales/en_US	2021-12-28 15:45:55.401019755 -0800
++++ glibc/src/glibc/localedata/locales/en_US	2021-12-28 15:48:42.651143383 -0800
+@@ -121,7 +121,7 @@
+ % different from d_t_fmt for historical reasons and has been different
+ % since 2000 when date_fmt was added as a GNU extension.  At the end
+ % of 2018 it was adjusted to use 12H time (bug 24046) instead of 24H.
+-date_fmt "%a %b %e %r %Z %Y"
++date_fmt "%a %b %d %Y %r %Z"
+ %
+ % Strings for AM/PM
+ %
