@@ -120,6 +120,8 @@ getPkgSourceDirBase() {
 
 softUpdatePkg() {
   local PKG=$1
+  [ -e "$PATCHES_DIR"/$PKG/.no-update ] && return
+
   local PKGSRC_DIR=$(getPkgSourceDir $PKG)
   local PKGSRC_DIR_BASE=$(getPkgSourceDirBase $PKG)
 
@@ -144,6 +146,8 @@ softUpdatePkgs() {
 
 hardUpdatePkg() {
   local PKG=$1
+  [ -e "$PATCHES_DIR"/$PKG/.no-update ] && return
+  
   local PKGBUILD_DIR=$(getPkgbuildDir $PKG)
   local PKGSRC_DIR_BASE=$(getPkgSourceDirBase $PKG)
 
