@@ -1,0 +1,12 @@
+diff --color -ru glibc.ORIG/src/glibc/Makeconfig glibc/src/glibc/Makeconfig
+--- glibc.ORIG/src/glibc/Makeconfig	2021-12-28 16:09:54.499633796 -0800
++++ glibc/src/glibc/Makeconfig	2021-12-28 16:25:03.274289008 -0800
+@@ -1061,7 +1061,7 @@
+ ifndef ASFLAGS
+ ASFLAGS := $(filter -g% -fdebug-prefix-map=%,$(CFLAGS))
+ endif
+-override ASFLAGS += -Werror=undef $(ASFLAGS-config) $(asflags-cpu)
++override ASFLAGS += $(ASFLAGS-config) $(asflags-cpu)
+ 
+ ifndef BUILD_CC
+ BUILD_CC = $(CC)
