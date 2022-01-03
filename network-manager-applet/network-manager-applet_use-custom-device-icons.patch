@@ -1,0 +1,50 @@
+diff --color -ru network-manager-applet.ORIG/src/network-manager-applet/src/applet.c network-manager-applet/src/network-manager-applet/src/applet.c
+--- network-manager-applet.ORIG/src/network-manager-applet/src/applet.c	2022-01-03 11:08:32.506793636 -0800
++++ network-manager-applet/src/network-manager-applet/src/applet.c	2022-01-03 12:33:58.314251915 -0800
+@@ -2545,9 +2545,13 @@
+ applet_common_get_device_icon (NMDeviceState state,
+                                GdkPixbuf **out_pixbuf,
+                                char **out_icon_name,
+-                               NMApplet *applet)
++                               NMApplet *applet,
++                               NMDevice *device)
+ {
+ 	int stage = -1;
++	gboolean is_ethernet = NM_IS_DEVICE_ETHERNET (device);
++	gboolean is_wifi = NM_IS_DEVICE_WIFI (device);
++	const char *icon_prefix = is_ethernet ? "nm-wired" : (is_wifi ? "nm-wifi" : "nm");
+ 
+ 	switch (state) {
+ 	case NM_DEVICE_STATE_PREPARE:
+@@ -2565,7 +2569,7 @@
+ 	}
+ 
+ 	if (stage >= 0) {
+-		char *name = g_strdup_printf ("nm-stage%02d-connecting%02d", stage + 1, applet->animation_step + 1);
++		char *name = g_strdup_printf ("%s-connecting-%02d", icon_prefix, applet->animation_step + 1);
+ 
+ 		if (out_pixbuf)
+ 			*out_pixbuf = nm_g_object_ref (nma_icon_check_and_load (name, applet));
+@@ -2661,7 +2665,7 @@
+ 	}
+ 
+ out:
+-	applet_common_get_device_icon (state, out_pixbuf, out_icon_name, applet);
++	applet_common_get_device_icon (state, out_pixbuf, out_icon_name, applet, device);
+ }
+ 
+ static char *
+diff --color -ru network-manager-applet.ORIG/src/network-manager-applet/src/applet.h network-manager-applet/src/network-manager-applet/src/applet.h
+--- network-manager-applet.ORIG/src/network-manager-applet/src/applet.h	2022-01-03 11:08:32.506793636 -0800
++++ network-manager-applet/src/network-manager-applet/src/applet.h	2022-01-03 12:33:56.674183082 -0800
+@@ -101,8 +101,8 @@
+ 	/* Animation stuff */
+ 	int             animation_step;
+ 	guint           animation_id;
+-#define NUM_CONNECTING_FRAMES 11
+-#define NUM_VPN_CONNECTING_FRAMES 14
++#define NUM_CONNECTING_FRAMES 12
++#define NUM_VPN_CONNECTING_FRAMES 12
+ 
+ 	GtkIconTheme *  icon_theme;
+ 	GHashTable *    icon_cache;
