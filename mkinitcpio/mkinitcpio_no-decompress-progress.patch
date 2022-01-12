@@ -1,0 +1,12 @@
+diff --color -ru mkinitcpio.ORIG/src/mkinitcpio-31/functions mkinitcpio/src/mkinitcpio-31/functions
+--- mkinitcpio.ORIG/src/mkinitcpio-31/functions	2022-01-12 10:01:00.076032062 -0800
++++ mkinitcpio/src/mkinitcpio-31/functions	2022-01-12 10:16:54.101376246 -0800
+@@ -873,7 +873,7 @@
+     done
+     (( ${#xz_comp[*]} )) && xz -d "${xz_comp[@]}"
+     (( ${#gz_comp[*]} )) && gzip -d "${gz_comp[@]}"
+-    (( ${#zst_comp[*]} )) && zstd -d --rm -q "${zst_comp[@]}"
++    (( ${#zst_comp[*]} )) && zstd -d --rm -qq "${zst_comp[@]}"
+ 
+     msg "Generating module dependencies"
+     install -m644 -t "$moduledest" "$_d_kmoduledir"/modules.builtin
