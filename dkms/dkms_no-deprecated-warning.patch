@@ -1,0 +1,14 @@
+diff --color -ru dkms.ORIG/src/dkms/dkms.in dkms/src/dkms/dkms.in
+--- dkms.ORIG/src/dkms/dkms.in	2022-01-12 10:03:39.966627971 -0800
++++ dkms/src/dkms/dkms.in	2022-01-12 10:07:18.486356837 -0800
+@@ -114,9 +114,7 @@
+ )
+ 
+ deprecated() (
+-    exec >&2
+-    echo -n $"Deprecated feature: "
+-    for s in "$@"; do echo "$s"; done
++    return
+ )
+ 
+ # Print an error message and die with the passed error code.
