@@ -1,0 +1,11 @@
+diff --color -ru pnpm.ORIG/PKGBUILD pnpm/PKGBUILD
+--- pnpm.ORIG/PKGBUILD	2022-01-24 08:13:46.900696618 -0800
++++ pnpm/PKGBUILD	2022-01-24 08:34:13.403874187 -0800
+@@ -14,6 +14,7 @@
+ 
+ package() {
+ 	npm install -g --user root --prefix "$pkgdir"/usr "$srcdir/$pkgname-$pkgver.tgz"
++	sed -i 's/^\(\s*\)\(.*reportDeprecations_1\)/\1\/\/ \2/g' "$pkgdir"/usr/lib/node_modules/pnpm/dist/pnpm.cjs
+ 	local _npmdir="$pkgdir/usr/lib/node_modules/$pkgname"
+ 	find "$pkgdir"/usr -type d -exec chmod 755 {} +
+ 	chown -R root:root "$pkgdir"
