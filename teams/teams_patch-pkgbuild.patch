@@ -1,0 +1,17 @@
+diff --color -ru teams.ORIG/PKGBUILD teams/PKGBUILD
+--- teams.ORIG/PKGBUILD	2022-01-26 12:04:29.577517210 -0800
++++ teams/PKGBUILD	2022-01-26 12:12:43.661685838 -0800
+@@ -23,4 +23,13 @@
+   install -dm755 "${pkgdir}/usr/share/licenses/${pkgname}"
+   mv "${pkgdir}/usr/share/${pkgname}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}"
+   ln -s "/usr/share/licenses/${pkgname}/LICENSE" "${pkgdir}/usr/share/${pkgname}/LICENSE"
++
++  cp "${srcdir}"/icons/* "${pkgdir}"/usr/share/teams/resources/assets
++
++  _ASAR_PATH="${pkgdir}"/usr/share/teams/resources/app.asar
++  _ASAR_TMP=$(mktemp -dp "${srcdir}")
++
++  asar extract "${_ASAR_PATH}" "${_ASAR_TMP}"
++  patch -d "${_ASAR_TMP}" -p0 < "${srcdir}"/switch-display-on-restore.diff
++  asar pack "${_ASAR_TMP}" "${_ASAR_PATH}"
+ }
