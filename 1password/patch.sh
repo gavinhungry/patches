@@ -1,4 +1,4 @@
 #!/bin/bash
 
+cp -r icons "$PKGSRC_DIR"
 cp enable-context-menu.diff "$PKGSRC_DIR"
-cp tray_{un,}locked.png "$PKGSRC_DIR"

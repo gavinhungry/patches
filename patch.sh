@@ -31,7 +31,7 @@ getPkgbuildDir() {
   local PKGBUILD_DIR=$(cat "$PATCH" | grep ^diff | head -n1 | sed 's/.*\s\(.*\)\.ORIG\/.*/\1/')
   cd "$PACKAGES_DIR/$PKGBUILD_DIR" &> /dev/null || return
 
-  pwd
+  echo "$PWD"
 }
 
 getPkgSourceDir() {
@@ -111,7 +111,7 @@ getPkgSourceDir() {
     cd "$(eval echo "$MESON_DIR")"
   fi
 
-  pwd
+  [ "$PWD" != "$PKGBUILD_DIR" ] && echo "$PWD" || echo "${PKGBUILD_DIR}/src"
 }
 
 getPkgSourceDirBase() {
