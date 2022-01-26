@@ -59,7 +59,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.
  
    G_OBJECT_CLASS (systray_socket_parent_class)->finalize (object);
  }
-@@ -418,6 +421,32 @@
+@@ -418,6 +421,33 @@
  }
  
  
@@ -79,6 +79,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.
 +  else if (!g_strcmp0(socket->sort, "teams")) { g_strlcpy(socket->sort, "zzzz2200", 8); }
 +  else if (!g_strcmp0(socket->sort, "dropbox-tray.py")) { g_strlcpy(socket->sort, "zzzz2300", 8); }
 +  else if (!g_strcmp0(socket->sort, "yubico authenticator")) { g_strlcpy(socket->sort, "zzzz2400", 8); }
++  else if (!g_strcmp0(socket->sort, "1password")) { g_strlcpy(socket->sort, "zzzz2450", 8); }
 +  else if (!g_strcmp0(socket->sort, "parcellite")) { g_strlcpy(socket->sort, "zzzz2500", 8); }
 +  else if (!g_strcmp0(socket->sort, "blueman-applet")) { g_strlcpy(socket->sort, "zzzz2600", 8); }
 +  else if (!g_strcmp0(socket->sort, "networkmanager applet")) { g_strlcpy(socket->sort, "zzzz2700", 8); }
