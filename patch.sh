@@ -28,6 +28,11 @@ getPkgbuildDir() {
   local PATCHES=("$PATCH_DIR"/*.patch)
   local PATCH=${PATCHES[0]}
 
+  if [ -n "$PATCH" ]; then
+    echo "$PACKAGES_DIR"/$1
+    return
+  fi
+
   local PKGBUILD_DIR=$(cat "$PATCH" | grep ^diff | head -n1 | sed 's/.*\s\(.*\)\.ORIG\/.*/\1/')
   cd "$PACKAGES_DIR/$PKGBUILD_DIR" &> /dev/null || return
 
@@ -216,11 +221,14 @@ patchPkg() {
 
   cd "$PACKAGES_DIR"
 
-  local PATCHES="$PATCHES_DIR"/$PKG/*.patch
-  for PATCH in ${PATCHES[@]}; do
-    inform "Applying $(basename $PATCH)"
-    patch -Ns -r - -p0 < "$PATCH" || warn 'Error applying patch'
-  done
+
+  if compgen -G "$PATCHES_DIR"/$PKG/*.patch > /dev/null; then
+    local PATCHES="$PATCHES_DIR"/$PKG/*.patch
+    for PATCH in ${PATCHES[@]}; do
+      inform "Applying $(basename $PATCH)"
+      patch -Ns -r - -p0 < "$PATCH" || warn 'Error applying patch'
+    done
+  fi
 
   if [ -x "$PATCHES_DIR"/$PKG/patch.sh ]; then
     cd "$PATCHES_DIR"/$PKG
