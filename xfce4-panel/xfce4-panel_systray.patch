@@ -1,6 +1,6 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/sn-plugin.c xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/sn-plugin.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/sn-plugin.c	2020-12-30 15:12:03.366288820 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/sn-plugin.c	2020-12-30 16:50:55.775928882 -0800
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/sn-plugin.c xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/sn-plugin.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/sn-plugin.c	2022-02-03 08:31:13.674655635 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/sn-plugin.c	2022-02-03 08:57:34.498357572 -0800
 @@ -359,7 +359,6 @@
                              G_CALLBACK (sn_plugin_item_added), plugin);
    g_signal_connect_swapped (plugin->backend, "item-removed",
@@ -9,9 +9,9 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/sn-plugin.c xfc
  #endif
  
    /* Systray arrow button */
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-box.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-box.c	2020-12-30 15:12:03.366288820 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-box.c	2020-12-30 16:47:48.907288000 -0800
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-box.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-box.c	2022-02-03 08:31:13.674655635 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-box.c	2022-02-03 08:58:27.020802172 -0800
 @@ -36,7 +36,7 @@
  #include "systray-socket.h"
  #include "sn-config.h"
@@ -21,7 +21,19 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-box.c x
  #define OFFSCREEN  (-9999)
  
  /* some icon implementations request a 1x1 size for invisible icons */
-@@ -742,8 +742,8 @@
+@@ -730,11 +730,8 @@
+                               gconstpointer b,
+                               gpointer      user_data)
+ {
+-  SystrayBox  *box = user_data;
+   const gchar *name_a, *name_b;
+-  gint         index_a = -1, index_b = -1;
+   gboolean     hidden_a, hidden_b;
+-  gpointer     value;
+ 
+   /* sort hidden icons before visible ones */
+   hidden_a = systray_socket_get_hidden (XFCE_SYSTRAY_SOCKET (a));
+@@ -742,23 +739,9 @@
    if (hidden_a != hidden_b)
      return hidden_a ? 1 : -1;
  
@@ -30,11 +42,26 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-box.c x
 +  name_a = systray_socket_get_sort (XFCE_SYSTRAY_SOCKET (a));
 +  name_b = systray_socket_get_sort (XFCE_SYSTRAY_SOCKET (b));
  
-   if (name_a != NULL && g_hash_table_lookup_extended (box->names_ordered, name_a, NULL, &value))
-     index_a = GPOINTER_TO_INT (value);
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.c xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.c	2020-12-30 15:12:03.366288820 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.c	2020-12-30 16:47:48.907288000 -0800
+-  if (name_a != NULL && g_hash_table_lookup_extended (box->names_ordered, name_a, NULL, &value))
+-    index_a = GPOINTER_TO_INT (value);
+-  if (name_b != NULL && g_hash_table_lookup_extended (box->names_ordered, name_b, NULL, &value))
+-    index_b = GPOINTER_TO_INT (value);
+-
+-  /* sort ordered icons before unordered ones */
+-  if ((index_a >= 0) != (index_b >= 0))
+-    return index_a >= 0 ? 1 : -1;
+-
+-  /* sort ordered icons by index */
+-  if (index_a >= 0 && index_b >= 0)
+-    return index_a - index_b;
+-
+-  /* sort unordered icons by name */
+   return g_strcmp0 (name_a, name_b);
+ }
+ 
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.c xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.c	2022-02-03 08:31:13.674655635 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.c	2022-02-03 08:57:34.498357572 -0800
 @@ -56,6 +56,7 @@
    Window           window;
  
@@ -72,19 +99,19 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.
 +  socket->name = systray_socket_get_name(socket);
 +  socket->sort = g_strdup(socket->name);
 +
-+  if (!g_strcmp0(socket->sort, "hexchat")) { g_strlcpy(socket->sort, "zzzz2000", 8); }
-+  else if (!g_strcmp0(socket->sort, "discord")) { g_strlcpy(socket->sort, "zzzz2050", 8); }
-+  else if (!g_strcmp0(socket->sort, "steam")) { g_strlcpy(socket->sort, "zzzz2060", 8); }
-+  else if (!g_strcmp0(socket->sort, "pidgin")) { g_strlcpy(socket->sort, "zzzz2100", 8); }
-+  else if (!g_strcmp0(socket->sort, "teams")) { g_strlcpy(socket->sort, "zzzz2200", 8); }
-+  else if (!g_strcmp0(socket->sort, "dropbox-tray.py")) { g_strlcpy(socket->sort, "zzzz2300", 8); }
-+  else if (!g_strcmp0(socket->sort, "yubico authenticator")) { g_strlcpy(socket->sort, "zzzz2400", 8); }
-+  else if (!g_strcmp0(socket->sort, "1password")) { g_strlcpy(socket->sort, "zzzz2450", 8); }
-+  else if (!g_strcmp0(socket->sort, "parcellite")) { g_strlcpy(socket->sort, "zzzz2500", 8); }
-+  else if (!g_strcmp0(socket->sort, "blueman-applet")) { g_strlcpy(socket->sort, "zzzz2600", 8); }
-+  else if (!g_strcmp0(socket->sort, "networkmanager applet")) { g_strlcpy(socket->sort, "zzzz2700", 8); }
-+  else if (!g_strcmp0(socket->sort, "batterymon")) { g_strlcpy(socket->sort, "zzzz2800", 8); }
-+  else if (!g_strcmp0(socket->sort, "volatile")) { g_strlcpy(socket->sort, "zzzz2900", 8); }
++  if      (!g_strcmp0(socket->sort, "discord"))               { g_strlcpy(socket->sort, "zzzz0000", 8); }
++  else if (!g_strcmp0(socket->sort, "steam"))                 { g_strlcpy(socket->sort, "zzzz0100", 8); }
++  else if (!g_strcmp0(socket->sort, "hexchat"))               { g_strlcpy(socket->sort, "zzzz0200", 8); }
++  else if (!g_strcmp0(socket->sort, "pidgin"))                { g_strlcpy(socket->sort, "zzzz0300", 8); }
++  else if (!g_strcmp0(socket->sort, "teams"))                 { g_strlcpy(socket->sort, "zzzz0400", 8); }
++  else if (!g_strcmp0(socket->sort, "dropbox-tray.py"))       { g_strlcpy(socket->sort, "zzzz0500", 8); }
++  else if (!g_strcmp0(socket->sort, "yubico authenticator"))  { g_strlcpy(socket->sort, "zzzz0600", 8); }
++  else if (!g_strcmp0(socket->sort, "1password"))             { g_strlcpy(socket->sort, "zzzz0700", 8); }
++  else if (!g_strcmp0(socket->sort, "parcellite"))            { g_strlcpy(socket->sort, "zzzz0800", 8); }
++  else if (!g_strcmp0(socket->sort, "blueman-applet"))        { g_strlcpy(socket->sort, "zzzz0900", 8); }
++  else if (!g_strcmp0(socket->sort, "networkmanager applet")) { g_strlcpy(socket->sort, "zzzz1000", 8); }
++  else if (!g_strcmp0(socket->sort, "batterymon"))            { g_strlcpy(socket->sort, "zzzz1100", 8); }
++  else if (!g_strcmp0(socket->sort, "volatile.py"))           { g_strlcpy(socket->sort, "zzzz1200", 8); }
 +
 +  return socket->sort;
 +}
@@ -93,9 +120,9 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.
  
  Window *
  systray_socket_get_window (SystraySocket *socket)
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.h xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.h
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.h	2020-12-30 15:12:03.366288820 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.h	2020-12-30 16:47:48.907288000 -0800
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.h xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.h
+--- xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.h	2022-02-03 08:31:13.674655635 -0800
++++ xfce4-panel/src/xfce4-panel-4.16.3/plugins/systray/systray-socket.h	2022-02-03 08:57:34.498357572 -0800
 @@ -48,6 +48,8 @@
  
  const gchar     *systray_socket_get_name      (SystraySocket   *socket);
