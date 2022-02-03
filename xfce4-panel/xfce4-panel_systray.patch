@@ -102,7 +102,7 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.3/plugins/systray/systray
 +  if      (!g_strcmp0(socket->sort, "discord"))               { g_strlcpy(socket->sort, "zzzz0000", 8); }
 +  else if (!g_strcmp0(socket->sort, "steam"))                 { g_strlcpy(socket->sort, "zzzz0100", 8); }
 +  else if (!g_strcmp0(socket->sort, "hexchat"))               { g_strlcpy(socket->sort, "zzzz0200", 8); }
-+  else if (!g_strcmp0(socket->sort, "signal"))                { g_strlcpy(socket->sort, "zzzz0250", 8); }
++  else if (!g_strcmp0(socket->sort, "signal-desktop"))        { g_strlcpy(socket->sort, "zzzz0250", 8); }
 +  else if (!g_strcmp0(socket->sort, "pidgin"))                { g_strlcpy(socket->sort, "zzzz0300", 8); }
 +  else if (!g_strcmp0(socket->sort, "teams"))                 { g_strlcpy(socket->sort, "zzzz0400", 8); }
 +  else if (!g_strcmp0(socket->sort, "dropbox-tray.py"))       { g_strlcpy(socket->sort, "zzzz0500", 8); }
