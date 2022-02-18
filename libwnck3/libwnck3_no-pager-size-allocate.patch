@@ -1,0 +1,11 @@
+diff --color -ru libwnck3.ORIG/src/libwnck/libwnck/pager.c libwnck3/src/libwnck/libwnck/pager.c
+--- libwnck3.ORIG/src/libwnck/libwnck/pager.c	2022-02-18 08:11:25.765347558 -0800
++++ libwnck3/src/libwnck/libwnck/pager.c	2022-02-18 08:17:27.128006097 -0800
+@@ -249,7 +249,6 @@
+   widget_class->get_preferred_width_for_height = wnck_pager_get_preferred_width_for_height;
+   widget_class->get_preferred_height = wnck_pager_get_preferred_height;
+   widget_class->get_preferred_height_for_width = wnck_pager_get_preferred_height_for_width;
+-  widget_class->size_allocate = wnck_pager_size_allocate;
+   widget_class->draw = wnck_pager_draw;
+   widget_class->button_press_event = wnck_pager_button_press;
+   widget_class->button_release_event = wnck_pager_button_release;
