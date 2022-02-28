@@ -1,6 +1,6 @@
-diff --color -ru gimp-devel.ORIG/src/gimp-2.99.8/app/display/gimpdisplayshell-callbacks.c gimp-devel/src/gimp-2.99.8/app/display/gimpdisplayshell-callbacks.c
---- gimp-devel.ORIG/src/gimp-2.99.8/app/display/gimpdisplayshell-callbacks.c	2021-12-20 12:32:21.485995806 -0800
-+++ gimp-devel/src/gimp-2.99.8/app/display/gimpdisplayshell-callbacks.c	2021-12-20 12:35:10.862995499 -0800
+diff --color -ru gimp-devel.ORIG/src/gimp-2.99.10/app/display/gimpdisplayshell-callbacks.c gimp-devel/src/gimp-2.99.10/app/display/gimpdisplayshell-callbacks.c
+--- gimp-devel.ORIG/src/gimp-2.99.10/app/display/gimpdisplayshell-callbacks.c	2021-12-20 12:32:21.485995806 -0800
++++ gimp-devel/src/gimp-2.99.10/app/display/gimpdisplayshell-callbacks.c	2021-12-20 12:35:10.862995499 -0800
 @@ -625,8 +625,6 @@
  
    gimp_display_shell_draw_background (shell, cr);

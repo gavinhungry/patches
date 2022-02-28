@@ -1,6 +1,6 @@
-diff --color -ru gimp-devel.ORIG/src/gimp-2.99.8/app/display/gimpimagewindow.c gimp-devel/src/gimp-2.99.8/app/display/gimpimagewindow.c
---- gimp-devel.ORIG/src/gimp-2.99.8/app/display/gimpimagewindow.c	2021-12-20 12:32:21.485995806 -0800
-+++ gimp-devel/src/gimp-2.99.8/app/display/gimpimagewindow.c	2021-12-20 12:33:37.392437154 -0800
+diff --color -ru gimp-devel.ORIG/src/gimp-2.99.10/app/display/gimpimagewindow.c gimp-devel/src/gimp-2.99.10/app/display/gimpimagewindow.c
+--- gimp-devel.ORIG/src/gimp-2.99.10/app/display/gimpimagewindow.c	2021-12-20 12:32:21.485995806 -0800
++++ gimp-devel/src/gimp-2.99.10/app/display/gimpimagewindow.c	2021-12-20 12:33:37.392437154 -0800
 @@ -2346,8 +2346,6 @@
    GtkWidget *hbox;
    GtkWidget *view;
