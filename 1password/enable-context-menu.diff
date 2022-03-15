@@ -1,10 +1,10 @@
---- main.js.ORIG	2022-01-26 10:48:58.939268711 -0800
-+++ main.js	2022-01-26 10:49:19.386808170 -0800
-@@ -1736,7 +1736,7 @@
+--- main.js.ORIG	2022-03-15 08:54:32.125692637 -0700
++++ main.js	2022-03-15 08:56:03.869675244 -0700
+@@ -12028,7 +12028,7 @@
                                  click: () => {
                                      s.app.quit()
                                  }
--                            }), this.contextMenu = s.Menu.buildFromTemplate(e), "menu" === this.userSettings.get("trayAction") && this.tray.setContextMenu(this.contextMenu)
+-                            }), this.contextMenu = s.Menu.buildFromTemplate(e), "menu" === this.userSettings.get("trayAction") ? this.tray.setContextMenu(this.contextMenu) : this.tray.setContextMenu(null)
 +                            }), this.contextMenu = s.Menu.buildFromTemplate(e), this.tray.setContextMenu(this.contextMenu)
                          }, this.setupGlobalShortcuts = () => {
                              const e = () => {
