@@ -1,7 +1,7 @@
 diff --color -ru solaar.ORIG/src/Solaar/lib/solaar/gtk.py solaar/src/Solaar/lib/solaar/gtk.py
---- solaar.ORIG/src/Solaar/lib/solaar/gtk.py	2021-11-12 10:33:12.169280022 -0800
-+++ solaar/src/Solaar/lib/solaar/gtk.py	2021-11-12 10:35:03.259300529 -0800
-@@ -165,7 +165,7 @@
+--- solaar.ORIG/src/Solaar/lib/solaar/gtk.py	2022-03-27 12:10:17.764304927 -0700
++++ solaar/src/Solaar/lib/solaar/gtk.py	2022-03-28 12:32:27.588792280 -0700
+@@ -166,7 +166,7 @@
              _upower.watch(lambda: listener.ping_all(True))
  
          # main UI event loop
@@ -11,13 +11,13 @@ diff --color -ru solaar.ORIG/src/Solaar/lib/solaar/gtk.py solaar/src/Solaar/lib/
          import sys
          from traceback import format_exc
 diff --color -ru solaar.ORIG/src/Solaar/lib/solaar/ui/__init__.py solaar/src/Solaar/lib/solaar/ui/__init__.py
---- solaar.ORIG/src/Solaar/lib/solaar/ui/__init__.py	2021-11-12 10:33:12.169280022 -0800
-+++ solaar/src/Solaar/lib/solaar/ui/__init__.py	2021-11-12 10:34:43.759297664 -0800
-@@ -151,7 +151,6 @@
+--- solaar.ORIG/src/Solaar/lib/solaar/ui/__init__.py	2022-03-27 12:10:17.764304927 -0700
++++ solaar/src/Solaar/lib/solaar/ui/__init__.py	2022-03-28 12:31:13.631931686 -0700
+@@ -161,7 +161,6 @@
  
  
- def run_loop(startup_hook, shutdown_hook, use_tray, show_window, args=None):
+ def run_loop(startup_hook, shutdown_hook, use_tray, show_window):
 -    assert use_tray or show_window, 'need either tray or visible window'
      # from gi.repository.Gio import ApplicationFlags as _ApplicationFlags
      APP_ID = 'io.github.pwr.solaar'
-     application = Gtk.Application.new(APP_ID, 0)  # _ApplicationFlags.HANDLES_COMMAND_LINE)
+     application = Gtk.Application.new(APP_ID, Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
