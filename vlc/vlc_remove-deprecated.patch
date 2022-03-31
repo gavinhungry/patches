@@ -1,0 +1,15 @@
+diff --color -ru vlc.ORIG/src/vlc-3.0.17.3/modules/codec/avcodec/subtitle.c vlc/src/vlc-3.0.17.3/modules/codec/avcodec/subtitle.c
+--- vlc.ORIG/src/vlc-3.0.17.3/modules/codec/avcodec/subtitle.c	2022-03-31 10:03:19.290502344 -0700
++++ vlc/src/vlc-3.0.17.3/modules/codec/avcodec/subtitle.c	2022-03-31 10:04:37.510635864 -0700
+@@ -90,11 +90,7 @@
+     context->extradata_size = 0;
+     context->extradata = NULL;
+ 
+-#if LIBAVFORMAT_VERSION_MAJOR >= 59
+     context->pkt_timebase=AV_TIME_BASE_Q;
+-#elif LIBAVFORMAT_VERSION_MICRO >= 100
+-    av_codec_set_pkt_timebase(context, AV_TIME_BASE_Q);
+-#endif
+ 
+     /* */
+     int ret;
