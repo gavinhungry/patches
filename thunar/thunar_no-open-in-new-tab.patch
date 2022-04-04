@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.16.10/thunar/thunar-launcher.c thunar/src/thunar-4.16.10/thunar/thunar-launcher.c
---- thunar.ORIG/src/thunar-4.16.10/thunar/thunar-launcher.c	2021-05-06 16:23:05.256867618 -0700
-+++ thunar/src/thunar-4.16.10/thunar/thunar-launcher.c	2021-05-06 16:23:05.860193501 -0700
+diff -ru thunar.ORIG/src/thunar-4.16.11/thunar/thunar-launcher.c thunar/src/thunar-4.16.11/thunar/thunar-launcher.c
+--- thunar.ORIG/src/thunar-4.16.11/thunar/thunar-launcher.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.11/thunar/thunar-launcher.c	2021-05-06 16:23:05.860193501 -0700
 @@ -2863,8 +2863,6 @@
  
    if (launcher->n_files_to_process == launcher->n_directories_to_process && launcher->n_directories_to_process >= 1)
@@ -10,9 +10,9 @@ diff -ru thunar.ORIG/src/thunar-4.16.10/thunar/thunar-launcher.c thunar/src/thun
        thunar_launcher_append_menu_item (launcher, GTK_MENU_SHELL (menu), THUNAR_LAUNCHER_ACTION_OPEN_IN_WINDOW, FALSE);
      }
  
-diff -ru thunar.ORIG/src/thunar-4.16.10/thunar/thunar-shortcuts-view.c thunar/src/thunar-4.16.10/thunar/thunar-shortcuts-view.c
---- thunar.ORIG/src/thunar-4.16.10/thunar/thunar-shortcuts-view.c	2021-05-06 16:23:05.256867618 -0700
-+++ thunar/src/thunar-4.16.10/thunar/thunar-shortcuts-view.c	2021-05-06 16:23:05.860193501 -0700
+diff -ru thunar.ORIG/src/thunar-4.16.11/thunar/thunar-shortcuts-view.c thunar/src/thunar-4.16.11/thunar/thunar-shortcuts-view.c
+--- thunar.ORIG/src/thunar-4.16.11/thunar/thunar-shortcuts-view.c	2021-05-06 16:23:05.256867618 -0700
++++ thunar/src/thunar-4.16.11/thunar/thunar-shortcuts-view.c	2021-05-06 16:23:05.860193501 -0700
 @@ -1127,12 +1127,6 @@
    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
  G_GNUC_END_IGNORE_DEPRECATIONS

@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.16.10/thunar/thunar-notify.c thunar/src/thunar-4.16.10/thunar/thunar-notify.c
---- thunar.ORIG/src/thunar-4.16.10/thunar/thunar-notify.c	2021-05-06 16:23:05.253534325 -0700
-+++ thunar/src/thunar-4.16.10/thunar/thunar-notify.c	2021-05-06 16:23:06.130190167 -0700
+diff -ru thunar.ORIG/src/thunar-4.16.11/thunar/thunar-notify.c thunar/src/thunar-4.16.11/thunar/thunar-notify.c
+--- thunar.ORIG/src/thunar-4.16.11/thunar/thunar-notify.c	2021-05-06 16:23:05.253534325 -0700
++++ thunar/src/thunar-4.16.11/thunar/thunar-notify.c	2021-05-06 16:23:06.130190167 -0700
 @@ -174,8 +174,7 @@
      {
        summary = _("Writing data to device");
