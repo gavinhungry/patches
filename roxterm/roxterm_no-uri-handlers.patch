@@ -1,6 +1,6 @@
-diff -ru roxterm.ORIG/src/roxterm-3.11.1/src/profilegui.c roxterm/src/roxterm-3.11.1/src/profilegui.c
---- roxterm.ORIG/src/roxterm-3.11.1/src/profilegui.c	2020-07-28 11:56:32.795141854 -0700
-+++ roxterm/src/roxterm-3.11.1/src/profilegui.c	2020-07-28 11:56:32.798475313 -0700
+diff -ru roxterm.ORIG/src/roxterm-3.12.1/src/profilegui.c roxterm/src/roxterm-3.12.1/src/profilegui.c
+--- roxterm.ORIG/src/roxterm-3.12.1/src/profilegui.c	2020-07-28 11:56:32.795141854 -0700
++++ roxterm/src/roxterm-3.12.1/src/profilegui.c	2020-07-28 11:56:32.798475313 -0700
 @@ -546,6 +546,7 @@
      pg->list_store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
      for (n = 0; n < G_N_ELEMENTS(labels); ++n)
@@ -9,9 +9,9 @@ diff -ru roxterm.ORIG/src/roxterm-3.11.1/src/profilegui.c roxterm/src/roxterm-3.
          gtk_list_store_append(pg->list_store, &iter);
          gtk_list_store_set(pg->list_store, &iter,
                  0, gettext(labels[n]), 1, n, -1);
-diff -ru roxterm.ORIG/src/roxterm-3.11.1/src/roxterm.c roxterm/src/roxterm-3.11.1/src/roxterm.c
---- roxterm.ORIG/src/roxterm-3.11.1/src/roxterm.c	2020-07-28 11:56:32.795141854 -0700
-+++ roxterm/src/roxterm-3.11.1/src/roxterm.c	2020-07-28 11:56:32.798475313 -0700
+diff -ru roxterm.ORIG/src/roxterm-3.12.1/src/roxterm.c roxterm/src/roxterm-3.12.1/src/roxterm.c
+--- roxterm.ORIG/src/roxterm-3.12.1/src/roxterm.c	2020-07-28 11:56:32.795141854 -0700
++++ roxterm/src/roxterm-3.12.1/src/roxterm.c	2020-07-28 11:56:32.798475313 -0700
 @@ -3064,8 +3064,6 @@
          gtk_widget_show(roxterm->widget);
      }
