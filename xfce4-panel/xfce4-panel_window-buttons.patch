@@ -20,7 +20,7 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.4/plugins/tasklist/taskli
 +      /* bold only active tasks - disabled for now */
 +      if (child->window == active_window) {
 +        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), TRUE);
-+        // gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string ("medium"));
++        // gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string ("semi-bold"));
 +      } else {
 +          gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
 +      }

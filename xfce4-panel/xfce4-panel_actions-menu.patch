@@ -5,7 +5,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.4/plugins/actions/actions.c xfce4
        gtk_widget_show (button);
  
        label = gtk_label_new (button_title);
-+      gtk_widget_modify_font (GTK_LABEL (label), pango_font_description_from_string ("medium"));
++      gtk_widget_modify_font (GTK_LABEL (label), pango_font_description_from_string ("semi-bold"));
        gtk_container_add (GTK_CONTAINER (button), label);
        mode = xfce_panel_plugin_get_mode (XFCE_PANEL_PLUGIN (plugin));
        gtk_label_set_angle (GTK_LABEL (label),
