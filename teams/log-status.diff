@@ -1,0 +1,13 @@
+--- main.js.ORIG	2022-06-16 11:55:54.080704006 -0700
++++ main.js	2022-06-16 13:32:32.239136769 -0700
+@@ -102838,6 +102838,10 @@
+             }, this.onIpcMainUnifiedPresenceStatesEnabled = (e, t) => {
+                 b.getInstance().logInfo("unifiedPresenceStatesEnabled received {0}", [t]), this.safeSetContextMenuVisible("mystatus_appearaway", t), this.safeSetContextMenuVisible("mystatus_berightback", t), this.safeSetContextMenuVisible("mystatus_resetstatus", t), this.safeSetContextMenuVisible("mystatus_away", !t), C.isLinux() && this.trayAppIcon && this.trayAppIcon.setContextMenu(this.contextMenu)
+             }, this.onIpcMainUserStatusChanged = (e, t) => {
++                require('fs').writeFileSync(
++                    require('path').join(process.env.XDG_CACHE_HOME, 'teams-status'),
++                    `${this.statusName(t.status)}\n`
++                );
+                 t && (this.showPresenceUnknownTooltip = !0, l.getInstance().getBoolean(u.settings.flwPresenceEnabled) ? t.flwPresence === u.userFlwPresence.OffShift ? (this.safeSetContextMenuVisible("mystatus_menu", !1), this.safeSetContextMenuVisible("mystatus_separator", !1)) : t.flwPresence === u.userFlwPresence.OnShift ? (this.safeSetContextMenuVisible("mystatus_menu", !0), this.safeSetContextMenuVisible("mystatus_separator", !0), this.safeSetContextMenuVisible("mystatus_available", !1), this.safeSetContextMenuVisible("mystatus_busy", t.status !== u.userStatus.busy), this.safeSetContextMenuVisible("mystatus_donotdisturb", !1), this.safeSetContextMenuVisible("mystatus_berightback", !1), this.safeSetContextMenuVisible("mystatus_appearaway", !1), this.safeSetContextMenuVisible("mystatus_resetstatus", !0)) : (this.safeSetContextMenuVisible("mystatus_menu", !0), this.safeSetContextMenuVisible("mystatus_separator", !0), this.safeSetContextMenuVisible("mystatus_available", !0), this.safeSetContextMenuVisible("mystatus_busy", !0), this.safeSetContextMenuVisible("mystatus_donotdisturb", !0), this.safeSetContextMenuVisible("mystatus_berightback", !0), this.safeSetContextMenuVisible("mystatus_appearaway", !0), this.safeSetContextMenuVisible("mystatus_resetstatus", !0)) : (this.safeSetContextMenuVisible("mystatus_menu", !0), this.safeSetContextMenuVisible("mystatus_separator", !0)), C.isLinux() && this.trayAppIcon && this.trayAppIcon.setContextMenu(this.contextMenu))
+             }
+         }
