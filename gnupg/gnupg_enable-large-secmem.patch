@@ -1,11 +1,11 @@
-diff -ru gnupg.ORIG/PKGBUILD gnupg/PKGBUILD
---- gnupg.ORIG/PKGBUILD	2021-01-13 09:19:58.111864055 -0800
-+++ gnupg/PKGBUILD	2021-01-13 09:21:46.720162115 -0800
-@@ -55,6 +55,7 @@
- 		--sbindir=/usr/bin \
- 		--libexecdir=/usr/lib/gnupg \
- 		--enable-maintainer-mode \
-+		--enable-large-secmem
+diff --color -ru gnupg.ORIG/PKGBUILD gnupg/PKGBUILD
+--- gnupg.ORIG/PKGBUILD	2022-07-07 21:51:24.571895792 -0700
++++ gnupg/PKGBUILD	2022-07-07 21:52:30.752500176 -0700
+@@ -70,6 +70,7 @@
+     --sbindir=/usr/bin \
+     --libexecdir=/usr/lib/gnupg \
+     --enable-maintainer-mode \
++    --enable-large-secmem
  
- 	make
+   make
  }
