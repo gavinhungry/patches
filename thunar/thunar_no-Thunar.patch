@@ -1,0 +1,11 @@
+diff --color -ru thunar.ORIG/PKGBUILD thunar/PKGBUILD
+--- thunar.ORIG/PKGBUILD	2022-07-09 23:55:03.644238690 -0700
++++ thunar/PKGBUILD	2022-07-09 23:56:26.377237452 -0700
+@@ -43,6 +43,7 @@
+ package() {
+   cd "$srcdir/$pkgname-$pkgver"
+   make DESTDIR="$pkgdir" install
++  rm -f "$pkgdir"/usr/bin/Thunar
+ }
+ 
+ # vim:set ts=2 sw=2 et:
