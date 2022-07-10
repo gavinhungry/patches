@@ -1,0 +1,31 @@
+diff --color -ru rofi.ORIG/src/rofi-1.7.3/source/view.c rofi/src/rofi-1.7.3/source/view.c
+--- rofi.ORIG/src/rofi-1.7.3/source/view.c	2022-07-10 00:04:19.013887356 -0700
++++ rofi/src/rofi-1.7.3/source/view.c	2022-07-10 00:12:24.379282665 -0700
+@@ -1267,7 +1267,6 @@
+     if (state->case_indicator != NULL) {
+       config.sort = !config.sort;
+       state->refilter = TRUE;
+-      textbox_text(state->case_indicator, get_matching_state());
+     }
+     break;
+   case MODE_PREVIOUS:
+@@ -1297,7 +1296,6 @@
+       config.case_sensitive = !config.case_sensitive;
+       (state->selected_line) = 0;
+       state->refilter = TRUE;
+-      textbox_text(state->case_indicator, get_matching_state());
+     }
+     break;
+   // Special delete entry command.
+@@ -1835,10 +1833,9 @@
+     }
+     state->case_indicator =
+         textbox_create(parent_widget, WIDGET_TYPE_TEXTBOX_TEXT, name,
+-                       TB_AUTOWIDTH | TB_AUTOHEIGHT, NORMAL, "*", 0, 0);
++                       TB_AUTOWIDTH | TB_AUTOHEIGHT, NORMAL, "", 0, 0);
+     // Add small separator between case indicator and text box.
+     box_add((box *)parent_widget, WIDGET(state->case_indicator), FALSE);
+-    textbox_text(state->case_indicator, get_matching_state());
+   }
+   /**
+    * ENTRY BOX
