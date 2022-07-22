@@ -1,0 +1,12 @@
+diff --color -ru mirage-python3.ORIG/src/mirage-0.11.1/resources/gtk/menus.ui mirage-python3/src/mirage-0.11.1/resources/gtk/menus.ui
+--- mirage-python3.ORIG/src/mirage-0.11.1/resources/gtk/menus.ui	2022-07-21 23:26:22.667787588 -0700
++++ mirage-python3/src/mirage-0.11.1/resources/gtk/menus.ui	2022-07-21 23:27:15.623653144 -0700
+@@ -56,7 +56,7 @@
+           <attribute name="icon">application-exit</attribute>
+           <attribute name="label" translatable="yes">_Quit</attribute>
+           <attribute name="action">app.exit-app</attribute>
+-          <attribute name="accel">&lt;Control&gt;q</attribute>
++          <attribute name="accel">&lt;Control&gt;w</attribute>
+         </item>
+       </section>
+     </submenu>
