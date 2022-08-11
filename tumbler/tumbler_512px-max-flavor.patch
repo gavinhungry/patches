@@ -1,6 +1,6 @@
-diff -ru tumbler.ORIG/src/tumbler-4.16.0/plugins/xdg-cache/xdg-cache-cache.c tumbler/src/tumbler-4.16.0/plugins/xdg-cache/xdg-cache-cache.c
---- tumbler.ORIG/src/tumbler-4.16.0/plugins/xdg-cache/xdg-cache-cache.c	2018-02-09 10:31:21.159320496 -0800
-+++ tumbler/src/tumbler-4.16.0/plugins/xdg-cache/xdg-cache-cache.c	2018-02-09 10:37:03.376588934 -0800
+diff -ru tumbler.ORIG/src/tumbler-4.16.1/plugins/xdg-cache/xdg-cache-cache.c tumbler/src/tumbler-4.16.1/plugins/xdg-cache/xdg-cache-cache.c
+--- tumbler.ORIG/src/tumbler-4.16.1/plugins/xdg-cache/xdg-cache-cache.c	2018-02-09 10:31:21.159320496 -0800
++++ tumbler/src/tumbler-4.16.1/plugins/xdg-cache/xdg-cache-cache.c	2018-02-09 10:37:03.376588934 -0800
 @@ -136,6 +136,9 @@
  
    flavor = tumbler_thumbnail_flavor_new_large ();
