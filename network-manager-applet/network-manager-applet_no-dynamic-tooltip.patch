@@ -1,0 +1,12 @@
+diff --color -ru network-manager-applet.ORIG/src/network-manager-applet/src/applet.c network-manager-applet/src/network-manager-applet/src/applet.c
+--- network-manager-applet.ORIG/src/network-manager-applet/src/applet.c	2022-08-17 11:10:26.683945356 -0700
++++ network-manager-applet/src/network-manager-applet/src/applet.c	2022-08-17 11:14:25.911127175 -0700
+@@ -2732,7 +2732,7 @@
+ 	default:
+ 		applet_get_device_icon_for_state (applet, &pixbuf, &icon_name_free, &dev_tip_free);
+ 		icon_name = icon_name_free;
+-		dev_tip = dev_tip_free;
++		dev_tip = _("Network Manager");
+ 		break;
+ 	}
+ 
