@@ -1,6 +1,6 @@
-diff --color -ru rofi.ORIG/src/rofi-1.7.4/source/view.c rofi/src/rofi-1.7.4/source/view.c
---- rofi.ORIG/src/rofi-1.7.4/source/view.c	2022-07-10 00:04:19.013887356 -0700
-+++ rofi/src/rofi-1.7.4/source/view.c	2022-07-10 00:12:24.379282665 -0700
+diff --color -ru rofi.ORIG/src/rofi-1.7.5/source/view.c rofi/src/rofi-1.7.5/source/view.c
+--- rofi.ORIG/src/rofi-1.7.5/source/view.c	2022-07-10 00:04:19.013887356 -0700
++++ rofi/src/rofi-1.7.5/source/view.c	2022-07-10 00:12:24.379282665 -0700
 @@ -1267,7 +1267,6 @@
      if (state->case_indicator != NULL) {
        config.sort = !config.sort;
