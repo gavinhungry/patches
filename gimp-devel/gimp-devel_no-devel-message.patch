@@ -1,7 +1,7 @@
-diff --color -ru gimp-devel.ORIG/src/gimp-2.99.10/app/display/gimpdisplayshell-callbacks.c gimp-devel/src/gimp-2.99.10/app/display/gimpdisplayshell-callbacks.c
---- gimp-devel.ORIG/src/gimp-2.99.10/app/display/gimpdisplayshell-callbacks.c	2021-12-20 12:32:21.485995806 -0800
-+++ gimp-devel/src/gimp-2.99.10/app/display/gimpdisplayshell-callbacks.c	2021-12-20 12:42:18.326702643 -0800
-@@ -669,8 +669,6 @@
+diff --color -ru gimp-devel.ORIG/src/gimp-2.99.12/app/display/gimpdisplayshell-callbacks.c gimp-devel/src/gimp-2.99.12/app/display/gimpdisplayshell-callbacks.c
+--- gimp-devel.ORIG/src/gimp-2.99.12/app/display/gimpdisplayshell-callbacks.c	2022-09-01 15:02:47.087962435 -0700
++++ gimp-devel/src/gimp-2.99.12/app/display/gimpdisplayshell-callbacks.c	2022-09-01 15:05:44.682726582 -0700
+@@ -670,8 +670,6 @@
  
      cairo_scale (cr, scale, scale);
  
