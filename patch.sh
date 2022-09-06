@@ -113,12 +113,12 @@ getPkgSourceDir() {
     fi
   fi
 
-  if [ $TRY_MESON == 1 ]; then
+  if [ -z "$PKGSRC_DIR_CMD" -o $TRY_MESON == 1 ]; then
     MESON_DIR=$(grep arch-meson "$PKGBUILD_DIR"/PKGBUILD | awk '{print $2;}')
 
     [ -n "$MESON_DIR" ] &&
-    [ "$(eval echo "$MESON_DIR")" != "$(basename "$(pwd -P)")" ] &&
-    cd "$(eval echo "$MESON_DIR")"
+    [ "$(eval echo "src/$MESON_DIR")" != "$(basename "$(pwd -P)")" ] &&
+    cd "$(eval echo "src/$MESON_DIR")"
   fi
 
   if [ $(realpath "$PWD" --relative-to "$PKGBUILD_DIR") != '.' ]; then
@@ -229,7 +229,6 @@ patchPkg() {
   fi
 
   cd "$PACKAGES_DIR"
-
 
   if compgen -G "$PATCHES_DIR"/$PKG/*.patch > /dev/null; then
     local PATCHES="$PATCHES_DIR"/$PKG/*.patch
