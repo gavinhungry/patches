@@ -1,7 +1,7 @@
-diff -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c
---- xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c	2020-12-26 23:40:05.992441840 -0800
-+++ xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.1/panel-plugin/datetime.c	2020-12-30 18:09:40.710586813 -0800
-@@ -277,6 +277,8 @@
+diff --color -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.2/panel-plugin/datetime.c xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.2/panel-plugin/datetime.c
+--- xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.2/panel-plugin/datetime.c	2022-09-19 23:53:10.946999544 -0700
++++ xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.2/panel-plugin/datetime.c	2022-09-19 23:59:17.024059267 -0700
+@@ -268,6 +268,8 @@
    GtkCalendarDisplayOptions display_options;
  
    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -10,7 +10,7 @@ diff -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin
    gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
    gtk_window_set_skip_taskbar_hint(GTK_WINDOW(window), TRUE);
    gtk_window_set_skip_pager_hint(GTK_WINDOW(window), TRUE);
-@@ -352,12 +353,11 @@
+@@ -343,12 +345,11 @@
    font = pango_font_description_from_string(datetime->date_font);
    if (G_LIKELY (font))
    {
@@ -25,7 +25,7 @@ diff -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin
      pango_font_description_free (font);
    }
    else
-@@ -397,12 +397,11 @@
+@@ -388,12 +389,11 @@
    font = pango_font_description_from_string(datetime->time_font);
    if (G_LIKELY (font))
    {
@@ -40,7 +40,7 @@ diff -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin
      pango_font_description_free (font);
    }
    else
-@@ -681,15 +680,29 @@
+@@ -672,15 +672,29 @@
   */
  static void datetime_create_widget(t_datetime * datetime)
  {
@@ -71,7 +71,7 @@ diff -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin
  
    gtk_widget_show(datetime->box);
    gtk_container_add(GTK_CONTAINER(datetime->button), datetime->box);
-@@ -697,21 +710,20 @@
+@@ -688,21 +702,20 @@
    /* create time and date lines */
    datetime->time_label = gtk_label_new("");
    datetime->date_label = gtk_label_new("");
@@ -98,7 +98,7 @@ diff -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.1/panel-plugin
        G_CALLBACK(datetime_clicked), datetime);
 -
 -  /* set orientation according to the panel orientation */
--  datetime_set_mode(datetime->plugin, orientation, datetime);
+-  datetime_set_mode(datetime->plugin, (XfcePanelPluginMode)orientation, datetime);
  }
  
  /*
