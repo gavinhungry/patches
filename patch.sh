@@ -118,7 +118,7 @@ getPkgSourceDir() {
 
     [ -n "$MESON_DIR" ] &&
     [ "$(eval echo "src/$MESON_DIR")" != "$(basename "$(pwd -P)")" ] &&
-    cd "$(eval echo "src/$MESON_DIR")"
+    cd "$(eval echo "src/$MESON_DIR")" &> /dev/null
   fi
 
   if [ $(realpath "$PWD" --relative-to "$PKGBUILD_DIR") != '.' ]; then
