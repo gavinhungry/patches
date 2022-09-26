@@ -1,6 +1,6 @@
-diff -ru xsecurelock.ORIG/src/xsecurelock-1.7.0/helpers/auth_x11.c xsecurelock/src/xsecurelock-1.7.0/helpers/auth_x11.c
---- xsecurelock.ORIG/src/xsecurelock-1.7.0/helpers/auth_x11.c	2020-06-08 16:07:36.855772199 -0700
-+++ xsecurelock/src/xsecurelock-1.7.0/helpers/auth_x11.c	2020-06-09 13:58:07.374647259 -0700
+diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/src/xsecurelock-1.8.0/helpers/auth_x11.c
+--- xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c	2020-06-08 16:07:36.855772199 -0700
++++ xsecurelock/src/xsecurelock-1.8.0/helpers/auth_x11.c	2020-06-09 13:58:07.374647259 -0700
 @@ -741,19 +741,23 @@
  }
  
