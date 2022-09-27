@@ -1,7 +1,7 @@
 diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/src/xsecurelock-1.8.0/helpers/auth_x11.c
---- xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c	2020-06-08 16:07:36.855772199 -0700
-+++ xsecurelock/src/xsecurelock-1.8.0/helpers/auth_x11.c	2020-06-09 13:58:07.374647259 -0700
-@@ -741,19 +741,23 @@
+--- xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c	2022-09-26 22:40:12.659706615 -0700
++++ xsecurelock/src/xsecurelock-1.8.0/helpers/auth_x11.c	2022-09-26 22:40:12.666373606 -0700
+@@ -786,19 +786,23 @@
  }
  
  void BuildTitle(char *output, size_t output_size, const char *input) {
@@ -36,7 +36,7 @@ diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/s
    }
  
    if (*input == 0) {
-@@ -761,9 +765,12 @@
+@@ -806,9 +810,12 @@
      return;
    }
  
@@ -51,10 +51,12 @@ diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/s
    strncpy(output, input, output_size - 1);
    output[output_size - 1] = 0;
  }
-@@ -898,22 +905,6 @@
+@@ -941,24 +948,11 @@
+                len_full_title);
+     y += th * 2;
  
-     DrawString(i, cx - tw_str / 2, y, is_warning, str, len_str);
-     y += th;
+-    DrawString(i, cx - tw_str / 2, y, is_warning, str, len_str);
+-    y += th;
 -
 -    DrawString(i, cx - tw_indicators / 2, y, indicators_warning, indicators,
 -               len_indicators);
@@ -64,17 +66,20 @@ diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/s
 -      DrawString(i, cx - tw_switch_layout / 2, y, 0, switch_layout,
 -                 len_switch_layout);
 -      y += th;
--    }
--
++    if (len_str > 0) {
++      DrawString(i, cx - tw_str / 2, y, is_warning, str, len_str);
+     }
+ 
 -    if (have_switch_user_command) {
 -      DrawString(i, cx - tw_switch_user / 2, y, 0, switch_user,
 -                 len_switch_user);
 -      // y += th;
 -    }
++    y += th;
    }
  
    // Make the things just drawn appear on the screen as soon as possible.
-@@ -1424,10 +1415,10 @@
+@@ -1469,10 +1463,10 @@
          }
          explicit_bzero(message, strlen(message));
          free(message);
@@ -87,7 +92,7 @@ diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/s
            WritePacket(responsefd[1], PTYPE_RESPONSE_LIKE_PASSWORD, response);
            explicit_bzero(response, strlen(response));
            free(response);
-@@ -1436,7 +1427,7 @@
+@@ -1481,7 +1475,7 @@
          }
          explicit_bzero(message, strlen(message));
          free(message);

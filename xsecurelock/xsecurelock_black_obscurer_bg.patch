@@ -1,7 +1,7 @@
 diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/main.c xsecurelock/src/xsecurelock-1.8.0/main.c
---- xsecurelock.ORIG/src/xsecurelock-1.8.0/main.c	2020-09-13 16:43:02.450907782 -0700
-+++ xsecurelock/src/xsecurelock-1.8.0/main.c	2020-09-13 16:43:03.814236570 -0700
-@@ -874,7 +874,7 @@
+--- xsecurelock.ORIG/src/xsecurelock-1.8.0/main.c	2022-09-26 22:40:12.659706615 -0700
++++ xsecurelock/src/xsecurelock-1.8.0/main.c	2022-09-26 22:40:12.659706615 -0700
+@@ -899,7 +899,7 @@
            display, root_window, incompatible_compositor_bits,
            incompatible_compositor_width, incompatible_compositor_height,
            BlackPixel(display, DefaultScreen(display)),
