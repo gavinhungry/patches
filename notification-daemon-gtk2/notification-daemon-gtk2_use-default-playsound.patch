@@ -1,0 +1,44 @@
+diff --color -ru notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/daemon/daemon.c notification-daemon-gtk2/src/notification-daemon-0.5.0/src/daemon/daemon.c
+--- notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/daemon/daemon.c	2022-10-07 11:55:32.176050719 -0700
++++ notification-daemon-gtk2/src/notification-daemon-0.5.0/src/daemon/daemon.c	2022-10-07 14:23:30.879927776 -0700
+@@ -1530,16 +1530,14 @@
+         }
+ 
+         if (sound_enabled) {
+-                data = (GValue *) g_hash_table_lookup (hints, "sound-file");
++                sound_file = gconf_client_get_string (gconf_client,
++                                                      GCONF_KEY_DEFAULT_SOUND,
++                                                      NULL);
+ 
+-                if (data != NULL) {
+-                        sound_file = g_value_dup_string (data);
+-
+-                        if (*sound_file == '\0'
+-                            || !g_file_test (sound_file, G_FILE_TEST_EXISTS)) {
+-                                g_free (sound_file);
+-                                sound_file = NULL;
+-                        }
++                if (*sound_file == '\0'
++                    || !g_file_test (sound_file, G_FILE_TEST_EXISTS)) {
++                        g_free (sound_file);
++                        sound_file = NULL;
+                 }
+         }
+ 
+diff --color -ru notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/daemon/sound.c notification-daemon-gtk2/src/notification-daemon-0.5.0/src/daemon/sound.c
+--- notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/daemon/sound.c	2022-10-07 11:55:32.176050719 -0700
++++ notification-daemon-gtk2/src/notification-daemon-0.5.0/src/daemon/sound.c	2022-10-07 14:23:32.520004242 -0700
+@@ -29,10 +29,8 @@
+ sound_play_file (GtkWidget *widget,
+                  const char *filename)
+ {
+-        ca_gtk_play_for_widget (widget, 0,
+-                                CA_PROP_MEDIA_ROLE, "event",
+-                                CA_PROP_MEDIA_FILENAME, filename,
+-                                CA_PROP_EVENT_DESCRIPTION, _("Notification"),
+-                                NULL);
++        char cmd[200];
++        sprintf(cmd, "/usr/bin/playsound %s &> /dev/null &", filename);
++        system(cmd);
+ }
+ 
