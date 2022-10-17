@@ -1,6 +1,15 @@
-diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/src/xsecurelock-1.8.0/helpers/auth_x11.c
---- xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c	2022-09-26 22:40:12.659706615 -0700
-+++ xsecurelock/src/xsecurelock-1.8.0/helpers/auth_x11.c	2022-09-26 22:40:12.666373606 -0700
+diff --color -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/src/xsecurelock-1.8.0/helpers/auth_x11.c
+--- xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c	2022-10-16 13:45:40.120309550 -0700
++++ xsecurelock/src/xsecurelock-1.8.0/helpers/auth_x11.c	2022-10-16 17:17:00.520982443 -0700
+@@ -85,7 +85,7 @@
+ #define PARANOID_PASSWORD_MIN_CHANGE 4
+ 
+ //! Border of the window around the text.
+-#define WINDOW_BORDER 16
++#define WINDOW_BORDER 64
+ 
+ //! Draw border rectangle (mainly for debugging).
+ #undef DRAW_BORDER
 @@ -786,19 +786,23 @@
  }
  
@@ -9,7 +18,7 @@ diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/s
 -    size_t username_len = strlen(username);
 -    StrAppend(&output, &output_size, username, username_len);
 -  }
-+  int show_prefix = strcmp(input, "...") != 0;
++  int show_prefix = strcmp(input, " ") != 0;
  
 -  if (show_username && show_hostname) {
 -    StrAppend(&output, &output_size, "@", 1);
@@ -84,7 +93,7 @@ diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/s
          explicit_bzero(message, strlen(message));
          free(message);
 -        DisplayMessage("Processing...", "", 0);
-+        DisplayMessage("...", "", 0);
++        DisplayMessage(" ", "", 0);
          break;
        case PTYPE_PROMPT_LIKE_PASSWORD:
 -        if (Prompt(message, &response, 0)) {
@@ -97,7 +106,7 @@ diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/s
          explicit_bzero(message, strlen(message));
          free(message);
 -        DisplayMessage("Processing...", "", 0);
-+        DisplayMessage("...", "", 0);
++        DisplayMessage(" ", "", 0);
          break;
        case 0:
          goto done;
