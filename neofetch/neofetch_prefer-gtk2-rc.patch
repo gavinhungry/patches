@@ -1,0 +1,26 @@
+diff --color -ru neofetch.ORIG/src/neofetch-7.1.0/neofetch neofetch/src/neofetch-7.1.0/neofetch
+--- neofetch.ORIG/src/neofetch-7.1.0/neofetch	2022-10-28 16:14:28.978419302 -0700
++++ neofetch/src/neofetch-7.1.0/neofetch	2022-10-28 16:18:30.956292353 -0700
+@@ -3036,8 +3036,10 @@
+             ;;
+         esac
+ 
++        _gtk2_theme="$gtk2_theme"
++
+         # Check for general GTK2 Theme.
+-        if [[ -z "$gtk2_theme" ]]; then
++        if [[ -z "$gtk2_theme" || "$NEOFETCH_PREFER_GTK2_RC" == 1 ]]; then
+             if [[ -n "$GTK2_RC_FILES" ]]; then
+                 IFS=: read -ra rc_files <<< "$GTK2_RC_FILES"
+                 gtk2_theme="$(grep "^[^#]*${name}" "${rc_files[@]}")"
+@@ -3055,6 +3057,10 @@
+             gtk2_theme="${gtk2_theme/*${name}*=}"
+         fi
+ 
++        if [[ -z "$gtk2_theme" ]]; then
++            gtk2_theme="$_gtk2_theme"
++        fi
++
+         # Check for general GTK3 Theme.
+         if [[ -z "$gtk3_theme" ]]; then
+             if [[ -f "${XDG_CONFIG_HOME}/gtk-3.0/settings.ini" ]]; then
