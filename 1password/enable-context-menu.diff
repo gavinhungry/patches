@@ -1,11 +1,11 @@
---- main.js.ORIG	2022-06-09 12:24:19.048385789 -0700
-+++ main.js	2022-06-09 12:25:09.730724406 -0700
-@@ -46955,7 +46955,7 @@
+--- main.full.js.ORIG	2022-11-01 16:00:00.426710440 -0700
++++ main.full.js	2022-11-01 16:01:25.359565072 -0700
+@@ -51877,7 +51877,7 @@
                              click: () => {
-                                 a.app.quit()
+                                 i.app.quit()
                              }
--                        }), this.contextMenu = a.Menu.buildFromTemplate(e), "menu" === this.userSettings.get("trayAction") ? this.tray.setContextMenu(this.contextMenu) : this.tray.setContextMenu(null)
-+                        }), this.contextMenu = a.Menu.buildFromTemplate(e), this.tray.setContextMenu(this.contextMenu)
+-                        }), this.contextMenu = i.Menu.buildFromTemplate(e), "menu" === this.userSettings.get("trayAction") ? this.tray.setContextMenu(this.contextMenu) : this.tray.setContextMenu(null)
++                        }), this.contextMenu = i.Menu.buildFromTemplate(e), this.tray.setContextMenu(this.contextMenu)
                      };
-                     getTrayImagePath = e => r.join(__dirname, `images/tray_${"Locked"===e?"locked":"unlocked"}.png`);
-                     destroy() {
+                     getTrayImagePath = e => r.join(__dirname, `images/tray_${e===a.OpAppLockState.Locked?"locked":"unlocked"}.png`);
+                     showBackgroundSshPrompt = () => {
