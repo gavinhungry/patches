@@ -13,11 +13,11 @@ diff --color -ru teams.ORIG/PKGBUILD teams/PKGBUILD
 +
 +  asar extract "${_ASAR_PATH}" "${_ASAR_TMP}"
 +
-+  js-beautify "${_ASAR_TMP}"/main.bundle.js > "${_ASAR_TMP}"/main.js
++  js-beautify "${_ASAR_TMP}"/main.bundle.js > "${_ASAR_TMP}"/main.full.js
 +  patch -d "${_ASAR_TMP}" -p0 < "${srcdir}"/switch-display-on-restore.diff
 +  patch -d "${_ASAR_TMP}" -p0 < "${srcdir}"/log-status.diff
 +  patch -d "${_ASAR_TMP}/lib/renderer/loading" -p0 < "${srcdir}"/loading-dark.diff
-+  terser "${_ASAR_TMP}"/main.js > "${_ASAR_TMP}"/main.bundle.js
-+  rm "${_ASAR_TMP}"/main.js
++  terser "${_ASAR_TMP}"/main.full.js > "${_ASAR_TMP}"/main.bundle.js
++  rm "${_ASAR_TMP}"/main.full.js
 +  asar pack "${_ASAR_TMP}" "${_ASAR_PATH}"
  }

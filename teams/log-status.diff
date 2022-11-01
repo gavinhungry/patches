@@ -1,5 +1,5 @@
---- main.js.ORIG	2022-10-31 13:29:34.938042448 -0700
-+++ main.js	2022-10-31 13:31:30.393673589 -0700
+--- main.full.js.ORIG	2022-10-31 13:29:34.938042448 -0700
++++ main.full.js	2022-10-31 13:31:30.393673589 -0700
 @@ -100930,6 +100930,11 @@
              }, this.onIpcMainUnifiedPresenceStatesEnabled = (e, t) => {
                  b.getInstance().logInfo("unifiedPresenceStatesEnabled received {0}", [t]), this.safeSetContextMenuVisible("mystatus_appearaway", t), this.safeSetContextMenuVisible("mystatus_berightback", t), this.safeSetContextMenuVisible("mystatus_resetstatus", t), this.safeSetContextMenuVisible("mystatus_away", !t), k.isLinux() && this.trayAppIcon && this.trayAppIcon.setContextMenu(this.contextMenu)
