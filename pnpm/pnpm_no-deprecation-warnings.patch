@@ -1,11 +1,11 @@
 diff --color -ru pnpm.ORIG/PKGBUILD pnpm/PKGBUILD
---- pnpm.ORIG/PKGBUILD	2022-01-24 08:13:46.900696618 -0800
-+++ pnpm/PKGBUILD	2022-01-24 08:34:13.403874187 -0800
-@@ -14,6 +14,7 @@
- 
+--- pnpm.ORIG/PKGBUILD	2022-11-08 19:07:24.784621536 -0800
++++ pnpm/PKGBUILD	2022-11-08 19:10:50.750939819 -0800
+@@ -16,6 +16,7 @@
  package() {
- 	npm install -g --user root --prefix "$pkgdir"/usr "$srcdir/$pkgname-$pkgver.tgz"
-+	sed -i 's/^\(\s*\)\(.*reportDeprecations_1\)/\1\/\/ \2/g' "$pkgdir"/usr/lib/node_modules/pnpm/dist/pnpm.cjs
+ 	npm install -g --user root --prefix "$pkgdir"/usr "$pkgname"
  	local _npmdir="$pkgdir/usr/lib/node_modules/$pkgname"
++	sed -i 's/^\(\s*\)\(.*reportDeprecations_1\)/\1\/\/ \2/g' "$_npmdir"/dist/pnpm.cjs
  	find "$pkgdir"/usr -type d -exec chmod 755 {} +
  	chown -R root:root "$pkgdir"
+ 	find "$pkgdir"/usr/lib -depth -name '*.map' -delete
