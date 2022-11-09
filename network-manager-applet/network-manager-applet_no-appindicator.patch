@@ -1,12 +1,11 @@
 diff --color -ru network-manager-applet.ORIG/PKGBUILD network-manager-applet/PKGBUILD
---- network-manager-applet.ORIG/PKGBUILD	2022-01-26 10:20:44.561448238 -0800
-+++ network-manager-applet/PKGBUILD	2022-01-26 10:23:19.805152900 -0800
-@@ -29,7 +29,7 @@
- }
- 
+--- network-manager-applet.ORIG/PKGBUILD	2022-11-08 19:07:20.904443896 -0800
++++ network-manager-applet/PKGBUILD	2022-11-08 19:08:18.920433730 -0800
+@@ -44,6 +44,7 @@
  build() {
--  arch-meson $pkgbase build -D selinux=false
-+  arch-meson $pkgbase build -D selinux=false -D appindicator=no
-   meson compile -C build
- }
+   local meson_options=(
+     -D selinux=false
++    -D appindicator=no
+   )
  
+   arch-meson $pkgbase build "${meson_options[@]}"
