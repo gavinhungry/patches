@@ -1,6 +1,6 @@
-diff -ru xfce4-settings.ORIG/src/xfce4-settings-4.16.4/xfsettingsd/accessibility.c xfce4-settings/src/xfce4-settings-4.16.4/xfsettingsd/accessibility.c
---- xfce4-settings.ORIG/src/xfce4-settings-4.16.4/xfsettingsd/accessibility.c	2019-12-18 09:38:26.754306352 -0800
-+++ xfce4-settings/src/xfce4-settings-4.16.4/xfsettingsd/accessibility.c	2019-12-18 09:39:55.764309412 -0800
+diff -ru xfce4-settings.ORIG/src/xfce4-settings-4.16.5/xfsettingsd/accessibility.c xfce4-settings/src/xfce4-settings-4.16.5/xfsettingsd/accessibility.c
+--- xfce4-settings.ORIG/src/xfce4-settings-4.16.5/xfsettingsd/accessibility.c	2019-12-18 09:38:26.754306352 -0800
++++ xfce4-settings/src/xfce4-settings-4.16.5/xfsettingsd/accessibility.c	2019-12-18 09:39:55.764309412 -0800
 @@ -136,9 +136,6 @@
  
          /* add event filter */
