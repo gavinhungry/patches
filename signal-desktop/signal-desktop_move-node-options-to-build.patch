@@ -1,0 +1,23 @@
+diff --color -ru signal-desktop.ORIG/PKGBUILD signal-desktop/PKGBUILD
+--- signal-desktop.ORIG/PKGBUILD	2022-11-14 08:26:31.623836438 -0800
++++ signal-desktop/PKGBUILD	2022-11-14 08:27:25.749690916 -0800
+@@ -26,9 +26,6 @@
+ prepare() {
+   cd "${_pkgname}-${pkgver}"
+ 
+-  # temporary fix for openssl3
+-  export NODE_OPTIONS=--openssl-legacy-provider
+-
+   # git-lfs hook needs to be installed for one of the dependencies
+   git lfs install
+ 
+@@ -42,6 +39,9 @@
+ }
+ 
+ build() {
++  # temporary fix for openssl3
++  export NODE_OPTIONS=--openssl-legacy-provider
++
+   cd "${_pkgname}-${pkgver}"
+   yarn generate
+   yarn build
