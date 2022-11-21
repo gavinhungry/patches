@@ -1,0 +1,12 @@
+diff --color -ru openrgb.ORIG/src/OpenRGB-release_0.7/LogManager.cpp openrgb/src/OpenRGB-release_0.7/LogManager.cpp
+--- openrgb.ORIG/src/OpenRGB-release_0.7/LogManager.cpp	2022-11-20 23:20:27.070352587 -0800
++++ openrgb/src/OpenRGB-release_0.7/LogManager.cpp	2022-11-20 23:41:48.340425003 -0800
+@@ -95,7 +95,7 @@
+         filesystem::path p = logname;
+         if(p.is_relative())
+         {
+-            p = defaultDir + "logs/";
++            p = "/tmp/openrgb/";
+             p.append(logname);
+         }
+         filesystem::create_directories(p.parent_path());
