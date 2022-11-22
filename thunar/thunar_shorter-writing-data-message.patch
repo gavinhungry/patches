@@ -1,23 +1,42 @@
-diff -ru thunar.ORIG/src/thunar-4.16.11/thunar/thunar-notify.c thunar/src/thunar-4.16.11/thunar/thunar-notify.c
---- thunar.ORIG/src/thunar-4.16.11/thunar/thunar-notify.c	2021-05-06 16:23:05.253534325 -0700
-+++ thunar/src/thunar-4.16.11/thunar/thunar-notify.c	2021-05-06 16:23:06.130190167 -0700
-@@ -174,8 +174,7 @@
+diff --color -ru thunar.ORIG/src/thunar-4.16.11/thunar/thunar-notify.c thunar/src/thunar-4.16.11/thunar/thunar-notify.c
+--- thunar.ORIG/src/thunar-4.16.11/thunar/thunar-notify.c	2022-11-22 08:53:45.737530793 -0800
++++ thunar/src/thunar-4.16.11/thunar/thunar-notify.c	2022-11-22 08:59:51.635224074 -0800
+@@ -166,17 +166,13 @@
+   if (thunar_notify_device_readonly (device))
+     {
+       summary = _("Unmounting device");
+-      message = g_strdup_printf (_("The device \"%s\" is being unmounted by the system. "
+-                                   "Please do not remove the media or disconnect the "
+-                                   "drive"), name);
++      message = g_strdup_printf (_("The device \"%s\" is being unmounted"), name);
+     }
+   else
      {
        summary = _("Writing data to device");
        message = g_strdup_printf (_("There is data that needs to be written to the "
 -                                   "device \"%s\" before it can be removed. Please "
 -                                   "do not remove the media or disconnect the drive"),
-+                                   "device \"%s\" before it can be removed."),
-                                    name);
+-                                   name);
++                                   "device \"%s\" before it can be removed"), name);
      }
  
-@@ -213,8 +212,7 @@
+   thunar_notify_show (device, summary, message);
+@@ -206,16 +202,13 @@
+   if (thunar_notify_device_readonly (device))
+     {
+       summary = _("Ejecting device");
+-      message = g_strdup_printf (_("The device \"%s\" is being ejected. "
+-                                   "This may take some time"), name);
++      message = g_strdup_printf (_("The device \"%s\" is being ejected"), name);
+     }
+   else
      {
        summary = _("Writing data to device");
        message = g_strdup_printf (_("There is data that needs to be written to the "
 -                                   "device \"%s\" before it can be removed. Please "
 -                                   "do not remove the media or disconnect the drive"),
-+                                   "device \"%s\" before it can be removed."),
-                                    name);
+-                                   name);
++                                   "device \"%s\" before it can be removed"), name);
      }
  
+   thunar_notify_show (device, summary, message);
