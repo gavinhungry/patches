@@ -1,0 +1,15 @@
+diff --color -ru thunar.ORIG/src/thunar-4.16.11/thunar/thunar-notify.c thunar/src/thunar-4.16.11/thunar/thunar-notify.c
+--- thunar.ORIG/src/thunar-4.16.11/thunar/thunar-notify.c	2022-11-22 08:18:22.308184252 -0800
++++ thunar/src/thunar-4.16.11/thunar/thunar-notify.c	2022-11-22 08:45:35.164551099 -0800
+@@ -238,8 +238,9 @@
+   notification = g_object_get_data (G_OBJECT (device), I_("thunar-notification"));
+   if (notification != NULL)
+     {
+-      notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
+-      notify_notification_set_timeout (notification, 2000);
++      notify_notification_set_timeout (notification, 1000);
++      notify_notification_set_hint (notification, "suppress-sound",
++                                    g_variant_new_boolean (TRUE));
+       notify_notification_show (notification, NULL);
+ 
+       g_object_set_data (G_OBJECT (device), I_("thunar-notification"), NULL);
