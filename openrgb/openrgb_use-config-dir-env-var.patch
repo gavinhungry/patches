@@ -1,6 +1,6 @@
-diff --color -ru openrgb.ORIG/src/OpenRGB-release_0.7/ResourceManager.cpp openrgb/src/OpenRGB-release_0.7/ResourceManager.cpp
---- openrgb.ORIG/src/OpenRGB-release_0.7/ResourceManager.cpp	2022-11-20 23:20:27.070352587 -0800
-+++ openrgb/src/OpenRGB-release_0.7/ResourceManager.cpp	2022-11-20 23:36:29.615616471 -0800
+diff --color -ru openrgb.ORIG/src/OpenRGB-release_0.8/ResourceManager.cpp openrgb/src/OpenRGB-release_0.8/ResourceManager.cpp
+--- openrgb.ORIG/src/OpenRGB-release_0.8/ResourceManager.cpp	2022-11-20 23:20:27.070352587 -0800
++++ openrgb/src/OpenRGB-release_0.8/ResourceManager.cpp	2022-11-20 23:36:29.615616471 -0800
 @@ -429,10 +429,18 @@
  void ResourceManager::SetupConfigurationDirectory()
  {
