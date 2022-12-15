@@ -1,7 +1,7 @@
-diff --color -ru thunar.ORIG/src/thunar-4.16.11/thunar/thunar-notify.c thunar/src/thunar-4.16.11/thunar/thunar-notify.c
---- thunar.ORIG/src/thunar-4.16.11/thunar/thunar-notify.c	2022-11-22 08:53:45.737530793 -0800
-+++ thunar/src/thunar-4.16.11/thunar/thunar-notify.c	2022-11-22 08:59:51.635224074 -0800
-@@ -166,17 +166,13 @@
+diff -ru thunar.ORIG/src/thunar-4.18.0/thunar/thunar-notify.c thunar/src/thunar-4.18.0/thunar/thunar-notify.c
+--- thunar.ORIG/src/thunar-4.18.0/thunar/thunar-notify.c	2022-12-15 19:42:45.971362899 -0800
++++ thunar/src/thunar-4.18.0/thunar/thunar-notify.c	2022-12-15 19:42:46.558056242 -0800
+@@ -278,17 +278,13 @@
    if (thunar_notify_device_readonly (device))
      {
        summary = _("Unmounting device");
@@ -21,7 +21,7 @@ diff --color -ru thunar.ORIG/src/thunar-4.16.11/thunar/thunar-notify.c thunar/sr
      }
  
    thunar_notify_show (device, summary, message);
-@@ -206,16 +202,13 @@
+@@ -318,16 +314,13 @@
    if (thunar_notify_device_readonly (device))
      {
        summary = _("Ejecting device");

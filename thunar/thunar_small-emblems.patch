@@ -1,0 +1,44 @@
+diff -ru thunar.ORIG/src/thunar-4.18.0/thunar/thunar-emblem-chooser.c thunar/src/thunar-4.18.0/thunar/thunar-emblem-chooser.c
+--- thunar.ORIG/src/thunar-4.18.0/thunar/thunar-emblem-chooser.c	2022-12-15 19:42:45.971362899 -0800
++++ thunar/src/thunar-4.18.0/thunar/thunar-emblem-chooser.c	2022-12-15 19:42:46.638059880 -0800
+@@ -474,7 +474,7 @@
+ 
+   /* lookup the icon info for the emblem */
+   scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (chooser));
+-  info = gtk_icon_theme_lookup_icon (chooser->icon_theme, emblem, 48 * scale_factor, 0);
++  info = gtk_icon_theme_lookup_icon (chooser->icon_theme, emblem, 16 * scale_factor, 0);
+   if (G_UNLIKELY (info == NULL))
+     return NULL;
+ 
+diff -ru thunar.ORIG/src/thunar-4.18.0/thunar/thunar-icon-renderer.c thunar/src/thunar-4.18.0/thunar/thunar-icon-renderer.c
+--- thunar.ORIG/src/thunar-4.18.0/thunar/thunar-icon-renderer.c	2022-12-15 19:42:45.971362899 -0800
++++ thunar/src/thunar-4.18.0/thunar/thunar-icon-renderer.c	2022-12-15 19:42:46.638059880 -0800
+@@ -580,7 +580,7 @@
+           for (lp = emblems, position = 0; lp != NULL && position < max_emblems; lp = lp->next)
+             {
+               /* calculate the emblem size */
+-              emblem_size = MIN ((2 * icon_renderer->size) / 3, 32);
++              emblem_size = 16;
+ 
+               /* check if we have the emblem in the icon theme */
+               emblem = thunar_icon_factory_load_icon (icon_factory, lp->data, emblem_size * scale_factor, FALSE);
+@@ -591,19 +591,6 @@
+               emblem_area.width = gdk_pixbuf_get_width (emblem) / scale_factor;
+               emblem_area.height = gdk_pixbuf_get_height (emblem) / scale_factor;
+ 
+-              /* shrink insane emblems */
+-              if (G_UNLIKELY (MAX (emblem_area.width, emblem_area.height) > emblem_size))
+-                {
+-                  /* scale down the emblem */
+-                  temp = exo_gdk_pixbuf_scale_ratio (emblem, emblem_size * scale_factor);
+-                  g_object_unref (G_OBJECT (emblem));
+-                  emblem = temp;
+-
+-                  /* determine the size again */
+-                  emblem_area.width = gdk_pixbuf_get_width (emblem) / scale_factor;
+-                  emblem_area.height = gdk_pixbuf_get_height (emblem) / scale_factor;
+-                }
+-
+               /* determine a good position for the emblem, depending on the position index */
+               switch (position)
+                 {

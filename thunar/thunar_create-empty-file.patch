@@ -1,0 +1,42 @@
+diff -ru thunar.ORIG/src/thunar-4.18.0/thunar/thunar-action-manager.c thunar/src/thunar-4.18.0/thunar/thunar-action-manager.c
+--- thunar.ORIG/src/thunar-4.18.0/thunar/thunar-action-manager.c	2022-12-15 19:42:45.971362899 -0800
++++ thunar/src/thunar-4.18.0/thunar/thunar-action-manager.c	2022-12-15 19:42:46.068033961 -0800
+@@ -285,7 +285,7 @@
+     {THUNAR_ACTION_MANAGER_ACTION_EMPTY_TRASH,        "<Actions>/ThunarWindow/empty-trash",             "",                  XFCE_GTK_IMAGE_MENU_ITEM, N_ ("_Empty Trash"),        N_ ("Delete all files and folders in the Trash"), NULL,                                                                                         G_CALLBACK (thunar_action_manager_action_empty_trash),         },
+     {THUNAR_ACTION_MANAGER_ACTION_REMOVE_FROM_RECENT, "<Actions>/ThunarWindow/remove-from-recent",      "",                  XFCE_GTK_MENU_ITEM,       N_ ("_Remove from Recent"), N_ ("Remove the selected files from Recent"),     NULL,                                                                                         G_CALLBACK (thunar_action_manager_action_remove_from_recent),  },
+     {THUNAR_ACTION_MANAGER_ACTION_CREATE_FOLDER,      "<Actions>/ThunarStandardView/create-folder",     "<Primary><shift>N", XFCE_GTK_IMAGE_MENU_ITEM, N_ ("Create _Folder..."),   N_ ("Create an empty folder within the current folder"),                                         "folder-new",                                  G_CALLBACK (thunar_action_manager_action_create_folder),       },
+-    {THUNAR_ACTION_MANAGER_ACTION_CREATE_DOCUMENT,    "<Actions>/ThunarStandardView/create-document",   "",                  XFCE_GTK_IMAGE_MENU_ITEM, N_ ("Create _Document"),    N_ ("Create a new document from a template"),                                                    "document-new",                                G_CALLBACK (NULL),                                             },
++    {THUNAR_ACTION_MANAGER_ACTION_CREATE_EMPTY_FILE,  "<Actions>/ThunarStandardView/create-empty-file", "<Primary><shift>F", XFCE_GTK_IMAGE_MENU_ITEM, N_ ("Create _Empty File..."),    N_ ("Create an empty file within the current folder"),                                      "gtk-new",                                     G_CALLBACK (thunar_action_manager_action_create_document),     },
+ 
+     {THUNAR_ACTION_MANAGER_ACTION_RESTORE,            "<Actions>/ThunarActionManager/restore",               "",                  XFCE_GTK_MENU_ITEM,       N_ ("_Restore"),            NULL,                                             NULL,                                                                                         G_CALLBACK (thunar_action_manager_action_restore),             },
+     { THUNAR_ACTION_MANAGER_ACTION_RESTORE_SHOW,      "<Actions>/ThunarActionManager/restore-show",          "",                  XFCE_GTK_MENU_ITEM,       N_ ("_Restore and Show"),   N_ ("_Restore and show the file(s)"),             NULL,                                                                                         G_CALLBACK (thunar_action_manager_action_restore_and_show),    },
+@@ -1727,6 +1727,7 @@
+         return NULL;
+ 
+       case THUNAR_ACTION_MANAGER_ACTION_CREATE_FOLDER:
++      case THUNAR_ACTION_MANAGER_ACTION_CREATE_EMPTY_FILE:
+         if (THUNAR_IS_TREE_VIEW (action_mgr->widget) && action_mgr->files_are_selected && action_mgr->single_directory_to_process)
+           parent = action_mgr->single_folder;
+         else
+diff -ru thunar.ORIG/src/thunar-4.18.0/thunar/thunar-action-manager.h thunar/src/thunar-4.18.0/thunar/thunar-action-manager.h
+--- thunar.ORIG/src/thunar-4.18.0/thunar/thunar-action-manager.h	2022-12-15 19:42:45.971362899 -0800
++++ thunar/src/thunar-4.18.0/thunar/thunar-action-manager.h	2022-12-15 19:42:46.068033961 -0800
+@@ -59,6 +59,7 @@
+   THUNAR_ACTION_MANAGER_ACTION_EMPTY_TRASH,
+   THUNAR_ACTION_MANAGER_ACTION_REMOVE_FROM_RECENT,
+   THUNAR_ACTION_MANAGER_ACTION_CREATE_FOLDER,
++  THUNAR_ACTION_MANAGER_ACTION_CREATE_EMPTY_FILE,
+   THUNAR_ACTION_MANAGER_ACTION_CREATE_DOCUMENT,
+   THUNAR_ACTION_MANAGER_ACTION_RESTORE,
+   THUNAR_ACTION_MANAGER_ACTION_RESTORE_SHOW,
+diff -ru thunar.ORIG/src/thunar-4.18.0/thunar/thunar-menu.c thunar/src/thunar-4.18.0/thunar/thunar-menu.c
+--- thunar.ORIG/src/thunar-4.18.0/thunar/thunar-menu.c	2022-12-15 19:42:45.974696384 -0800
++++ thunar/src/thunar-4.18.0/thunar/thunar-menu.c	2022-12-15 19:42:46.068033961 -0800
+@@ -256,6 +256,7 @@
+     {
+       item_added = FALSE;
+       item_added |= (thunar_action_manager_append_menu_item (menu->action_mgr, GTK_MENU_SHELL (menu), THUNAR_ACTION_MANAGER_ACTION_CREATE_FOLDER, force) != NULL);
++      item_added |= (thunar_action_manager_append_menu_item (menu->action_mgr, GTK_MENU_SHELL (menu), THUNAR_ACTION_MANAGER_ACTION_CREATE_EMPTY_FILE, force) != NULL);
+ 
+       /* No document creation for side pane views */
+       if (menu->type != THUNAR_MENU_TYPE_CONTEXT_TREE_VIEW && menu->type != THUNAR_MENU_TYPE_CONTEXT_SHORTCUTS_VIEW)
