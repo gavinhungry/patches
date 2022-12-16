@@ -1,7 +1,7 @@
-diff --color -ru tumbler.ORIG/src/tumbler-4.16.1/plugins/xdg-cache/xdg-cache-cache.c tumbler/src/tumbler-4.16.1/plugins/xdg-cache/xdg-cache-cache.c
---- tumbler.ORIG/src/tumbler-4.16.1/plugins/xdg-cache/xdg-cache-cache.c	2022-01-13 13:39:40.166764861 -0800
-+++ tumbler/src/tumbler-4.16.1/plugins/xdg-cache/xdg-cache-cache.c	2022-01-13 13:50:28.954553392 -0800
-@@ -531,6 +531,7 @@
+diff -ru tumbler.ORIG/src/tumbler-4.18.0/plugins/xdg-cache/xdg-cache-cache.c tumbler/src/tumbler-4.18.0/plugins/xdg-cache/xdg-cache-cache.c
+--- tumbler.ORIG/src/tumbler-4.18.0/plugins/xdg-cache/xdg-cache-cache.c	2022-12-15 19:42:43.371244674 -0800
++++ tumbler/src/tumbler-4.18.0/plugins/xdg-cache/xdg-cache-cache.c	2022-12-15 19:42:43.374578159 -0800
+@@ -535,6 +535,7 @@
  {
    XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
    const gchar   *cachedir;
@@ -9,7 +9,7 @@ diff --color -ru tumbler.ORIG/src/tumbler-4.16.1/plugins/xdg-cache/xdg-cache-cac
    const gchar   *dirname;
    gboolean       is_thumbnail = FALSE;
    GList         *iter;
-@@ -544,6 +545,8 @@
+@@ -549,6 +550,8 @@
    for (iter = xdg_cache->flavors; !is_thumbnail && iter != NULL; iter = iter->next)
      {
        cachedir = g_get_user_cache_dir ();
@@ -18,7 +18,7 @@ diff --color -ru tumbler.ORIG/src/tumbler-4.16.1/plugins/xdg-cache/xdg-cache-cac
        dirname = tumbler_thumbnail_flavor_get_name (iter->data);
        path = g_build_filename (cachedir, "thumbnails", dirname, NULL);
  
-@@ -552,6 +555,12 @@
+@@ -557,6 +560,12 @@
  
        if (g_file_has_prefix (file, flavor_dir))
          is_thumbnail = TRUE;
