@@ -1,0 +1,27 @@
+diff --color -ru emerald-gtk3.ORIG/src/emerald-v0.8.18/src/main.c emerald-gtk3/src/emerald-v0.8.18/src/main.c
+--- emerald-gtk3.ORIG/src/emerald-v0.8.18/src/main.c	2022-12-16 00:40:42.489431091 -0800
++++ emerald-gtk3/src/emerald-v0.8.18/src/main.c	2022-12-16 02:03:46.008950426 -0800
+@@ -4376,7 +4376,11 @@
+ 	    break;
+     }
+ 
+-    if (state != d->button_states[button])
++    /*
++     * Don't attempt to redraw buttons after the close button has been pressed,
++     * as it can cause the decorations to disappear while the window is closing.
++     */
++    if (state != d->button_states[button] && wnck_window_get_sort_order(win) != -1)
+ 	queue_decor_draw_for_buttons(d, TRUE);
+ 
+     return ret;
+@@ -4385,7 +4389,10 @@
+ static void close_button_event(WnckWindow * win, XEvent * xevent)
+ {
+     if (generic_button_event(win, xevent, B_T_CLOSE, B_CLOSE))
++    {
++	wnck_window_set_sort_order(win, -1);
+ 	wnck_window_close(win, (guint32) xevent->xbutton.time);
++    }
+ }
+ 
+ static void max_button_event(WnckWindow * win, XEvent * xevent)
