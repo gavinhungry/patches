@@ -1,7 +1,7 @@
-diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.16.5/plugins/actions/actions.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/actions/actions.c	2022-10-23 11:33:50.036253342 -0700
-+++ xfce4-panel/src/xfce4-panel-4.16.5/plugins/actions/actions.c	2022-10-23 12:06:05.249480969 -0700
-@@ -1024,6 +1024,14 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.0/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.18.0/plugins/actions/actions.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.0/plugins/actions/actions.c	2022-12-15 20:02:45.618759582 -0800
++++ xfce4-panel/src/xfce4-panel-4.18.0/plugins/actions/actions.c	2022-12-15 20:02:45.808768094 -0800
+@@ -1036,6 +1036,14 @@
  
  
  static void
@@ -16,7 +16,7 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/actions/actions
  actions_plugin_action_activate (GtkWidget      *widget,
                                  ActionsPlugin  *plugin)
  {
-@@ -1052,21 +1060,25 @@
+@@ -1064,21 +1072,25 @@
    switch (entry->type)
      {
      case ACTION_TYPE_LOGOUT:

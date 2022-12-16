@@ -1,16 +1,16 @@
-diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.16.5/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/tasklist/tasklist-widget.c	2021-12-17 22:27:37.615375364 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.5/plugins/tasklist/tasklist-widget.c	2021-12-17 22:35:40.372116165 -0800
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.0/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.18.0/plugins/tasklist/tasklist-widget.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.0/plugins/tasklist/tasklist-widget.c	2022-12-15 20:02:45.618759582 -0800
++++ xfce4-panel/src/xfce4-panel-4.18.0/plugins/tasklist/tasklist-widget.c	2022-12-15 20:02:45.785433715 -0800
 @@ -46,7 +46,7 @@
  
  
- #define DEFAULT_BUTTON_SIZE          (25)
+ #define DEFAULT_BUTTON_SIZE          (32)
 -#define DEFAULT_MAX_BUTTON_LENGTH    (200)
 +#define DEFAULT_MAX_BUTTON_LENGTH    (300)
  #define DEFAULT_MIN_BUTTON_LENGTH    (DEFAULT_MAX_BUTTON_LENGTH / 4)
  #define DEFAULT_ICON_LUCENCY         (50)
  #define DEFAULT_ELLIPSIZE_MODE       (PANGO_ELLIPSIZE_END)
-@@ -1730,9 +1730,15 @@
+@@ -1743,9 +1743,15 @@
              }
          }
  
@@ -29,8 +29,8 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/tasklist/taskli
      }
    /* set the toggle button state for the group button */
    if (class_group)
-@@ -2248,14 +2254,15 @@
-                                                   | GDK_SMOOTH_SCROLL_MASK);
+@@ -2265,14 +2271,15 @@
+                           G_BINDING_SYNC_CREATE);
  
    child->box = gtk_box_new (!xfce_tasklist_vertical (tasklist) ?
 -      GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL, 6);
@@ -47,7 +47,7 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/tasklist/taskli
                                  tasklist->minimized_icon_lucency / 100,
                                  tasklist->minimized_icon_lucency % 100);
    gtk_css_provider_load_from_data (provider, css_string, -1, NULL);
-@@ -2274,7 +2281,7 @@
+@@ -2291,7 +2298,7 @@
      gtk_widget_show (child->icon);
  
    child->label = gtk_label_new (NULL);
@@ -56,7 +56,7 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/tasklist/taskli
    if (!xfce_tasklist_vertical (tasklist))
      {
        /* gtk_box_reorder_child (GTK_BOX (child->box), child->icon, 0); */
-@@ -2291,13 +2298,6 @@
+@@ -2308,13 +2315,6 @@
        /* TODO can we already ellipsize here yet? */
      }
  
@@ -70,7 +70,7 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/tasklist/taskli
    /* don't show the label if we're in iconbox style */
    if (tasklist->show_labels)
      gtk_widget_show (child->label);
-@@ -2692,16 +2692,7 @@
+@@ -2776,16 +2776,8 @@
    ctx = gtk_widget_get_style_context (child->label);
    gtk_style_context_remove_class (ctx, "label-hidden");
  
@@ -84,22 +84,22 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/tasklist/taskli
 -        name = label = g_strdup_printf ("=%s=", name);
 -    }
 -  else
++
 +  if (!child->tasklist->label_decorations)
      {
        if ((!child->tasklist->only_minimized
            && wnck_window_is_minimized (child->window))
-@@ -2786,45 +2777,6 @@
+@@ -2870,56 +2862,6 @@
              }
          }
      }
 -
 -  /* update the blinking state */
--  if (PANEL_HAS_FLAG (changed_state, WNCK_WINDOW_STATE_DEMANDS_ATTENTION)
--      || PANEL_HAS_FLAG (changed_state, WNCK_WINDOW_STATE_URGENT))
+-  if (PANEL_HAS_FLAG (changed_state, URGENT_FLAGS))
 -    {
 -      /* only start blinking if the window requesting urgency
 -       * notification is not the active window */
--      blink = wnck_window_or_transient_needs_attention (window);
+-      blink = PANEL_HAS_FLAG (new_state, URGENT_FLAGS);
 -      if (!blink || (blink && !wnck_window_is_active (window)))
 -        {
 -          /* if we have all_blinking set make sure we toggle visibility of the button
@@ -112,19 +112,31 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/tasklist/taskli
 -              gtk_widget_show (child->button);
 -            }
 -
+-          /* update button blinking even if grouped so it is in right state when ungrouped */
+-          xfce_arrow_button_set_blinking (XFCE_ARROW_BUTTON (child->button), blink);
 -
--          /* make sure the group button can blink too */
--          if (child->type == CHILD_TYPE_GROUP_MENU)
+-          /* also update group button blinking if needed */
+-          if (child->tasklist->grouping)
 -            {
 -              /* find the child for the group */
 -              g_hash_table_lookup_extended (child->tasklist->class_groups,
 -                                            child->class_group,
 -                                            NULL, (gpointer *) &group_child);
+-
+-              /* stop blinking only if no window in group needs attention */
+-              if (! blink)
+-                for (GSList *lp = group_child->windows; lp != NULL; lp = lp->next)
+-                  {
+-                    temp_child = lp->data;
+-                    if (wnck_window_needs_attention (temp_child->window))
+-                      {
+-                        blink = TRUE;
+-                        break;
+-                      }
+-                  }
+-
 -              xfce_arrow_button_set_blinking (XFCE_ARROW_BUTTON (group_child->button), blink);
 -            }
--          /* otherwise just let the window button blink */
--          else
--            xfce_arrow_button_set_blinking (XFCE_ARROW_BUTTON (child->button), blink);
 -
 -          if (child->tasklist->all_blinking
 -              && !xfce_tasklist_button_visible (child, active_ws))
@@ -134,11 +146,13 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/tasklist/taskli
  }
  
  
-@@ -2842,6 +2794,7 @@
+@@ -2935,6 +2877,9 @@
  
-   /* make sure we don't have two active windows (bug #6474) */
-   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
+   xfce_tasklist_sort (tasklist, FALSE);
+   xfce_tasklist_active_window_changed (tasklist->screen, window, tasklist);
++
 +  gtk_widget_modify_font (GTK_LABEL (child->label), pango_font_description_from_string (""));
- 
++
    if (!tasklist->all_workspaces)
      xfce_tasklist_active_workspace_changed (tasklist->screen, NULL, tasklist);
+ }

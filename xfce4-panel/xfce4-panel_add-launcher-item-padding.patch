@@ -1,7 +1,7 @@
-diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/launcher/launcher.c xfce4-panel/src/xfce4-panel-4.16.5/plugins/launcher/launcher.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/launcher/launcher.c	2022-02-02 15:56:54.970940814 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.5/plugins/launcher/launcher.c	2022-02-02 16:28:11.551885523 -0800
-@@ -1648,6 +1648,7 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.0/plugins/launcher/launcher.c xfce4-panel/src/xfce4-panel-4.18.0/plugins/launcher/launcher.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.0/plugins/launcher/launcher.c	2022-12-15 20:02:45.618759582 -0800
++++ xfce4-panel/src/xfce4-panel-4.18.0/plugins/launcher/launcher.c	2022-12-15 20:02:45.648760926 -0800
+@@ -1612,6 +1612,7 @@
        gtk_label_set_xalign (GTK_LABEL (label), 0.0);
        box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 4);
        gtk_box_pack_end (GTK_BOX (box), label, TRUE, TRUE, 0);

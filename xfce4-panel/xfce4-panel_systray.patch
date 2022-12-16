@@ -1,7 +1,7 @@
-diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/systray/sn-plugin.c xfce4-panel/src/xfce4-panel-4.16.5/plugins/systray/sn-plugin.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/systray/sn-plugin.c	2022-02-06 22:47:06.597752044 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.5/plugins/systray/sn-plugin.c	2022-02-06 22:47:30.608822896 -0800
-@@ -239,8 +239,7 @@
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.0/plugins/systray/sn-plugin.c xfce4-panel/src/xfce4-panel-4.18.0/plugins/systray/sn-plugin.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.0/plugins/systray/sn-plugin.c	2022-12-15 20:02:45.618759582 -0800
++++ xfce4-panel/src/xfce4-panel-4.18.0/plugins/systray/sn-plugin.c	2022-12-15 20:02:45.765432820 -0800
+@@ -252,8 +252,7 @@
  static void
  update_button_visibility (SnPlugin *plugin)
  {
@@ -11,7 +11,7 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/systray/sn-plug
  }
  
  
-@@ -359,7 +358,6 @@
+@@ -372,7 +371,6 @@
                              G_CALLBACK (sn_plugin_item_added), plugin);
    g_signal_connect_swapped (plugin->backend, "item-removed",
                              G_CALLBACK (sn_plugin_item_removed), plugin);
@@ -19,9 +19,9 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/systray/sn-plug
  #endif
  
    /* Systray arrow button */
-diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel-4.16.5/plugins/systray/systray-box.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.16.5/plugins/systray/systray-box.c	2022-02-06 22:47:06.597752044 -0800
-+++ xfce4-panel/src/xfce4-panel-4.16.5/plugins/systray/systray-box.c	2022-02-06 22:47:38.532509295 -0800
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.0/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel-4.18.0/plugins/systray/systray-box.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.0/plugins/systray/systray-box.c	2022-12-15 20:02:45.618759582 -0800
++++ xfce4-panel/src/xfce4-panel-4.18.0/plugins/systray/systray-box.c	2022-12-15 20:02:45.765432820 -0800
 @@ -36,7 +36,7 @@
  #include "systray-socket.h"
  #include "sn-config.h"
