@@ -1,0 +1,33 @@
+diff --color -ru thunar.ORIG/src/thunar-4.18.0/thunar/thunar-window.c thunar/src/thunar-4.18.0/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-4.18.0/thunar/thunar-window.c	2022-12-16 02:19:33.299013482 -0800
++++ thunar/src/thunar-4.18.0/thunar/thunar-window.c	2022-12-16 02:22:17.296520557 -0800
+@@ -5110,9 +5110,6 @@
+ thunar_window_set_current_directory (ThunarWindow *window,
+                                      ThunarFile   *current_directory)
+ {
+-  gboolean is_trash;
+-  gboolean is_recent;
+-
+   _thunar_return_if_fail (THUNAR_IS_WINDOW (window));
+   _thunar_return_if_fail (current_directory == NULL || THUNAR_IS_FILE (current_directory));
+ 
+@@ -5195,18 +5192,7 @@
+   if (current_directory == NULL)
+     return;
+ 
+-  is_trash = thunar_file_is_trash (current_directory);
+-  is_recent = thunar_file_is_recent (current_directory);
+-  if (is_trash)
+-    gtk_widget_show (window->trash_infobar);
+-  else
+-    gtk_widget_hide (window->trash_infobar);
+-
+-  if (THUNAR_IS_DETAILS_VIEW (window->view) == FALSE)
+-    return;
+-  thunar_details_view_set_date_deleted_column_visible (THUNAR_DETAILS_VIEW (window->view), is_trash);
+-  thunar_details_view_set_recency_column_visible (THUNAR_DETAILS_VIEW (window->view), is_recent);
+-  thunar_details_view_set_location_column_visible (THUNAR_DETAILS_VIEW (window->view), is_recent);
++  gtk_widget_hide (window->trash_infobar);
+ }
+ 
+ 
