@@ -1,0 +1,24 @@
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/blur.xml.in compiz/src/compiz-0.9.14.2/plugins/blur/blur.xml.in
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/blur.xml.in	2022-12-16 15:49:25.324530451 -0800
++++ compiz/src/compiz-0.9.14.2/plugins/blur/blur.xml.in	2022-12-16 16:08:56.443025027 -0800
+@@ -73,7 +73,7 @@
+ 		<_long>Gaussian radius</_long>
+ 		<default>3</default>
+ 		<min>1</min>
+-		<max>15</max>
++		<max>63</max>
+ 	    </option>
+ 	    <option name="gaussian_strength" type="float">
+ 		<_short>Gaussian Strength</_short>
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/src/blur.h compiz/src/compiz-0.9.14.2/plugins/blur/src/blur.h
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/src/blur.h	2022-12-16 15:49:25.324530451 -0800
++++ compiz/src/compiz-0.9.14.2/plugins/blur/src/blur.h	2022-12-16 16:08:50.152741650 -0800
+@@ -42,7 +42,7 @@
+ #include <decoration.h>
+ 
+ 
+-const unsigned short BLUR_GAUSSIAN_RADIUS_MAX = 15;
++const unsigned short BLUR_GAUSSIAN_RADIUS_MAX = 63;
+ 
+ const unsigned short BLUR_STATE_CLIENT = 0;
+ const unsigned short BLUR_STATE_DECOR  = 1;
