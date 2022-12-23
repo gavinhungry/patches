@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.18.0/thunar/thunar-notify.c thunar/src/thunar-4.18.0/thunar/thunar-notify.c
---- thunar.ORIG/src/thunar-4.18.0/thunar/thunar-notify.c	2022-12-15 19:42:45.971362899 -0800
-+++ thunar/src/thunar-4.18.0/thunar/thunar-notify.c	2022-12-15 19:42:46.558056242 -0800
+diff -ru thunar.ORIG/src/thunar-4.18.1/thunar/thunar-notify.c thunar/src/thunar-4.18.1/thunar/thunar-notify.c
+--- thunar.ORIG/src/thunar-4.18.1/thunar/thunar-notify.c	2022-12-15 19:42:45.971362899 -0800
++++ thunar/src/thunar-4.18.1/thunar/thunar-notify.c	2022-12-15 19:42:46.558056242 -0800
 @@ -278,17 +278,13 @@
    if (thunar_notify_device_readonly (device))
      {
