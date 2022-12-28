@@ -1,6 +1,6 @@
-diff --color -ru mirage-python3.ORIG/src/mirage-0.11.1/resources/gtk/menus.ui mirage-python3/src/mirage-0.11.1/resources/gtk/menus.ui
---- mirage-python3.ORIG/src/mirage-0.11.1/resources/gtk/menus.ui	2022-07-01 18:26:53.659567826 -0700
-+++ mirage-python3/src/mirage-0.11.1/resources/gtk/menus.ui	2022-07-01 18:46:35.741048615 -0700
+diff --color -ru mirage.ORIG/src/mirage-0.11.1/resources/gtk/menus.ui mirage/src/mirage-0.11.1/resources/gtk/menus.ui
+--- mirage.ORIG/src/mirage-0.11.1/resources/gtk/menus.ui	2022-07-01 18:26:53.659567826 -0700
++++ mirage/src/mirage-0.11.1/resources/gtk/menus.ui	2022-07-01 18:46:35.741048615 -0700
 @@ -5,32 +5,27 @@
        <attribute name="label" translatable="yes">_File</attribute>
        <section>

@@ -1,0 +1,11 @@
+diff --color -ru mirage.ORIG/src/mirage-0.11.1/mirage/__init__.py mirage/src/mirage-0.11.1/mirage/__init__.py
+--- mirage.ORIG/src/mirage-0.11.1/mirage/__init__.py	2022-07-01 18:26:53.656234340 -0700
++++ mirage/src/mirage-0.11.1/mirage/__init__.py	2022-07-01 18:34:28.190439488 -0700
+@@ -586,7 +586,6 @@
+             | Gdk.EventMask.BUTTON_MOTION_MASK
+             | Gdk.EventMask.SCROLL_MASK
+         )
+-        self.layout.connect("scroll-event", self.mousewheel_scrolled)
+         self.layout.add_events(
+             Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.KEY_PRESS_MASK
+         )

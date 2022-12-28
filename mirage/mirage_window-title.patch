@@ -1,6 +1,6 @@
-diff --color -ru mirage-python3.ORIG/src/mirage-0.11.1/mirage/__init__.py mirage-python3/src/mirage-0.11.1/mirage/__init__.py
---- mirage-python3.ORIG/src/mirage-0.11.1/mirage/__init__.py	2022-07-01 18:26:53.656234340 -0700
-+++ mirage-python3/src/mirage-0.11.1/mirage/__init__.py	2022-07-01 18:29:46.930867622 -0700
+diff --color -ru mirage.ORIG/src/mirage-0.11.1/mirage/__init__.py mirage/src/mirage-0.11.1/mirage/__init__.py
+--- mirage.ORIG/src/mirage-0.11.1/mirage/__init__.py	2022-07-01 18:26:53.656234340 -0700
++++ mirage/src/mirage-0.11.1/mirage/__init__.py	2022-07-01 18:29:46.930867622 -0700
 @@ -6405,14 +6405,8 @@
              title = "Mirage"
          else:
