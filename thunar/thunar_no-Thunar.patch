@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/PKGBUILD thunar/PKGBUILD
---- thunar.ORIG/PKGBUILD	2022-12-15 19:42:45.968029414 -0800
-+++ thunar/PKGBUILD	2022-12-15 19:42:46.394715482 -0800
+--- thunar.ORIG/PKGBUILD	2023-01-10 23:31:26.869555762 -0800
++++ thunar/PKGBUILD	2023-01-10 23:31:27.319576078 -0800
 @@ -42,6 +42,7 @@
  package() {
    cd $pkgname-$pkgver
