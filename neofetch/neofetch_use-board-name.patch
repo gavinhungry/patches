@@ -1,0 +1,18 @@
+diff --color -ru neofetch.ORIG/src/neofetch-7.1.0/neofetch neofetch/src/neofetch-7.1.0/neofetch
+--- neofetch.ORIG/src/neofetch-7.1.0/neofetch	2023-01-23 09:51:36.255532974 -0800
++++ neofetch/src/neofetch-7.1.0/neofetch	2023-01-23 09:56:55.973729272 -0800
+@@ -1213,10 +1213,11 @@
+             if [[ -d /system/app/ && -d /system/priv-app ]]; then
+                 model="$(getprop ro.product.brand) $(getprop ro.product.model)"
+ 
+-            elif [[ -f /sys/devices/virtual/dmi/id/product_name ||
+-                    -f /sys/devices/virtual/dmi/id/product_version ]]; then
++            elif [[ -f /sys/devices/virtual/dmi/id/board_name ]]; then
++                model=$(< /sys/devices/virtual/dmi/id/board_name)
++
++            elif [[ -f /sys/devices/virtual/dmi/id/product_name ]]; then
+                 model=$(< /sys/devices/virtual/dmi/id/product_name)
+-                model+=" $(< /sys/devices/virtual/dmi/id/product_version)"
+ 
+             elif [[ -f /sys/firmware/devicetree/base/model ]]; then
+                 model=$(< /sys/firmware/devicetree/base/model)
