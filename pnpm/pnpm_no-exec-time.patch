@@ -1,12 +1,11 @@
 diff --color -ru pnpm.ORIG/PKGBUILD pnpm/PKGBUILD
---- pnpm.ORIG/PKGBUILD	2022-11-13 23:29:39.404041992 -0800
-+++ pnpm/PKGBUILD	2022-11-13 23:36:02.548479795 -0800
-@@ -34,6 +34,9 @@
+--- pnpm.ORIG/PKGBUILD	2023-01-31 09:03:15.734718038 -0800
++++ pnpm/PKGBUILD	2023-01-31 09:11:06.730327427 -0800
+@@ -34,6 +34,8 @@
    install -Dm644 "$_npmdir/README.md" "$pkgdir/usr/share/doc/$pkgname/README.md"
    rm -rf "$pkgdir/usr/etc" "$_npmdir/LICENSE" "$_npmdir/README.md"
  
-+  sed -i 's/^\(\s*\)\(.*reportDeprecations_1\)/\1\/\/ \2/g' "$_npmdir"/dist/pnpm.cjs
-+  sed -i 's/PRINT_EXECUTION_TIME_IN_COMMANDS\[opts\.cmd\]/false/' "$_npmdir"/dist/pnpm.cjs
++  sed -i 's/ in PRINT_EXECUTION_TIME_IN_COMMANDS)/ in {})/' "$_npmdir"/dist/pnpm.cjs
 +
    # Remove references to $srcdir and $pkgdir.
    # See: https://wiki.archlinux.org/title/Node.js_package_guidelines#Package_contains_reference_to_$srcdir/$pkgdir
