@@ -1,21 +1,29 @@
 diff --color -ru cbatticon.ORIG/src/cbatticon/cbatticon.c cbatticon/src/cbatticon/cbatticon.c
---- cbatticon.ORIG/src/cbatticon/cbatticon.c	2023-02-16 00:42:58.020778308 -0800
-+++ cbatticon/src/cbatticon/cbatticon.c	2023-02-16 01:13:23.732759413 -0800
-@@ -1127,10 +1127,16 @@
+--- cbatticon.ORIG/src/cbatticon/cbatticon.c	2023-02-16 02:04:15.700026630 -0800
++++ cbatticon/src/cbatticon/cbatticon.c	2023-02-16 02:11:46.799281811 -0800
+@@ -1127,11 +1127,20 @@
          }
      } else {
          if (configuration.icon_type == BATTERY_ICON_NOTIFICATION) {
 -                 if (percentage <= 20)  g_strlcat (icon_name, "-020", STR_LTH);
-+                 if (percentage <= 5)   g_strlcat (icon_name, "-000", STR_LTH);
-+            else if (percentage <= 10)  g_strlcat (icon_name, "-010", STR_LTH);
-+            else if (percentage <= 20)  g_strlcat (icon_name, "-020", STR_LTH);
-+            else if (percentage <= 30)  g_strlcat (icon_name, "-030", STR_LTH);
-             else if (percentage <= 40)  g_strlcat (icon_name, "-040", STR_LTH);
-+            else if (percentage <= 50)  g_strlcat (icon_name, "-050", STR_LTH);
-             else if (percentage <= 60)  g_strlcat (icon_name, "-060", STR_LTH);
-+            else if (percentage <= 70)  g_strlcat (icon_name, "-070", STR_LTH);
-             else if (percentage <= 80)  g_strlcat (icon_name, "-080", STR_LTH);
-+            else if (percentage <= 90)  g_strlcat (icon_name, "-090", STR_LTH);
-             else                        g_strlcat (icon_name, "-100", STR_LTH);
+-            else if (percentage <= 40)  g_strlcat (icon_name, "-040", STR_LTH);
+-            else if (percentage <= 60)  g_strlcat (icon_name, "-060", STR_LTH);
+-            else if (percentage <= 80)  g_strlcat (icon_name, "-080", STR_LTH);
+-            else                        g_strlcat (icon_name, "-100", STR_LTH);
++                 if (percentage <= 5)  g_strlcat (icon_name, "-000", STR_LTH);
++            else if (percentage <= 8)  g_strlcat (icon_name, "-008", STR_LTH);
++            else if (percentage <= 16) g_strlcat (icon_name, "-016", STR_LTH);
++            else if (percentage <= 24) g_strlcat (icon_name, "-024", STR_LTH);
++            else if (percentage <= 32) g_strlcat (icon_name, "-032", STR_LTH);
++            else if (percentage <= 40) g_strlcat (icon_name, "-040", STR_LTH);
++            else if (percentage <= 48) g_strlcat (icon_name, "-048", STR_LTH);
++            else if (percentage <= 56) g_strlcat (icon_name, "-056", STR_LTH);
++            else if (percentage <= 64) g_strlcat (icon_name, "-064", STR_LTH);
++            else if (percentage <= 72) g_strlcat (icon_name, "-072", STR_LTH);
++            else if (percentage <= 80) g_strlcat (icon_name, "-080", STR_LTH);
++            else if (percentage <= 88) g_strlcat (icon_name, "-088", STR_LTH);
++            else if (percentage <= 96) g_strlcat (icon_name, "-096", STR_LTH);
++            else                       g_strlcat (icon_name, "-100", STR_LTH);
  
                   if (state == CHARGING) g_strlcat (icon_name, "-plugged", STR_LTH);
+             else if (state == CHARGED)  g_strlcat (icon_name, "-plugged", STR_LTH);
