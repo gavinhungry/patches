@@ -1,0 +1,13 @@
+diff --color -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c
+--- xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c	2023-02-16 13:06:33.479960031 -0800
++++ xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c	2023-02-16 13:22:40.807351891 -0800
+@@ -291,9 +291,6 @@
+   g_signal_connect_swapped(G_OBJECT(window), "delete-event",
+       G_CALLBACK(close_calendar_window),
+       datetime);
+-  g_signal_connect_swapped(G_OBJECT(window), "focus-out-event",
+-      G_CALLBACK(close_calendar_window),
+-      datetime);
+   gtk_widget_show_all(window);
+ 
+   xfce_panel_plugin_block_autohide (XFCE_PANEL_PLUGIN (datetime->plugin), TRUE);

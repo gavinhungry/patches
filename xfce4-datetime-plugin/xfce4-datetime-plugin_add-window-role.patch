@@ -1,0 +1,11 @@
+diff --color -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c
+--- xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c	2023-02-16 13:06:33.479960031 -0800
++++ xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c	2023-02-16 13:22:06.046764469 -0800
+@@ -243,6 +243,7 @@
+   parent = g_object_get_data(G_OBJECT(widget), "calendar-parent");
+   xfce_panel_plugin_position_widget(datetime->plugin, widget, parent, &x, &y);
+   gtk_window_move(GTK_WINDOW(widget), x, y);
++  gtk_window_set_role(GTK_WINDOW(widget), "xfce4-datetime-plugin-calendar");
+ }
+ 
+ static gboolean close_calendar_window(t_datetime *datetime)
