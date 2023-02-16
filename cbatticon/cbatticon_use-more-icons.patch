@@ -1,0 +1,21 @@
+diff --color -ru cbatticon.ORIG/src/cbatticon/cbatticon.c cbatticon/src/cbatticon/cbatticon.c
+--- cbatticon.ORIG/src/cbatticon/cbatticon.c	2023-02-16 00:42:58.020778308 -0800
++++ cbatticon/src/cbatticon/cbatticon.c	2023-02-16 01:13:23.732759413 -0800
+@@ -1127,10 +1127,16 @@
+         }
+     } else {
+         if (configuration.icon_type == BATTERY_ICON_NOTIFICATION) {
+-                 if (percentage <= 20)  g_strlcat (icon_name, "-020", STR_LTH);
++                 if (percentage <= 5)   g_strlcat (icon_name, "-000", STR_LTH);
++            else if (percentage <= 10)  g_strlcat (icon_name, "-010", STR_LTH);
++            else if (percentage <= 20)  g_strlcat (icon_name, "-020", STR_LTH);
++            else if (percentage <= 30)  g_strlcat (icon_name, "-030", STR_LTH);
+             else if (percentage <= 40)  g_strlcat (icon_name, "-040", STR_LTH);
++            else if (percentage <= 50)  g_strlcat (icon_name, "-050", STR_LTH);
+             else if (percentage <= 60)  g_strlcat (icon_name, "-060", STR_LTH);
++            else if (percentage <= 70)  g_strlcat (icon_name, "-070", STR_LTH);
+             else if (percentage <= 80)  g_strlcat (icon_name, "-080", STR_LTH);
++            else if (percentage <= 90)  g_strlcat (icon_name, "-090", STR_LTH);
+             else                        g_strlcat (icon_name, "-100", STR_LTH);
+ 
+                  if (state == CHARGING) g_strlcat (icon_name, "-plugged", STR_LTH);
