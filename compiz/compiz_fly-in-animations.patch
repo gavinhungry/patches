@@ -1,7 +1,7 @@
 diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/animationsim.xml.in compiz/src/compiz-0.9.14.2/plugins/simple-animations/animationsim.xml.in
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/animationsim.xml.in	2023-02-16 13:57:49.743830962 -0800
-+++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/animationsim.xml.in	2023-02-16 14:09:41.938368853 -0800
-@@ -76,6 +76,65 @@
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/animationsim.xml.in	2022-08-21 22:55:24.000000000 -0700
++++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/animationsim.xml.in	2023-02-16 14:31:01.433878688 -0800
+@@ -76,6 +76,124 @@
  	  </option>
  	</subgroup>
  	<subgroup>
@@ -63,11 +63,70 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/anima
 +		<precision>0.01</precision>
 +	  </option>
 +	</subgroup>
++		<subgroup>
++	  <_short>Fly In 3</_short>
++	  <option name="flyin3_direction" type="int">
++	    <_short>Fly In Direction</_short>
++	    <_long>The direction in which the fly in should take place</_long>
++	    <default>0</default>
++	    <desc>
++		<value>0</value>
++		<name>Up</name>
++	    </desc>
++	    <desc>
++		<value>1</value>
++		<name>Left</name>
++	    </desc>
++	    <desc>
++		<value>2</value>
++		<name>Down</name>
++	    </desc>
++	    <desc>
++		<value>3</value>
++		<name>Right</name>
++	    </desc>
++	    <desc>
++		<value>4</value>
++		<name>User Defined</name>
++	    </desc>
++	    <min>0</min>
++	    <max>4</max>
++	  </option>
++	  <option name="flyin3_direction_x" type="float">
++	    <_short>UD Direction X</_short>
++	    <_long>Direction and Distance X for user defined fly in</_long>
++	    <default>0</default>
++	    <min>-1000</min>
++	    <max>1000</max>
++		<precision>0.01</precision>
++	  </option>
++	  <option name="flyin3_direction_y" type="float">
++	    <_short>UD Direction Y</_short>
++	    <_long>Direction and Distance Y for user defined fly in</_long>
++	    <default>0</default>
++	    <min>-1000</min>
++	    <max>1000</max>
++		<precision>0.01</precision>
++	  </option>
++	  <option name="flyin3_fade" type="bool">
++	    <_short>Fade</_short>
++	    <_long>Fade when flying in</_long>
++	    <default>true</default>
++	  </option>
++	  <option name="flyin3_distance" type="float">
++	    <_short>Distance</_short>
++	    <_long>Distance to fly in</_long>
++	    <default>20</default>
++	    <min>5</min>
++	    <max>1000</max>
++		<precision>0.01</precision>
++	  </option>
++	</subgroup>
 +	<subgroup>
  	  <_short>Rotate In</_short>
  	  <option name="rotatein_direction" type="int">
  	    <_short>Rotate In Direction</_short>
-@@ -202,6 +261,10 @@
+@@ -202,6 +320,14 @@
  	<_name>Fly In</_name>
        </restriction>
        <restriction>
@@ -75,21 +134,26 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/anima
 +	<_name>Fly In 2</_name>
 +      </restriction>
 +      <restriction>
++	<value>animationsim:Fly In 3</value>
++	<_name>Fly In 3</_name>
++      </restriction>
++      <restriction>
  	<value>animationsim:Bounce</value>
  	<_name>Bounce</_name>
        </restriction>
 diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.cpp compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.cpp	2023-02-16 13:57:49.743830962 -0800
-+++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.cpp	2023-02-16 14:10:57.919515807 -0800
-@@ -45,6 +45,7 @@
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.cpp	2022-08-21 22:55:24.000000000 -0700
++++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.cpp	2023-02-16 14:31:32.887624887 -0800
+@@ -45,6 +45,8 @@
  }
  
  AnimEffect AnimEffectFlyIn;
 +AnimEffect AnimEffectFlyIn2;
++AnimEffect AnimEffectFlyIn3;
  AnimEffect AnimEffectRotateIn;
  AnimEffect AnimEffectExpand;
  AnimEffect AnimEffectExpandPW;
-@@ -70,6 +71,10 @@
+@@ -70,6 +72,14 @@
  	new AnimEffectInfo ("animationsim:Fly In", usedFor,
  			    &createAnimation<FlyInAnim>);
  
@@ -97,21 +161,26 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/a
 +    new AnimEffectInfo ("animationsim:Fly In 2", usedFor,
 +                &createAnimation<FlyIn2Anim>);
 +
++    animEffects[i++] = AnimEffectFlyIn3 =
++    new AnimEffectInfo ("animationsim:Fly In 3", usedFor,
++                &createAnimation<FlyIn3Anim>);
++
      animEffects[i++] = AnimEffectRotateIn =
  	new AnimEffectInfo ("animationsim:Rotate In", usedFor,
  			    &createAnimation<RotateInAnim>);
 diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.h compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.h
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.h	2023-02-16 13:57:49.743830962 -0800
-+++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.h	2023-02-16 14:11:42.526853444 -0800
-@@ -13,6 +13,7 @@
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.h	2022-08-21 22:55:24.000000000 -0700
++++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.h	2023-02-16 14:31:56.131264911 -0800
+@@ -13,6 +13,8 @@
  #include "animationsim_options.h"
  
  extern AnimEffect AnimEffectFlyIn;
 +extern AnimEffect AnimEffectFlyIn2;
++extern AnimEffect AnimEffectFlyIn3;
  extern AnimEffect AnimEffectBounce;
  extern AnimEffect AnimEffectRotateIn;
  extern AnimEffect AnimEffectSheet;
-@@ -124,6 +125,35 @@
+@@ -124,6 +126,64 @@
  		   WindowEvent curWindowEvent,
  		   float       duration,
  		   const AnimEffect info,
@@ -144,13 +213,42 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/a
 +		   WindowEvent curWindowEvent,
 +		   float       duration,
 +		   const AnimEffect info,
++           const CompRect   &icon) :
++	    Animation::Animation (w, curWindowEvent, duration, info, icon),
++	    BaseSimAnim::BaseSimAnim (w, curWindowEvent, duration, info, icon),
++	    TransformAnim::TransformAnim (w, curWindowEvent, duration, info, icon),
++	    FadeAnim::FadeAnim (w, curWindowEvent, duration, info, icon) {}
++
++    protected:
++	void step () { TransformAnim::step (); }
++	bool updateBBUsed () { return true; }
++	void updateBB (CompOutput &output) {  TransformAnim::updateBB (output); }
++	void applyTransform ();
++	bool requiresTransformedWindow () const { return true; }
++
++	float getFadeProgress ()
++	{
++	    return progressDecelerate (progressLinear ());
++	}
++};
++
++class FlyIn3Anim : public FadeAnim,
++		  virtual public BaseSimAnim,
++          virtual public TransformAnim
++{
++    public:
++	
++	FlyIn3Anim (CompWindow *w,
++		   WindowEvent curWindowEvent,
++		   float       duration,
++		   const AnimEffect info,
             const CompRect   &icon) :
  	    Animation::Animation (w, curWindowEvent, duration, info, icon),
  	    BaseSimAnim::BaseSimAnim (w, curWindowEvent, duration, info, icon),
 diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/flyin.cpp compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/flyin.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/flyin.cpp	2023-02-16 13:57:49.743830962 -0800
-+++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/flyin.cpp	2023-02-16 14:12:07.637230456 -0800
-@@ -84,3 +84,50 @@
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/flyin.cpp	2022-08-21 22:55:24.000000000 -0700
++++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/flyin.cpp	2023-02-16 14:32:44.878578858 -0800
+@@ -84,3 +84,97 @@
      transform->translate (translation.x (), translation.y (), translation.z ());
  
  }
@@ -189,6 +287,53 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/f
 +    case 4:
 +        offsetX = ass->optionGetFlyin2DirectionX ();
 +        offsetY = ass->optionGetFlyin2DirectionY ();
++        break;
++    }
++
++    forwardProgress = progressLinear ();
++    xTrans = -(forwardProgress * offsetX);
++    yTrans = -(forwardProgress * offsetY);
++    Point3d translation = Point3d (xTrans, yTrans, 0);
++
++    // animation movement
++    transform->translate (translation.x (), translation.y (), translation.z ());
++
++}
++
++void
++FlyIn3Anim::applyTransform ()
++{
++    GLMatrix *transform = &mTransform;
++    float offsetX = 0, offsetY = 0;
++    float xTrans, yTrans;
++    float forwardProgress;
++
++    ANIMSIM_SCREEN (screen);
++
++    int direction = ass->optionGetFlyin3Direction ();
++    float distance = ass->optionGetFlyin3Distance ();
++
++    switch (direction)
++    {
++    case 0:
++        offsetX = 0;     
++        offsetY = distance;
++        break;
++    case 1:
++        offsetX = distance;
++        offsetY = 0;
++        break;
++    case 2:
++        offsetX = 0;
++        offsetY = -distance;
++        break;
++    case 3:
++        offsetX = -distance;
++        offsetY = 0;
++        break;
++    case 4:
++        offsetX = ass->optionGetFlyin3DirectionX ();
++        offsetY = ass->optionGetFlyin3DirectionY ();
 +        break;
 +    }
 +
