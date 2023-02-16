@@ -109,7 +109,7 @@ getPkgSourceDir() {
 
     if ! eval "$PKGSRC_DIR_CMD" &> /dev/null; then
       cd "$PKGBUILD_DIR" &> /dev/null
-      eval "$PKGSRC_DIR_CMD" &> /dev/null || return
+      eval "$PKGSRC_DIR_CMD" &> /dev/null # || return
     fi
   fi
 
