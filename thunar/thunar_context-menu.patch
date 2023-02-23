@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.18.3/thunar/thunar-action-manager.c thunar/src/thunar-4.18.3/thunar/thunar-action-manager.c
---- thunar.ORIG/src/thunar-4.18.3/thunar/thunar-action-manager.c	2023-01-10 23:31:26.872889245 -0800
-+++ thunar/src/thunar-4.18.3/thunar/thunar-action-manager.c	2023-01-10 23:31:26.929558470 -0800
+diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-action-manager.c thunar/src/thunar-4.18.4/thunar/thunar-action-manager.c
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-action-manager.c	2023-01-10 23:31:26.872889245 -0800
++++ thunar/src/thunar-4.18.4/thunar/thunar-action-manager.c	2023-01-10 23:31:26.929558470 -0800
 @@ -270,7 +270,7 @@
      { THUNAR_ACTION_MANAGER_ACTION_OPEN_IN_TAB,      "<Actions>/ThunarActionManager/open-in-new-tab",         "<Primary><shift>P", XFCE_GTK_MENU_ITEM,       N_ ("Open in new _Tab"),                NULL,                                                                                            NULL,                   G_CALLBACK (thunar_action_manager_action_open_in_new_tabs),    },
      { THUNAR_ACTION_MANAGER_ACTION_OPEN_IN_WINDOW,   "<Actions>/ThunarActionManager/open-in-new-window",      "<Primary><shift>O", XFCE_GTK_MENU_ITEM,       N_ ("Open in new _Window"),             NULL,                                                                                            NULL,                   G_CALLBACK (thunar_action_manager_action_open_in_new_windows), },
@@ -77,9 +77,9 @@ diff -ru thunar.ORIG/src/thunar-4.18.3/thunar/thunar-action-manager.c thunar/src
        tooltip_text = g_strdup_printf (ngettext ("Use \"%s\" to open the selected file",
                                                  "Use \"%s\" to open the selected files",
                                                  action_mgr->n_files_to_process), g_app_info_get_name (applications->data));
-diff -ru thunar.ORIG/src/thunar-4.18.3/thunar/thunar-details-view.c thunar/src/thunar-4.18.3/thunar/thunar-details-view.c
---- thunar.ORIG/src/thunar-4.18.3/thunar/thunar-details-view.c	2023-01-10 23:31:26.872889245 -0800
-+++ thunar/src/thunar-4.18.3/thunar/thunar-details-view.c	2023-01-10 23:31:26.946225889 -0800
+diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-details-view.c thunar/src/thunar-4.18.4/thunar/thunar-details-view.c
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-details-view.c	2023-01-10 23:31:26.872889245 -0800
++++ thunar/src/thunar-4.18.4/thunar/thunar-details-view.c	2023-01-10 23:31:26.946225889 -0800
 @@ -1045,8 +1045,6 @@
    ThunarDetailsView *details_view = THUNAR_DETAILS_VIEW (standard_view);
  
@@ -89,9 +89,9 @@ diff -ru thunar.ORIG/src/thunar-4.18.3/thunar/thunar-details-view.c thunar/src/t
  }
  
  
-diff -ru thunar.ORIG/src/thunar-4.18.3/thunar/thunar-standard-view.c thunar/src/thunar-4.18.3/thunar/thunar-standard-view.c
---- thunar.ORIG/src/thunar-4.18.3/thunar/thunar-standard-view.c	2023-01-10 23:31:26.872889245 -0800
-+++ thunar/src/thunar-4.18.3/thunar/thunar-standard-view.c	2023-01-10 23:31:26.949559373 -0800
+diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-standard-view.c thunar/src/thunar-4.18.4/thunar/thunar-standard-view.c
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-standard-view.c	2023-01-10 23:31:26.872889245 -0800
++++ thunar/src/thunar-4.18.4/thunar/thunar-standard-view.c	2023-01-10 23:31:26.949559373 -0800
 @@ -4090,12 +4090,8 @@
      {
        thunar_menu_add_sections (context_menu, THUNAR_MENU_SECTION_OPEN
@@ -120,9 +120,9 @@ diff -ru thunar.ORIG/src/thunar-4.18.3/thunar/thunar-standard-view.c thunar/src/
      }
    thunar_gtk_menu_hide_accel_labels (GTK_MENU (context_menu));
    gtk_widget_show_all (GTK_WIDGET (context_menu));
-diff -ru thunar.ORIG/src/thunar-4.18.3/thunar/thunar-window.c thunar/src/thunar-4.18.3/thunar/thunar-window.c
---- thunar.ORIG/src/thunar-4.18.3/thunar/thunar-window.c	2023-01-10 23:31:26.876222729 -0800
-+++ thunar/src/thunar-4.18.3/thunar/thunar-window.c	2023-01-10 23:31:26.949559373 -0800
+diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c thunar/src/thunar-4.18.4/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c	2023-01-10 23:31:26.876222729 -0800
++++ thunar/src/thunar-4.18.4/thunar/thunar-window.c	2023-01-10 23:31:26.949559373 -0800
 @@ -487,8 +487,8 @@
  static XfceGtkActionEntry thunar_window_action_entries[] =
  {

@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.18.3/thunar/thunar-progress-view.c thunar/src/thunar-4.18.3/thunar/thunar-progress-view.c
---- thunar.ORIG/src/thunar-4.18.3/thunar/thunar-progress-view.c	2023-01-10 23:31:26.872889245 -0800
-+++ thunar/src/thunar-4.18.3/thunar/thunar-progress-view.c	2023-01-10 23:31:27.279574272 -0800
+diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-progress-view.c thunar/src/thunar-4.18.4/thunar/thunar-progress-view.c
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-progress-view.c	2023-01-10 23:31:26.872889245 -0800
++++ thunar/src/thunar-4.18.4/thunar/thunar-progress-view.c	2023-01-10 23:31:27.279574272 -0800
 @@ -190,7 +190,6 @@
  static void
  thunar_progress_view_init (ThunarProgressView *view)

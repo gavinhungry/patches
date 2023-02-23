@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.18.3/thunar/thunar-window.c thunar/src/thunar-4.18.3/thunar/thunar-window.c
---- thunar.ORIG/src/thunar-4.18.3/thunar/thunar-window.c	2023-01-10 23:31:26.876222729 -0800
-+++ thunar/src/thunar-4.18.3/thunar/thunar-window.c	2023-01-10 23:31:27.652924461 -0800
+diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c thunar/src/thunar-4.18.4/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c	2023-01-10 23:31:26.876222729 -0800
++++ thunar/src/thunar-4.18.4/thunar/thunar-window.c	2023-01-10 23:31:27.652924461 -0800
 @@ -2958,7 +2958,7 @@
  {
    gboolean      change_window_icon;
