@@ -1,0 +1,12 @@
+diff --color -ru libva.ORIG/PKGBUILD libva/PKGBUILD
+--- libva.ORIG/PKGBUILD	2023-03-02 10:39:27.009648102 -0800
++++ libva/PKGBUILD	2023-03-02 10:39:39.813221518 -0800
+@@ -48,7 +48,7 @@
+ 
+ build() {
+   CFLAGS+=" -DENABLE_VA_MESSAGING"  # Option missing
+-  arch-meson libva build
++  arch-meson libva build -Dwith_legacy=nvctrl
+   meson compile -C build
+ }
+ 
