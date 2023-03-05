@@ -1,7 +1,7 @@
 diff --color -ru cbatticon.ORIG/src/cbatticon/cbatticon.c cbatticon/src/cbatticon/cbatticon.c
---- cbatticon.ORIG/src/cbatticon/cbatticon.c	2023-02-16 02:04:15.700026630 -0800
-+++ cbatticon/src/cbatticon/cbatticon.c	2023-02-16 02:11:46.799281811 -0800
-@@ -1127,11 +1127,20 @@
+--- cbatticon.ORIG/src/cbatticon/cbatticon.c	2023-03-05 10:49:06.667552367 -0800
++++ cbatticon/src/cbatticon/cbatticon.c	2023-03-05 11:11:13.332748080 -0800
+@@ -1127,22 +1127,34 @@
          }
      } else {
          if (configuration.icon_type == BATTERY_ICON_NOTIFICATION) {
@@ -25,5 +25,23 @@ diff --color -ru cbatticon.ORIG/src/cbatticon/cbatticon.c cbatticon/src/cbattico
 +            else if (percentage <= 96) g_strlcat (icon_name, "-096", STR_LTH);
 +            else                       g_strlcat (icon_name, "-100", STR_LTH);
  
-                  if (state == CHARGING) g_strlcat (icon_name, "-plugged", STR_LTH);
-             else if (state == CHARGED)  g_strlcat (icon_name, "-plugged", STR_LTH);
+-                 if (state == CHARGING) g_strlcat (icon_name, "-plugged", STR_LTH);
+-            else if (state == CHARGED)  g_strlcat (icon_name, "-plugged", STR_LTH);
++            // "Not charging" indicates AC power, but charging threshold reached
++            if (state == CHARGING || state == NOT_CHARGING || state == CHARGED)
++                g_strlcat (icon_name, "-plugged", STR_LTH);
+         } else {
+                  if (percentage <= 20)  g_strlcat (icon_name, "-caution", STR_LTH);
+             else if (percentage <= 40)  g_strlcat (icon_name, "-low", STR_LTH);
+             else if (percentage <= 80)  g_strlcat (icon_name, "-good", STR_LTH);
+             else                        g_strlcat (icon_name, "-full", STR_LTH);
+ 
+-                 if (state == CHARGING) g_strlcat (icon_name, "-charging", STR_LTH);
+-            else if (state == CHARGED)  g_strlcat (icon_name, "-charged", STR_LTH);
++            if (state == CHARGING || state == NOT_CHARGING)
++                g_strlcat (icon_name, "-charging", STR_LTH);
++            else if (state == CHARGED)
++                g_strlcat (icon_name, "-charged", STR_LTH);
+         }
+     }
+ 
