@@ -1,0 +1,21 @@
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2023-03-21 10:26:42.945058091 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2023-03-21 10:27:50.275525326 -0700
+@@ -3214,7 +3214,6 @@
+   if (event->button == 3)
+     {
+       menu = wnck_action_menu_new (child->window);
+-      xfce_tasklist_button_add_launch_new_instance_item (child, menu, FALSE);
+       g_signal_connect (G_OBJECT (menu), "selection-done",
+           G_CALLBACK (xfce_tasklist_button_menu_destroy), child);
+ 
+@@ -3881,9 +3880,6 @@
+           if (action_menu_entries)
+             gtk_menu_item_set_submenu (GTK_MENU_ITEM (mi),
+                 wnck_action_menu_new (child->window));
+-
+-          if (li->next == NULL)
+-            xfce_tasklist_button_add_launch_new_instance_item (child, menu, TRUE);
+         }
+     }
+ 
