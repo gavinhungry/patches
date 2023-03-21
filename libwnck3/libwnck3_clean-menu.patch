@@ -1,0 +1,114 @@
+diff --color -ru libwnck3.ORIG/src/libwnck/libwnck/window-action-menu.c libwnck3/src/libwnck/libwnck/window-action-menu.c
+--- libwnck3.ORIG/src/libwnck/libwnck/window-action-menu.c	2023-03-21 10:39:07.796997178 -0700
++++ libwnck3/src/libwnck/libwnck/window-action-menu.c	2023-03-21 12:02:02.625172687 -0700
+@@ -188,9 +188,15 @@
+       break;
+     case PIN:
+       if (!viewport_mode)
+-        wnck_window_pin (window);
++        if (wnck_window_is_pinned (window))
++          wnck_window_unpin (window);
++        else
++          wnck_window_pin (window);
+       else
+-        wnck_window_stick (window);
++        if (wnck_window_is_sticky (window))
++          wnck_window_unstick (window);
++        else
++          wnck_window_stick (window);
+       break;
+     case UNPIN:
+       if (!viewport_mode)
+@@ -411,8 +417,8 @@
+           gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->pin_item),
+                                           TRUE);
+   else
+-          gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->unpin_item),
+-                                          TRUE);
++          gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->pin_item),
++                                          FALSE);
+   g_signal_handlers_unblock_by_func (G_OBJECT (priv->pin_item),
+                                      item_activated_callback,
+                                      GINT_TO_POINTER (PIN));
+@@ -974,68 +980,43 @@
+   g_object_weak_ref (G_OBJECT (priv->window), window_weak_notify, menu);
+ 
+   priv->minimize_item = make_menu_item (MINIMIZE);
+-
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+-                         priv->minimize_item);
+-
+   priv->maximize_item = make_menu_item (MAXIMIZE);
+ 
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+-                         priv->maximize_item);
+-
+   priv->move_item = make_menu_item (MOVE);
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+-                         priv->move_item);
+-
+   set_item_text (priv->move_item, _("_Move"));
+ 
+   priv->resize_item = make_menu_item (RESIZE);
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+-                         priv->resize_item);
+-
+   set_item_text (priv->resize_item, _("_Resize"));
+ 
+   priv->workspace_separator = separator = gtk_separator_menu_item_new ();
+   gtk_widget_show (separator);
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+-                         separator);
+ 
+   priv->above_item = make_check_menu_item (ABOVE,
+-                                          _("Always On _Top"));
++                                          _("Always on _Top"));
+ 
+   gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+                          priv->above_item);
+ 
+   pin_group = NULL;
+ 
+-  priv->pin_item = make_radio_menu_item (PIN, &pin_group,
+-                                        _("_Always on Visible Workspace"));
++  priv->pin_item = make_check_menu_item (PIN,
++                                        _("_Always on Workspace"));
+   gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+                          priv->pin_item);
+ 
+   priv->unpin_item = make_radio_menu_item (UNPIN, &pin_group,
+                                           _("_Only on This Workspace"));
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+-                         priv->unpin_item);
+ 
+   priv->left_item = make_menu_item (LEFT);
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+-                         priv->left_item);
+   set_item_text (priv->left_item, _("Move to Workspace _Left"));
+ 
+   priv->right_item = make_menu_item (RIGHT);
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+-                         priv->right_item);
+   set_item_text (priv->right_item, _("Move to Workspace R_ight"));
+ 
+   priv->up_item = make_menu_item (UP);
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+-                         priv->up_item);
+   set_item_text (priv->up_item, _("Move to Workspace _Up"));
+ 
+   priv->down_item = make_menu_item (DOWN);
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+-                         priv->down_item);
+   set_item_text (priv->down_item, _("Move to Workspace _Down"));
+ 
+   priv->workspace_item = gtk_menu_item_new_with_mnemonic (_("Move to Another _Workspace"));
+@@ -1045,9 +1026,6 @@
+   gtk_menu_item_set_submenu (GTK_MENU_ITEM (priv->workspace_item),
+                              submenu);
+ 
+-  gtk_menu_shell_append (GTK_MENU_SHELL (menu),
+-                         priv->workspace_item);
+-
+   separator = gtk_separator_menu_item_new ();
+   gtk_widget_show (separator);
+   gtk_menu_shell_append (GTK_MENU_SHELL (menu),
