@@ -1,12 +1,12 @@
-diff -ru mkinitcpio.ORIG/src/mkinitcpio-34/functions mkinitcpio/src/mkinitcpio-34/functions
---- mkinitcpio.ORIG/src/mkinitcpio-34/functions	2021-02-25 13:48:47.934474252 -0800
-+++ mkinitcpio/src/mkinitcpio-34/functions	2021-02-25 13:50:54.519226256 -0800
-@@ -412,8 +412,7 @@
+diff --color -ru mkinitcpio.ORIG/src/mkinitcpio-35.1/functions mkinitcpio/src/mkinitcpio-35.1/functions
+--- mkinitcpio.ORIG/src/mkinitcpio-35.1/functions	2023-03-22 08:33:35.486510905 -0700
++++ mkinitcpio/src/mkinitcpio-35.1/functions	2023-03-22 08:34:11.143680589 -0700
+@@ -526,8 +526,7 @@
      fi
  
      if (( ${#firmware[*]} )); then
 -        add_firmware "${firmware[@]}" ||
--            warning 'Possibly missing firmware for module: %s' "$target"
+-            warning "Possibly missing firmware for module: '%s'" "$target"
 +        add_firmware "${firmware[@]}"
      fi
  
