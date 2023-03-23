@@ -1,7 +1,7 @@
 diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-file.c thunar/src/thunar-4.18.4/thunar/thunar-file.c
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-file.c	2023-01-10 23:31:26.872889245 -0800
-+++ thunar/src/thunar-4.18.4/thunar/thunar-file.c	2023-01-10 23:31:27.156235370 -0800
-@@ -3612,6 +3612,9 @@
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-file.c	2023-03-23 12:05:40.124032949 -0700
++++ thunar/src/thunar-4.18.4/thunar/thunar-file.c	2023-03-23 12:05:40.377372703 -0700
+@@ -3619,6 +3619,9 @@
    guint32   uid;
    gchar   **emblem_names;
    GList    *emblems = NULL;
@@ -11,7 +11,7 @@ diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-file.c thunar/src/thunar-4.
  
    _thunar_return_val_if_fail (THUNAR_IS_FILE (file), NULL);
  
-@@ -3628,7 +3631,18 @@
+@@ -3635,7 +3638,18 @@
      }
  
    if (thunar_file_is_symlink (file))

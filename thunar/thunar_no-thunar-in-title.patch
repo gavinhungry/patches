@@ -1,7 +1,7 @@
-diff --color -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c thunar/src/thunar-4.18.4/thunar/thunar-window.c
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c	2023-02-16 00:05:16.450417064 -0800
-+++ thunar/src/thunar-4.18.4/thunar/thunar-window.c	2023-02-16 00:07:32.251563261 -0800
-@@ -4778,7 +4778,6 @@
+diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c thunar/src/thunar-4.18.4/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c	2023-03-23 12:05:40.124032949 -0700
++++ thunar/src/thunar-4.18.4/thunar/thunar-window.c	2023-03-23 12:05:40.540710176 -0700
+@@ -4772,7 +4772,6 @@
                                           ThunarWindow *window)
  {
    gboolean      show_full_path;
@@ -9,7 +9,7 @@ diff --color -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c thunar/src
    gchar        *parse_name = NULL;
    const gchar  *name;
  
-@@ -4794,9 +4793,7 @@
+@@ -4788,9 +4787,7 @@
      name = thunar_file_get_display_name (current_directory);
  
    /* set window title */

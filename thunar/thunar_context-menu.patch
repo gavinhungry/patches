@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-action-manager.c thunar/src/thunar-4.18.4/thunar/thunar-action-manager.c
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-action-manager.c	2023-01-10 23:31:26.872889245 -0800
-+++ thunar/src/thunar-4.18.4/thunar/thunar-action-manager.c	2023-01-10 23:31:26.929558470 -0800
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-action-manager.c	2023-03-23 12:05:40.120699532 -0700
++++ thunar/src/thunar-4.18.4/thunar/thunar-action-manager.c	2023-03-23 12:05:40.170700798 -0700
 @@ -270,7 +270,7 @@
      { THUNAR_ACTION_MANAGER_ACTION_OPEN_IN_TAB,      "<Actions>/ThunarActionManager/open-in-new-tab",         "<Primary><shift>P", XFCE_GTK_MENU_ITEM,       N_ ("Open in new _Tab"),                NULL,                                                                                            NULL,                   G_CALLBACK (thunar_action_manager_action_open_in_new_tabs),    },
      { THUNAR_ACTION_MANAGER_ACTION_OPEN_IN_WINDOW,   "<Actions>/ThunarActionManager/open-in-new-window",      "<Primary><shift>O", XFCE_GTK_MENU_ITEM,       N_ ("Open in new _Window"),             NULL,                                                                                            NULL,                   G_CALLBACK (thunar_action_manager_action_open_in_new_windows), },
@@ -78,9 +78,9 @@ diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-action-manager.c thunar/src
                                                  "Use \"%s\" to open the selected files",
                                                  action_mgr->n_files_to_process), g_app_info_get_name (applications->data));
 diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-details-view.c thunar/src/thunar-4.18.4/thunar/thunar-details-view.c
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-details-view.c	2023-01-10 23:31:26.872889245 -0800
-+++ thunar/src/thunar-4.18.4/thunar/thunar-details-view.c	2023-01-10 23:31:26.946225889 -0800
-@@ -1045,8 +1045,6 @@
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-details-view.c	2023-03-23 12:05:40.120699532 -0700
++++ thunar/src/thunar-4.18.4/thunar/thunar-details-view.c	2023-03-23 12:05:40.170700798 -0700
+@@ -1050,8 +1050,6 @@
    ThunarDetailsView *details_view = THUNAR_DETAILS_VIEW (standard_view);
  
    _thunar_return_if_fail (THUNAR_IS_DETAILS_VIEW (details_view));
@@ -90,9 +90,9 @@ diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-details-view.c thunar/src/t
  
  
 diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-standard-view.c thunar/src/thunar-4.18.4/thunar/thunar-standard-view.c
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-standard-view.c	2023-01-10 23:31:26.872889245 -0800
-+++ thunar/src/thunar-4.18.4/thunar/thunar-standard-view.c	2023-01-10 23:31:26.949559373 -0800
-@@ -4090,12 +4090,8 @@
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-standard-view.c	2023-03-23 12:05:40.124032949 -0700
++++ thunar/src/thunar-4.18.4/thunar/thunar-standard-view.c	2023-03-23 12:05:40.170700798 -0700
+@@ -4104,12 +4104,8 @@
      {
        thunar_menu_add_sections (context_menu, THUNAR_MENU_SECTION_OPEN
                                              | THUNAR_MENU_SECTION_EDIT_LAUNCHER
@@ -105,7 +105,7 @@ diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-standard-view.c thunar/src/
                                              | THUNAR_MENU_SECTION_RESTORE
                                              | THUNAR_MENU_SECTION_RENAME
                                              | THUNAR_MENU_SECTION_CUSTOM_ACTIONS
-@@ -4104,13 +4100,9 @@
+@@ -4118,13 +4114,9 @@
    else /* right click on some empty space */
      {
        thunar_menu_add_sections (context_menu, THUNAR_MENU_SECTION_CREATE_NEW_FILES
@@ -121,9 +121,9 @@ diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-standard-view.c thunar/src/
    thunar_gtk_menu_hide_accel_labels (GTK_MENU (context_menu));
    gtk_widget_show_all (GTK_WIDGET (context_menu));
 diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c thunar/src/thunar-4.18.4/thunar/thunar-window.c
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c	2023-01-10 23:31:26.876222729 -0800
-+++ thunar/src/thunar-4.18.4/thunar/thunar-window.c	2023-01-10 23:31:26.949559373 -0800
-@@ -487,8 +487,8 @@
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c	2023-03-23 12:05:40.124032949 -0700
++++ thunar/src/thunar-4.18.4/thunar/thunar-window.c	2023-03-23 12:05:40.170700798 -0700
+@@ -484,8 +484,8 @@
  static XfceGtkActionEntry thunar_window_action_entries[] =
  {
      { THUNAR_WINDOW_ACTION_FILE_MENU,                      "<Actions>/ThunarWindow/file-menu",                       "",                     XFCE_GTK_MENU_ITEM,       N_ ("_File"),                  NULL, NULL, NULL,},
@@ -134,7 +134,7 @@ diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c thunar/src/thunar-
      { THUNAR_WINDOW_ACTION_DETACH_TAB,                     "<Actions>/ThunarWindow/detach-tab",                      "",                     XFCE_GTK_IMAGE_MENU_ITEM, N_ ("Detac_h Tab"),            N_ ("Open current folder in a new window"),                                          NULL,                      G_CALLBACK (thunar_window_action_detach_tab),         },
      { THUNAR_WINDOW_ACTION_CLOSE_TAB,                      "<Actions>/ThunarWindow/close-tab",                       "<Primary>w",           XFCE_GTK_IMAGE_MENU_ITEM, N_ ("C_lose Tab"),             N_ ("Close this folder"),                                                            "window-close",            G_CALLBACK (thunar_window_action_close_tab),          },
      { THUNAR_WINDOW_ACTION_CLOSE_WINDOW,                   "<Actions>/ThunarWindow/close-window",                    "<Primary>q",           XFCE_GTK_IMAGE_MENU_ITEM, N_ ("_Close Window"),          N_ ("Close this window"),                                                            "application-exit",        G_CALLBACK (thunar_window_action_close_window),       },
-@@ -507,8 +507,8 @@
+@@ -504,8 +504,8 @@
      { THUNAR_WINDOW_ACTION_VIEW_LOCATION_SELECTOR_ENTRY,   "<Actions>/ThunarWindow/view-location-selector-entry",    "",                     XFCE_GTK_CHECK_MENU_ITEM, N_ ("_Entry Style"),           N_ ("Traditional entry showing the current path"),                                   NULL,                      G_CALLBACK (thunar_window_action_locationbar_entry),  },
      { THUNAR_WINDOW_ACTION_VIEW_LOCATION_SELECTOR_BUTTONS, "<Actions>/ThunarWindow/view-location-selector-buttons",  "",                     XFCE_GTK_CHECK_MENU_ITEM, N_ ("_Buttons Style"),         N_ ("Modern approach with buttons that correspond to folders"),                      NULL,                      G_CALLBACK (thunar_window_action_locationbar_buttons),},
      { THUNAR_WINDOW_ACTION_VIEW_SIDE_PANE_MENU,            "<Actions>/ThunarWindow/view-side-pane-menu",             "",                     XFCE_GTK_MENU_ITEM,       N_ ("_Side Pane"),             NULL,                                                                                NULL,                      NULL,                                                 },
@@ -145,7 +145,7 @@ diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c thunar/src/thunar-
      { THUNAR_WINDOW_ACTION_TOGGLE_SIDE_PANE,               "<Actions>/ThunarWindow/toggle-side-pane",                "F9",                   XFCE_GTK_MENU_ITEM,       NULL,                          NULL,                                                                                NULL,                      G_CALLBACK (thunar_window_toggle_sidepane),           },
      { THUNAR_WINDOW_ACTION_TOGGLE_IMAGE_PREVIEW,           "<Actions>/ThunarWindow/toggle-image-preview",            "",                     XFCE_GTK_CHECK_MENU_ITEM, N_ ("Image Preview"),          N_ ("Change the visibility of this window's image preview"),                         NULL,                      G_CALLBACK (thunar_window_action_image_preview),  },
      { THUNAR_WINDOW_ACTION_VIEW_STATUSBAR,                 "<Actions>/ThunarWindow/view-statusbar",                  "",                     XFCE_GTK_CHECK_MENU_ITEM, N_ ("St_atusbar"),             N_ ("Change the visibility of this window's statusbar"),                             NULL,                      G_CALLBACK (thunar_window_action_statusbar_changed),  },
-@@ -1273,7 +1273,6 @@
+@@ -1270,7 +1270,6 @@
    _thunar_return_if_fail (THUNAR_IS_WINDOW (window));
  
    thunar_gtk_menu_clean (GTK_MENU (menu));
@@ -153,7 +153,7 @@ diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-window.c thunar/src/thunar-
    xfce_gtk_menu_item_new_from_action_entry (get_action_entry (THUNAR_WINDOW_ACTION_NEW_WINDOW), G_OBJECT (window), GTK_MENU_SHELL (menu));
    xfce_gtk_menu_append_separator (GTK_MENU_SHELL (menu));
    thunar_menu_add_sections (THUNAR_MENU (menu), THUNAR_MENU_SECTION_OPEN
-@@ -2423,7 +2422,6 @@
+@@ -2420,7 +2419,6 @@
  
    menu = gtk_menu_new ();
    gtk_menu_set_accel_group (GTK_MENU (menu), window->accel_group);

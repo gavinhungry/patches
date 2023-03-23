@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-enum-types.c thunar/src/thunar-4.18.4/thunar/thunar-enum-types.c
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-enum-types.c	2023-01-10 23:31:26.872889245 -0800
-+++ thunar/src/thunar-4.18.4/thunar/thunar-enum-types.c	2023-01-10 23:31:27.486250269 -0800
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-enum-types.c	2023-03-23 12:05:40.124032949 -0700
++++ thunar/src/thunar-4.18.4/thunar/thunar-enum-types.c	2023-03-23 12:05:40.744048663 -0700
 @@ -224,7 +224,9 @@
          { THUNAR_ICON_SIZE_160,  "THUNAR_ICON_SIZE_160",       "160px",  },
          { THUNAR_ICON_SIZE_192,  "THUNAR_ICON_SIZE_192",       "192px",  },
@@ -58,8 +58,8 @@ diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-enum-types.c thunar/src/thu
      return THUNAR_THUMBNAIL_SIZE_LARGE;
  
 diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-enum-types.h thunar/src/thunar-4.18.4/thunar/thunar-enum-types.h
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-enum-types.h	2023-01-10 23:31:26.872889245 -0800
-+++ thunar/src/thunar-4.18.4/thunar/thunar-enum-types.h	2023-01-10 23:31:27.486250269 -0800
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-enum-types.h	2023-03-23 12:05:40.120699532 -0700
++++ thunar/src/thunar-4.18.4/thunar/thunar-enum-types.h	2023-03-23 12:05:40.744048663 -0700
 @@ -160,7 +160,9 @@
    THUNAR_ICON_SIZE_160   =  160,
    THUNAR_ICON_SIZE_192   =  192,
@@ -100,8 +100,8 @@ diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-enum-types.h thunar/src/thu
  
    /*< private >*/
 diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-icon-view.c thunar/src/thunar-4.18.4/thunar/thunar-icon-view.c
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-icon-view.c	2023-01-10 23:31:26.872889245 -0800
-+++ thunar/src/thunar-4.18.4/thunar/thunar-icon-view.c	2023-01-10 23:31:27.486250269 -0800
+--- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-icon-view.c	2023-03-23 12:05:40.120699532 -0700
++++ thunar/src/thunar-4.18.4/thunar/thunar-icon-view.c	2023-03-23 12:05:40.744048663 -0700
 @@ -201,8 +201,12 @@
        wrap_width = 112;
        break;
