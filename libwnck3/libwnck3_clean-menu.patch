@@ -1,6 +1,6 @@
-diff --color -ru libwnck3.ORIG/src/libwnck/libwnck/window-action-menu.c libwnck3/src/libwnck/libwnck/window-action-menu.c
---- libwnck3.ORIG/src/libwnck/libwnck/window-action-menu.c	2023-03-21 10:39:07.796997178 -0700
-+++ libwnck3/src/libwnck/libwnck/window-action-menu.c	2023-03-21 12:02:02.625172687 -0700
+diff -ru libwnck3.ORIG/src/libwnck/libwnck/window-action-menu.c libwnck3/src/libwnck/libwnck/window-action-menu.c
+--- libwnck3.ORIG/src/libwnck/libwnck/window-action-menu.c	2023-03-23 22:46:54.877593489 -0700
++++ libwnck3/src/libwnck/libwnck/window-action-menu.c	2023-03-23 22:46:54.880926872 -0700
 @@ -188,9 +188,15 @@
        break;
      case PIN:

@@ -1,7 +1,7 @@
 diff -ru libwnck3.ORIG/src/libwnck/libwnck/pager.c libwnck3/src/libwnck/libwnck/pager.c
---- libwnck3.ORIG/src/libwnck/libwnck/pager.c	2020-05-06 06:07:24.561748528 -0700
-+++ libwnck3/src/libwnck/libwnck/pager.c	2020-05-06 06:10:59.722973757 -0700
-@@ -994,43 +999,6 @@
+--- libwnck3.ORIG/src/libwnck/libwnck/pager.c	2023-03-23 22:46:54.874260105 -0700
++++ libwnck3/src/libwnck/libwnck/pager.c	2023-03-23 22:46:54.914260705 -0700
+@@ -1019,43 +1019,6 @@
  
    icon_w = icon_h = 0;
  

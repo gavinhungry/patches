@@ -1,7 +1,6 @@
-Binary files libwnck3.ORIG/src/libwnck/.git/index and libwnck3/src/libwnck/.git/index differ
-diff --color -ru libwnck3.ORIG/src/libwnck/libwnck/pager.c libwnck3/src/libwnck/libwnck/pager.c
---- libwnck3.ORIG/src/libwnck/libwnck/pager.c	2023-03-23 22:31:43.860540979 -0700
-+++ libwnck3/src/libwnck/libwnck/pager.c	2023-03-23 22:42:16.160111221 -0700
+diff -ru libwnck3.ORIG/src/libwnck/libwnck/pager.c libwnck3/src/libwnck/libwnck/pager.c
+--- libwnck3.ORIG/src/libwnck/libwnck/pager.c	2023-03-23 22:46:54.874260105 -0700
++++ libwnck3/src/libwnck/libwnck/pager.c	2023-03-23 22:46:54.897593789 -0700
 @@ -1634,6 +1634,8 @@
                          gint                y,
                          guint               time)

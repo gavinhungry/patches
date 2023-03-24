@@ -1,7 +1,7 @@
 diff -ru libwnck3.ORIG/src/libwnck/libwnck/pager.c libwnck3/src/libwnck/libwnck/pager.c
---- libwnck3.ORIG/src/libwnck/libwnck/pager.c	2021-05-11 13:01:22.901165940 -0700
-+++ libwnck3/src/libwnck/libwnck/pager.c	2021-05-11 13:48:48.700118790 -0700
-@@ -1253,7 +1253,7 @@
+--- libwnck3.ORIG/src/libwnck/libwnck/pager.c	2023-03-23 22:46:54.874260105 -0700
++++ libwnck3/src/libwnck/libwnck/pager.c	2023-03-23 22:46:54.927594239 -0700
+@@ -1337,7 +1337,7 @@
                        if (active_i == i && active_j == j)
                          rec_state = GTK_STATE_FLAG_SELECTED;
  
