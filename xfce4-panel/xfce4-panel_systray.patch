@@ -1,6 +1,6 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/systray/sn-plugin.c xfce4-panel/src/xfce4-panel-4.18.2/plugins/systray/sn-plugin.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/systray/sn-plugin.c	2022-12-15 20:02:45.618759582 -0800
-+++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/systray/sn-plugin.c	2022-12-15 20:02:45.765432820 -0800
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/systray/sn-plugin.c	2023-03-23 22:46:26.410500168 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/systray/sn-plugin.c	2023-03-23 22:46:26.600503014 -0700
 @@ -252,8 +252,7 @@
  static void
  update_button_visibility (SnPlugin *plugin)
@@ -20,8 +20,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/systray/sn-plugin.c xfc
  
    /* Systray arrow button */
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel-4.18.2/plugins/systray/systray-box.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/systray/systray-box.c	2022-12-15 20:02:45.618759582 -0800
-+++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/systray/systray-box.c	2022-12-15 20:02:45.765432820 -0800
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/systray/systray-box.c	2023-03-23 22:46:26.410500168 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/systray/systray-box.c	2023-03-23 22:46:26.600503014 -0700
 @@ -36,7 +36,7 @@
  #include "systray-socket.h"
  #include "sn-config.h"

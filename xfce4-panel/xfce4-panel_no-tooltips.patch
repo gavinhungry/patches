@@ -1,6 +1,6 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/panel/panel-item-dialog.c xfce4-panel/src/xfce4-panel-4.18.2/panel/panel-item-dialog.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/panel/panel-item-dialog.c	2022-12-15 20:02:45.615426099 -0800
-+++ xfce4-panel/src/xfce4-panel-4.18.2/panel/panel-item-dialog.c	2022-12-15 20:02:45.715430579 -0800
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/panel/panel-item-dialog.c	2023-03-23 22:46:26.407166785 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.2/panel/panel-item-dialog.c	2023-03-23 22:46:26.550502265 -0700
 @@ -230,7 +230,6 @@
    entry = gtk_entry_new ();
    gtk_box_pack_start (GTK_BOX (hbox), entry, FALSE, FALSE, 0);
@@ -10,8 +10,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/panel/panel-item-dialog.c xfce4
    gtk_widget_show (entry);
  
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.18.2/plugins/actions/actions.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/actions/actions.c	2022-12-15 20:02:45.618759582 -0800
-+++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/actions/actions.c	2022-12-15 20:02:45.715430579 -0800
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/actions/actions.c	2023-03-23 22:46:26.410500168 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/actions/actions.c	2023-03-23 22:46:26.550502265 -0700
 @@ -1153,7 +1153,6 @@
        widget = xfce_panel_create_button ();
        gtk_button_set_relief (GTK_BUTTON (widget), GTK_RELIEF_NONE);
@@ -21,8 +21,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/actions/actions.c xfce4
            G_CALLBACK (actions_plugin_action_activate), plugin);
  
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/applicationsmenu/applicationsmenu.c xfce4-panel/src/xfce4-panel-4.18.2/plugins/applicationsmenu/applicationsmenu.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/applicationsmenu/applicationsmenu.c	2022-12-15 20:02:45.618759582 -0800
-+++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/applicationsmenu/applicationsmenu.c	2022-12-15 20:02:45.715430579 -0800
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/applicationsmenu/applicationsmenu.c	2023-03-23 22:46:26.410500168 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/applicationsmenu/applicationsmenu.c	2023-03-23 22:46:26.550502265 -0700
 @@ -228,7 +228,6 @@
    gtk_container_add (GTK_CONTAINER (plugin), plugin->button);
    gtk_widget_set_name (plugin->button, "applicationmenu-button");
@@ -41,8 +41,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/applicationsmenu/applic
        /* check if the label still fits */
        if (xfce_panel_plugin_get_mode (XFCE_PANEL_PLUGIN (plugin)) == XFCE_PANEL_PLUGIN_MODE_DESKBAR
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/directorymenu/directorymenu.c xfce4-panel/src/xfce4-panel-4.18.2/plugins/directorymenu/directorymenu.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/directorymenu/directorymenu.c	2022-12-15 20:02:45.618759582 -0800
-+++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/directorymenu/directorymenu.c	2022-12-15 20:02:45.718764062 -0800
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/directorymenu/directorymenu.c	2023-03-23 22:46:26.410500168 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/directorymenu/directorymenu.c	2023-03-23 22:46:26.550502265 -0700
 @@ -294,7 +294,6 @@
        plugin->base_directory = g_file_new_for_commandline_arg (path);
  
@@ -51,7 +51,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/directorymenu/directory
  
        panel_utils_set_atk_info (plugin->button, _("Directory Menu"), display_name);
  
-@@ -1059,7 +1058,6 @@
+@@ -1060,7 +1059,6 @@
    GFileType        file_type;
  #ifdef HAVE_GIO_UNIX
    GDesktopAppInfo *desktopinfo;
@@ -59,7 +59,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/directorymenu/directory
  #endif
  
    panel_return_if_fail (XFCE_IS_DIRECTORY_MENU_PLUGIN (plugin));
-@@ -1250,10 +1248,6 @@
+@@ -1251,10 +1249,6 @@
  #ifdef HAVE_GIO_UNIX
            else if (G_UNLIKELY (desktopinfo != NULL))
              {
@@ -71,8 +71,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/directorymenu/directory
                    G_CALLBACK (directory_menu_plugin_menu_launch_desktop_file),
                    desktopinfo, (GClosureNotify) (void (*)(void)) g_object_unref, 0);
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/showdesktop/showdesktop.c xfce4-panel/src/xfce4-panel-4.18.2/plugins/showdesktop/showdesktop.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/showdesktop/showdesktop.c	2022-12-15 20:02:45.618759582 -0800
-+++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/showdesktop/showdesktop.c	2022-12-15 20:02:45.718764062 -0800
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/showdesktop/showdesktop.c	2023-03-23 22:46:26.410500168 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/showdesktop/showdesktop.c	2023-03-23 22:46:26.550502265 -0700
 @@ -242,7 +242,6 @@
    else
      text = _("Minimize all open windows and show the desktop");
@@ -82,9 +82,9 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/showdesktop/showdesktop
  }
  
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2022-12-15 20:02:45.618759582 -0800
-+++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2022-12-15 20:02:45.718764062 -0800
-@@ -2770,7 +2770,6 @@
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2023-03-23 22:46:26.410500168 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2023-03-23 22:46:26.550502265 -0700
+@@ -2817,7 +2817,6 @@
    panel_return_if_fail (XFCE_IS_TASKLIST (child->tasklist));
  
    name = wnck_window_get_name (child->window);
@@ -93,9 +93,9 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widge
  
    ctx = gtk_widget_get_style_context (child->label);
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/windowmenu/windowmenu.c xfce4-panel/src/xfce4-panel-4.18.2/plugins/windowmenu/windowmenu.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/windowmenu/windowmenu.c	2022-12-15 20:02:45.618759582 -0800
-+++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/windowmenu/windowmenu.c	2022-12-15 20:02:45.718764062 -0800
-@@ -632,8 +632,6 @@
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/windowmenu/windowmenu.c	2023-03-23 22:46:26.410500168 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/windowmenu/windowmenu.c	2023-03-23 22:46:26.550502265 -0700
+@@ -647,8 +647,6 @@
    if (! wnck_window_is_active (window))
      return;
  
@@ -103,8 +103,8 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/windowmenu/windowmenu.c
 -
    icon_size = xfce_panel_plugin_get_icon_size (XFCE_PANEL_PLUGIN (plugin));
    scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (plugin));
-   if (icon_size * scale_factor <= 31)
-@@ -692,7 +690,6 @@
+   if (icon_size < WNCK_DEFAULT_ICON_SIZE)
+@@ -707,7 +705,6 @@
            icon_size = xfce_panel_plugin_get_icon_size (XFCE_PANEL_PLUGIN (plugin));
            gtk_image_set_from_icon_name (GTK_IMAGE (icon), "user-desktop", icon_size);
            gtk_image_set_pixel_size (GTK_IMAGE (icon), icon_size);
@@ -112,7 +112,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/windowmenu/windowmenu.c
          }
      }
  }
-@@ -1032,7 +1029,6 @@
+@@ -1047,7 +1044,6 @@
  
    /* create the menu item */
    mi = panel_image_menu_item_new_with_label (name);
