@@ -1,6 +1,6 @@
 diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2022-12-15 20:02:45.618759582 -0800
-+++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2022-12-15 20:02:45.785433715 -0800
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2023-03-23 22:44:06.468411648 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2023-03-23 22:44:06.675081386 -0700
 @@ -46,7 +46,7 @@
  
  
@@ -10,7 +10,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widge
  #define DEFAULT_MIN_BUTTON_LENGTH    (DEFAULT_MAX_BUTTON_LENGTH / 4)
  #define DEFAULT_ICON_LUCENCY         (50)
  #define DEFAULT_ELLIPSIZE_MODE       (PANGO_ELLIPSIZE_END)
-@@ -1743,9 +1743,15 @@
+@@ -1789,9 +1789,15 @@
              }
          }
  
@@ -29,7 +29,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widge
      }
    /* set the toggle button state for the group button */
    if (class_group)
-@@ -2265,14 +2271,15 @@
+@@ -2311,14 +2317,15 @@
                            G_BINDING_SYNC_CREATE);
  
    child->box = gtk_box_new (!xfce_tasklist_vertical (tasklist) ?
@@ -47,7 +47,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widge
                                  tasklist->minimized_icon_lucency / 100,
                                  tasklist->minimized_icon_lucency % 100);
    gtk_css_provider_load_from_data (provider, css_string, -1, NULL);
-@@ -2291,7 +2298,7 @@
+@@ -2338,7 +2345,7 @@
      gtk_widget_show (child->icon);
  
    child->label = gtk_label_new (NULL);
@@ -56,7 +56,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widge
    if (!xfce_tasklist_vertical (tasklist))
      {
        /* gtk_box_reorder_child (GTK_BOX (child->box), child->icon, 0); */
-@@ -2308,13 +2315,6 @@
+@@ -2355,13 +2362,6 @@
        /* TODO can we already ellipsize here yet? */
      }
  
@@ -70,7 +70,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widge
    /* don't show the label if we're in iconbox style */
    if (tasklist->show_labels)
      gtk_widget_show (child->label);
-@@ -2776,16 +2776,8 @@
+@@ -2823,16 +2823,8 @@
    ctx = gtk_widget_get_style_context (child->label);
    gtk_style_context_remove_class (ctx, "label-hidden");
  
@@ -89,7 +89,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widge
      {
        if ((!child->tasklist->only_minimized
            && wnck_window_is_minimized (child->window))
-@@ -2870,56 +2862,6 @@
+@@ -2917,56 +2909,6 @@
              }
          }
      }
@@ -146,7 +146,7 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widge
  }
  
  
-@@ -2935,6 +2877,9 @@
+@@ -2982,6 +2924,9 @@
  
    xfce_tasklist_sort (tasklist, FALSE);
    xfce_tasklist_active_window_changed (tasklist->screen, window, tasklist);
@@ -156,3 +156,12 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widge
    if (!tasklist->all_workspaces)
      xfce_tasklist_active_workspace_changed (tasklist->screen, NULL, tasklist);
  }
+@@ -3678,8 +3623,6 @@
+                      GDK_ACTION_MOVE);
+   g_signal_connect (G_OBJECT (child->button), "drag-data-get",
+       G_CALLBACK (xfce_tasklist_button_drag_data_get), child);
+-  g_signal_connect (G_OBJECT (child->button), "drag-begin",
+-      G_CALLBACK (xfce_tasklist_button_drag_begin), child);
+   g_signal_connect (G_OBJECT (child->button), "drag-data-received",
+       G_CALLBACK (xfce_tasklist_button_drag_data_received), child);
+ 
