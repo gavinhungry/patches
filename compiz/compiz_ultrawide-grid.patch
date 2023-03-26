@@ -1,0 +1,136 @@
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/grid/src/grid.cpp compiz/src/compiz-0.9.14.2/plugins/grid/src/grid.cpp
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/grid/src/grid.cpp	2023-03-26 02:36:21.514936571 -0700
++++ compiz/src/compiz-0.9.14.2/plugins/grid/src/grid.cpp	2023-03-26 04:27:56.632917115 -0700
+@@ -134,11 +134,11 @@
+     if (cw)
+     {
+ 	XWindowChanges xwc;
+-	bool maximizeH = where & (GridBottom | GridTop | GridMaximize);
+-	bool maximizeV = where & (GridLeft | GridRight | GridMaximize);
++	bool maximizeH = false;
++	bool maximizeV = false;
+ 
+-	bool horzMaximizedGridPosition = where & (GridTop | GridBottom);
+-	bool vertMaximizedGridPosition = where & (GridLeft | GridRight);
++	bool horzMaximizedGridPosition = false;
++	bool vertMaximizedGridPosition = false;
+ 	bool  anyMaximizedGridPosition = horzMaximizedGridPosition ||
+ 					 vertMaximizedGridPosition ||
+ 					 where & GridMaximize;
+@@ -207,11 +207,19 @@
+ 	/* slice and dice to get desired slot - including decorations */
+ 	desiredSlot.setY (workarea.y () + props.gravityDown *
+ 			  (workarea.height () / props.numCellsY));
+-	desiredSlot.setHeight (workarea.height () / (float)props.numCellsY + 0.5);
++	desiredSlot.setHeight (floor (((workarea.height () * props.spanY) / (float)props.numCellsY) + 0.5));
+ 
+-	desiredSlot.setX (workarea.x () + props.gravityRight *
+-			  (workarea.width () / props.numCellsX));
+-	desiredSlot.setWidth (workarea.width () / (float)props.numCellsX + 0.5);
++	int x = workarea.x () + props.gravityRight * (workarea.width () / props.numCellsX);
++	if (props.numCellsX == 3 && props.gravityRight > 0)
++		x += 1;
++
++	desiredSlot.setX (x);
++
++	int width = floor (((workarea.width () * props.spanX) / (float)props.numCellsX) + 0.5);
++	if (props.numCellsX == 3 && (where & (GridTop | GridBottom)))
++		width -= (workarea.width () % 3) / 2;
++
++	desiredSlot.setWidth (width);
+ 
+ 	if (!optionGetCycleSizes ())
+ 	{
+@@ -844,22 +852,22 @@
+     /* Detect corners first */
+ 
+     /* Bottom Left */
+-    if (pointerY > (out.y () + out.height () - optionGetBottomEdgeThreshold ()) &&
++    if (pointerY > (out.y () + out.height () - optionGetBottomEdgeThreshold () - (out.height () / 3)) &&
+ 	pointerX < (out.x () + optionGetLeftEdgeThreshold ()))
+ 	edge = BottomLeft;
+ 
+     /* Bottom Right */
+-    else if (pointerY > (out.y () + out.height () - optionGetBottomEdgeThreshold ()) &&
++    else if (pointerY > (out.y () + out.height () - optionGetBottomEdgeThreshold () - (out.height () / 3)) &&
+ 	     pointerX > (out.x () + out.width () - optionGetRightEdgeThreshold ()))
+ 	edge = BottomRight;
+ 
+     /* Top Left */
+-    else if (pointerY < (out.y () + optionGetTopEdgeThreshold ()) &&
++    else if (pointerY < (out.y () + optionGetTopEdgeThreshold () + (out.height () / 3)) &&
+ 	     pointerX < (out.x () + optionGetLeftEdgeThreshold ()))
+ 	edge = TopLeft;
+ 
+     /* Top Right */
+-    else if (pointerY < (out.y () + optionGetTopEdgeThreshold ()) &&
++    else if (pointerY < (out.y () + optionGetTopEdgeThreshold () + (out.height () / 3)) &&
+ 	     pointerX > (out.x () + out.width () - optionGetRightEdgeThreshold ()))
+ 	edge = TopRight;
+ 
+@@ -1359,17 +1367,20 @@
+     currentWorkarea = lastWorkarea = screen->getWorkareaForOutput
+ 				     (screen->outputDeviceForPoint (pointerX, pointerY));
+ 
+-    gridProps[GridUnknown] = GridProps (0,1, 1,1);
+-    gridProps[GridBottomLeft]  = GridProps (0,1, 2,2);
+-    gridProps[GridBottom]  = GridProps (0,1, 1,2);
+-    gridProps[GridBottomRight] = GridProps (1,1, 2,2);
+-    gridProps[GridLeft]  = GridProps (0,0, 2,1);
+-    gridProps[GridCenter]  = GridProps (0,0, 1,1);
+-    gridProps[GridRight]  = GridProps (1,0, 2,1);
+-    gridProps[GridTopLeft]  = GridProps (0,0, 2,2);
+-    gridProps[GridTop]  = GridProps (0,0, 1,2);
+-    gridProps[GridTopRight]  = GridProps (1,0, 2,2);
+-    gridProps[GridMaximize]  = GridProps (0,0, 1,1);
++    gridProps[GridUnknown]     = GridProps (0,1, 1,1, 1,1);
++    gridProps[GridCenter]      = GridProps (0,0, 1,1, 1,1);
++    gridProps[GridMaximize]    = GridProps (0,0, 1,1, 1,1);
++
++    gridProps[GridTop]         = GridProps (1,0, 3,2, 1,1); // T 1/3 1/2
++    gridProps[GridBottom]      = GridProps (1,1, 3,2, 1,1); // B 1/3 1/2
++
++    gridProps[GridTopLeft]     = GridProps (0,0, 3,1, 2,1); // L 2/3
++    gridProps[GridLeft]        = GridProps (0,0, 2,1, 1,1); // L 1/2
++    gridProps[GridBottomLeft]  = GridProps (0,0, 3,1, 1,1); // L 1/3
++
++    gridProps[GridTopRight]    = GridProps (1,0, 3,1, 2,1); // R 2/3
++    gridProps[GridRight]       = GridProps (1,0, 2,1, 1,1); // R 1/2
++    gridProps[GridBottomRight] = GridProps (2,0, 3,1, 1,1); // R 1/3
+ 
+     animations.clear ();
+ 
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/grid/src/grid.h compiz/src/compiz-0.9.14.2/plugins/grid/src/grid.h
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/grid/src/grid.h	2023-03-26 02:36:21.514936571 -0700
++++ compiz/src/compiz-0.9.14.2/plugins/grid/src/grid.h	2023-03-26 04:27:59.186300611 -0700
+@@ -58,14 +58,18 @@
+ 	gravityRight (0),
+ 	gravityDown (0),
+ 	numCellsX (0),
+-	numCellsY (0)
++	numCellsY (0),
++	spanX (1),
++	spanY (1)
+     {}
+ 
+-    GridProps (int r, int d, int x, int y):
++    GridProps (int r, int d, int x, int y, int sx, int sy):
+ 	gravityRight (r),
+ 	gravityDown (d),
+ 	numCellsX (x),
+-	numCellsY (y)
++	numCellsY (y),
++	spanX (sx),
++	spanY (sy)
+     {
+     }
+ 
+@@ -73,6 +77,8 @@
+     int gravityDown;
+     int numCellsX;
+     int numCellsY;
++    int spanX;
++    int spanY;
+ };
+ 
+ enum Edges
