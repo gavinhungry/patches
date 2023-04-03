@@ -1,6 +1,6 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2023-03-23 22:46:26.410500168 -0700
-+++ xfce4-panel/src/xfce4-panel-4.18.2/plugins/tasklist/tasklist-widget.c	2023-03-23 22:46:26.520501816 -0700
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.3/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.18.3/plugins/tasklist/tasklist-widget.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.3/plugins/tasklist/tasklist-widget.c	2023-03-23 22:46:26.410500168 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.3/plugins/tasklist/tasklist-widget.c	2023-03-23 22:46:26.520501816 -0700
 @@ -3214,7 +3214,6 @@
    if (event->button == 3)
      {
