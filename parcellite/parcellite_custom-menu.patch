@@ -1,6 +1,6 @@
-diff --color -ru parcellite.ORIG/src/parcellite-1.2.1/src/main.c parcellite/src/parcellite-1.2.1/src/main.c
---- parcellite.ORIG/src/parcellite-1.2.1/src/main.c	2021-12-31 20:28:02.820664793 -0800
-+++ parcellite/src/parcellite-1.2.1/src/main.c	2021-12-31 20:43:33.182590843 -0800
+diff --color -ru parcellite.ORIG/src/parcellite-1.2.2/src/main.c parcellite/src/parcellite-1.2.2/src/main.c
+--- parcellite.ORIG/src/parcellite-1.2.2/src/main.c	2021-12-31 20:28:02.820664793 -0800
++++ parcellite/src/parcellite-1.2.2/src/main.c	2021-12-31 20:43:33.182590843 -0800
 @@ -1974,13 +1974,6 @@
      /** if (get_pref_int32("reverse_history"))
        history_list = g_list_reverse(history_list);*/
