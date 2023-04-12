@@ -1,0 +1,22 @@
+diff --color -ru notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/themes/standard/theme.c notification-daemon-gtk2/src/notification-daemon-0.5.0/src/themes/standard/theme.c
+--- notification-daemon-gtk2.ORIG/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2023-04-11 15:03:55.657003653 -0700
++++ notification-daemon-gtk2/src/notification-daemon-0.5.0/src/themes/standard/theme.c	2023-04-11 15:07:28.663378474 -0700
+@@ -1028,18 +1028,6 @@
+                                   FALSE,
+                                   TRUE,
+                                   0);
+-
+-                windata->pie_countdown = gtk_drawing_area_new ();
+-                gtk_widget_show (windata->pie_countdown);
+-                gtk_container_add (GTK_CONTAINER (alignment),
+-                                   windata->pie_countdown);
+-                gtk_widget_set_size_request (windata->pie_countdown,
+-                                             PIE_WIDTH,
+-                                             PIE_HEIGHT);
+-                g_signal_connect (G_OBJECT (windata->pie_countdown),
+-                                  "expose_event",
+-                                  G_CALLBACK (countdown_expose_cb),
+-                                  windata);
+         }
+ 
+         button = gtk_button_new ();
