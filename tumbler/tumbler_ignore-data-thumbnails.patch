@@ -1,6 +1,6 @@
-diff -ru tumbler.ORIG/src/tumbler-4.18.0/plugins/xdg-cache/xdg-cache-cache.c tumbler/src/tumbler-4.18.0/plugins/xdg-cache/xdg-cache-cache.c
---- tumbler.ORIG/src/tumbler-4.18.0/plugins/xdg-cache/xdg-cache-cache.c	2022-12-15 19:42:43.371244674 -0800
-+++ tumbler/src/tumbler-4.18.0/plugins/xdg-cache/xdg-cache-cache.c	2022-12-15 19:42:43.374578159 -0800
+diff -ru tumbler.ORIG/src/tumbler-4.18.1/plugins/xdg-cache/xdg-cache-cache.c tumbler/src/tumbler-4.18.1/plugins/xdg-cache/xdg-cache-cache.c
+--- tumbler.ORIG/src/tumbler-4.18.1/plugins/xdg-cache/xdg-cache-cache.c	2022-12-15 19:42:43.371244674 -0800
++++ tumbler/src/tumbler-4.18.1/plugins/xdg-cache/xdg-cache-cache.c	2022-12-15 19:42:43.374578159 -0800
 @@ -535,6 +535,7 @@
  {
    XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
