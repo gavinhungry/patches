@@ -1,0 +1,17 @@
+diff --color -ru libwnck3.ORIG/src/libwnck/libwnck/pager.c libwnck3/src/libwnck/libwnck/pager.c
+--- libwnck3.ORIG/src/libwnck/libwnck/pager.c	2023-04-19 22:05:30.809354653 -0700
++++ libwnck3/src/libwnck/libwnck/pager.c	2023-04-19 22:06:28.420332069 -0700
+@@ -942,9 +942,12 @@
+   WnckWorkspace *workspace;
+   GdkRectangle unclipped_win_rect;
+ 
++  WnckScreen *screen = wnck_window_get_screen (window);
++  wnck_screen_force_update (screen);
++
+   workspace = wnck_window_get_workspace (window);
+   if (workspace == NULL)
+-    workspace = wnck_screen_get_active_workspace (wnck_window_get_screen (window));
++    workspace = wnck_screen_get_active_workspace (screen);
+ 
+   /* scale window down by same ratio we scaled workspace down */
+   width_ratio = (double) workspace_rect->width / (double) wnck_workspace_get_width (workspace);
