@@ -1,0 +1,11 @@
+diff --color -ru nfancurve.ORIG/src/nfancurve-019.6.1/temp.sh nfancurve/src/nfancurve-019.6.1/temp.sh
+--- nfancurve.ORIG/src/nfancurve-019.6.1/temp.sh	2023-04-21 09:11:53.254709501 -0700
++++ nfancurve/src/nfancurve-019.6.1/temp.sh	2023-04-21 09:18:27.473485103 -0700
+@@ -1,5 +1,7 @@
+ #!/bin/sh
+ 
++BASH_LOADABLES_PATH=/usr/lib/bash enable -f sleep sleep
++
+ prf() { printf %s\\n "$*" ; }
+ z=$0; display=""; CDPATH=""; fname=""; num_gpus="0"; num_fans="0"; debug="0"
+ max_t="0"; max_t2="0"; mnt="0"; mxt="0"; ot="0"; tdiff="0"; cur_t="0"
