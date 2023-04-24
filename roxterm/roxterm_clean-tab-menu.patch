@@ -1,0 +1,20 @@
+diff --color -ru roxterm.ORIG/src/roxterm-3.12.1/src/menutree.c roxterm/src/roxterm-3.12.1/src/menutree.c
+--- roxterm.ORIG/src/roxterm-3.12.1/src/menutree.c	2023-04-24 10:24:05.595031376 -0700
++++ roxterm/src/roxterm-3.12.1/src/menutree.c	2023-04-24 10:26:07.004761582 -0700
+@@ -420,16 +420,8 @@
+ 
+     submenu = gtk_menu_new();
+     menutree_build_shell(menu_tree, GTK_MENU_SHELL(submenu),
+-        _("_Detach Tab"), MENUTREE_TABS_DETACH_TAB,
+         _("_Close Tab"), MENUTREE_TABS_CLOSE_TAB,
+-        _("Close _Other Tabs"), MENUTREE_TABS_CLOSE_OTHER_TABS,
+         _("Na_me Tab..."), MENUTREE_TABS_NAME_TAB,
+-        "_", MENUTREE_NULL_ID,
+-        _("_Previous Tab"), MENUTREE_TABS_PREVIOUS_TAB,
+-        _("_Next Tab"), MENUTREE_TABS_NEXT_TAB,
+-        "_", MENUTREE_NULL_ID,
+-        _("Move Tab _Left"), MENUTREE_TABS_MOVE_TAB_LEFT,
+-        _("Move Tab _Right"), MENUTREE_TABS_MOVE_TAB_RIGHT,
+         "_", MENUTREE_NULL_ID, NULL);
+     gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_tree->item_widgets
+             [MENUTREE_TABS]), submenu);
