@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-emblem-chooser.c thunar/src/thunar-4.18.4/thunar/thunar-emblem-chooser.c
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-emblem-chooser.c	2023-03-23 12:05:40.124032949 -0700
-+++ thunar/src/thunar-4.18.4/thunar/thunar-emblem-chooser.c	2023-03-23 12:05:40.867385121 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-emblem-chooser.c thunar/src/thunar-4.18.6/thunar/thunar-emblem-chooser.c
+--- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-emblem-chooser.c	2023-03-23 12:05:40.124032949 -0700
++++ thunar/src/thunar-4.18.6/thunar/thunar-emblem-chooser.c	2023-03-23 12:05:40.867385121 -0700
 @@ -474,7 +474,7 @@
  
    /* lookup the icon info for the emblem */
@@ -10,9 +10,9 @@ diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-emblem-chooser.c thunar/src
    if (G_UNLIKELY (info == NULL))
      return NULL;
  
-diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-icon-renderer.c thunar/src/thunar-4.18.4/thunar/thunar-icon-renderer.c
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-icon-renderer.c	2023-03-23 12:05:40.120699532 -0700
-+++ thunar/src/thunar-4.18.4/thunar/thunar-icon-renderer.c	2023-03-23 12:05:40.867385121 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-icon-renderer.c thunar/src/thunar-4.18.6/thunar/thunar-icon-renderer.c
+--- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-icon-renderer.c	2023-03-23 12:05:40.120699532 -0700
++++ thunar/src/thunar-4.18.6/thunar/thunar-icon-renderer.c	2023-03-23 12:05:40.867385121 -0700
 @@ -580,7 +580,7 @@
            for (lp = emblems, position = 0; lp != NULL && position < max_emblems; lp = lp->next)
              {

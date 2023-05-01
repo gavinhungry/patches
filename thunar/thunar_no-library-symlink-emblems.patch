@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.18.4/thunar/thunar-file.c thunar/src/thunar-4.18.4/thunar/thunar-file.c
---- thunar.ORIG/src/thunar-4.18.4/thunar/thunar-file.c	2023-03-23 12:05:40.124032949 -0700
-+++ thunar/src/thunar-4.18.4/thunar/thunar-file.c	2023-03-23 12:05:40.377372703 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-file.c thunar/src/thunar-4.18.6/thunar/thunar-file.c
+--- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-file.c	2023-03-23 12:05:40.124032949 -0700
++++ thunar/src/thunar-4.18.6/thunar/thunar-file.c	2023-03-23 12:05:40.377372703 -0700
 @@ -3619,6 +3619,9 @@
    guint32   uid;
    gchar   **emblem_names;
