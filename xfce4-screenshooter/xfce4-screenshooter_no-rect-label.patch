@@ -1,6 +1,6 @@
-diff -ru xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.10.3/lib/screenshooter-capture.c xfce4-screenshooter/src/xfce4-screenshooter-1.10.3/lib/screenshooter-capture.c
---- xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.10.3/lib/screenshooter-capture.c	2020-12-23 14:34:31.485002107 -0800
-+++ xfce4-screenshooter/src/xfce4-screenshooter-1.10.3/lib/screenshooter-capture.c	2020-12-23 14:36:24.296531431 -0800
+diff -ru xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.10.4/lib/screenshooter-capture.c xfce4-screenshooter/src/xfce4-screenshooter-1.10.4/lib/screenshooter-capture.c
+--- xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.10.4/lib/screenshooter-capture.c	2020-12-23 14:34:31.485002107 -0800
++++ xfce4-screenshooter/src/xfce4-screenshooter-1.10.4/lib/screenshooter-capture.c	2020-12-23 14:36:24.296531431 -0800
 @@ -821,7 +821,6 @@
                         event->x + x_offset,
                         event->y + y_offset);
