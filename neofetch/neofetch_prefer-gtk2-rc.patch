@@ -1,6 +1,6 @@
-diff --color -ru neofetch.ORIG/src/neofetch-7.1.0/neofetch neofetch/src/neofetch-7.1.0/neofetch
---- neofetch.ORIG/src/neofetch-7.1.0/neofetch	2022-10-28 16:14:28.978419302 -0700
-+++ neofetch/src/neofetch-7.1.0/neofetch	2022-10-28 16:18:30.956292353 -0700
+diff --color -ru neofetch.ORIG/src/neofetch/neofetch neofetch/src/neofetch/neofetch
+--- neofetch.ORIG/src/neofetch/neofetch	2022-10-28 16:14:28.978419302 -0700
++++ neofetch/src/neofetch/neofetch	2022-10-28 16:18:30.956292353 -0700
 @@ -3036,8 +3036,10 @@
              ;;
          esac

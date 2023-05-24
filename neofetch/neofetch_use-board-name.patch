@@ -1,6 +1,6 @@
-diff --color -ru neofetch.ORIG/src/neofetch-7.1.0/neofetch neofetch/src/neofetch-7.1.0/neofetch
---- neofetch.ORIG/src/neofetch-7.1.0/neofetch	2023-01-23 09:51:36.255532974 -0800
-+++ neofetch/src/neofetch-7.1.0/neofetch	2023-01-23 09:56:55.973729272 -0800
+diff --color -ru neofetch.ORIG/src/neofetch/neofetch neofetch/src/neofetch/neofetch
+--- neofetch.ORIG/src/neofetch/neofetch	2023-01-23 09:51:36.255532974 -0800
++++ neofetch/src/neofetch/neofetch	2023-01-23 09:56:55.973729272 -0800
 @@ -1213,10 +1213,11 @@
              if [[ -d /system/app/ && -d /system/priv-app ]]; then
                  model="$(getprop ro.product.brand) $(getprop ro.product.model)"
