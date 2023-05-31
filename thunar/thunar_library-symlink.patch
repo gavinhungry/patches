@@ -1,0 +1,89 @@
+diff --color -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-file.c thunar/src/thunar-4.18.6/thunar/thunar-file.c
+--- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-file.c	2023-05-31 09:57:00.800837332 -0700
++++ thunar/src/thunar-4.18.6/thunar/thunar-file.c	2023-05-31 10:47:34.686272394 -0700
+@@ -2682,6 +2682,45 @@
+ 
+ 
+ /**
++ * thunar_file_is_library_symlink:
++ * @file : a #ThunarFile instance.
++ *
++ * Determines if a file contains a path to a symbolic link to
++ * a "Library" directory.
++ *
++ * Return value: %TRUE if the path of @file is a library
++ * symlink, %FALSE otherwise.
++ **/
++gboolean
++thunar_file_is_library_symlink (const ThunarFile *file)
++{
++  gchar     *path;
++  gchar    **envp = NULL;
++  gboolean   ret  = FALSE;
++
++  if (G_LIKELY (!thunar_file_is_symlink (file)))
++    return FALSE;
++
++  path = g_file_get_path (file->gfile);
++  if (G_UNLIKELY (path == NULL))
++    return FALSE;
++
++  envp = g_get_environ ();
++  ret = (
++    !strcmp(path, g_environ_getenv (envp, "XDG_DOCUMENTS_DIR")) ||
++    !strcmp(path, g_environ_getenv (envp, "XDG_MUSIC_DIR")) ||
++    !strcmp(path, g_environ_getenv (envp, "XDG_PICTURES_DIR"))
++  );
++
++  g_free (path);
++  g_strfreev (envp);
++
++  return ret;
++}
++
++
++
++/**
+  * thunar_file_get_size:
+  * @file : a #ThunarFile instance.
+  *
+@@ -2831,6 +2870,10 @@
+ thunar_file_is_directory (const ThunarFile *file)
+ {
+   _thunar_return_val_if_fail (THUNAR_IS_FILE (file), FALSE);
++
++  if (G_UNLIKELY (thunar_file_is_library_symlink (file)))
++    return TRUE;
++
+   return file->kind == G_FILE_TYPE_DIRECTORY;
+ }
+ 
+@@ -3640,7 +3683,7 @@
+         emblems = g_list_append (emblems, *emblem_names);
+     }
+ 
+-  if (thunar_file_is_symlink (file))
++  if (thunar_file_is_symlink (file) && !thunar_file_is_library_symlink (file))
+     emblems = g_list_prepend (emblems, THUNAR_FILE_EMBLEM_NAME_SYMBOLIC_LINK);
+ 
+   /* determine the user ID of the file owner */
+@@ -3652,7 +3695,7 @@
+   /* we add "cant-read" if either (a) the file is not readable or (b) a directory, that lacks the
+    * x-bit, see https://bugzilla.xfce.org/show_bug.cgi?id=1408 for the details about this change.
+    */
+-  if (!thunar_file_is_readable (file)
++  if ((!thunar_file_is_readable (file) && !thunar_file_is_library_symlink (file))
+       || (thunar_file_is_directory (file)
+           && thunar_file_denies_access_permission (file, THUNAR_FILE_MODE_USR_EXEC,
+                                                          THUNAR_FILE_MODE_GRP_EXEC,
+diff --color -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-file.h thunar/src/thunar-4.18.6/thunar/thunar-file.h
+--- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-file.h	2023-05-31 09:57:00.800837332 -0700
++++ thunar/src/thunar-4.18.6/thunar/thunar-file.h	2023-05-31 10:47:41.676385558 -0700
+@@ -192,6 +192,7 @@
+ const gchar      *thunar_file_get_symlink_target         (const ThunarFile       *file);
+ const gchar      *thunar_file_get_basename               (const ThunarFile       *file) G_GNUC_CONST;
+ gboolean          thunar_file_is_symlink                 (const ThunarFile       *file);
++gboolean          thunar_file_is_library_symlink         (const ThunarFile       *file);
+ guint64           thunar_file_get_size                   (const ThunarFile       *file);
+ GAppInfo         *thunar_file_get_default_handler        (const ThunarFile       *file);
+ GFileType         thunar_file_get_kind                   (const ThunarFile       *file) G_GNUC_PURE;
