@@ -1,12 +1,12 @@
 diff --color -ru pnpm.ORIG/PKGBUILD pnpm/PKGBUILD
---- pnpm.ORIG/PKGBUILD	2023-01-31 09:03:15.734718038 -0800
-+++ pnpm/PKGBUILD	2023-01-31 09:11:06.730327427 -0800
+--- pnpm.ORIG/PKGBUILD	2023-06-06 09:56:38.055479644 -0700
++++ pnpm/PKGBUILD	2023-06-06 09:57:11.973263451 -0700
 @@ -34,6 +34,8 @@
-   install -Dm644 "$_npmdir/README.md" "$pkgdir/usr/share/doc/$pkgname/README.md"
-   rm -rf "$pkgdir/usr/etc" "$_npmdir/LICENSE" "$_npmdir/README.md"
+   ln -s $_npmdir/LICENSE usr/share/licenses/$pkgname
+   ln -s $_npmdir/README.md usr/share/doc/$pkgname
  
-+  sed -i 's/ in PRINT_EXECUTION_TIME_IN_COMMANDS)/ in {})/' "$_npmdir"/dist/pnpm.cjs
++  sed -i 's/ in PRINT_EXECUTION_TIME_IN_COMMANDS)/ in {})/' ./"$_npmdir"/dist/pnpm.cjs
 +
-   # Remove references to $srcdir and $pkgdir.
-   # See: https://wiki.archlinux.org/title/Node.js_package_guidelines#Package_contains_reference_to_$srcdir/$pkgdir
+   # Remove references to $srcdir and $pkgdir
    local _tmp_package="$(mktemp)"
+   jq '.|=with_entries(select(.key|test("_.+")|not))' ./$_npmdir/package.json > "$_tmp_package"
