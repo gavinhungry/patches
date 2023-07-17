@@ -1,12 +1,12 @@
 diff --color -ru pnpm.ORIG/PKGBUILD pnpm/PKGBUILD
---- pnpm.ORIG/PKGBUILD	2023-07-16 20:08:15.360651313 -0700
-+++ pnpm/PKGBUILD	2023-07-16 20:10:25.473040914 -0700
-@@ -26,6 +26,8 @@
-   ln -s $_npmdir/bin/$pkgname.cjs "$pkgdir"/usr/bin/$pkgname
-   ln -s $_npmdir/bin/pnpx.cjs "$pkgdir"/usr/bin/pnpx
- 
-+  sed -i 's/ in PRINT_EXECUTION_TIME_IN_COMMANDS)/ in {})/' ./"$_npmdir"/dist/pnpm.cjs
-+
+--- pnpm.ORIG/PKGBUILD	2023-07-17 13:00:42.857753696 -0700
++++ pnpm/PKGBUILD	2023-07-17 13:00:48.824512269 -0700
+@@ -29,6 +29,8 @@
    cd $pkgname-$pkgver/$pkgname
    cp -r bin package.json "$pkgdir"/$_npmdir
    install -Dt "$pkgdir"/usr/share/licenses/$pkgname LICENSE
++
+   cd dist
++  sed -i 's/ in PRINT_EXECUTION_TIME_IN_COMMANDS)/ in {})/' $pkgname.cjs
+   cp -r $pkgname.cjs pnpmrc scripts "$pkgdir"/$_npmdir/dist
+ }
