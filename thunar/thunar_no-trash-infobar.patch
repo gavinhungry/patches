@@ -1,7 +1,7 @@
-diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-window.c thunar/src/thunar-4.18.6/thunar/thunar-window.c
---- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-window.c	2023-03-23 12:05:40.124032949 -0700
-+++ thunar/src/thunar-4.18.6/thunar/thunar-window.c	2023-03-23 12:05:40.624045621 -0700
-@@ -5130,9 +5130,6 @@
+diff -ru thunar.ORIG/src/thunar-4.18.7/thunar/thunar-window.c thunar/src/thunar-4.18.7/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-4.18.7/thunar/thunar-window.c	2023-09-01 16:30:12.429245583 -0700
++++ thunar/src/thunar-4.18.7/thunar/thunar-window.c	2023-09-01 16:30:12.919252885 -0700
+@@ -5163,9 +5163,6 @@
  thunar_window_set_current_directory (ThunarWindow *window,
                                       ThunarFile   *current_directory)
  {
@@ -11,7 +11,7 @@ diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-window.c thunar/src/thunar-
    _thunar_return_if_fail (THUNAR_IS_WINDOW (window));
    _thunar_return_if_fail (current_directory == NULL || THUNAR_IS_FILE (current_directory));
  
-@@ -5215,18 +5212,7 @@
+@@ -5248,18 +5245,7 @@
    if (current_directory == NULL)
      return;
  

@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-application.c thunar/src/thunar-4.18.6/thunar/thunar-application.c
---- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-application.c	2023-03-23 12:05:40.120699532 -0700
-+++ thunar/src/thunar-4.18.6/thunar/thunar-application.c	2023-03-23 12:05:40.947387149 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.7/thunar/thunar-application.c thunar/src/thunar-4.18.7/thunar/thunar-application.c
+--- thunar.ORIG/src/thunar-4.18.7/thunar/thunar-application.c	2023-09-01 16:30:12.425912200 -0700
++++ thunar/src/thunar-4.18.7/thunar/thunar-application.c	2023-09-01 16:30:13.199257056 -0700
 @@ -657,15 +657,9 @@
    gtk_css_provider_load_from_data (css_provider,
      /* for the location-buttons any margin looks ugly */
@@ -20,9 +20,9 @@ diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-application.c thunar/src/th
    screen = gdk_screen_get_default ();
    gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER (css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
    g_object_unref (css_provider);
-diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-tree-pane.c thunar/src/thunar-4.18.6/thunar/thunar-tree-pane.c
---- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-tree-pane.c	2023-03-23 12:05:40.124032949 -0700
-+++ thunar/src/thunar-4.18.6/thunar/thunar-tree-pane.c	2023-03-23 12:05:40.947387149 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.7/thunar/thunar-tree-pane.c thunar/src/thunar-4.18.7/thunar/thunar-tree-pane.c
+--- thunar.ORIG/src/thunar-4.18.7/thunar/thunar-tree-pane.c	2023-09-01 16:30:12.425912200 -0700
++++ thunar/src/thunar-4.18.7/thunar/thunar-tree-pane.c	2023-09-01 16:30:13.199257056 -0700
 @@ -147,6 +147,9 @@
    g_signal_connect_swapped (G_OBJECT (tree_pane->view), "open-new-tab", G_CALLBACK (thunar_navigator_open_new_tab), tree_pane);
    gtk_container_add (GTK_CONTAINER (tree_pane), tree_pane->view);
@@ -33,10 +33,10 @@ diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-tree-pane.c thunar/src/thun
  }
  
  
-diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-window.c thunar/src/thunar-4.18.6/thunar/thunar-window.c
---- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-window.c	2023-03-23 12:05:40.124032949 -0700
-+++ thunar/src/thunar-4.18.6/thunar/thunar-window.c	2023-03-23 12:05:40.947387149 -0700
-@@ -902,7 +902,7 @@
+diff -ru thunar.ORIG/src/thunar-4.18.7/thunar/thunar-window.c thunar/src/thunar-4.18.7/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-4.18.7/thunar/thunar-window.c	2023-09-01 16:30:12.429245583 -0700
++++ thunar/src/thunar-4.18.7/thunar/thunar-window.c	2023-09-01 16:30:13.202590440 -0700
+@@ -904,7 +904,7 @@
  
    /* main paned widget */
    window->paned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
@@ -45,7 +45,7 @@ diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-window.c thunar/src/thunar-
    gtk_widget_set_hexpand (window->paned, TRUE);
    gtk_widget_set_vexpand (window->paned, TRUE);
    gtk_grid_attach (GTK_GRID (window->grid), window->paned, 0, 4, 1, 1);
-@@ -6053,6 +6053,9 @@
+@@ -6086,6 +6086,9 @@
  
    /* allocate the new location bar widget */
    window->location_bar = thunar_location_bar_new ();

@@ -1,7 +1,7 @@
-diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-file.c thunar/src/thunar-4.18.6/thunar/thunar-file.c
---- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-file.c	2023-03-23 12:05:40.124032949 -0700
-+++ thunar/src/thunar-4.18.6/thunar/thunar-file.c	2023-03-23 12:05:40.457374731 -0700
-@@ -1081,9 +1081,6 @@
+diff -ru thunar.ORIG/src/thunar-4.18.7/thunar/thunar-file.c thunar/src/thunar-4.18.7/thunar/thunar-file.c
+--- thunar.ORIG/src/thunar-4.18.7/thunar/thunar-file.c	2023-09-01 16:30:12.429245583 -0700
++++ thunar/src/thunar-4.18.7/thunar/thunar-file.c	2023-09-01 16:30:12.759250500 -0700
+@@ -1086,9 +1086,6 @@
            display_name = g_file_info_get_display_name (file->info);
            if (G_LIKELY (display_name != NULL))
              {

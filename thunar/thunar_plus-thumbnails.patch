@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-enum-types.c thunar/src/thunar-4.18.6/thunar/thunar-enum-types.c
---- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-enum-types.c	2023-03-23 12:05:40.124032949 -0700
-+++ thunar/src/thunar-4.18.6/thunar/thunar-enum-types.c	2023-03-23 12:05:40.744048663 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.7/thunar/thunar-enum-types.c thunar/src/thunar-4.18.7/thunar/thunar-enum-types.c
+--- thunar.ORIG/src/thunar-4.18.7/thunar/thunar-enum-types.c	2023-09-01 16:30:12.425912200 -0700
++++ thunar/src/thunar-4.18.7/thunar/thunar-enum-types.c	2023-09-01 16:30:13.039254672 -0700
 @@ -224,7 +224,9 @@
          { THUNAR_ICON_SIZE_160,  "THUNAR_ICON_SIZE_160",       "160px",  },
          { THUNAR_ICON_SIZE_192,  "THUNAR_ICON_SIZE_192",       "192px",  },
@@ -57,9 +57,9 @@ diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-enum-types.c thunar/src/thu
    if (icon_size >= THUNAR_ICON_SIZE_128)
      return THUNAR_THUMBNAIL_SIZE_LARGE;
  
-diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-enum-types.h thunar/src/thunar-4.18.6/thunar/thunar-enum-types.h
---- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-enum-types.h	2023-03-23 12:05:40.120699532 -0700
-+++ thunar/src/thunar-4.18.6/thunar/thunar-enum-types.h	2023-03-23 12:05:40.744048663 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.7/thunar/thunar-enum-types.h thunar/src/thunar-4.18.7/thunar/thunar-enum-types.h
+--- thunar.ORIG/src/thunar-4.18.7/thunar/thunar-enum-types.h	2023-09-01 16:30:12.425912200 -0700
++++ thunar/src/thunar-4.18.7/thunar/thunar-enum-types.h	2023-09-01 16:30:13.039254672 -0700
 @@ -160,7 +160,9 @@
    THUNAR_ICON_SIZE_160   =  160,
    THUNAR_ICON_SIZE_192   =  192,
@@ -99,9 +99,9 @@ diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-enum-types.h thunar/src/thu
    THUNAR_ZOOM_LEVEL_1600_PERCENT,
  
    /*< private >*/
-diff -ru thunar.ORIG/src/thunar-4.18.6/thunar/thunar-icon-view.c thunar/src/thunar-4.18.6/thunar/thunar-icon-view.c
---- thunar.ORIG/src/thunar-4.18.6/thunar/thunar-icon-view.c	2023-03-23 12:05:40.120699532 -0700
-+++ thunar/src/thunar-4.18.6/thunar/thunar-icon-view.c	2023-03-23 12:05:40.744048663 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.7/thunar/thunar-icon-view.c thunar/src/thunar-4.18.7/thunar/thunar-icon-view.c
+--- thunar.ORIG/src/thunar-4.18.7/thunar/thunar-icon-view.c	2023-09-01 16:30:12.429245583 -0700
++++ thunar/src/thunar-4.18.7/thunar/thunar-icon-view.c	2023-09-01 16:30:13.039254672 -0700
 @@ -201,8 +201,12 @@
        wrap_width = 112;
        break;

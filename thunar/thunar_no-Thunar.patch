@@ -1,7 +1,7 @@
 diff -ru thunar.ORIG/PKGBUILD thunar/PKGBUILD
---- thunar.ORIG/PKGBUILD	2023-03-23 12:05:40.114032696 -0700
-+++ thunar/PKGBUILD	2023-03-23 12:05:40.580711190 -0700
-@@ -41,6 +41,7 @@
+--- thunar.ORIG/PKGBUILD	2023-09-01 16:30:12.432578966 -0700
++++ thunar/PKGBUILD	2023-09-01 16:30:12.879252289 -0700
+@@ -42,6 +42,7 @@
  package() {
    cd $pkgname-$pkgver
    make DESTDIR="$pkgdir" install
