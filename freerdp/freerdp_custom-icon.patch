@@ -1,6 +1,6 @@
-diff --color -ru freerdp.ORIG/src/FreeRDP-2.10.0/client/X11/xf_window.c freerdp/src/FreeRDP-2.10.0/client/X11/xf_window.c
---- freerdp.ORIG/src/FreeRDP-2.10.0/client/X11/xf_window.c	2022-11-16 21:15:28.561584331 -0800
-+++ freerdp/src/FreeRDP-2.10.0/client/X11/xf_window.c	2022-11-16 21:16:11.723628871 -0800
+diff --color -ru freerdp.ORIG/src/FreeRDP-2.11.1/client/X11/xf_window.c freerdp/src/FreeRDP-2.11.1/client/X11/xf_window.c
+--- freerdp.ORIG/src/FreeRDP-2.11.1/client/X11/xf_window.c	2022-11-16 21:15:28.561584331 -0800
++++ freerdp/src/FreeRDP-2.11.1/client/X11/xf_window.c	2022-11-16 21:16:11.723628871 -0800
 @@ -67,8 +67,8 @@
  	} while (0)
  #endif
@@ -13,9 +13,9 @@ diff --color -ru freerdp.ORIG/src/FreeRDP-2.10.0/client/X11/xf_window.c freerdp/
  #include "xf_window.h"
  
 Only in freerdp/src/FreeRDP-2.9.0/client/X11: xf_window.c.orig
-diff --color -ru freerdp.ORIG/src/FreeRDP-2.10.0/resources/conv_to_ewm_prop.py freerdp/src/FreeRDP-2.10.0/resources/conv_to_ewm_prop.py
---- freerdp.ORIG/src/FreeRDP-2.10.0/resources/conv_to_ewm_prop.py	2022-11-16 21:15:28.574918297 -0800
-+++ freerdp/src/FreeRDP-2.10.0/resources/conv_to_ewm_prop.py	2022-11-16 21:16:17.327227527 -0800
+diff --color -ru freerdp.ORIG/src/FreeRDP-2.11.1/resources/conv_to_ewm_prop.py freerdp/src/FreeRDP-2.11.1/resources/conv_to_ewm_prop.py
+--- freerdp.ORIG/src/FreeRDP-2.11.1/resources/conv_to_ewm_prop.py	2022-11-16 21:15:28.574918297 -0800
++++ freerdp/src/FreeRDP-2.11.1/resources/conv_to_ewm_prop.py	2022-11-16 21:16:17.327227527 -0800
 @@ -27,7 +27,7 @@
  import sys
  
