@@ -1,0 +1,68 @@
+diff -ru eog.ORIG/src/eog/src/eog-application.c eog/src/eog/src/eog-application.c
+--- eog.ORIG/src/eog/src/eog-application.c	2023-09-29 09:34:49.148351857 -0700
++++ eog/src/eog/src/eog-application.c	2023-09-29 09:34:49.165018765 -0700
+@@ -206,6 +206,7 @@
+ 	 * and terminate the entry with a NULL-string. */
+ 	static const gchar * const accelmap[] = {
+ 		"win.open",		"<Ctrl>o", NULL ,
++		"win.edit-in-gimp",	"<Ctrl>e", NULL,
+ 		"win.save",		"<Ctrl>s", NULL ,
+ 		"win.save-as",		"<Ctrl><shift>s", NULL,
+ 		"win.close",		"<Ctrl>w", NULL,
+diff -ru eog.ORIG/src/eog/src/eog-window.c eog/src/eog/src/eog-window.c
+--- eog.ORIG/src/eog/src/eog-window.c	2023-09-29 09:34:49.151685239 -0700
++++ eog/src/eog/src/eog-window.c	2023-09-29 09:34:49.165018765 -0700
+@@ -650,6 +650,7 @@
+ 		"rotate-90",
+ 		"rotate-270",
+ 		"set-wallpaper",
++		"edit-in-gimp",
+ 		"show-remote",
+ 		"move-trash",
+ 		"delete",
+@@ -3078,6 +3079,37 @@
+ }
+ 
+ static void
++eog_window_action_edit_in_gimp (GSimpleAction *action,
++			     GVariant      *variant,
++			     gpointer       user_data)
++{
++	EogWindow *window;
++	EogWindowPrivate *priv;
++	EogImage *image;
++	g_autoptr(GFile) file = NULL;
++	g_autofree gchar *filename = NULL;
++	gint child_pid;
++
++	g_return_if_fail (EOG_IS_WINDOW (user_data));
++
++	window = EOG_WINDOW (user_data);
++	priv = window->priv;
++
++	image = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
++
++	g_return_if_fail (EOG_IS_IMAGE (image));
++
++	file = eog_image_get_file (image);
++
++	filename = g_file_get_path (file);
++
++	child_pid = fork();
++	if (!child_pid) {
++		execl("/usr/bin/gimp", "gimp", filename, NULL);
++	}
++}
++
++static void
+ eog_window_action_print (GSimpleAction *action,
+ 			 GVariant      *variant,
+ 			 gpointer       user_data)
+@@ -4069,6 +4101,7 @@
+ 	{ "open",          eog_window_action_file_open },
+ 	{ "open-with",     eog_window_action_open_with },
+ 	{ "open-folder",   eog_window_action_open_containing_folder },
++	{ "edit-in-gimp",  eog_window_action_edit_in_gimp },
+ 	{ "save",          eog_window_action_save },
+ 	{ "save-as",       eog_window_action_save_as },
+ 	{ "close",         eog_window_action_close_window },
