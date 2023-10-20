@@ -1,0 +1,30 @@
+diff --color -ru eog.ORIG/src/eog/src/eog-scroll-view.c eog/src/eog/src/eog-scroll-view.c
+--- eog.ORIG/src/eog/src/eog-scroll-view.c	2023-10-20 15:18:37.380882733 -0700
++++ eog/src/eog/src/eog-scroll-view.c	2023-10-20 15:22:12.510844884 -0700
+@@ -2058,8 +2058,6 @@
+ 	gtk_widget_set_valign (priv->left_revealer, GTK_ALIGN_CENTER);
+ 	gtk_widget_set_margin_start(priv->left_revealer, 12);
+ 	gtk_widget_set_margin_end(priv->left_revealer, 12);
+-	gtk_overlay_add_overlay (GTK_OVERLAY (view),
+-	                         priv->left_revealer);
+ 
+ 	/* right revealer */
+ 	priv->right_revealer = gtk_revealer_new ();
+@@ -2071,8 +2069,6 @@
+ 	gtk_widget_set_valign (priv->right_revealer, GTK_ALIGN_CENTER);
+ 	gtk_widget_set_margin_start (priv->right_revealer, 12);
+ 	gtk_widget_set_margin_end (priv->right_revealer, 12);
+-	gtk_overlay_add_overlay(GTK_OVERLAY (view),
+-	                        priv->right_revealer);
+ 
+ 	/* bottom revealer */
+ 	priv->bottom_revealer = gtk_revealer_new ();
+@@ -2083,8 +2079,6 @@
+ 	gtk_widget_set_halign (priv->bottom_revealer, GTK_ALIGN_CENTER);
+ 	gtk_widget_set_valign (priv->bottom_revealer, GTK_ALIGN_END);
+ 	gtk_widget_set_margin_bottom (priv->bottom_revealer, 12);
+-	gtk_overlay_add_overlay (GTK_OVERLAY (view),
+-	                         priv->bottom_revealer);
+ 
+ 	/* overlaid buttons */
+ 	GtkWidget *button = gtk_button_new_from_icon_name ("go-next-symbolic",

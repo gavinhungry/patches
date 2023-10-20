@@ -1,0 +1,12 @@
+diff --color -ru eog.ORIG/src/eog/src/eog-application.c eog/src/eog/src/eog-application.c
+--- eog.ORIG/src/eog/src/eog-application.c	2023-10-20 15:18:37.380882733 -0700
++++ eog/src/eog/src/eog-application.c	2023-10-20 15:25:38.003996268 -0700
+@@ -220,8 +220,6 @@
+ 		"win.go-first",		"<Alt>Home", "Home", NULL,
+ 		"win.go-last",		"<Alt>End", "End", NULL,
+ 		"win.go-random",	"<Ctrl>m", NULL,
+-		"win.rotate-90",	"<Ctrl>r", NULL,
+-		"win.rotate-270",	"<Ctrl><Shift>r", NULL,
+ 		"win.move-trash",	"Delete", NULL,
+ 		"win.delete",		"<Shift>Delete", NULL,
+ 		"win.copy",		"<Ctrl>c", NULL,
