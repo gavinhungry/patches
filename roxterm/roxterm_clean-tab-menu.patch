@@ -1,6 +1,6 @@
-diff --color -ru roxterm.ORIG/src/roxterm-3.12.1/src/menutree.c roxterm/src/roxterm-3.12.1/src/menutree.c
---- roxterm.ORIG/src/roxterm-3.12.1/src/menutree.c	2023-04-24 10:24:05.595031376 -0700
-+++ roxterm/src/roxterm-3.12.1/src/menutree.c	2023-04-24 10:26:07.004761582 -0700
+diff --color -ru roxterm.ORIG/src/roxterm-3.14.1/src/menutree.c roxterm/src/roxterm-3.14.1/src/menutree.c
+--- roxterm.ORIG/src/roxterm-3.14.1/src/menutree.c	2023-04-24 10:24:05.595031376 -0700
++++ roxterm/src/roxterm-3.14.1/src/menutree.c	2023-04-24 10:26:07.004761582 -0700
 @@ -420,16 +420,8 @@
  
      submenu = gtk_menu_new();
