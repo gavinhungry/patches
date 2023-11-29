@@ -1,0 +1,15 @@
+diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
+--- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:01:20.249405437 -0800
++++ clipit/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:52:43.734366169 -0800
+@@ -920,11 +920,6 @@
+ 	 * - use_rmb_menu is active and menu_type is right-click, OR
+ 	 * - use_rmb_menu is inactive and menu_type is left-click */
+ 	if ((prefs.use_rmb_menu && (menu_type == 3)) || (!prefs.use_rmb_menu) || (menu_type == 2)) {
+-		/* Offline mode checkbox */
+-		menu_item = gtk_check_menu_item_new_with_mnemonic(_("_Offline mode"));
+-		gtk_check_menu_item_set_active((GtkCheckMenuItem*)menu_item, prefs.offline_mode);
+-		g_signal_connect((GObject*)menu_item, "activate", (GCallback)toggle_offline_mode, NULL);
+-		gtk_menu_shell_append((GtkMenuShell*)tray_menu, menu_item);
+ 		/* About */
+ 		menu_item = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL);
+ 		g_signal_connect((GObject*)menu_item, "activate", (GCallback)show_about_dialog, NULL);

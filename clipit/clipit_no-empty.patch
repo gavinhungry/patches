@@ -1,0 +1,25 @@
+diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
+--- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:01:20.249405437 -0800
++++ clipit/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:41:20.007794426 -0800
+@@ -819,6 +819,7 @@
+ 				element_number++;
+ 			element_number_small++;
+ 		}
++		gtk_menu_shell_append((GtkMenuShell*)history_menu, gtk_separator_menu_item_new());
+ 		/* Cleanup */
+ 		g_free(primary_temp);
+ 		g_free(clipboard_temp);
+@@ -826,13 +827,6 @@
+ 		if (prefs.reverse_history)
+ 			history = g_list_reverse(history);
+ 	}
+-	else
+-	{
+-		/* Nothing in history so adding empty */
+-		menu_item = gtk_menu_item_new_with_label(_("Empty"));
+-		gtk_widget_set_sensitive(menu_item, FALSE);
+-		gtk_menu_shell_append((GtkMenuShell*)history_menu, menu_item);
+-	}
+ 	if (prefs.statics_show) {
+ 		/* -------------------- */
+ 		gtk_menu_shell_append((GtkMenuShell*)history_menu, gtk_separator_menu_item_new());

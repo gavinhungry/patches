@@ -1,0 +1,21 @@
+diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
+--- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:01:20.249405437 -0800
++++ clipit/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:30:21.428427388 -0800
+@@ -870,17 +870,6 @@
+ 			elem = elem->next;
+ 		}
+ 	}
+-	/* Show a notice in offline mode */
+-	if (prefs.offline_mode) {
+-		gtk_menu_shell_append((GtkMenuShell*)history_menu, gtk_separator_menu_item_new());
+-
+-		menu_item = gtk_menu_item_new_with_label("");
+-		item_label = gtk_bin_get_child((GtkBin*)menu_item);
+-		gtk_label_set_markup((GtkLabel*)item_label, "<b>Offline mode is ON</b>");
+-		gtk_label_set_single_line_mode((GtkLabel*)item_label, TRUE);
+-		gtk_widget_set_sensitive(item_label, FALSE);
+-		gtk_menu_shell_append((GtkMenuShell*)history_menu, menu_item);
+-	}
+     /* Append "Remove all" item */
+     menu_item = gtk_menu_item_new_with_label(_("Remove all"));
+     gtk_menu_shell_append((GtkMenuShell*)history_menu, menu_item);

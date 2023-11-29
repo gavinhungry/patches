@@ -1,0 +1,24 @@
+diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
+--- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:01:20.249405437 -0800
++++ clipit/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:59:40.223760725 -0800
+@@ -987,19 +987,8 @@
+ /* Called when status icon is clicked */
+ /* (checks type of click and calls correct function) */
+ static void status_icon_clicked(GtkStatusIcon *status_icon, GdkEventButton *event ) {
+-	/* Check what type of click was recieved */
+-	GdkModifierType state;
+-	gtk_get_current_event_state(&state);
+-	/* Control click */
+-	if (state == GDK_MOD2_MASK+GDK_CONTROL_MASK || state == GDK_CONTROL_MASK)
+-	{
+-		if (actions_lock == FALSE)
+-		{
+-			g_timeout_add(POPUP_DELAY, show_actions_menu, NULL);
+-		}
+-	}
+ 	/* Left click */
+-	else if (event->button == 1)
++	if (event->button == 1)
+ 	{
+ 		show_clipit_menu(1);
+ 	}
