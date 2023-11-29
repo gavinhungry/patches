@@ -8,7 +8,7 @@ diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5
 -#define ICON "clipit-trayicon"
 -#define ICON_OFFLINE "clipit-trayicon-offline"
 +#define ICON "clipboard"
-+#define ICON_OFFLINE "clipboard-offline"
++#define ICON_OFFLINE "clipboard-disabled"
  
  static gchar* primary_text;
  static gchar* clipboard_text;
