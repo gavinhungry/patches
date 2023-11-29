@@ -1,0 +1,223 @@
+diff --color -ru parcellite.ORIG/src/parcellite-1.2.2/configure.ac parcellite/src/parcellite-1.2.2/configure.ac
+--- parcellite.ORIG/src/parcellite-1.2.2/configure.ac	2023-11-29 04:28:35.700381179 -0800
++++ parcellite/src/parcellite-1.2.2/configure.ac	2023-11-29 04:36:46.577612077 -0800
+@@ -87,14 +87,14 @@
+ # Checks for libraries.
+ # -------------------------------------------------------------------------------
+ # AC_CHECK_LIB(pthread, pthread_create)
+-pkg_modules="gtk+-2.0 >= 2.10.0"
++pkg_modules="gtk+-3.0 >= 3.24.0"
+ PKG_CHECK_MODULES([GTK], [$pkg_modules])
+ #keep pkg-config from being called
+-GTK_LIBS=`$PKG_CONFIG --libs gtk+-2.0|sed 's/.* \(-lgtk-[[^ ]]*\) .*/\1/'`
++GTK_LIBS=`$PKG_CONFIG --libs gtk+-3.0|sed 's/.* \(-lgtk-[[^ ]]*\) .*/\1/'`
+ gtk_libs=`echo "$GTK_LIBS"|sed 's/-l//'`
+ #gtk_libs=`$PKG_CONFIG --libs gtk+-2.0|sed 's/.* -l\(gtk-[[^ ]]*\) .*/\1/'`
+ #echo "gtk_libs = '$gtk_libs'"
+-AC_CHECK_LIB([$gtk_libs],gtk_status_icon_new,[],AC_MSG_ERROR(Requirement not met: gtk >= 2.10.0))
++AC_CHECK_LIB([$gtk_libs],gtk_status_icon_new,[],AC_MSG_ERROR(Requirement not met: gtk >= 3.24.0))
+ #AM_PATH_GTK_2_0(2.10.0, [], AC_MSG_ERROR(Requirement not met: gtk >= 2.10.0))
+ #AM_PATH_GLIB_2_0(2.14.0, [], AC_MSG_ERROR(Requirement not met: glib >= 2.14.0))
+
+diff --color -ru parcellite.ORIG/src/parcellite-1.2.2/src/eggaccelerators.c parcellite/src/parcellite-1.2.2/src/eggaccelerators.c
+--- parcellite.ORIG/src/parcellite-1.2.2/src/eggaccelerators.c	2023-11-29 04:28:35.703714563 -0800
++++ parcellite/src/parcellite-1.2.2/src/eggaccelerators.c	2023-11-29 04:37:50.325211307 -0800
+@@ -537,20 +537,20 @@
+       j = 0;
+       while (j < n_entries)
+         {
+-          if (keyvals[j] == GDK_Num_Lock)
++          if (keyvals[j] == GDK_KEY_Num_Lock)
+             mask |= EGG_VIRTUAL_NUM_LOCK_MASK;
+-          else if (keyvals[j] == GDK_Scroll_Lock)
++          else if (keyvals[j] == GDK_KEY_Scroll_Lock)
+             mask |= EGG_VIRTUAL_SCROLL_LOCK_MASK;
+-          else if (keyvals[j] == GDK_Meta_L ||
+-                   keyvals[j] == GDK_Meta_R)
++          else if (keyvals[j] == GDK_KEY_Meta_L ||
++                   keyvals[j] == GDK_KEY_Meta_R)
+             mask |= EGG_VIRTUAL_META_MASK;
+-          else if (keyvals[j] == GDK_Hyper_L ||
+-                   keyvals[j] == GDK_Hyper_R)
++          else if (keyvals[j] == GDK_KEY_Hyper_L ||
++                   keyvals[j] == GDK_KEY_Hyper_R)
+             mask |= EGG_VIRTUAL_HYPER_MASK;
+-          else if (keyvals[j] == GDK_Super_L ||
+-                   keyvals[j] == GDK_Super_R)
++          else if (keyvals[j] == GDK_KEY_Super_L ||
++                   keyvals[j] == GDK_KEY_Super_R)
+             mask |= EGG_VIRTUAL_SUPER_MASK;
+-          else if (keyvals[j] == GDK_Mode_switch)
++          else if (keyvals[j] == GDK_KEY_Mode_switch)
+             mask |= EGG_VIRTUAL_MODE_SWITCH_MASK;
+
+           ++j;
+diff --color -ru parcellite.ORIG/src/parcellite-1.2.2/src/keybinder.c parcellite/src/parcellite-1.2.2/src/keybinder.c
+--- parcellite.ORIG/src/parcellite-1.2.2/src/keybinder.c	2023-11-29 04:28:35.703714563 -0800
++++ parcellite/src/parcellite-1.2.2/src/keybinder.c	2023-11-29 04:38:27.165749806 -0800
+@@ -86,7 +86,7 @@
+ 			XGrabKey (GDK_WINDOW_XDISPLAY (rootwin),
+ 				  binding->keycode,
+ 				  binding->modifiers | mod_masks [i],
+-				  GDK_WINDOW_XWINDOW (rootwin),
++				  GDK_WINDOW_XID (rootwin),
+ 				  False,
+ 				  GrabModeAsync,
+ 				  GrabModeAsync);
+@@ -94,7 +94,7 @@
+ 			XUngrabKey (GDK_WINDOW_XDISPLAY (rootwin),
+ 				    binding->keycode,
+ 				    binding->modifiers | mod_masks [i],
+-				    GDK_WINDOW_XWINDOW (rootwin));
++				    GDK_WINDOW_XID (rootwin));
+ 		}
+ 	}
+ }
+@@ -309,7 +309,7 @@
+ 	XModifierKeymap *mod_keymap;
+ 	gboolean retval = FALSE;
+
+-	mod_keymap = XGetModifierMapping (gdk_display);
++	mod_keymap = XGetModifierMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default()));
+
+ 	map_size = 8 * mod_keymap->max_keypermod;
+
+diff --color -ru parcellite.ORIG/src/parcellite-1.2.2/src/main.c parcellite/src/parcellite-1.2.2/src/main.c
+--- parcellite.ORIG/src/parcellite-1.2.2/src/main.c	2023-11-29 04:28:35.703714563 -0800
++++ parcellite/src/parcellite-1.2.2/src/main.c	2023-11-29 04:43:21.340040598 -0800
+@@ -398,7 +398,17 @@
+
+
+ 	if( H_MODE_CHECK==mode &&clip == primary){/*fix auto-deselect of text in applications like DevHelp and LyX*/
+-   	gdk_window_get_pointer(NULL, NULL, NULL, &button_state);
++		GdkScreen *screen = gdk_screen_get_default();
++		if (screen)
++		{
++			GdkDisplay *display = gdk_screen_get_display(screen);
++			GdkWindow *window = gdk_screen_get_root_window(screen);
++			GdkSeat *seat = gdk_display_get_default_seat(display);
++
++			gdk_window_get_device_position(window, gdk_seat_get_pointer(seat), NULL,
++			NULL, &button_state);
++		}
++  	/* gdk_window_get_pointer(NULL, NULL, NULL, &button_state); */
+ 		if ( button_state & (GDK_BUTTON1_MASK|GDK_SHIFT_MASK) ) /**button down, done.  */
+ 			goto done;
+ 	}
+@@ -698,7 +708,7 @@
+   g_spawn_close_pid(pid);
+   if (!have_appindicator && show_icon) {
+ 		gtk_status_icon_set_from_icon_name((GtkStatusIcon*)status_icon, get_pref_string("icon_name"));
+-    gtk_status_icon_set_tooltip((GtkStatusIcon*)status_icon, _("Clipboard Manager"));
++    gtk_status_icon_set_has_tooltip((GtkStatusIcon*)status_icon, _("Clipboard Manager"));
+   }
+   actions_lock = FALSE;
+ }
+@@ -710,7 +720,7 @@
+   actions_lock = TRUE;
+   if (!have_appindicator && show_icon) {
+     gtk_status_icon_set_from_stock((GtkStatusIcon*)status_icon, GTK_STOCK_EXECUTE);
+-    gtk_status_icon_set_tooltip((GtkStatusIcon*)status_icon, _("Executing action..."));
++    gtk_status_icon_set_has_tooltip((GtkStatusIcon*)status_icon, _("Executing action..."));
+   }
+   /* Insert clipboard into command (user_data), and prepare it for execution */
+   gchar* clipboard_text = gtk_clipboard_wait_for_text(clipboard);
+@@ -805,7 +815,7 @@
+
+     /* Create the dialog */
+     GtkWidget* dialog = gtk_dialog_new_with_buttons(_("Editing Clipboard"), NULL,
+-                                                   (GTK_DIALOG_MODAL   +    GTK_DIALOG_NO_SEPARATOR),
++                                                   	GTK_DIALOG_MODAL,
+                                                     GTK_STOCK_CANCEL,       GTK_RESPONSE_REJECT,
+                                                     GTK_STOCK_OK,           GTK_RESPONSE_ACCEPT, NULL);
+
+@@ -819,7 +829,7 @@
+     gtk_scrolled_window_set_policy((GtkScrolledWindow*)scrolled_window,
+                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
+-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), scrolled_window, TRUE, TRUE, 2);
++    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)), scrolled_window, TRUE, TRUE, 2);
+     GtkWidget* text_view = gtk_text_view_new_with_buffer(text_buffer);
+     gtk_text_view_set_left_margin((GtkTextView*)text_view, 2);
+     gtk_text_view_set_right_margin((GtkTextView*)text_view, 2);
+@@ -1138,7 +1148,7 @@
+     gtk_window_set_icon((GtkWindow*)about_dialog,
+                         gtk_widget_render_icon(about_dialog, GTK_STOCK_ABOUT, -1, NULL));
+
+-    gtk_about_dialog_set_name((GtkAboutDialog*)about_dialog, "Parcellite");
++    gtk_about_dialog_set_program_name((GtkAboutDialog*)about_dialog, "Parcellite");
+     #ifdef HAVE_CONFIG_H	/**VER=555; sed "s#\(.*\)svn.*\".*#\1svn$VER\"#" config.h  */
+     gtk_about_dialog_set_version((GtkAboutDialog*)about_dialog, VERSION);
+     #endif
+@@ -2151,14 +2161,23 @@
+   gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
+   /* Popup the menu... */
+   gtk_widget_show_all(menu);
+-  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, NULL, NULL, button, activate_time);
++	if(activate_time == 0)
++	{
++		/* If it's called over shortcut we must give it position */
++		gtk_menu_popup((GtkMenu*)menu, NULL, NULL, postition_history, NULL, 3, gtk_get_current_event_time());
++	}
++	else
++	{
++		gtk_menu_popup((GtkMenu*)menu, NULL, NULL, NULL, NULL, button, activate_time);
++	}
+ 	return menu;
+ }
+
+ /* Called when status icon is right-clicked */
+-static void  show_parcellite_menu(GtkStatusIcon *status_icon, guint button, guint activate_time,  gpointer data)
++static gboolean show_parcellite_menu(GtkStatusIcon *status_icon, guint button, guint activate_time,  gpointer data)
+ {
+ 	create_parcellite_menu(button, activate_time);
++	return FALSE;
+ }
+
+
+@@ -2193,7 +2212,7 @@
+ 	if(0 == have_appindicator){/* no Indicator */
+ 		if(NULL == status_icon){
+ 			status_icon = gtk_status_icon_new_from_icon_name(get_pref_string("icon_name"));
+-			gtk_status_icon_set_tooltip((GtkStatusIcon*)status_icon, _("Clipboard Manager"));
++			gtk_status_icon_set_has_tooltip((GtkStatusIcon*)status_icon, _("Clipboard Manager"));
+ 			g_signal_connect((GObject*)status_icon, "activate", (GCallback)status_icon_clicked, NULL);
+ 			g_signal_connect((GObject*)status_icon, "popup-menu", (GCallback)show_parcellite_menu, NULL);
+ 		}	else {
+@@ -2258,7 +2277,8 @@
+ 	/** GtkWidget * w=create_parcellite_menu(0, gtk_get_current_event_time());
+ 	app_indicator_set_menu (indicator, GTK_MENU (w));*/
+ #else
+-  show_parcellite_menu(status_icon, 0, 0, NULL);
++  /* show_parcellite_menu(status_icon, 0, 0, NULL); */
++  g_timeout_add(POPUP_DELAY, show_parcellite_menu, NULL);
+ #endif
+ }
+
+diff --color -ru parcellite.ORIG/src/parcellite-1.2.2/src/preferences.c parcellite/src/parcellite-1.2.2/src/preferences.c
+--- parcellite.ORIG/src/parcellite-1.2.2/src/preferences.c	2023-11-29 04:28:35.703714563 -0800
++++ parcellite/src/parcellite-1.2.2/src/preferences.c	2023-11-29 04:42:00.118857307 -0800
+@@ -1119,7 +1119,7 @@
+
+   /* Create the dialog */
+   GtkWidget* dialog = gtk_dialog_new_with_buttons(_("Preferences"),     NULL,
+-                                                   (GTK_DIALOG_MODAL  + GTK_DIALOG_NO_SEPARATOR),
++                                                    GTK_DIALOG_MODAL,
+                                                     GTK_STOCK_CANCEL,   GTK_RESPONSE_REJECT,
+                                                     GTK_STOCK_OK,       GTK_RESPONSE_ACCEPT, NULL);
+
+@@ -1177,10 +1177,10 @@
+   label = gtk_label_new(_(p->desc));
+   gtk_misc_set_alignment((GtkMisc*)label, 0.0, 0.50);
+   gtk_box_pack_start((GtkBox*)hbox, label, FALSE, FALSE, 0);
+-  p->w = gtk_combo_box_new_text();
+-  gtk_combo_box_append_text((GtkComboBox*)p->w, _("Beginning"));
+-  gtk_combo_box_append_text((GtkComboBox*)p->w, _("Middle"));
+-  gtk_combo_box_append_text((GtkComboBox*)p->w, _("End"));
++  p->w = gtk_combo_box_text_new();
++  gtk_combo_box_text_append_text((GtkComboBox*)p->w, _("Beginning"));
++  gtk_combo_box_text_append_text((GtkComboBox*)p->w, _("Middle"));
++  gtk_combo_box_text_append_text((GtkComboBox*)p->w, _("End"));
+   gtk_box_pack_start((GtkBox*)hbox, p->w, FALSE, FALSE, 0);
+   gtk_box_pack_start((GtkBox*)vbox_display, frame, FALSE, FALSE, 0);
+
