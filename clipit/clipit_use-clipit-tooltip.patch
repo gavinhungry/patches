@@ -1,0 +1,13 @@
+Only in clipit: clipit.ORIG
+diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
+--- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-12-13 14:42:54.594122398 -0800
++++ clipit/src/ClipIt-1.4.5/src/main.c	2023-12-13 14:43:30.394675382 -0800
+@@ -1074,7 +1074,7 @@
+ 	create_app_indicator(1);
+ #else
+ 	status_icon = gtk_status_icon_new_from_icon_name(ICON);
+-	gtk_status_icon_set_tooltip_text((GtkStatusIcon*)status_icon, _("Clipboard Manager"));
++	gtk_status_icon_set_tooltip_text((GtkStatusIcon*)status_icon, _("ClipIt"));
+ 	g_signal_connect((GObject*)status_icon, "button_press_event", (GCallback)status_icon_clicked, NULL);
+ #endif
+ 	}
