@@ -1,6 +1,6 @@
-diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/env_info.c xsecurelock/src/xsecurelock-1.8.0/env_info.c
---- xsecurelock.ORIG/src/xsecurelock-1.8.0/env_info.c	2022-09-26 22:40:12.659706615 -0700
-+++ xsecurelock/src/xsecurelock-1.8.0/env_info.c	2022-09-26 22:40:12.669707102 -0700
+diff -ru xsecurelock.ORIG/src/xsecurelock-1.9.0/env_info.c xsecurelock/src/xsecurelock-1.9.0/env_info.c
+--- xsecurelock.ORIG/src/xsecurelock-1.9.0/env_info.c	2022-09-26 22:40:12.659706615 -0700
++++ xsecurelock/src/xsecurelock-1.9.0/env_info.c	2022-09-26 22:40:12.669707102 -0700
 @@ -8,6 +8,7 @@
  #include "logging.h"
  #include "mlock_page.h"

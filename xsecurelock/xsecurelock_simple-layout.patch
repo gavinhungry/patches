@@ -1,6 +1,6 @@
-diff --color -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c xsecurelock/src/xsecurelock-1.8.0/helpers/auth_x11.c
---- xsecurelock.ORIG/src/xsecurelock-1.8.0/helpers/auth_x11.c	2022-10-16 13:45:40.120309550 -0700
-+++ xsecurelock/src/xsecurelock-1.8.0/helpers/auth_x11.c	2022-10-16 17:17:00.520982443 -0700
+diff --color -ru xsecurelock.ORIG/src/xsecurelock-1.9.0/helpers/auth_x11.c xsecurelock/src/xsecurelock-1.9.0/helpers/auth_x11.c
+--- xsecurelock.ORIG/src/xsecurelock-1.9.0/helpers/auth_x11.c	2022-10-16 13:45:40.120309550 -0700
++++ xsecurelock/src/xsecurelock-1.9.0/helpers/auth_x11.c	2022-10-16 17:17:00.520982443 -0700
 @@ -85,7 +85,7 @@
  #define PARANOID_PASSWORD_MIN_CHANGE 4
  

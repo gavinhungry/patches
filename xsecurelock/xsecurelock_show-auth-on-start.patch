@@ -1,6 +1,6 @@
-diff -ru xsecurelock.ORIG/src/xsecurelock-1.8.0/main.c xsecurelock/src/xsecurelock-1.8.0/main.c
---- xsecurelock.ORIG/src/xsecurelock-1.8.0/main.c	2022-09-26 22:40:12.659706615 -0700
-+++ xsecurelock/src/xsecurelock-1.8.0/main.c	2022-09-26 22:40:12.663040110 -0700
+diff -ru xsecurelock.ORIG/src/xsecurelock-1.9.0/main.c xsecurelock/src/xsecurelock-1.9.0/main.c
+--- xsecurelock.ORIG/src/xsecurelock-1.9.0/main.c	2022-09-26 22:40:12.659706615 -0700
++++ xsecurelock/src/xsecurelock-1.9.0/main.c	2022-09-26 22:40:12.663040110 -0700
 @@ -1158,6 +1158,9 @@
    int background_window_mapped = 0, background_window_visible = 0,
        auth_window_mapped = 0, saver_window_mapped = 0,
