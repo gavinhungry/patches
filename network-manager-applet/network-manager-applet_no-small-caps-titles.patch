@@ -1,0 +1,11 @@
+diff --color -ru network-manager-applet.ORIG/src/network-manager-applet/src/applet.c network-manager-applet/src/network-manager-applet/src/applet.c
+--- network-manager-applet.ORIG/src/network-manager-applet/src/applet.c	2023-12-27 13:29:59.515586936 -0800
++++ network-manager-applet/src/network-manager-applet/src/applet.c	2023-12-27 13:32:38.634710442 -0800
+@@ -632,7 +632,6 @@
+ 	gtk_style_context_get (style, gtk_style_context_get_state (style),
+ 	                       "font", &desc,
+ 	                       NULL);
+-	pango_font_description_set_variant (desc, PANGO_VARIANT_SMALL_CAPS);
+ 	pango_font_description_set_weight (desc, PANGO_WEIGHT_SEMIBOLD);
+ 	pango_layout_set_font_description (layout, desc);
+ 	pango_layout_set_text (layout, text, -1);
