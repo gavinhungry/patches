@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.18.8/thunar/thunar-window.c thunar/src/thunar-4.18.8/thunar/thunar-window.c
---- thunar.ORIG/src/thunar-4.18.8/thunar/thunar-window.c	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar-4.18.8/thunar/thunar-window.c	2023-10-24 15:53:45.204810587 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.10/thunar/thunar-window.c thunar/src/thunar-4.18.10/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar-4.18.10/thunar/thunar-window.c	2023-10-24 15:53:44.921473063 -0700
++++ thunar/src/thunar-4.18.10/thunar/thunar-window.c	2023-10-24 15:53:45.204810587 -0700
 @@ -3899,7 +3899,7 @@
    window->menubar_visible = !window->menubar_visible;
  
