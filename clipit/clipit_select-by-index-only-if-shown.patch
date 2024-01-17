@@ -1,0 +1,12 @@
+diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
+--- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2024-01-17 14:47:54.175371460 -0800
++++ clipit/src/ClipIt-1.4.5/src/main.c	2024-01-17 14:50:30.111058292 -0800
+@@ -590,7 +590,7 @@
+ 
+ /* Handle user input while the menu is open */
+ static gboolean menu_key_pressed(GtkWidget *history_menu, GdkEventKey *event, gpointer user_data) {
+-  gboolean handled = selected_by_digit(history_menu, event);
++  gboolean handled = prefs.show_indexes && selected_by_digit(history_menu, event);
+   if (!handled) {
+     handled = selected_by_input(history_menu, event);
+   }
