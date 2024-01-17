@@ -48,6 +48,11 @@ getPkgSourceDir() {
   cd "$PKGBUILD_DIR" &> /dev/null || return
   source PKGBUILD || return
 
+  if [ -x "$PATCHES_DIR"/$PKG/pkgsrcdir.sh ]; then
+    source "$PATCHES_DIR"/$PKG/pkgsrcdir.sh
+    return
+  fi
+
   local pkgbase=${pkgbase:-$pkgname}
 
   # cd $srcdir/foo-$pkgver
