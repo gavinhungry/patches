@@ -1,0 +1,103 @@
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp compiz/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp	2024-01-18 13:42:17.310427246 -0800
++++ compiz/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp	2024-01-18 22:56:32.330842660 -0800
+@@ -101,11 +101,96 @@
+ 		    }
+ 		}
+ 
+-		/* CT first time we get no overlap we stop */
+ 		if (overlap == NONE)
+ 		{
+-		    xOptimal = xTmp;
+-		    yOptimal = yTmp;
++		    int workAreaWidth = placeable->workArea ().width (); // 3440
++		    int workAreaHeight = placeable->workArea ().height (); // 1406
++
++		    const compiz::window::Geometry &winGeometry = placeable->geometry ();
++		    const compiz::window::extents::Extents &winExtents = placeable->extents ();
++
++		    int winXPos = xTmp;
++		    int winYPos = yTmp;
++		    int winWidth = winGeometry.width () + winExtents.left + winExtents.right;
++		    int winHeight = winGeometry.height () + winExtents.top + winExtents.bottom;
++
++		    int winTop = winYPos;
++		    int winBottom = winTop + winHeight;
++		    int winLeft = winXPos;
++		    int winRight = winLeft + winWidth;
++
++		    int xPosMax = workAreaWidth - winWidth;
++		    int yPosMax = workAreaHeight - winHeight;
++
++		    /* center horizontally */
++		    foreach (Placeable *p, placeables)
++		    {
++			const compiz::window::Geometry &otherGeometry = p->geometry ();
++			const compiz::window::extents::Extents &otherExtents = p->extents ();
++
++			int otherXPos = otherGeometry.x () - otherExtents.left;
++			int otherYPos = otherGeometry.y () - otherExtents.top;
++			int otherWidth = otherGeometry.width () + otherExtents.left + otherExtents.right;
++			int otherHeight = otherGeometry.height () + otherExtents.top + otherExtents.bottom;
++
++			int otherTop = otherYPos;
++			int otherBottom = otherTop + otherHeight;
++			int otherLeft = otherXPos;
++			int otherRight = otherLeft + otherWidth;
++
++			if (
++			    otherLeft - winWidth < xPosMax &&
++			    winRight < otherLeft &&
++			    (
++				(winTop <= otherTop && otherTop <= winBottom) ||
++				(winTop <= otherBottom && otherBottom <= winBottom) ||
++				(otherTop <= winTop && winTop <= otherBottom) ||
++				(otherTop <= winBottom && winBottom <= otherBottom)
++			    )
++			) xPosMax = otherLeft - winWidth;
++		    }
++
++		    winXPos = (winLeft + xPosMax) / 2;
++
++		    winLeft = winXPos;
++		    winRight = winLeft + winWidth;
++
++		    /* center vertically, after centering horizontally */
++		    foreach (Placeable *p, placeables)
++		    {
++			const compiz::window::Geometry &otherGeometry = p->geometry ();
++			const compiz::window::extents::Extents &otherExtents = p->extents ();
++
++			int otherXPos = otherGeometry.x () - otherExtents.left;
++			int otherYPos = otherGeometry.y () - otherExtents.top;
++			int otherWidth = otherGeometry.width () + otherExtents.left + otherExtents.right;
++			int otherHeight = otherGeometry.height () + otherExtents.top + otherExtents.bottom;
++
++			int otherTop = otherYPos;
++			int otherBottom = otherTop + otherHeight;
++			int otherLeft = otherXPos;
++			int otherRight = otherLeft + otherWidth;
++
++			if (
++			    otherTop - winHeight < yPosMax &&
++			    winBottom < otherTop &&
++			    (
++				(winLeft <= otherLeft && otherLeft <= winRight) ||
++				(winLeft <= otherRight && otherRight <= winRight) ||
++				(otherLeft <= winLeft && winLeft <= otherRight) ||
++				(otherLeft <= winRight && winRight <= otherRight)
++			    )
++			) yPosMax = otherTop - winHeight;
++		    }
++
++		    winYPos = (winTop + yPosMax) / 2;
++
++		    winTop = winYPos;
++		    winBottom = winTop + winHeight;
++
++		    xOptimal = winXPos;
++		    yOptimal = winYPos;
++
+ 		    break;
+ 		}
+ 
