@@ -29,40 +29,7 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/sma
 +		    int xPosMax = workAreaWidth - winWidth;
 +		    int yPosMax = workAreaHeight - winHeight;
 +
-+		    /* center horizontally */
-+		    foreach (Placeable *p, placeables)
-+		    {
-+			const compiz::window::Geometry &otherGeometry = p->geometry ();
-+			const compiz::window::extents::Extents &otherExtents = p->extents ();
-+
-+			int otherXPos = otherGeometry.x () - otherExtents.left;
-+			int otherYPos = otherGeometry.y () - otherExtents.top;
-+			int otherWidth = otherGeometry.width () + otherExtents.left + otherExtents.right;
-+			int otherHeight = otherGeometry.height () + otherExtents.top + otherExtents.bottom;
-+
-+			int otherTop = otherYPos;
-+			int otherBottom = otherTop + otherHeight;
-+			int otherLeft = otherXPos;
-+			int otherRight = otherLeft + otherWidth;
-+
-+			if (
-+			    otherLeft - winWidth < xPosMax &&
-+			    winRight < otherLeft &&
-+			    (
-+				(winTop <= otherTop && otherTop <= winBottom) ||
-+				(winTop <= otherBottom && otherBottom <= winBottom) ||
-+				(otherTop <= winTop && winTop <= otherBottom) ||
-+				(otherTop <= winBottom && winBottom <= otherBottom)
-+			    )
-+			) xPosMax = otherLeft - winWidth;
-+		    }
-+
-+		    winXPos = (winLeft + xPosMax) / 2;
-+
-+		    winLeft = winXPos;
-+		    winRight = winLeft + winWidth;
-+
-+		    /* center vertically, after centering horizontally */
++		    /* center vertically */
 +		    foreach (Placeable *p, placeables)
 +		    {
 +			const compiz::window::Geometry &otherGeometry = p->geometry ();
@@ -94,6 +61,39 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/sma
 +
 +		    winTop = winYPos;
 +		    winBottom = winTop + winHeight;
++
++		    /* center horizontally, after centering vertically */
++		    foreach (Placeable *p, placeables)
++		    {
++			const compiz::window::Geometry &otherGeometry = p->geometry ();
++			const compiz::window::extents::Extents &otherExtents = p->extents ();
++
++			int otherXPos = otherGeometry.x () - otherExtents.left;
++			int otherYPos = otherGeometry.y () - otherExtents.top;
++			int otherWidth = otherGeometry.width () + otherExtents.left + otherExtents.right;
++			int otherHeight = otherGeometry.height () + otherExtents.top + otherExtents.bottom;
++
++			int otherTop = otherYPos;
++			int otherBottom = otherTop + otherHeight;
++			int otherLeft = otherXPos;
++			int otherRight = otherLeft + otherWidth;
++
++			if (
++			    otherLeft - winWidth < xPosMax &&
++			    winRight < otherLeft &&
++			    (
++				(winTop <= otherTop && otherTop <= winBottom) ||
++				(winTop <= otherBottom && otherBottom <= winBottom) ||
++				(otherTop <= winTop && winTop <= otherBottom) ||
++				(otherTop <= winBottom && winBottom <= otherBottom)
++			    )
++			) xPosMax = otherLeft - winWidth;
++		    }
++
++		    winXPos = (winLeft + xPosMax) / 2;
++
++		    winLeft = winXPos;
++		    winRight = winLeft + winWidth;
 +
 +		    xOptimal = winXPos;
 +		    yOptimal = winYPos;
