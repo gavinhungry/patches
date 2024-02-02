@@ -1,0 +1,30 @@
+diff --color -ru roxterm.ORIG/src/roxterm-3.14.1/src/multitab.c roxterm/src/roxterm-3.14.1/src/multitab.c
+--- roxterm.ORIG/src/roxterm-3.14.1/src/multitab.c	2024-02-02 00:17:08.208896380 -0800
++++ roxterm/src/roxterm-3.14.1/src/multitab.c	2024-02-02 01:34:50.960737186 -0800
+@@ -1803,7 +1803,7 @@
+     if ((int) win->tab_pos != -1)
+     {
+         gtk_notebook_set_show_tabs(GTK_NOTEBOOK(win->notebook), TRUE);
+-        gtk_notebook_set_show_border(GTK_NOTEBOOK(win->notebook), TRUE);
++        gtk_notebook_set_show_border(GTK_NOTEBOOK(win->notebook), FALSE);
+     }
+ }
+ 
+@@ -1988,7 +1988,7 @@
+     if ((int) tab_pos == -1)
+     {
+         gtk_notebook_set_show_tabs(notebook, always_show_tabs);
+-        gtk_notebook_set_show_border(notebook, always_show_tabs);
++        gtk_notebook_set_show_border(notebook, FALSE);
+     }
+     else
+     {
+@@ -2279,7 +2279,7 @@
+     {
+         gtk_notebook_insert_page(notebook, tab->widget, label, position);
+     }
+-    gtk_notebook_set_tab_reorderable(notebook, tab->widget, TRUE);
++    gtk_notebook_set_tab_reorderable(notebook, tab->widget, FALSE);
+     gtk_notebook_set_tab_detachable(notebook, tab->widget, TRUE);
+     g_object_set(gtk_widget_get_parent(label), "can-focus", FALSE, NULL);
+     /* Note at this point ntabs is how many tabs there are about to be,
