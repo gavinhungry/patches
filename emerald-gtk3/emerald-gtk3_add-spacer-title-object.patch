@@ -1,0 +1,47 @@
+diff --color -ru emerald-gtk3.ORIG/src/emerald-v0.8.18/include/titlebar.h emerald-gtk3/src/emerald-v0.8.18/include/titlebar.h
+--- emerald-gtk3.ORIG/src/emerald-v0.8.18/include/titlebar.h	2024-02-07 09:13:06.958541263 -0800
++++ emerald-gtk3/src/emerald-v0.8.18/include/titlebar.h	2024-02-07 10:04:44.648234602 -0800
+@@ -84,6 +84,7 @@
+     TBT_TITLE=B_T_COUNT,
+     TBT_ICON,
+     TBT_ONBOTTOM,
++    TBT_SPACER,
+     TBT_COUNT,
+ };
+ #define BX_COUNT B_COUNT+2
+diff --color -ru emerald-gtk3.ORIG/src/emerald-v0.8.18/src/main.c emerald-gtk3/src/emerald-v0.8.18/src/main.c
+--- emerald-gtk3.ORIG/src/emerald-v0.8.18/src/main.c	2024-02-07 09:13:06.958541263 -0800
++++ emerald-gtk3/src/emerald-v0.8.18/src/main.c	2024-02-07 10:04:33.874807595 -0800
+@@ -2854,6 +2854,8 @@
+ 	    return TBT_ONBOTTOM;
+ 	case 'Y':
+ 	    return TBT_STICKY;
++	case 'Q':
++	    return TBT_SPACER;
+ 	default:
+ 	    return -2;
+     }
+@@ -2880,6 +2882,23 @@
+ 		return 2;
+ 	case TBT_ICON:
+ 	    return 18;
++	/*
++	 * The spacer equals the width of the visible NRC buttons. Useful for
++	 * actually centering the title, without consideration for visible
++	 * buttons.
++	 *
++	 * This is pretty custom, as it really only works with a layout string
++	 * like "Q:T:NRC" - nothing but the spacer on the left, title in the
++	 * center, and NRC buttons on the right.
++	 *
++	 * A more general-purpose solution would parse `ws->tobj_layout`.
++	 */
++	case TBT_SPACER:
++	    return (
++		!BUTTON_NOT_VISIBLE(d, B_T_MINIMIZE) +
++		!BUTTON_NOT_VISIBLE(d, B_T_MAXIMIZE) +
++		!BUTTON_NOT_VISIBLE(d, B_T_CLOSE)
++	    ) * get_title_object_width('C', ws, d);
+ 	default:
+ 	    if (i >= 0 && i < B_T_COUNT)
+ 		return (d->actions & button_actions[i]) ?
