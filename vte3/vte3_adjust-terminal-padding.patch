@@ -1,0 +1,12 @@
+diff --color -ru vte3.ORIG/src/vte/src/vtegtk.cc vte3/src/vte/src/vtegtk.cc
+--- vte3.ORIG/src/vte/src/vtegtk.cc	2024-02-07 14:24:32.178130081 -0800
++++ vte3/src/vte/src/vtegtk.cc	2024-02-07 14:35:19.614326325 -0800
+@@ -2400,7 +2400,7 @@
+ #endif
+         gtk_css_provider_load_from_data (GTK_CSS_PROVIDER (klass->priv->style_provider),
+                                          "VteTerminal, " VTE_TERMINAL_CSS_NAME " {\n"
+-                                         "padding: 1px 1px 1px 1px;\n"
++                                         "padding: 4px 2px 2px 4px;\n"
+ #if (VTE_GTK == 4) || ((VTE_GTK == 3) && GTK_CHECK_VERSION (3, 24, 22))
+                                          "background-color: @text_view_bg;\n"
+ #else
