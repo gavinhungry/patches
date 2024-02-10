@@ -1,0 +1,12 @@
+diff --color -ru spek.ORIG/src/spek-0.8.5/src/spek-window.cc spek/src/spek-0.8.5/src/spek-window.cc
+--- spek.ORIG/src/spek-0.8.5/src/spek-window.cc	2024-02-09 16:42:21.017337891 -0800
++++ spek/src/spek-0.8.5/src/spek-window.cc	2024-02-09 16:42:33.634197250 -0800
+@@ -52,7 +52,7 @@
+ };
+ 
+ SpekWindow::SpekWindow(const wxString& path) :
+-    wxFrame(NULL, -1, wxEmptyString, wxDefaultPosition, wxSize(640, 480)), path(path)
++    wxFrame(NULL, -1, wxEmptyString, wxDefaultPosition, wxSize(960, 480)), path(path)
+ {
+     this->description = _("Spek - Acoustic Spectrum Analyser");
+     SetTitle(this->description);

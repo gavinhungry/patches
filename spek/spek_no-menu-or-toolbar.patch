@@ -1,0 +1,60 @@
+diff --color -ru spek.ORIG/src/spek-0.8.5/src/spek-window.cc spek/src/spek-0.8.5/src/spek-window.cc
+--- spek.ORIG/src/spek-0.8.5/src/spek-window.cc	2024-02-09 16:33:49.986201882 -0800
++++ spek/src/spek-0.8.5/src/spek-window.cc	2024-02-09 16:38:52.464153050 -0800
+@@ -61,56 +61,6 @@
+     SetIcons(wxArtProvider::GetIconBundle(ART_SPEK, wxART_FRAME_ICON));
+ #endif
+ 
+-    wxMenuBar *menu = new wxMenuBar();
+-
+-    wxMenu *menu_file = new wxMenu();
+-    wxMenuItem *menu_file_open = new wxMenuItem(menu_file, wxID_OPEN);
+-    menu_file->Append(menu_file_open);
+-    wxMenuItem *menu_file_save = new wxMenuItem(menu_file, wxID_SAVE);
+-    menu_file->Append(menu_file_save);
+-    menu_file->AppendSeparator();
+-    menu_file->Append(wxID_EXIT);
+-    menu->Append(menu_file, _("&File"));
+-
+-    wxMenu *menu_edit = new wxMenu();
+-    wxMenuItem *menu_edit_prefs = new wxMenuItem(menu_edit, wxID_PREFERENCES);
+-    menu_edit_prefs->SetItemLabel(menu_edit_prefs->GetItemLabelText() + "\tCtrl-E");
+-    menu_edit->Append(menu_edit_prefs);
+-    menu->Append(menu_edit, _("&Edit"));
+-
+-    wxMenu *menu_help = new wxMenu();
+-    wxMenuItem *menu_help_contents = new wxMenuItem(
+-        menu_help, wxID_HELP, wxString(_("&Help")) + "\tF1");
+-    menu_help->Append(menu_help_contents);
+-    wxMenuItem *menu_help_about = new wxMenuItem(menu_help, wxID_ABOUT);
+-    menu_help_about->SetItemLabel(menu_help_about->GetItemLabelText() + "\tShift-F1");
+-    menu_help->Append(menu_help_about);
+-    menu->Append(menu_help, _("&Help"));
+-
+-    SetMenuBar(menu);
+-
+-    wxToolBar *toolbar = CreateToolBar();
+-    toolbar->AddTool(
+-        wxID_OPEN,
+-        wxEmptyString,
+-        wxArtProvider::GetBitmap(ART_OPEN, wxART_TOOLBAR),
+-        menu_file_open->GetItemLabelText()
+-    );
+-    toolbar->AddTool(
+-        wxID_SAVE,
+-        wxEmptyString,
+-        wxArtProvider::GetBitmap(ART_SAVE, wxART_TOOLBAR),
+-        menu_file_save->GetItemLabelText()
+-    );
+-    toolbar->AddStretchableSpace();
+-    toolbar->AddTool(
+-        wxID_HELP,
+-        wxEmptyString,
+-        wxArtProvider::GetBitmap(ART_HELP, wxART_TOOLBAR),
+-        _("Help")
+-    );
+-    toolbar->Realize();
+-
+     wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+ 
+     // wxInfoBar is too limited, construct a custom one.
