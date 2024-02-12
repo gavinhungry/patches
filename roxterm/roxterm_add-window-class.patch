@@ -1,0 +1,13 @@
+diff --color -ru roxterm.ORIG/src/roxterm-3.14.1/src/multitab.c roxterm/src/roxterm-3.14.1/src/multitab.c
+--- roxterm.ORIG/src/roxterm-3.14.1/src/multitab.c	2024-02-12 14:58:02.342154635 -0800
++++ roxterm/src/roxterm-3.14.1/src/multitab.c	2024-02-12 15:08:12.515008341 -0800
+@@ -1901,6 +1901,9 @@
+ 
+     win->gtkwin = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+ 
++    GtkStyleContext *context = gtk_widget_get_style_context(win->gtkwin);
++    gtk_style_context_add_class(context, "roxterm");
++
+     role = global_options_lookup_string("role");
+     if (role)
+     {
