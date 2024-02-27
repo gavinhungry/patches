@@ -1,0 +1,59 @@
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.5/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel-4.18.5/plugins/tasklist/tasklist-widget.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.5/plugins/tasklist/tasklist-widget.c	2024-02-26 21:13:47.486314165 -0800
++++ xfce4-panel/src/xfce4-panel-4.18.5/plugins/tasklist/tasklist-widget.c	2024-02-26 21:18:49.460417791 -0800
+@@ -600,6 +600,7 @@
+   GtkStyleContext *context;
+ 
+   gtk_widget_set_has_window (GTK_WIDGET (tasklist), FALSE);
++  gtk_widget_set_halign (GTK_WIDGET (tasklist), GTK_ALIGN_CENTER);
+ 
+   tasklist->locked = 0;
+   tasklist->screen = NULL;
+@@ -908,12 +909,47 @@
+ 
+ 
+ 
++static gint 
++get_env_int(char* varname)
++{
++  gchar *value;
++  gint   value_int;
++
++  value = getenv(varname);
++  if (value == NULL) {
++    return 0;
++  }
++
++  value_int = atoi(value);
++  if (value_int == NULL) {
++    return 0;
++  }
++
++  return value_int;
++}
++
++
++
+ static void
+ xfce_tasklist_get_preferred_width (GtkWidget *widget,
+                                    gint      *minimum_width,
+                                    gint      *natural_width)
+ {
+   XfceTasklist *tasklist = XFCE_TASKLIST (widget);
++  XfcePanelPlugin *plugin = xfce_tasklist_get_panel_plugin (tasklist);
++  
++  if (G_LIKELY (plugin != NULL)) {
++    gtk_widget_set_size_request(
++      GTK_WIDGET (plugin),
++      get_env_int("XFCE_PANEL_TASKLIST_WIDTH"),
++      -1
++    );
++
++    gtk_widget_set_margin_start(
++      GTK_WIDGET (plugin),
++      get_env_int("XFCE_PANEL_TASKLIST_MARGIN")
++    );
++  }
+ 
+   if (xfce_tasklist_horizontal (tasklist))
+     {
