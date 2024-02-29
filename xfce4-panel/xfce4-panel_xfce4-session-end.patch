@@ -1,6 +1,6 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.5/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.18.5/plugins/actions/actions.c
---- xfce4-panel.ORIG/src/xfce4-panel-4.18.5/plugins/actions/actions.c	2023-03-23 22:46:26.410500168 -0700
-+++ xfce4-panel/src/xfce4-panel-4.18.5/plugins/actions/actions.c	2023-03-23 22:46:26.653837145 -0700
+diff -ru xfce4-panel.ORIG/src/xfce4-panel-4.18.6/plugins/actions/actions.c xfce4-panel/src/xfce4-panel-4.18.6/plugins/actions/actions.c
+--- xfce4-panel.ORIG/src/xfce4-panel-4.18.6/plugins/actions/actions.c	2023-03-23 22:46:26.410500168 -0700
++++ xfce4-panel/src/xfce4-panel-4.18.6/plugins/actions/actions.c	2023-03-23 22:46:26.653837145 -0700
 @@ -1036,6 +1036,14 @@
  
  
