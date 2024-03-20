@@ -10,8 +10,8 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/sma
  		{
 -		    xOptimal = xTmp;
 -		    yOptimal = yTmp;
-+		    int workAreaWidth = placeable->workArea ().width (); // 3440
-+		    int workAreaHeight = placeable->workArea ().height (); // 1406
++		    int workAreaWidth = placeable->workArea ().width ();
++		    int workAreaHeight = placeable->workArea ().height ();
 +
 +		    const compiz::window::Geometry &winGeometry = placeable->geometry ();
 +		    const compiz::window::extents::Extents &winExtents = placeable->extents ();
