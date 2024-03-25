@@ -1,7 +1,7 @@
-diff -ru vte3.ORIG/src/vte/src/drawing-cairo.cc vte3/src/vte/src/drawing-cairo.cc
---- vte3.ORIG/src/vte/src/drawing-cairo.cc	2020-09-26 09:25:24.129334425 -0700
-+++ vte3/src/vte/src/drawing-cairo.cc	2020-09-26 09:51:06.900629801 -0700
-@@ -197,8 +197,8 @@
+diff -ru vte3.ORIG/src/vte/src/drawing-context.cc vte3/src/vte/src/drawing-context.cc
+--- vte3.ORIG/src/vte/src/drawing-context.cc	2024-03-25 10:27:18.783144594 -0700
++++ vte3/src/vte/src/drawing-context.cc	2024-03-25 10:27:18.793144791 -0700
+@@ -115,8 +115,8 @@
          m_cell_width = m_fonts[VTE_DRAW_NORMAL]->width() * cell_width_scale;
          m_char_spacing.left = (m_cell_width - m_fonts[VTE_DRAW_NORMAL]->width()) / 2;
          m_char_spacing.right = (m_cell_width - m_fonts[VTE_DRAW_NORMAL]->width() + 1) / 2;
@@ -13,9 +13,9 @@ diff -ru vte3.ORIG/src/vte/src/drawing-cairo.cc vte3/src/vte/src/drawing-cairo.c
  
          m_undercurl_surface.reset();
 diff -ru vte3.ORIG/src/vte/src/vte.cc vte3/src/vte/src/vte.cc
---- vte3.ORIG/src/vte/src/vte.cc	2020-09-26 09:25:24.132667755 -0700
-+++ vte3/src/vte/src/vte.cc	2020-09-26 09:27:22.625868005 -0700
-@@ -7171,7 +7171,7 @@
+--- vte3.ORIG/src/vte/src/vte.cc	2024-03-25 10:27:18.783144594 -0700
++++ vte3/src/vte/src/vte.cc	2024-03-25 10:27:18.793144791 -0700
+@@ -7597,7 +7597,7 @@
          cell_width = MAX(cell_width, 1);
          cell_height = MAX(cell_height, 2);
          char_ascent = MAX(char_ascent, 1);
@@ -24,12 +24,12 @@ diff -ru vte3.ORIG/src/vte/src/vte.cc vte3/src/vte/src/vte.cc
  
          /* For convenience only. */
          char_height = char_ascent + char_descent;
-@@ -9013,7 +9013,7 @@
+@@ -9654,7 +9654,7 @@
                                  x += item.columns * m_cell_width - stem_width;
  
                          m_draw.fill_rectangle(
 -                                                 x, y + m_char_padding.top, stem_width, m_char_ascent + m_char_descent,
 +                                                 x, y + m_char_padding.top + 1, stem_width, m_char_ascent + m_char_descent,
-                                                  &bg, VTE_DRAW_OPAQUE);
+                                                  &bg);
  
                          /* Show the direction of the current character if the paragraph contains a mixture

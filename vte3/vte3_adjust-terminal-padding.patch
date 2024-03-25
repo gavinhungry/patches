@@ -1,7 +1,7 @@
-diff --color -ru vte3.ORIG/src/vte/src/vtegtk.cc vte3/src/vte/src/vtegtk.cc
---- vte3.ORIG/src/vte/src/vtegtk.cc	2024-02-07 14:24:32.178130081 -0800
-+++ vte3/src/vte/src/vtegtk.cc	2024-02-07 14:35:19.614326325 -0800
-@@ -2400,7 +2400,7 @@
+diff -ru vte3.ORIG/src/vte/src/vtegtk.cc vte3/src/vte/src/vtegtk.cc
+--- vte3.ORIG/src/vte/src/vtegtk.cc	2024-03-25 10:27:18.786477993 -0700
++++ vte3/src/vte/src/vtegtk.cc	2024-03-25 10:27:18.819811981 -0700
+@@ -2614,7 +2614,7 @@
  #endif
          gtk_css_provider_load_from_data (GTK_CSS_PROVIDER (klass->priv->style_provider),
                                           "VteTerminal, " VTE_TERMINAL_CSS_NAME " {\n"
