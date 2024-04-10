@@ -1,0 +1,16 @@
+diff --color -ru util-linux.ORIG/src/util-linux/libmount/src/tab_update.c util-linux/src/util-linux/libmount/src/tab_update.c
+--- util-linux.ORIG/src/util-linux/libmount/src/tab_update.c	2024-04-09 16:56:59.714809819 -0700
++++ util-linux/src/util-linux/libmount/src/tab_update.c	2024-04-09 17:00:31.931383320 -0700
+@@ -982,9 +982,9 @@
+ 			if (mnt_optstr_get_missing(fs->user_optstr, upd->fs->user_optstr, NULL) == 0) {
+ 				upd->missing_options = 1;
+ 				DBG(UPDATE, ul_debugobj(upd, " missing options detected"));
+-			}
+-		} else
+-			rc = 1;
++			} else
++				rc = 1;
++		}
+ 
+ 	} else if (upd->target) {
+ 		/* umount */
