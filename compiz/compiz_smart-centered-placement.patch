@@ -1,7 +1,8 @@
+Only in compiz: .patched
 diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp compiz/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp	2024-01-18 13:42:17.310427246 -0800
-+++ compiz/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp	2024-01-18 22:56:32.330842660 -0800
-@@ -101,11 +101,96 @@
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp	2024-04-10 22:31:55.868596172 -0700
++++ compiz/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp	2024-04-10 23:39:33.581092991 -0700
+@@ -101,11 +101,95 @@
  		    }
  		}
  
@@ -10,8 +11,7 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/sma
  		{
 -		    xOptimal = xTmp;
 -		    yOptimal = yTmp;
-+		    int workAreaWidth = placeable->workArea ().width ();
-+		    int workAreaHeight = placeable->workArea ().height ();
++		    const CompRect workArea = placeable->workArea ();
 +
 +		    const compiz::window::Geometry &winGeometry = placeable->geometry ();
 +		    const compiz::window::extents::Extents &winExtents = placeable->extents ();
@@ -26,8 +26,8 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/sma
 +		    int winLeft = winXPos;
 +		    int winRight = winLeft + winWidth;
 +
-+		    int xPosMax = workAreaWidth - winWidth;
-+		    int yPosMax = workAreaHeight - winHeight;
++		    int xPosMax = workArea.width ()  + workArea.x () - winWidth;
++		    int yPosMax = workArea.height () + workArea.y () - winHeight;
 +
 +		    /* center vertically */
 +		    foreach (Placeable *p, placeables)

@@ -1,0 +1,83 @@
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/put/src/put.cpp compiz/src/compiz-0.9.14.2/plugins/put/src/put.cpp
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/put/src/put.cpp	2024-04-10 22:31:55.868596172 -0700
++++ compiz/src/compiz-0.9.14.2/plugins/put/src/put.cpp	2024-04-10 23:51:56.637598743 -0700
+@@ -462,22 +462,22 @@
+     case PutEmptyCenter:
+     case PutCenter:
+ 	/* center of the screen */
+-	dx = (workArea.width () / 2) - HALF_WIDTH (w) -
++	dx = ((workArea.width () + workArea.x ()) / 2) - HALF_WIDTH (w) -
+ 	      w->serverGeometry ().border () - (x - workArea.x ());
+-	dy = (workArea.height () / 2) - HALF_HEIGHT (w) -
++	dy = ((workArea.height () + workArea.y ()) / 2) - HALF_HEIGHT (w) -
+ 	      w->serverGeometry ().border () - (y - workArea.y ());
+ 	break;
+     case PutLeft:
+ 	/* center of the left edge */
+ 	dx = -(x - workArea.x ()) + LEFT_BORDER (w) + ps->optionGetPadLeft ();
+-	dy = (workArea.height () / 2) - HALF_HEIGHT (w) -
++	dy = ((workArea.height () + workArea.y ()) / 2) - HALF_HEIGHT (w) -
+ 	     (y - workArea.y ());
+ 	break;
+     case PutEmptyLeft:
+ 	/* center of the left edge */
+ 	workArea.setX (workArea.x () - LEFT_BORDER (w));
+ 	dx = -(x - workArea.x ()) + LEFT_BORDER (w) + ps->optionGetPadLeft ();
+-	dy = (workArea.height () / 2) - HALF_HEIGHT (w) -
++	dy = ((workArea.height () + workArea.y ()) / 2) - HALF_HEIGHT (w) -
+ 	     (y - workArea.y ());
+ 	break;
+     case PutTopLeft:
+@@ -494,14 +494,14 @@
+ 	break;
+     case PutTop:
+ 	/* center of top edge */
+-	dx = (workArea.width () / 2) - HALF_WIDTH (w) -
++	dx = ((workArea.width () + workArea.x ()) / 2) - HALF_WIDTH (w) -
+ 	     (x - workArea.x ());
+ 	dy = -(y - workArea.y ()) + TOP_BORDER (w) + ps->optionGetPadTop ();
+ 	break;
+     case PutEmptyTop:
+ 	/* center of top edge */
+ 	workArea.setY (workArea.x () - TOP_BORDER (w));
+-	dx = (workArea.width () / 2) - HALF_WIDTH (w) -
++	dx = ((workArea.width () + workArea.x ()) / 2) - HALF_WIDTH (w) -
+ 	     (x - workArea.x ());
+ 	dy = -(y - workArea.y ()) + TOP_BORDER (w) + ps->optionGetPadTop ();
+ 	break;
+@@ -523,7 +523,7 @@
+ 	/* center of right edge */
+ 	dx = workArea.width () - w->serverWidth () - (x - workArea.x ()) -
+ 	     RIGHT_BORDER (w) - ps->optionGetPadRight ();
+-	dy = (workArea.height () / 2) - HALF_HEIGHT (w) -
++	dy = ((workArea.height () + workArea.y ()) / 2) - HALF_HEIGHT (w) -
+ 	     (y - workArea.y ());
+ 	break;
+     case PutEmptyRight:
+@@ -531,7 +531,7 @@
+ 	workArea.setX (workArea.x () + RIGHT_BORDER (w));
+ 	dx = workArea.width () - w->serverWidth () - (x - workArea.x ()) -
+ 	     RIGHT_BORDER (w) - ps->optionGetPadRight ();
+-	dy = (workArea.height () / 2) - HALF_HEIGHT (w) -
++	dy = ((workArea.height () + workArea.y ()) / 2) - HALF_HEIGHT (w) -
+ 	     (y - workArea.y ());
+ 	break;
+     case PutBottomRight:
+@@ -552,7 +552,7 @@
+ 	break;
+     case PutBottom:
+ 	/* center of bottom edge */
+-	dx = (workArea.width () / 2) - HALF_WIDTH (w) -
++	dx = ((workArea.width () + workArea.x ()) / 2) - HALF_WIDTH (w) -
+ 	     (x - workArea.x ());
+ 	dy = workArea.height () - w->serverHeight () - (y - workArea.y ()) -
+ 	     BOTTOM_BORDER (w) - ps->optionGetPadBottom ();
+@@ -560,7 +560,7 @@
+     case PutEmptyBottom:
+ 	/* center of bottom edge */
+ 	workArea.setY (workArea.y () + BOTTOM_BORDER (w));
+-	dx = (workArea.width () / 2) - HALF_WIDTH (w) -
++	dx = ((workArea.width () + workArea.x ()) / 2) - HALF_WIDTH (w) -
+ 	     (x - workArea.x ());
+ 	dy = workArea.height () - w->serverHeight () - (y - workArea.y ()) -
+ 	     BOTTOM_BORDER (w) - ps->optionGetPadBottom ();
