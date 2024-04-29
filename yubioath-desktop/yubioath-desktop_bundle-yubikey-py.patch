@@ -1,0 +1,12 @@
+diff --color -ru yubioath-desktop.ORIG/PKGBUILD yubioath-desktop/PKGBUILD
+--- yubioath-desktop.ORIG/PKGBUILD	2024-04-29 13:00:35.728076954 -0700
++++ yubioath-desktop/PKGBUILD	2024-04-29 13:08:37.808452866 -0700
+@@ -41,5 +41,8 @@
+     install -Dm 644 resources/icons/com.yubico.yubioath.svg "$pkgdir"/usr/share/pixmaps/com.yubico.yubioath.svg
+     install -Dm 644 resources/com.yubico.yubioath.desktop "$pkgdir"/usr/share/applications/com.yubico.yubioath.desktop
+     install -Dm 644 resources/com.yubico.yubioath.appdata.xml "$pkgdir"/usr/share/metainfo/com.yubico.yubioath.appdata.xml
++
++    PYTHON_SITE_PACKAGES_DIR=$(python -c "import site; print(site.getsitepackages()[0])")
++    install -Dm 644 py/yubikey.py "$pkgdir"/"$PYTHON_SITE_PACKAGES_DIR"/yubikey.py
+ }
+ 

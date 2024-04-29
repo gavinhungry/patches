@@ -1,0 +1,12 @@
+diff --color -ru yubioath-desktop.ORIG/src/yubioath-desktop/QZXing/zxing/zxing/common/Types.h yubioath-desktop/src/yubioath-desktop/QZXing/zxing/zxing/common/Types.h
+--- yubioath-desktop.ORIG/src/yubioath-desktop/QZXing/zxing/zxing/common/Types.h	2024-04-29 13:00:35.711410313 -0700
++++ yubioath-desktop/src/yubioath-desktop/QZXing/zxing/zxing/common/Types.h	2024-04-29 13:00:45.724730877 -0700
+@@ -6,6 +6,8 @@
+ #include <iostream>
+ #include <zxing/common/Counted.h>
+ 
++#include <cstdint>
++
+ namespace zxing {
+ 
+ typedef uint8_t byte;
