@@ -1,6 +1,6 @@
-diff -ru mkinitcpio.ORIG/src/mkinitcpio-38.1/functions mkinitcpio/src/mkinitcpio-38.1/functions
---- mkinitcpio.ORIG/src/mkinitcpio-38.1/functions	2024-03-04 10:45:44.457249286 -0800
-+++ mkinitcpio/src/mkinitcpio-38.1/functions	2024-03-04 10:45:44.473916235 -0800
+diff -ru mkinitcpio.ORIG/src/mkinitcpio-39/functions mkinitcpio/src/mkinitcpio-39/functions
+--- mkinitcpio.ORIG/src/mkinitcpio-39/functions	2024-03-04 10:45:44.457249286 -0800
++++ mkinitcpio/src/mkinitcpio-39/functions	2024-03-04 10:45:44.473916235 -0800
 @@ -599,8 +599,7 @@
      fi
  
