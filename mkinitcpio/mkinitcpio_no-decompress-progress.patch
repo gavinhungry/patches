@@ -1,6 +1,6 @@
-diff -ru mkinitcpio.ORIG/src/mkinitcpio-39/functions mkinitcpio/src/mkinitcpio-39/functions
---- mkinitcpio.ORIG/src/mkinitcpio-39/functions	2024-03-04 10:45:44.457249286 -0800
-+++ mkinitcpio/src/mkinitcpio-39/functions	2024-03-04 10:45:44.467249456 -0800
+diff -ru mkinitcpio.ORIG/src/mkinitcpio-39.1/functions mkinitcpio/src/mkinitcpio-39.1/functions
+--- mkinitcpio.ORIG/src/mkinitcpio-39.1/functions	2024-03-04 10:45:44.457249286 -0800
++++ mkinitcpio/src/mkinitcpio-39.1/functions	2024-03-04 10:45:44.467249456 -0800
 @@ -1123,7 +1123,7 @@
  
      (( ${#xz_comp[*]} )) && xz -d "${xz_comp[@]}"
