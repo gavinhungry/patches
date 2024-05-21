@@ -1,0 +1,11 @@
+diff --color -ru fastfetch.ORIG/src/fastfetch-2.13.1/src/common/modules.c fastfetch/src/fastfetch-2.13.1/src/common/modules.c
+--- fastfetch.ORIG/src/fastfetch-2.13.1/src/common/modules.c	2024-05-21 14:02:13.471372517 -0700
++++ fastfetch/src/fastfetch-2.13.1/src/common/modules.c	2024-05-21 14:51:27.748620357 -0700
+@@ -120,7 +120,6 @@
+     (void*) &instance.config.modules.separator,
+     (void*) &instance.config.modules.shell,
+     (void*) &instance.config.modules.sound,
+-    (void*) &instance.config.modules.swap,
+     NULL,
+ };
+ 
