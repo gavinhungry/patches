@@ -109,6 +109,11 @@ getPkgSourceDir() {
     [ -n "$PKGSRC_DIR_STR" ] && PKGSRC_DIR_CMD="cd $PKGSRC_DIR_STR"
   fi
 
+  if [ -z "$PKGSRC_DIR_CMD" ]; then
+    PKGSRC_DIR_STR=$(grep '^\s\+cmake\s' PKGBUILD | sed 's/.*-S "\(.*\)".*/\1/g' | head -n1)
+    [ -n "$PKGSRC_DIR_STR" ] && PKGSRC_DIR_CMD="cd $PKGSRC_DIR_STR"
+  fi
+
   if [ -n "$PKGSRC_DIR_CMD" ]; then
     cd "$srcdir" &> /dev/null
 
