@@ -1,6 +1,6 @@
-diff --color -ru pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt pakku/src/pakku-0.17/doc/pakku.conf.5.txt
---- pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt	2023-02-16 00:17:33.228532846 -0800
-+++ pakku/src/pakku-0.17/doc/pakku.conf.5.txt	2023-02-16 00:24:50.239252282 -0800
+diff --color -ru pakku.ORIG/src/pakku-master/doc/pakku.conf.5.txt pakku/src/pakku-master/doc/pakku.conf.5.txt
+--- pakku.ORIG/src/pakku-master/doc/pakku.conf.5.txt	2023-02-16 00:17:33.228532846 -0800
++++ pakku/src/pakku-master/doc/pakku.conf.5.txt	2023-02-16 00:24:50.239252282 -0800
 @@ -47,6 +47,9 @@
  	Print warnings during upgrade operation when local packages are newer
  	than those found in remote repositories.
@@ -11,9 +11,9 @@ diff --color -ru pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt pakku/src/pakku-
  *SudoExec*::
  	Automatically exec the program from root via sudo if it is necessary,
  	allowing you to enter password for sudo only once.
-diff --color -ru pakku.ORIG/src/pakku-0.17/pakku.conf pakku/src/pakku-0.17/pakku.conf
---- pakku.ORIG/src/pakku-0.17/pakku.conf	2023-02-16 00:17:33.228532846 -0800
-+++ pakku/src/pakku-0.17/pakku.conf	2023-02-16 00:25:39.293008427 -0800
+diff --color -ru pakku.ORIG/src/pakku-master/pakku.conf pakku/src/pakku-master/pakku.conf
+--- pakku.ORIG/src/pakku-master/pakku.conf	2023-02-16 00:17:33.228532846 -0800
++++ pakku/src/pakku-master/pakku.conf	2023-02-16 00:25:39.293008427 -0800
 @@ -10,6 +10,7 @@
  #IgnoreArch
  PrintAurNotFound
@@ -22,9 +22,9 @@ diff --color -ru pakku.ORIG/src/pakku-0.17/pakku.conf pakku/src/pakku-0.17/pakku
  #SudoExec
  #ViewNoDefault
  
-diff --color -ru pakku.ORIG/src/pakku-0.17/src/config.nim pakku/src/pakku-0.17/src/config.nim
---- pakku.ORIG/src/pakku-0.17/src/config.nim	2023-02-16 00:17:33.228532846 -0800
-+++ pakku/src/pakku-0.17/src/config.nim	2023-02-16 00:27:42.327468073 -0800
+diff --color -ru pakku.ORIG/src/pakku-master/src/config.nim pakku/src/pakku-master/src/config.nim
+--- pakku.ORIG/src/pakku-master/src/config.nim	2023-02-16 00:17:33.228532846 -0800
++++ pakku/src/pakku-master/src/config.nim	2023-02-16 00:27:42.327468073 -0800
 @@ -54,6 +54,7 @@
      ignoreArch: bool,
      printAurNotFound: bool,
@@ -50,9 +50,9 @@ diff --color -ru pakku.ORIG/src/pakku-0.17/src/config.nim pakku/src/pakku-0.17/s
  
  template withAlpmConfig*(config: Config, passDbs: bool,
    handle: untyped, alpmDbs: untyped, errors: untyped, body: untyped): untyped =
-diff --color -ru pakku.ORIG/src/pakku-0.17/src/feature/syncinstall.nim pakku/src/pakku-0.17/src/feature/syncinstall.nim
---- pakku.ORIG/src/pakku-0.17/src/feature/syncinstall.nim	2023-02-16 00:17:33.228532846 -0800
-+++ pakku/src/pakku-0.17/src/feature/syncinstall.nim	2023-02-16 00:29:32.338541609 -0800
+diff --color -ru pakku.ORIG/src/pakku-master/src/feature/syncinstall.nim pakku/src/pakku-master/src/feature/syncinstall.nim
+--- pakku.ORIG/src/pakku-master/src/feature/syncinstall.nim	2023-02-16 00:17:33.228532846 -0800
++++ pakku/src/pakku-master/src/feature/syncinstall.nim	2023-02-16 00:29:32.338541609 -0800
 @@ -846,6 +846,10 @@
                    execResult(gpgCmd, "--list-keys", pgpKeys[index]))) == 0:
                  keysLoop(index + 1, skipKeys)
