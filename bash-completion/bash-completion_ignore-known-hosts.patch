@@ -1,19 +1,20 @@
-diff -ru bash-completion.ORIG/src/bash-completion-2.11/bash_completion bash-completion/src/bash-completion-2.11/bash_completion
---- bash-completion.ORIG/src/bash-completion-2.11/bash_completion	2021-04-29 22:41:59.412408845 -0700
-+++ bash-completion/src/bash-completion-2.11/bash_completion	2021-04-29 22:42:04.715665076 -0700
-@@ -1687,18 +1687,6 @@
-         done
+diff --color -ru bash-completion.ORIG/src/bash-completion-2.14.0/bash_completion bash-completion/src/bash-completion-2.14.0/bash_completion
+--- bash-completion.ORIG/src/bash-completion-2.14.0/bash_completion	2024-06-03 21:42:25.518168058 -0700
++++ bash-completion/src/bash-completion-2.14.0/bash_completion	2024-06-03 21:43:40.202692600 -0700
+@@ -2584,19 +2584,6 @@
+         fi
      fi
  
--    if [[ ! -v configfile ]]; then
+-    if [[ ! $configfile ]]; then
 -        # Global and user known_hosts files
 -        for i in /etc/ssh/ssh_known_hosts /etc/ssh/ssh_known_hosts2 \
 -            /etc/known_hosts /etc/known_hosts2 ~/.ssh/known_hosts \
 -            ~/.ssh/known_hosts2; do
--            [[ -r $i ]] && kh+=("$i")
+-            [[ -r $i && ! -d $i ]] && kh+=("$i")
 -        done
 -        for i in /etc/ssh2/knownhosts ~/.ssh2/hostkeys; do
--            [[ -d $i ]] && khd+=("$i"/*pub)
+-            [[ -d $i ]] || continue
+-            _comp_expand_glob tmpkh '"$i"/*.pub' && khd+=("${tmpkh[@]}")
 -        done
 -    fi
 -
