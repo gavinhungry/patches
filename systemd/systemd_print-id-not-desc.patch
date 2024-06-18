@@ -1,6 +1,6 @@
-diff -ru systemd.ORIG/src/systemd-stable/src/core/job.c systemd/src/systemd-stable/src/core/job.c
---- systemd.ORIG/src/systemd-stable/src/core/job.c	2021-07-14 00:21:38.994352080 -0700
-+++ systemd/src/systemd-stable/src/core/job.c	2021-07-14 00:25:13.487462743 -0700
+diff -ru systemd.ORIG/src/systemd/src/core/job.c systemd/src/systemd/src/core/job.c
+--- systemd.ORIG/src/systemd/src/core/job.c	2021-07-14 00:21:38.994352080 -0700
++++ systemd/src/systemd/src/core/job.c	2021-07-14 00:25:13.487462743 -0700
 @@ -566,7 +566,7 @@
          /* Log to the console second. */
          if (do_console) {
