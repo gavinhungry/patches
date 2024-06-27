@@ -1,0 +1,21 @@
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c rhythmbox/src/rhythmbox/widgets/rb-header.c
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c	2024-06-27 01:09:37.048699150 -0700
++++ rhythmbox/src/rhythmbox/widgets/rb-header.c	2024-06-27 01:18:01.947856981 -0700
+@@ -549,7 +549,7 @@
+ 
+ 		if (header->priv->art_key == NULL ||
+ 		    rhythmdb_entry_matches_ext_db_key (header->priv->db, entry, header->priv->art_key) == FALSE) {
+-			rb_fading_image_start (RB_FADING_IMAGE (header->priv->image), 2000);
++			rb_fading_image_start (RB_FADING_IMAGE (header->priv->image), 0);
+ 			key = rhythmdb_entry_create_ext_db_key (entry, RHYTHMDB_PROP_ALBUM);
+ 			rb_ext_db_request (header->priv->art_store,
+ 					   key,
+@@ -568,7 +568,7 @@
+ 					  G_CALLBACK (playback_status_changed_cb),
+ 					  header);
+ 	} else {
+-		rb_fading_image_start (RB_FADING_IMAGE (header->priv->image), 2000);
++		rb_fading_image_start (RB_FADING_IMAGE (header->priv->image), 0);
+ 		header->priv->duration = 0;
+ 	}
+ 
