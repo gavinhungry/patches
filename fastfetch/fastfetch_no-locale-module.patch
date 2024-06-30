@@ -1,6 +1,6 @@
-diff --color -ru fastfetch.ORIG/src/fastfetch-2.17.0/src/common/modules.c fastfetch/src/fastfetch-2.17.0/src/common/modules.c
---- fastfetch.ORIG/src/fastfetch-2.17.0/src/common/modules.c	2024-05-21 14:02:13.471372517 -0700
-+++ fastfetch/src/fastfetch-2.17.0/src/common/modules.c	2024-05-21 14:58:02.121621065 -0700
+diff --color -ru fastfetch.ORIG/src/fastfetch-2.17.1/src/common/modules.c fastfetch/src/fastfetch-2.17.1/src/common/modules.c
+--- fastfetch.ORIG/src/fastfetch-2.17.1/src/common/modules.c	2024-05-21 14:02:13.471372517 -0700
++++ fastfetch/src/fastfetch-2.17.1/src/common/modules.c	2024-05-21 14:58:02.121621065 -0700
 @@ -73,7 +73,6 @@
  static FFModuleBaseInfo* L[] = {
      (void*) &instance.config.modules.lm,
