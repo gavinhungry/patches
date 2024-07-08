@@ -1,0 +1,25 @@
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/src/event.cpp compiz/src/compiz-0.9.14.2/src/event.cpp
+--- compiz.ORIG/src/compiz-0.9.14.2/src/event.cpp	2024-07-08 09:36:22.342247018 -0700
++++ compiz/src/compiz-0.9.14.2/src/event.cpp	2024-07-08 09:37:18.249481102 -0700
+@@ -1516,16 +1516,16 @@
+ 	if (w)
+ 	{
+ 	    if (w->priv->pendingMaps)
++		w->priv->managed = true;
++
++	    if (w->priv->managed && !w->priv->serverFrame)
+ 	    {
+ 		/* The only case where this happens
+ 		 * is where the window unmaps itself
+ 		 * but doesn't get destroyed so when
+ 		 * it re-maps we need to reparent it */
+ 
+-		if (!w->priv->serverFrame)
+-		    w->priv->reparent ();
+-
+-		w->priv->managed = true;
++		w->priv->reparent ();
+ 	    }
+ 
+ 	    /* been shaded */
+Only in compiz/src/compiz-0.9.14.2/src: event.cpp.orig
