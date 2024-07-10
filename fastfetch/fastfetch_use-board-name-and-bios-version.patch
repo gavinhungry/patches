@@ -3,9 +3,9 @@ Binary files fastfetch.ORIG/.git/index and fastfetch/.git/index differ
 Only in fastfetch: .patched
 Only in fastfetch: pkg
 Only in fastfetch/src: build
-diff --color -ru fastfetch.ORIG/src/fastfetch-2.17.2/src/detection/host/host_linux.c fastfetch/src/fastfetch-2.17.2/src/detection/host/host_linux.c
---- fastfetch.ORIG/src/fastfetch-2.17.2/src/detection/host/host_linux.c	2024-05-21 14:02:13.474705904 -0700
-+++ fastfetch/src/fastfetch-2.17.2/src/detection/host/host_linux.c	2024-05-21 14:19:18.814581438 -0700
+diff --color -ru fastfetch.ORIG/src/fastfetch-2.18.0/src/detection/host/host_linux.c fastfetch/src/fastfetch-2.18.0/src/detection/host/host_linux.c
+--- fastfetch.ORIG/src/fastfetch-2.18.0/src/detection/host/host_linux.c	2024-05-21 14:02:13.474705904 -0700
++++ fastfetch/src/fastfetch-2.18.0/src/detection/host/host_linux.c	2024-05-21 14:19:18.814581438 -0700
 @@ -50,9 +50,17 @@
  const char* ffDetectHost(FFHostResult* host)
  {
