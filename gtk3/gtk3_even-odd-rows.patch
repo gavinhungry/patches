@@ -1,7 +1,7 @@
 diff -ru gtk3.ORIG/src/gtk/gtk/gtktreeview.c gtk3/src/gtk/gtk/gtktreeview.c
---- gtk3.ORIG/src/gtk/gtk/gtktreeview.c	2018-06-13 01:21:58.205498574 -0700
-+++ gtk3/src/gtk/gtk/gtktreeview.c	2018-06-13 01:21:59.645513300 -0700
-@@ -134,12 +134,18 @@
+--- gtk3.ORIG/src/gtk/gtk/gtktreeview.c	2024-07-11 18:45:20.369043107 -0700
++++ gtk3/src/gtk/gtk/gtktreeview.c	2024-07-11 18:45:23.329090308 -0700
+@@ -135,12 +135,18 @@
   * ┊   ┊
   * │   ╰── <column header>
   * │
@@ -20,7 +20,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtktreeview.c gtk3/src/gtk/gtk/gtktreeview.c
   * For rubberband selection, a subnode with name rubberband is used.
   */
  
-@@ -314,6 +320,8 @@
+@@ -315,6 +321,8 @@
  
    /* CSS nodes */
    GtkCssNode *header_node;
@@ -29,7 +29,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtktreeview.c gtk3/src/gtk/gtk/gtktreeview.c
  
    /* Scroll position state keeping */
    GtkTreeRowReference *top_row;
-@@ -900,6 +908,10 @@
+@@ -899,6 +907,10 @@
  
  static void     grab_focus_and_unset_draw_keyfocus   (GtkTreeView *tree_view);
  
@@ -40,7 +40,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtktreeview.c gtk3/src/gtk/gtk/gtktreeview.c
  /* Gestures */
  static void gtk_tree_view_column_multipress_gesture_pressed (GtkGestureMultiPress *gesture,
                                                               gint                  n_press,
-@@ -1851,6 +1863,22 @@
+@@ -1888,6 +1900,22 @@
    gtk_css_node_set_state (priv->header_node, gtk_css_node_get_state (widget_node));
    g_object_unref (priv->header_node);
  
@@ -63,7 +63,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtktreeview.c gtk3/src/gtk/gtk/gtktreeview.c
    priv->multipress_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (tree_view));
    gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (priv->multipress_gesture), 0);
    g_signal_connect (priv->multipress_gesture, "pressed",
-@@ -3123,6 +3151,15 @@
+@@ -3155,6 +3183,15 @@
  }
  
  static void
@@ -79,7 +79,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtktreeview.c gtk3/src/gtk/gtk/gtktreeview.c
  gtk_tree_view_multipress_gesture_pressed (GtkGestureMultiPress *gesture,
                                            gint                  n_press,
                                            gdouble               x,
-@@ -5266,8 +5303,13 @@
+@@ -5296,8 +5333,13 @@
  						   GTK_RBNODE_FLAG_SET (node, GTK_RBNODE_IS_PARENT),
  						   node->children?TRUE:FALSE);
  
@@ -94,7 +94,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtktreeview.c gtk3/src/gtk/gtk/gtktreeview.c
            state = gtk_cell_renderer_get_state (NULL, widget, flags);
            gtk_style_context_set_state (context, state);
  
-@@ -5455,6 +5497,7 @@
+@@ -5485,6 +5527,7 @@
  	    }
  
            gtk_style_context_restore (context);
@@ -103,9 +103,9 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtktreeview.c gtk3/src/gtk/gtk/gtktreeview.c
  	}
  
 diff -ru gtk3.ORIG/src/gtk/gtk/theme/Adwaita/_common.scss gtk3/src/gtk/gtk/theme/Adwaita/_common.scss
---- gtk3.ORIG/src/gtk/gtk/theme/Adwaita/_common.scss	2018-06-13 01:21:58.212165308 -0700
-+++ gtk3/src/gtk/gtk/theme/Adwaita/_common.scss	2018-06-13 01:21:59.658846770 -0700
-@@ -3609,6 +3609,8 @@
+--- gtk3.ORIG/src/gtk/gtk/theme/Adwaita/_common.scss	2024-07-11 18:45:20.372376493 -0700
++++ gtk3/src/gtk/gtk/theme/Adwaita/_common.scss	2024-07-11 18:45:23.332423695 -0700
+@@ -3848,6 +3848,8 @@
  
  row {
    transition: all 150ms $ease-out-quad;

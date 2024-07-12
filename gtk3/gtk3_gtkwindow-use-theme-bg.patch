@@ -1,7 +1,7 @@
 diff -ru gtk3.ORIG/src/gtk/gtk/gtkwindow.c gtk3/src/gtk/gtk/gtkwindow.c
---- gtk3.ORIG/src/gtk/gtk/gtkwindow.c	2018-06-13 01:21:58.205498574 -0700
-+++ gtk3/src/gtk/gtk/gtkwindow.c	2018-06-13 01:22:00.945526594 -0700
-@@ -7438,6 +7438,19 @@
+--- gtk3.ORIG/src/gtk/gtk/gtkwindow.c	2024-07-11 18:45:20.372376493 -0700
++++ gtk3/src/gtk/gtk/gtkwindow.c	2024-07-11 18:45:23.795764417 -0700
+@@ -7533,6 +7533,19 @@
    gtk_widget_register_window (widget, gdk_window);
    gtk_widget_set_realized (widget, TRUE);
  

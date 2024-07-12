@@ -1,7 +1,7 @@
 diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilechooserwidget.c
---- gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-18 11:16:06.070047782 -0700
-+++ gtk3/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-18 17:48:10.414438971 -0700
-@@ -1390,6 +1390,12 @@
+--- gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c	2024-07-11 18:45:20.359042947 -0700
++++ gtk3/src/gtk/gtk/gtkfilechooserwidget.c	2024-07-11 18:45:24.722445861 -0700
+@@ -1417,6 +1417,12 @@
    GtkFileChooserWidget *impl = (GtkFileChooserWidget *) widget;
    GtkFileChooserWidgetPrivate *priv = impl->priv;
  
@@ -14,7 +14,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
    if (should_trigger_location_entry (impl, event))
      {
        if (priv->action == GTK_FILE_CHOOSER_ACTION_OPEN ||
-@@ -1399,12 +1405,6 @@
+@@ -1426,12 +1432,6 @@
            return TRUE;
          }
      }
@@ -27,7 +27,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
  
    if (GTK_WIDGET_CLASS (gtk_file_chooser_widget_parent_class)->key_press_event (widget, event))
      return TRUE;
-@@ -2427,7 +2427,7 @@
+@@ -2496,7 +2496,7 @@
  {
    GtkFileChooserWidgetPrivate *priv = impl->priv;
  
@@ -36,7 +36,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
  
    gtk_tree_view_column_set_sort_column_id (priv->list_name_column, MODEL_COL_NAME);
    gtk_tree_view_column_set_sort_column_id (priv->list_time_column, MODEL_COL_TIME);
-@@ -4338,6 +4338,7 @@
+@@ -4452,6 +4452,7 @@
    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->browse_files_tree_view),
                             GTK_TREE_MODEL (priv->browse_files_model));
    update_columns (impl, FALSE, _("Modified"));
@@ -44,7 +44,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
    file_list_set_sort_column_ids (impl);
    set_sort_column (impl);
    profile_msg ("    gtk_tree_view_set_model end", NULL);
-@@ -7098,10 +7099,6 @@
+@@ -7351,10 +7352,6 @@
  {
    GList *l, *files, *files_with_info, *infos;
    GFile *file;
@@ -55,7 +55,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
  
    files = NULL;
    files_with_info = NULL;
-@@ -7129,8 +7126,6 @@
+@@ -7382,8 +7379,6 @@
    g_list_free_full (infos, g_object_unref);
  
    gtk_stack_set_visible_child_name (GTK_STACK (impl->priv->browse_files_stack), "list");
@@ -64,7 +64,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
  }
  
  /* Callback used from GtkSearchEngine when the query is done running */
-@@ -7427,6 +7422,7 @@
+@@ -7682,6 +7677,7 @@
    gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (priv->recent_model),
                                          GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
                                          GTK_SORT_DESCENDING);
@@ -72,7 +72,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
  }
  
  typedef struct
-@@ -7444,7 +7440,7 @@
+@@ -7699,7 +7695,7 @@
  
    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->browse_files_tree_view),
                             GTK_TREE_MODEL (priv->recent_model));

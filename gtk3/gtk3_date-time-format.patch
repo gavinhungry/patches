@@ -1,7 +1,7 @@
 diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilechooserwidget.c
---- gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-19 08:59:54.351066309 -0700
-+++ gtk3/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-19 09:09:59.021485723 -0700
-@@ -4743,32 +4743,7 @@
+--- gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c	2024-07-11 18:45:20.359042947 -0700
++++ gtk3/src/gtk/gtk/gtkfilechooserwidget.c	2024-07-11 18:45:22.399075478 -0700
+@@ -4889,33 +4889,7 @@
                                      0, 0, 0);
    days_ago = g_date_time_difference (now_date, date) / G_TIME_SPAN_DAY;
  
@@ -25,6 +25,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
 -    }
 -  else if (g_date_time_get_year (now) == g_date_time_get_year (time))
 -    {
+-      /* xgettext:no-c-format */
 -      format = _("%-e %b");
 -    }
 -  else
@@ -35,7 +36,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
  
    date_str = g_date_time_format (time, format);
    replace_ratio (&date_str);
-@@ -4799,7 +4774,7 @@
+@@ -4946,7 +4920,7 @@
    if (clock_format == CLOCK_FORMAT_24)
      format = _("%H:%M");
    else

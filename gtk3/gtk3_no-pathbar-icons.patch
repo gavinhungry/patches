@@ -1,7 +1,6 @@
-Binary files gtk3.ORIG/src/gtk/.git/index and gtk3/src/gtk/.git/index differ
 diff -ru gtk3.ORIG/src/gtk/gtk/gtkpathbar.c gtk3/src/gtk/gtk/gtkpathbar.c
---- gtk3.ORIG/src/gtk/gtk/gtkpathbar.c	2019-03-18 11:16:06.076714626 -0700
-+++ gtk3/src/gtk/gtk/gtkpathbar.c	2019-03-18 16:29:14.176232406 -0700
+--- gtk3.ORIG/src/gtk/gtk/gtkpathbar.c	2024-07-11 18:45:20.365709720 -0700
++++ gtk3/src/gtk/gtk/gtkpathbar.c	2024-07-11 18:45:24.255771752 -0700
 @@ -1566,20 +1566,7 @@
    switch (button_data->type)
      {

@@ -1,6 +1,6 @@
 diff -ru gtk3.ORIG/src/gtk/gtk/gtkcalendar.c gtk3/src/gtk/gtk/gtkcalendar.c
---- gtk3.ORIG/src/gtk/gtk/gtkcalendar.c	2020-12-31 12:05:55.591757909 -0800
-+++ gtk3/src/gtk/gtk/gtkcalendar.c	2020-12-31 12:44:55.179756968 -0800
+--- gtk3.ORIG/src/gtk/gtk/gtkcalendar.c	2024-07-11 18:45:20.355709560 -0700
++++ gtk3/src/gtk/gtk/gtkcalendar.c	2024-07-11 18:45:21.475727421 -0700
 @@ -128,6 +128,42 @@
    return week;
  }

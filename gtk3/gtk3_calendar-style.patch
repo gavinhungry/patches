@@ -1,6 +1,6 @@
 diff -ru gtk3.ORIG/src/gtk/gtk/gtkcalendar.c gtk3/src/gtk/gtk/gtkcalendar.c
---- gtk3.ORIG/src/gtk/gtk/gtkcalendar.c	2020-12-30 18:16:43.527424322 -0800
-+++ gtk3/src/gtk/gtk/gtkcalendar.c	2020-12-31 00:49:51.365122664 -0800
+--- gtk3.ORIG/src/gtk/gtk/gtkcalendar.c	2024-07-11 18:45:20.355709560 -0700
++++ gtk3/src/gtk/gtk/gtkcalendar.c	2024-07-11 18:45:21.012386699 -0700
 @@ -131,8 +131,8 @@
  /* Spacing around day/week headers and main area, inside those windows */
  #define CALENDAR_MARGIN          0

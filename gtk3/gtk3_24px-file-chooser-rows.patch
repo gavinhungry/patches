@@ -1,7 +1,7 @@
 diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilechooserwidget.c
---- gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-18 11:16:06.070047782 -0700
-+++ gtk3/src/gtk/gtk/gtkfilechooserwidget.c	2019-03-18 16:55:18.132228566 -0700
-@@ -431,7 +431,7 @@
+--- gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c	2024-07-11 18:45:20.359042947 -0700
++++ gtk3/src/gtk/gtk/gtkfilechooserwidget.c	2024-07-11 18:45:20.542379204 -0700
+@@ -450,7 +450,7 @@
  #define DEFAULT_RECENT_FILES_LIMIT 50
  
  /* Icon size for if we can't get it from the theme */
@@ -10,7 +10,7 @@ diff -ru gtk3.ORIG/src/gtk/gtk/gtkfilechooserwidget.c gtk3/src/gtk/gtk/gtkfilech
  
  #define PREVIEW_HBOX_SPACING 12
  #define NUM_LINES 45
-@@ -3685,7 +3685,7 @@
+@@ -3755,7 +3755,7 @@
  
    profile_start ("start", NULL);
  
