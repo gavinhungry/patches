@@ -1,6 +1,6 @@
-diff --color -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c
---- xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c	2023-02-16 13:06:33.479960031 -0800
-+++ xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c	2023-02-16 13:22:40.807351891 -0800
+diff -ru xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c
+--- xfce4-datetime-plugin.ORIG/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c	2024-07-15 00:17:04.548050446 -0700
++++ xfce4-datetime-plugin/src/xfce4-datetime-plugin-0.8.3/panel-plugin/datetime.c	2024-07-15 00:17:04.624719763 -0700
 @@ -291,9 +291,6 @@
    g_signal_connect_swapped(G_OBJECT(window), "delete-event",
        G_CALLBACK(close_calendar_window),
