@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.18.10/thunar/thunar-enum-types.c thunar/src/thunar-4.18.10/thunar/thunar-enum-types.c
---- thunar.ORIG/src/thunar-4.18.10/thunar/thunar-enum-types.c	2023-10-24 15:53:44.918139681 -0700
-+++ thunar/src/thunar-4.18.10/thunar/thunar-enum-types.c	2023-10-24 15:53:45.478147962 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.11/thunar/thunar-enum-types.c thunar/src/thunar-4.18.11/thunar/thunar-enum-types.c
+--- thunar.ORIG/src/thunar-4.18.11/thunar/thunar-enum-types.c	2023-10-24 15:53:44.918139681 -0700
++++ thunar/src/thunar-4.18.11/thunar/thunar-enum-types.c	2023-10-24 15:53:45.478147962 -0700
 @@ -148,7 +148,7 @@
          { THUNAR_COLUMN_MIME_TYPE,     "THUNAR_COLUMN_MIME_TYPE",     N_ ("MIME Type"),     },
          { THUNAR_COLUMN_NAME,          "THUNAR_COLUMN_NAME",          N_ ("Name"),          },

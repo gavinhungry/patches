@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar-4.18.10/thunar/thunar-file.c thunar/src/thunar-4.18.10/thunar/thunar-file.c
---- thunar.ORIG/src/thunar-4.18.10/thunar/thunar-file.c	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar-4.18.10/thunar/thunar-file.c	2023-10-24 15:53:45.048141603 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.11/thunar/thunar-file.c thunar/src/thunar-4.18.11/thunar/thunar-file.c
+--- thunar.ORIG/src/thunar-4.18.11/thunar/thunar-file.c	2023-10-24 15:53:44.921473063 -0700
++++ thunar/src/thunar-4.18.11/thunar/thunar-file.c	2023-10-24 15:53:45.048141603 -0700
 @@ -2682,6 +2682,45 @@
  
  
@@ -76,9 +76,9 @@ diff -ru thunar.ORIG/src/thunar-4.18.10/thunar/thunar-file.c thunar/src/thunar-4
        || (thunar_file_is_directory (file)
            && thunar_file_denies_access_permission (file, THUNAR_FILE_MODE_USR_EXEC,
                                                           THUNAR_FILE_MODE_GRP_EXEC,
-diff -ru thunar.ORIG/src/thunar-4.18.10/thunar/thunar-file.h thunar/src/thunar-4.18.10/thunar/thunar-file.h
---- thunar.ORIG/src/thunar-4.18.10/thunar/thunar-file.h	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar-4.18.10/thunar/thunar-file.h	2023-10-24 15:53:45.048141603 -0700
+diff -ru thunar.ORIG/src/thunar-4.18.11/thunar/thunar-file.h thunar/src/thunar-4.18.11/thunar/thunar-file.h
+--- thunar.ORIG/src/thunar-4.18.11/thunar/thunar-file.h	2023-10-24 15:53:44.921473063 -0700
++++ thunar/src/thunar-4.18.11/thunar/thunar-file.h	2023-10-24 15:53:45.048141603 -0700
 @@ -192,6 +192,7 @@
  const gchar      *thunar_file_get_symlink_target         (const ThunarFile       *file);
  const gchar      *thunar_file_get_basename               (const ThunarFile       *file) G_GNUC_CONST;
