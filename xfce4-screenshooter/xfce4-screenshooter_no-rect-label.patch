@@ -1,6 +1,6 @@
-diff --color -ru xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.11.0/lib/screenshooter-capture-x11.c xfce4-screenshooter/src/xfce4-screenshooter-1.11.0/lib/screenshooter-capture-x11.c
---- xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.11.0/lib/screenshooter-capture-x11.c	2024-05-29 08:50:14.657159958 -0700
-+++ xfce4-screenshooter/src/xfce4-screenshooter-1.11.0/lib/screenshooter-capture-x11.c	2024-05-29 08:51:33.341557106 -0700
+diff --color -ru xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.11.1/lib/screenshooter-capture-x11.c xfce4-screenshooter/src/xfce4-screenshooter-1.11.1/lib/screenshooter-capture-x11.c
+--- xfce4-screenshooter.ORIG/src/xfce4-screenshooter-1.11.1/lib/screenshooter-capture-x11.c	2024-05-29 08:50:14.657159958 -0700
++++ xfce4-screenshooter/src/xfce4-screenshooter-1.11.1/lib/screenshooter-capture-x11.c	2024-05-29 08:51:33.341557106 -0700
 @@ -879,7 +879,6 @@
                         event->x + x_offset,
                         event->y + y_offset);
