@@ -1,0 +1,20 @@
+diff --color -ru gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/src/prefsdialog.cpp gnome-system-monitor-gtk3/src/gnome-system-monitor/src/prefsdialog.cpp
+--- gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/src/prefsdialog.cpp	2024-09-10 16:25:25.118032025 -0700
++++ gnome-system-monitor-gtk3/src/gnome-system-monitor/src/prefsdialog.cpp	2024-09-10 16:48:57.661780079 -0700
+@@ -240,6 +240,16 @@
+ 
+   prefs_dialog = HDY_PREFERENCES_WINDOW (gtk_builder_get_object (builder, "preferences_dialog"));
+ 
++  GtkCssProvider *provider = gtk_css_provider_new();
++  gtk_css_provider_load_from_data(provider,
++    ".preferences .title { opacity: 1; }", -1, NULL);
++
++  gtk_style_context_add_provider_for_screen(
++    gdk_screen_get_default(),
++    GTK_STYLE_PROVIDER (provider),
++    GTK_STYLE_PROVIDER_PRIORITY_USER
++  );
++
+   spin_button = GTK_SPIN_BUTTON (gtk_builder_get_object (builder, "processes_interval_spinner"));
+ 
+   update = (gfloat) app->config.update_interval;
