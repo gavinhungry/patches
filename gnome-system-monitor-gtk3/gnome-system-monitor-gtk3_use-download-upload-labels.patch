@@ -1,0 +1,79 @@
+Only in gnome-system-monitor-gtk3: gnome-system-monitor-gtk3.ORIG
+diff --color -ru gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/data/interface.ui gnome-system-monitor-gtk3/src/gnome-system-monitor/data/interface.ui
+--- gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/data/interface.ui	2024-09-12 10:13:48.903145612 -0700
++++ gnome-system-monitor-gtk3/src/gnome-system-monitor/data/interface.ui	2024-09-12 10:15:54.441904884 -0700
+@@ -416,7 +416,7 @@
+                                     <property name="can-focus">False</property>
+                                     <property name="hexpand">False</property>
+                                     <property name="halign">start</property>
+-                                    <property name="label" translatable="yes">Receiving</property>
++                                    <property name="label" translatable="yes">Download</property>
+                                   </object>
+                                   <packing>
+                                     <property name="left-attach">1</property>
+@@ -431,7 +431,7 @@
+                                     <property name="can-focus">False</property>
+                                     <property name="hexpand">False</property>
+                                     <property name="halign">start</property>
+-                                    <property name="label" translatable="yes">Total Received</property>
++                                    <property name="label" translatable="yes">Total</property>
+                                   </object>
+                                   <packing>
+                                     <property name="left-attach">1</property>
+@@ -446,7 +446,7 @@
+                                     <property name="can-focus">False</property>
+                                     <property name="hexpand">False</property>
+                                     <property name="halign">start</property>
+-                                    <property name="label" translatable="yes">Sending</property>
++                                    <property name="label" translatable="yes">Upload</property>
+                                   </object>
+                                   <packing>
+                                     <property name="left-attach">5</property>
+@@ -461,7 +461,7 @@
+                                     <property name="can-focus">False</property>
+                                     <property name="hexpand">False</property>
+                                     <property name="halign">start</property>
+-                                    <property name="label" translatable="yes">Total Sent</property>
++                                    <property name="label" translatable="yes">Total</property>
+                                   </object>
+                                   <packing>
+                                     <property name="left-attach">5</property>
+diff --color -ru gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/help/C/net-check.page gnome-system-monitor-gtk3/src/gnome-system-monitor/help/C/net-check.page
+--- gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/help/C/net-check.page	2024-09-12 10:13:48.903145612 -0700
++++ gnome-system-monitor-gtk3/src/gnome-system-monitor/help/C/net-check.page	2024-09-12 10:16:04.545406415 -0700
+@@ -44,12 +44,12 @@
+     received and sent. These are plotted against time, with the current time at
+     the right.</p>
+       <note style = "tip"><p>The color of each line is indicated by the down and
+-      up arrows (for <gui>Receiving</gui> and <gui>Sending</gui> respectively)
++      up arrows (for <gui>Download</gui> and <gui>Upload</gui> respectively)
+       underneath the graph. Click an arrow to change the color of the
+       corresponding line graph.</p>
+       </note>
+     </item>
+-    <item><p>Below the graph is shown <gui>Receiving</gui> and <gui>Sending</gui> 
++    <item><p>Below the graph is shown <gui>Download</gui> and <gui>Upload</gui> 
+     <link xref="net-bits">bit rate</link> or connection speed, as well as
+     total data transferred in each direction.</p>
+     </item>
+diff --color -ru gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/src/interface.cpp gnome-system-monitor-gtk3/src/gnome-system-monitor/src/interface.cpp
+--- gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/src/interface.cpp	2024-09-12 10:13:48.906479001 -0700
++++ gnome-system-monitor-gtk3/src/gnome-system-monitor/src/interface.cpp	2024-09-12 10:15:15.694592891 -0700
+@@ -363,7 +363,7 @@
+   gtk_widget_set_valign (GTK_WIDGET (color_picker), GTK_ALIGN_CENTER);
+   g_signal_connect (G_OBJECT (color_picker), "color-set",
+                     G_CALLBACK (cb_net_in_color_changed), app);
+-  title_text = g_strdup_printf (title_template, _("Receiving"));
++  title_text = g_strdup_printf (title_template, _("Download"));
+   gsm_color_button_set_title (color_picker, title_text);
+   g_free (title_text);
+ 
+@@ -381,7 +381,7 @@
+ 
+   g_signal_connect (G_OBJECT (color_picker), "color-set",
+                     G_CALLBACK (cb_net_out_color_changed), app);
+-  title_text = g_strdup_printf (title_template, _("Sending"));
++  title_text = g_strdup_printf (title_template, _("Upload"));
+   gsm_color_button_set_title (color_picker, title_text);
+   g_free (title_text);
+ 
