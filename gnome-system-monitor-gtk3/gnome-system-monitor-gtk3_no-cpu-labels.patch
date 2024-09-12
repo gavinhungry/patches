@@ -1,0 +1,53 @@
+diff --color -ru gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/src/interface.cpp gnome-system-monitor-gtk3/src/gnome-system-monitor/src/interface.cpp
+--- gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/src/interface.cpp	2024-09-12 10:13:48.906479001 -0700
++++ gnome-system-monitor-gtk3/src/gnome-system-monitor/src/interface.cpp	2024-09-12 11:47:43.844436475 -0700
+@@ -255,49 +255,6 @@
+   GtkGrid*cpu_table = GTK_GRID (gtk_builder_get_object (builder, "cpu_table"));
+   gint cols = 4;
+ 
+-  for (i = 0; i < app->config.num_cpus; i++)
+-    {
+-      GtkBox *temp_hbox;
+-
+-      temp_hbox = GTK_BOX (gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0));
+-      gtk_widget_show (GTK_WIDGET (temp_hbox));
+-      if (i < cols)
+-        gtk_grid_insert_column (cpu_table, i % cols);
+-      if ((i + 1) % cols == cols)
+-        gtk_grid_insert_row (cpu_table, (i + 1) / cols);
+-      gtk_grid_attach (cpu_table, GTK_WIDGET (temp_hbox), i % cols, i / cols, 1, 1);
+-      color_picker = gsm_color_button_new (&cpu_graph->colors.at (i), GSMCP_TYPE_CPU);
+-      g_signal_connect (G_OBJECT (color_picker), "color-set",
+-                        G_CALLBACK (cb_cpu_color_changed), GINT_TO_POINTER (i));
+-      gtk_box_pack_start (temp_hbox, GTK_WIDGET (color_picker), FALSE, TRUE, 0);
+-      gtk_widget_set_size_request (GTK_WIDGET (color_picker), 32, -1);
+-      if (app->config.num_cpus == 1)
+-        label_text = g_strdup (_("CPU"));
+-      else
+-        label_text = g_strdup_printf (_("CPU%d"), i + 1);
+-      title_text = g_strdup_printf (title_template, label_text);
+-      label = GTK_LABEL (gtk_label_new (label_text));
+-      gtk_label_set_xalign (label, 0.0);
+-      if (app->config.num_cpus >= 10)
+-        gtk_label_set_width_chars (label, log10 (app->config.num_cpus) + 1 + 4);
+-      gsm_color_button_set_title (color_picker, title_text);
+-      g_free (title_text);
+-      gtk_box_pack_start (temp_hbox, GTK_WIDGET (label), FALSE, FALSE, 6);
+-      gtk_widget_show (GTK_WIDGET (label));
+-      g_free (label_text);
+-
+-      cpu_label = make_tnum_label ();
+-
+-      /* Reserve some space to avoid the layout changing with the values. */
+-      gtk_label_set_width_chars (cpu_label, 6);
+-      gtk_label_set_xalign (cpu_label, 1.0);
+-      gtk_widget_set_valign (GTK_WIDGET (cpu_label), GTK_ALIGN_CENTER);
+-      gtk_widget_set_halign (GTK_WIDGET (cpu_label), GTK_ALIGN_START);
+-      gtk_box_pack_start (temp_hbox, GTK_WIDGET (cpu_label), FALSE, FALSE, 0);
+-      gtk_widget_show (GTK_WIDGET (cpu_label));
+-      load_graph_get_labels (cpu_graph)->cpu[i] = cpu_label;
+-    }
+-
+   app->cpu_graph = cpu_graph;
+ 
+   /** The memory box */

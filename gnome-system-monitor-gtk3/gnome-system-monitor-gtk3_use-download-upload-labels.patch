@@ -1,46 +1,71 @@
-Only in gnome-system-monitor-gtk3: gnome-system-monitor-gtk3.ORIG
 diff --color -ru gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/data/interface.ui gnome-system-monitor-gtk3/src/gnome-system-monitor/data/interface.ui
 --- gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/data/interface.ui	2024-09-12 10:13:48.903145612 -0700
-+++ gnome-system-monitor-gtk3/src/gnome-system-monitor/data/interface.ui	2024-09-12 10:15:54.441904884 -0700
-@@ -416,7 +416,7 @@
++++ gnome-system-monitor-gtk3/src/gnome-system-monitor/data/interface.ui	2024-09-12 11:43:26.566770797 -0700
+@@ -312,6 +312,9 @@
+                                     <property name="hexpand">True</property>
+                                     <property name="halign">start</property>
+                                     <property name="label" translatable="yes">Memory</property>
++                                    <attributes>
++                                      <attribute name="weight" value="bold"/>
++                                    </attributes>
+                                   </object>
+                                   <packing>
+                                     <property name="left-attach">1</property>
+@@ -327,6 +330,9 @@
+                                     <property name="hexpand">True</property>
+                                     <property name="halign">start</property>
+                                     <property name="label" translatable="yes">Swap</property>
++                                    <attributes>
++                                      <attribute name="weight" value="bold"/>
++                                    </attributes>
+                                   </object>
+                                   <packing>
+                                     <property name="left-attach">3</property>
+@@ -416,7 +422,10 @@
                                      <property name="can-focus">False</property>
                                      <property name="hexpand">False</property>
                                      <property name="halign">start</property>
 -                                    <property name="label" translatable="yes">Receiving</property>
 +                                    <property name="label" translatable="yes">Download</property>
++                                    <attributes>
++                                      <attribute name="weight" value="bold"/>
++                                    </attributes>
                                    </object>
                                    <packing>
                                      <property name="left-attach">1</property>
-@@ -431,7 +431,7 @@
+@@ -431,7 +440,7 @@
                                      <property name="can-focus">False</property>
                                      <property name="hexpand">False</property>
                                      <property name="halign">start</property>
 -                                    <property name="label" translatable="yes">Total Received</property>
-+                                    <property name="label" translatable="yes">Total</property>
++                                    <property name="label" translatable="yes">Total Downloaded</property>
                                    </object>
                                    <packing>
                                      <property name="left-attach">1</property>
-@@ -446,7 +446,7 @@
+@@ -446,7 +455,10 @@
                                      <property name="can-focus">False</property>
                                      <property name="hexpand">False</property>
                                      <property name="halign">start</property>
 -                                    <property name="label" translatable="yes">Sending</property>
 +                                    <property name="label" translatable="yes">Upload</property>
++                                    <attributes>
++                                      <attribute name="weight" value="bold"/>
++                                    </attributes>
                                    </object>
                                    <packing>
                                      <property name="left-attach">5</property>
-@@ -461,7 +461,7 @@
+@@ -461,7 +473,7 @@
                                      <property name="can-focus">False</property>
                                      <property name="hexpand">False</property>
                                      <property name="halign">start</property>
 -                                    <property name="label" translatable="yes">Total Sent</property>
-+                                    <property name="label" translatable="yes">Total</property>
++                                    <property name="label" translatable="yes">Total Uploaded</property>
                                    </object>
                                    <packing>
                                      <property name="left-attach">5</property>
 diff --color -ru gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/help/C/net-check.page gnome-system-monitor-gtk3/src/gnome-system-monitor/help/C/net-check.page
 --- gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/help/C/net-check.page	2024-09-12 10:13:48.903145612 -0700
-+++ gnome-system-monitor-gtk3/src/gnome-system-monitor/help/C/net-check.page	2024-09-12 10:16:04.545406415 -0700
++++ gnome-system-monitor-gtk3/src/gnome-system-monitor/help/C/net-check.page	2024-09-12 11:44:47.418132768 -0700
 @@ -44,12 +44,12 @@
      received and sent. These are plotted against time, with the current time at
      the right.</p>
@@ -58,7 +83,7 @@ diff --color -ru gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/help/C/
      </item>
 diff --color -ru gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/src/interface.cpp gnome-system-monitor-gtk3/src/gnome-system-monitor/src/interface.cpp
 --- gnome-system-monitor-gtk3.ORIG/src/gnome-system-monitor/src/interface.cpp	2024-09-12 10:13:48.906479001 -0700
-+++ gnome-system-monitor-gtk3/src/gnome-system-monitor/src/interface.cpp	2024-09-12 10:15:15.694592891 -0700
++++ gnome-system-monitor-gtk3/src/gnome-system-monitor/src/interface.cpp	2024-09-12 11:44:29.991172581 -0700
 @@ -363,7 +363,7 @@
    gtk_widget_set_valign (GTK_WIDGET (color_picker), GTK_ALIGN_CENTER);
    g_signal_connect (G_OBJECT (color_picker), "color-set",
