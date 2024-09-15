@@ -1,6 +1,6 @@
-diff -ru pacman.ORIG/src/pacman-6.1.0/lib/libalpm/sync.c pacman/src/pacman-6.1.0/lib/libalpm/sync.c
---- pacman.ORIG/src/pacman-6.1.0/lib/libalpm/sync.c	2021-06-01 12:47:30.045161850 -0700
-+++ pacman/src/pacman-6.1.0/lib/libalpm/sync.c	2021-06-01 12:47:30.058495100 -0700
+diff -ru pacman.ORIG/src/pacman/lib/libalpm/sync.c pacman/src/pacman/lib/libalpm/sync.c
+--- pacman.ORIG/src/pacman/lib/libalpm/sync.c	2024-09-15 14:54:14.016061156 -0700
++++ pacman/src/pacman/lib/libalpm/sync.c	2024-09-15 14:54:14.036061472 -0700
 @@ -93,8 +93,6 @@
  		/* check IgnorePkg/IgnoreGroup */
  		if(alpm_pkg_should_ignore(handle, spkg)
