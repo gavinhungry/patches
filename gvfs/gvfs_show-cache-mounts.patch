@@ -1,46 +1,47 @@
-diff -ru gvfs.ORIG/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c gvfs/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c
---- gvfs.ORIG/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c	2019-11-16 02:07:09.242155680 -0800
-+++ gvfs/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c	2019-11-16 02:13:17.229882456 -0800
-@@ -645,6 +645,7 @@
+diff --color -ru gvfs.ORIG/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c gvfs/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c
+--- gvfs.ORIG/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c	2024-09-19 09:00:53.180936062 -0700
++++ gvfs/src/gvfs/monitor/udisks2/gvfsudisks2volumemonitor.c	2024-09-19 09:35:54.819106072 -0700
+@@ -653,6 +653,7 @@
+   gboolean ret = FALSE;
    const gchar *home_dir = NULL;
    const gchar *user_name;
-   gsize user_name_len;
-+  gchar *user_cache_path;
++  const gchar *user_cache_path;
+   const gchar *p;
  
    g_return_val_if_fail (mount_path != NULL, FALSE);
- 
-@@ -673,11 +674,26 @@
+@@ -681,10 +682,6 @@
+   if (g_unix_is_mount_path_system_internal (mount_path))
      goto out;
  
-   /* Only display things in
-+   * - /tmp/.cache/user/$USER/mount; and
-    * - /media; and
-    * - $HOME; and
-    * - /run/media/$USER
-    */
+-  /* Hide mounts within a subdirectory starting with a "." - suppose it was a purpose to hide this mount */
+-  if (g_strstr_len (mount_path, -1, "/.") != NULL)
+-    goto out;
+-
+   /* Check home dir */
+   home_dir = g_get_home_dir ();
+   if (home_dir != NULL)
+@@ -696,6 +693,16 @@
+         }
+     }
  
 +  user_name = g_get_user_name ();
 +  user_cache_path = g_strconcat ("/tmp/.cache/user/", user_name, "/mount/", NULL);
 +
++  /* Display mounts from /tmp/.cache/user/$USER/mount/ */
 +  if (g_str_has_prefix (mount_path, user_cache_path))
 +    {
 +      ret = TRUE;
++      goto out;
 +    }
 +
-+  g_free (user_cache_path);
-+
-+  if (ret) {
-+    goto out;
-+  }
-+
-   /* Hide mounts within a subdirectory starting with a "." - suppose it was a purpose to hide this mount */
-   if (g_strstr_len (mount_path, -1, "/.") != NULL)
-     goto out;
-@@ -701,7 +717,6 @@
-     }
+   /* Display mounts that are direct descendants of /media/ resp. /run/media/,
+    * or mounts with /media/$USER/ resp. /run/media/$USER/ prefix.
+    */
+@@ -706,7 +713,6 @@
+     {
+       p += sizeof ("/media/") - 1;
  
-   /* Check /run/media/$USER/ */
--  user_name = g_get_user_name ();
-   user_name_len = strlen (user_name);
-   if (strncmp (mount_path, "/run/media/", sizeof ("/run/media/") - 1) == 0 &&
-       strncmp (mount_path + sizeof ("/run/media/") - 1, user_name, user_name_len) == 0 &&
+-      user_name = g_get_user_name ();
+       if ((g_str_has_prefix (p, user_name) && p[strlen (user_name)] == '/') ||
+           g_strrstr (p, "/") == NULL)
+         {
