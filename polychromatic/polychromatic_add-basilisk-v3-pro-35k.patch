@@ -1,0 +1,16 @@
+diff --color -ru polychromatic.ORIG/src/polychromatic-0.9.2/data/devices/openrazer.json polychromatic/src/polychromatic-0.9.2/data/devices/openrazer.json
+--- polychromatic.ORIG/src/polychromatic-0.9.2/data/devices/openrazer.json	2024-10-02 14:57:01.306120824 -0700
++++ polychromatic/src/polychromatic-0.9.2/data/devices/openrazer.json	2024-10-02 14:58:01.370085557 -0700
+@@ -497,6 +497,12 @@
+         "name": "Razer Basilisk V3 Pro (Wireless)",
+         "since": "3.6.0"
+     },
++    "1532:00CD": {
++        "form_factor": "mouse",
++        "matrix": "13,1",
++        "name": "Razer Basilisk V3 Pro 35K (Wireless)",
++        "since": "3.8.0"
++    },
+     "1532:00AF": {
+         "form_factor": "mouse",
+         "matrix": null,

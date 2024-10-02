@@ -1,0 +1,351 @@
+diff --color -ru openrazer.ORIG/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py openrazer/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py
+--- openrazer.ORIG/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py	2024-10-02 14:18:49.779313854 -0700
++++ openrazer/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py	2024-10-02 16:10:20.240487544 -0700
+@@ -1610,6 +1610,14 @@
+     USB_PID = 0x00AB
+ 
+ 
++class RazerBasiliskV3Pro35KWireless(RazerBasiliskV3ProWireless):
++    """
++    Class for the Razer Basilisk V3 Pro 35K (Wireless)
++    """
++
++    USB_PID = 0x00CD
++
++
+ class RazerHyperPollingWirelessDongle(__RazerDevice):
+     """
+     Class for the Razer HyperPolling Wireless Dongle
+diff --color -ru openrazer.ORIG/src/openrazer/driver/razermouse_driver.c openrazer/src/openrazer/driver/razermouse_driver.c
+--- openrazer.ORIG/src/openrazer/driver/razermouse_driver.c	2024-10-02 14:18:49.779313854 -0700
++++ openrazer/src/openrazer/driver/razermouse_driver.c	2024-10-02 16:10:20.240487544 -0700
+@@ -59,6 +59,7 @@
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_X_HYPERSPEED:
+@@ -536,6 +537,10 @@
+         device_type = "Razer Basilisk V3 Pro (Wireless)\n";
+         break;
+ 
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++        device_type = "Razer Basilisk V3 Pro 35K (Wireless)\n";
++        break;
++
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_MINI:
+         device_type = "Razer DeathAdder V2 Mini\n";
+         break;
+@@ -685,6 +690,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+@@ -757,6 +763,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+         request = razer_chroma_extended_matrix_effect_none(VARSTORE, ZERO_LED);
+         request.transaction_id.id = 0x1f;
+         break;
+@@ -828,6 +835,7 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+         request = razer_chroma_extended_matrix_effect_custom_frame();
+         request.transaction_id.id = 0x1f;
+@@ -890,6 +898,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+         request = razer_chroma_extended_matrix_effect_static(VARSTORE, ZERO_LED, (struct razer_rgb*)&buf[0]);
+         request.transaction_id.id = 0x1f;
+         break;
+@@ -923,6 +932,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+         request = razer_chroma_extended_matrix_effect_wave(VARSTORE, ZERO_LED, direction);
+         request.transaction_id.id = 0x1f;
+         break;
+@@ -960,6 +970,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+         request = razer_chroma_extended_matrix_effect_spectrum(VARSTORE, ZERO_LED);
+         request.transaction_id.id = 0x1f;
+         break;
+@@ -1118,6 +1129,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+@@ -1188,6 +1200,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+     case USB_DEVICE_ID_RAZER_VIPER_V3_HYPERSPEED:
+@@ -1260,6 +1273,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+         request.transaction_id.id = 0x1f;
+         break;
+@@ -1412,6 +1426,7 @@
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V3_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+@@ -1548,6 +1563,7 @@
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V3_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+@@ -1627,6 +1643,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+         request = razer_chroma_extended_matrix_brightness(VARSTORE, ZERO_LED, brightness);
+         request.transaction_id.id = 0x1F;
+         break;
+@@ -1679,6 +1696,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+         request = razer_chroma_extended_matrix_get_brightness(VARSTORE, ZERO_LED);
+         request.transaction_id.id = 0x1F;
+         break;
+@@ -1851,6 +1869,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+@@ -1945,6 +1964,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+@@ -2267,6 +2287,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+     case USB_DEVICE_ID_RAZER_VIPER_V3_HYPERSPEED:
+@@ -2335,6 +2356,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+     case USB_DEVICE_ID_RAZER_VIPER_V3_HYPERSPEED:
+@@ -2416,6 +2438,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+     case USB_DEVICE_ID_RAZER_VIPER_V3_HYPERSPEED:
+@@ -2463,6 +2486,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+     case USB_DEVICE_ID_RAZER_VIPER_V3_HYPERSPEED:
+@@ -2633,6 +2657,7 @@
+         case USB_DEVICE_ID_RAZER_BASILISK_V3:
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++        case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+         case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+             request = razer_chroma_extended_matrix_set_custom_frame(row_id, start_col, stop_col, (unsigned char*)&buf[offset]);
+             request.transaction_id.id = 0x1f;
+@@ -2729,6 +2754,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_HYPERSPEED_RECEIVER:
+@@ -2828,6 +2854,7 @@
+     case USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_VIPER_V3_HYPERSPEED:
+@@ -2878,6 +2905,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_X_HYPERSPEED:
+         request = razer_chroma_extended_matrix_get_brightness(VARSTORE, led_id);
+@@ -2953,6 +2981,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_X_HYPERSPEED:
+         request = razer_chroma_extended_matrix_brightness(VARSTORE, led_id, brightness);
+@@ -3107,6 +3136,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_ULTIMATE_RECEIVER:
+     case USB_DEVICE_ID_RAZER_BASILISK_ULTIMATE_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_X_HYPERSPEED:
+@@ -3211,6 +3241,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_X_HYPERSPEED:
+         request = razer_chroma_extended_matrix_effect_spectrum(VARSTORE, led_id);
+@@ -3590,6 +3621,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_COBRA:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_X_HYPERSPEED:
+@@ -3783,6 +3815,7 @@
+     case USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+     case USB_DEVICE_ID_RAZER_COBRA:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_X_HYPERSPEED:
+@@ -4519,6 +4552,7 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_ULTIMATE_RECEIVER:
+     case USB_DEVICE_ID_RAZER_BASILISK_ULTIMATE_WIRED:
+         /* Detect wheel tilt edges */
+@@ -4639,6 +4673,7 @@
+         case USB_DEVICE_ID_RAZER_BASILISK_V3:
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++        case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+         case USB_DEVICE_ID_RAZER_BASILISK_ULTIMATE_RECEIVER:
+         case USB_DEVICE_ID_RAZER_BASILISK_ULTIMATE_WIRED:
+             /* Linux HID doesn't detect the Basilisk V2's tilt wheel
+@@ -4903,6 +4938,7 @@
+ 
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++        case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+             CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_poll_rate);
+             CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_dpi);
+             CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_dpi_stages);
+@@ -5894,6 +5930,7 @@
+ 
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
++        case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
+             device_remove_file(&hdev->dev, &dev_attr_poll_rate);
+             device_remove_file(&hdev->dev, &dev_attr_dpi);
+             device_remove_file(&hdev->dev, &dev_attr_dpi_stages);
+@@ -6714,6 +6751,7 @@
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_HYPERPOLLING_WIRELESS_DONGLE) },
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED) },
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS) },
++    { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS) },
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER) },
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE) },
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_COBRA) },
+diff --color -ru openrazer.ORIG/src/openrazer/driver/razermouse_driver.h openrazer/src/openrazer/driver/razermouse_driver.h
+--- openrazer.ORIG/src/openrazer/driver/razermouse_driver.h	2024-10-02 14:18:49.779313854 -0700
++++ openrazer/src/openrazer/driver/razermouse_driver.h	2024-10-02 16:10:20.240487544 -0700
+@@ -87,6 +87,7 @@
+ #define USB_DEVICE_ID_RAZER_VIPER_V2_PRO_WIRELESS 0x00A6
+ #define USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED 0x00AA
+ #define USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS 0x00AB
++#define USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS 0x00CD
+ #define USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED 0x00AF
+ #define USB_DEVICE_ID_RAZER_COBRA_PRO_WIRELESS 0x00B0
+ #define USB_DEVICE_ID_RAZER_DEATHADDER_V3 0x00B2
+Binary files openrazer.ORIG/src/openrazer/.git/index and openrazer/src/openrazer/.git/index differ
+diff --color -ru openrazer.ORIG/src/openrazer/install_files/appstream/io.github.openrazer.openrazer.metainfo.xml openrazer/src/openrazer/install_files/appstream/io.github.openrazer.openrazer.metainfo.xml
+--- openrazer.ORIG/src/openrazer/install_files/appstream/io.github.openrazer.openrazer.metainfo.xml	2024-10-02 14:18:49.779313854 -0700
++++ openrazer/src/openrazer/install_files/appstream/io.github.openrazer.openrazer.metainfo.xml	2024-10-02 16:10:20.240487544 -0700
+@@ -102,6 +102,7 @@
+     <modalias>usb:v1532p00A6d*</modalias>
+     <modalias>usb:v1532p00AAd*</modalias>
+     <modalias>usb:v1532p00ABd*</modalias>
++    <modalias>usb:v1532p00CDd*</modalias>
+     <modalias>usb:v1532p00AFd*</modalias>
+     <modalias>usb:v1532p00B0d*</modalias>
+     <modalias>usb:v1532p00B2d*</modalias>
+diff --color -ru openrazer.ORIG/src/openrazer/install_files/udev/99-razer.rules openrazer/src/openrazer/install_files/udev/99-razer.rules
+--- openrazer.ORIG/src/openrazer/install_files/udev/99-razer.rules	2024-10-02 14:18:49.779313854 -0700
++++ openrazer/src/openrazer/install_files/udev/99-razer.rules	2024-10-02 16:10:53.910828294 -0700
+@@ -5,7 +5,7 @@
+ LABEL="razer_vendor"
+ 
+ # Mice
+-ATTRS{idProduct}=="0013|0016|0020|0024|0025|0029|002e|002f|0032|0034|0036|0037|0038|0039|003e|003f|0040|0041|0042|0043|0044|0045|0046|0048|004c|004f|0050|0053|0054|0059|005a|005b|005c|005e|0060|0062|0064|0065|0067|006a|006b|006c|006e|006f|0070|0071|0072|0073|0077|0078|007a|007b|007c|007d|0080|0083|0084|0085|0086|0088|008a|008c|008d|008f|0090|0091|0094|0095|0096|0098|0099|009a|009c|009e|009f|00a1|00a3|00a5|00a6|00aa|00ab|00af|00b0|00b2|00b3|00b4|00b6|00b7|00b8|00b9", \
++ATTRS{idProduct}=="0013|0016|0020|0024|0025|0029|002e|002f|0032|0034|0036|0037|0038|0039|003e|003f|0040|0041|0042|0043|0044|0045|0046|0048|004c|004f|0050|0053|0054|0059|005a|005b|005c|005e|0060|0062|0064|0065|0067|006a|006b|006c|006e|006f|0070|0071|0072|0073|0077|0078|007a|007b|007c|007d|0080|0083|0084|0085|0086|0088|008a|008c|008d|008f|0090|0091|0094|0095|0096|0098|0099|009a|009c|009e|009f|00a1|00a3|00a5|00a6|00aa|00ab|00cd|00af|00b0|00b2|00b3|00b4|00b6|00b7|00b8|00b9", \
+     ATTRS{idVendor}=="1532", \
+     ENV{ID_RAZER_CHROMA}="1", ENV{RAZER_DRIVER}="razermouse"
+ 
+Only in openrazer/src/openrazer/pylib/openrazer/_fake_driver: razerbasiliskv3pro35kwireless.cfg
+diff --color -ru openrazer.ORIG/src/openrazer/README.md openrazer/src/openrazer/README.md
+--- openrazer.ORIG/src/openrazer/README.md	2024-10-02 14:18:49.775980105 -0700
++++ openrazer/src/openrazer/README.md	2024-10-02 16:10:20.240487544 -0700
+@@ -194,6 +194,7 @@
+ | Razer Viper V2 Pro (Wireless)                 |  1532:00A6  |
+ | Razer Basilisk V3 Pro (Wired)                 |  1532:00AA  |
+ | Razer Basilisk V3 Pro (Wireless)              |  1532:00AB  |
++| Razer Basilisk V3 Pro 35K (Wireless)          |  1532:00CD  |
+ | Razer Cobra Pro (Wired)                       |  1532:00AF  |
+ | Razer Cobra Pro (Wireless)                    |  1532:00B0  |
+ | Razer DeathAdder V3                           |  1532:00B2  |
