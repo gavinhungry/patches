@@ -1,6 +1,21 @@
+diff --color -ru openrazer.ORIG/PKGBUILD openrazer/PKGBUILD
+--- openrazer.ORIG/PKGBUILD	2024-10-02 18:16:40.073749930 -0700
++++ openrazer/PKGBUILD	2024-10-02 18:17:04.074129980 -0700
+@@ -14,6 +14,11 @@
+ source=("git+https://github.com/$pkgbase/$pkgbase.git#tag=v$pkgver")
+ b2sums=('b2f05076242e259a123b54b3ca6b9dc40fb984fd057103d3a62a08ed018082e309da58ab77c01e49dbe66310ea1f8a07c5e7319fa7339eff8442dff6d3931085')
+ 
++build() {
++  cd "$srcdir"/$pkgbase
++  ./scripts/generate_all_fake_drivers.sh -f
++}
++
+ package_openrazer-daemon() {
+   pkgdesc='Userspace daemon that abstracts access to the kernel driver. Provides a DBus service for applications to use'
+   depends=(
 diff --color -ru openrazer.ORIG/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py openrazer/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py
---- openrazer.ORIG/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py	2024-10-02 14:18:49.779313854 -0700
-+++ openrazer/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py	2024-10-02 16:10:20.240487544 -0700
+--- openrazer.ORIG/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py	2024-10-02 18:16:40.077083317 -0700
++++ openrazer/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py	2024-10-02 18:16:52.030605932 -0700
 @@ -1610,6 +1610,14 @@
      USB_PID = 0x00AB
  
@@ -17,8 +32,8 @@ diff --color -ru openrazer.ORIG/src/openrazer/daemon/openrazer_daemon/hardware/m
      """
      Class for the Razer HyperPolling Wireless Dongle
 diff --color -ru openrazer.ORIG/src/openrazer/driver/razermouse_driver.c openrazer/src/openrazer/driver/razermouse_driver.c
---- openrazer.ORIG/src/openrazer/driver/razermouse_driver.c	2024-10-02 14:18:49.779313854 -0700
-+++ openrazer/src/openrazer/driver/razermouse_driver.c	2024-10-02 16:10:20.240487544 -0700
+--- openrazer.ORIG/src/openrazer/driver/razermouse_driver.c	2024-10-02 18:16:40.077083317 -0700
++++ openrazer/src/openrazer/driver/razermouse_driver.c	2024-10-02 18:16:52.030605932 -0700
 @@ -59,6 +59,7 @@
      case USB_DEVICE_ID_RAZER_DEATHADDER_V3_PRO_WIRED:
      case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
@@ -303,8 +318,8 @@ diff --color -ru openrazer.ORIG/src/openrazer/driver/razermouse_driver.c openraz
      { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE) },
      { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_COBRA) },
 diff --color -ru openrazer.ORIG/src/openrazer/driver/razermouse_driver.h openrazer/src/openrazer/driver/razermouse_driver.h
---- openrazer.ORIG/src/openrazer/driver/razermouse_driver.h	2024-10-02 14:18:49.779313854 -0700
-+++ openrazer/src/openrazer/driver/razermouse_driver.h	2024-10-02 16:10:20.240487544 -0700
+--- openrazer.ORIG/src/openrazer/driver/razermouse_driver.h	2024-10-02 18:16:40.077083317 -0700
++++ openrazer/src/openrazer/driver/razermouse_driver.h	2024-10-02 18:16:52.030605932 -0700
 @@ -87,6 +87,7 @@
  #define USB_DEVICE_ID_RAZER_VIPER_V2_PRO_WIRELESS 0x00A6
  #define USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED 0x00AA
@@ -313,10 +328,9 @@ diff --color -ru openrazer.ORIG/src/openrazer/driver/razermouse_driver.h openraz
  #define USB_DEVICE_ID_RAZER_COBRA_PRO_WIRED 0x00AF
  #define USB_DEVICE_ID_RAZER_COBRA_PRO_WIRELESS 0x00B0
  #define USB_DEVICE_ID_RAZER_DEATHADDER_V3 0x00B2
-Binary files openrazer.ORIG/src/openrazer/.git/index and openrazer/src/openrazer/.git/index differ
 diff --color -ru openrazer.ORIG/src/openrazer/install_files/appstream/io.github.openrazer.openrazer.metainfo.xml openrazer/src/openrazer/install_files/appstream/io.github.openrazer.openrazer.metainfo.xml
---- openrazer.ORIG/src/openrazer/install_files/appstream/io.github.openrazer.openrazer.metainfo.xml	2024-10-02 14:18:49.779313854 -0700
-+++ openrazer/src/openrazer/install_files/appstream/io.github.openrazer.openrazer.metainfo.xml	2024-10-02 16:10:20.240487544 -0700
+--- openrazer.ORIG/src/openrazer/install_files/appstream/io.github.openrazer.openrazer.metainfo.xml	2024-10-02 18:16:40.077083317 -0700
++++ openrazer/src/openrazer/install_files/appstream/io.github.openrazer.openrazer.metainfo.xml	2024-10-02 18:16:52.030605932 -0700
 @@ -102,6 +102,7 @@
      <modalias>usb:v1532p00A6d*</modalias>
      <modalias>usb:v1532p00AAd*</modalias>
@@ -326,8 +340,8 @@ diff --color -ru openrazer.ORIG/src/openrazer/install_files/appstream/io.github.
      <modalias>usb:v1532p00B0d*</modalias>
      <modalias>usb:v1532p00B2d*</modalias>
 diff --color -ru openrazer.ORIG/src/openrazer/install_files/udev/99-razer.rules openrazer/src/openrazer/install_files/udev/99-razer.rules
---- openrazer.ORIG/src/openrazer/install_files/udev/99-razer.rules	2024-10-02 14:18:49.779313854 -0700
-+++ openrazer/src/openrazer/install_files/udev/99-razer.rules	2024-10-02 16:10:53.910828294 -0700
+--- openrazer.ORIG/src/openrazer/install_files/udev/99-razer.rules	2024-10-02 18:16:40.077083317 -0700
++++ openrazer/src/openrazer/install_files/udev/99-razer.rules	2024-10-02 18:16:52.030605932 -0700
 @@ -5,7 +5,7 @@
  LABEL="razer_vendor"
  
@@ -337,10 +351,9 @@ diff --color -ru openrazer.ORIG/src/openrazer/install_files/udev/99-razer.rules 
      ATTRS{idVendor}=="1532", \
      ENV{ID_RAZER_CHROMA}="1", ENV{RAZER_DRIVER}="razermouse"
  
-Only in openrazer/src/openrazer/pylib/openrazer/_fake_driver: razerbasiliskv3pro35kwireless.cfg
 diff --color -ru openrazer.ORIG/src/openrazer/README.md openrazer/src/openrazer/README.md
---- openrazer.ORIG/src/openrazer/README.md	2024-10-02 14:18:49.775980105 -0700
-+++ openrazer/src/openrazer/README.md	2024-10-02 16:10:20.240487544 -0700
+--- openrazer.ORIG/src/openrazer/README.md	2024-10-02 18:16:40.077083317 -0700
++++ openrazer/src/openrazer/README.md	2024-10-02 18:16:52.030605932 -0700
 @@ -194,6 +194,7 @@
  | Razer Viper V2 Pro (Wireless)                 |  1532:00A6  |
  | Razer Basilisk V3 Pro (Wired)                 |  1532:00AA  |
