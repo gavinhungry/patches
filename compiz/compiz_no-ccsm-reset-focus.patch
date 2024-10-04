@@ -1,0 +1,19 @@
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/compizconfig/ccsm/ccm/Pages.py compiz/src/compiz-0.9.14.2/compizconfig/ccsm/ccm/Pages.py
+--- compiz.ORIG/src/compiz-0.9.14.2/compizconfig/ccsm/ccm/Pages.py	2024-10-04 09:09:57.583005428 -0700
++++ compiz/src/compiz-0.9.14.2/compizconfig/ccsm/ccm/Pages.py	2024-10-04 09:45:57.768617707 -0700
+@@ -125,15 +125,8 @@
+                 self.RightWidget.append_page(groupPage.Scroll, Gtk.Label(label=name))
+                 self.Pages.append(groupPage)
+         
+-        self.RightWidget.connect('size-allocate', self.ResetFocus)
+-
+         self.Block = 0
+ 
+-    def ResetFocus(self, widget, data):
+-        pos = self.FilterEntry.get_position() 
+-        self.FilterEntry.grab_focus()
+-        self.FilterEntry.set_position(pos)
+-
+     def GetPageSpot(self, new):
+         vpos = 0 #visible position
+         for page in self.Pages:
