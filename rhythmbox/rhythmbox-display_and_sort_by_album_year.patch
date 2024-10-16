@@ -1,0 +1,103 @@
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c
+--- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-10-16 09:20:16.721342913 -0700
++++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-10-16 12:44:42.762722351 -0700
+@@ -60,6 +60,7 @@
+ 	RBRefString *sort_string;
+ 	gint sort_string_from;
+ 	gint refcount;
++	gint year;
+ } RhythmDBPropertyModelEntry;
+ 
+ static void rhythmdb_property_model_dispose (GObject *object);
+@@ -740,7 +741,14 @@
+ 
+ 		propid = g_array_index (model->priv->sort_propids, RhythmDBPropType, pi);
+ 		newvalue = rhythmdb_entry_get_string (entry, propid);
++
+ 		if (newvalue != NULL && newvalue[0] != '\0') {
++			if (model->priv->propid == RHYTHMDB_PROP_ALBUM) {
++				newvalue = g_strdup_printf ("%04lu %s",
++					rhythmdb_entry_get_ulong(entry, RHYTHMDB_PROP_YEAR), newvalue
++				);
++			}
++
+ 			break;
+ 		}
+ 	}
+@@ -828,6 +836,7 @@
+ 	prop->string = rb_refstring_new (propstr);
+ 	update_sort_string (model, prop, entry);
+ 	g_atomic_int_set (&prop->refcount, 1);
++	g_atomic_int_set(&prop->year, rhythmdb_entry_get_ulong (entry, RHYTHMDB_PROP_YEAR));
+ 
+ 	ptr = g_sequence_insert_sorted (model->priv->properties, prop,
+ 					(GCompareDataFunc) rhythmdb_property_model_compare,
+@@ -958,6 +967,8 @@
+ 		return G_TYPE_BOOLEAN;
+ 	case RHYTHMDB_PROPERTY_MODEL_COLUMN_NUMBER:
+ 		return G_TYPE_UINT;
++	case RHYTHMDB_PROPERTY_MODEL_COLUMN_YEAR:
++		return G_TYPE_UINT;
+ 	default:
+ 		g_assert_not_reached ();
+ 		return G_TYPE_INVALID;
+@@ -1041,6 +1052,10 @@
+ 			g_value_init (value, G_TYPE_UINT);
+ 			g_value_set_uint (value, g_atomic_int_get (&model->priv->all->refcount));
+ 			break;
++		case RHYTHMDB_PROPERTY_MODEL_COLUMN_YEAR:
++			g_value_init (value, G_TYPE_UINT);
++			g_value_set_uint (value, g_atomic_int_get (&model->priv->all->year));
++			break;
+ 		default:
+ 			g_assert_not_reached ();
+ 		}
+@@ -1063,6 +1078,10 @@
+ 			g_value_init (value, G_TYPE_UINT);
+ 			g_value_set_uint (value, g_atomic_int_get (&prop->refcount));
+ 			break;
++		case RHYTHMDB_PROPERTY_MODEL_COLUMN_YEAR:
++			g_value_init (value, G_TYPE_UINT);
++			g_value_set_uint (value, g_atomic_int_get (&prop->year));
++			break;
+ 		default:
+ 			g_assert_not_reached ();
+ 		}
+@@ -1455,6 +1474,7 @@
+ 			ENUM_ENTRY (RHYTHMDB_PROPERTY_MODEL_COLUMN_TITLE, "property-title"),
+ 			ENUM_ENTRY (RHYTHMDB_PROPERTY_MODEL_COLUMN_PRIORITY, "value-priority"),
+ 			ENUM_ENTRY (RHYTHMDB_PROPERTY_MODEL_COLUMN_NUMBER, "track-count"),
++			ENUM_ENTRY (RHYTHMDB_PROPERTY_MODEL_COLUMN_YEAR, "album-year"),
+ 			{ 0, 0, 0 }
+ 		};
+ 
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h
+--- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-10-16 09:20:16.721342913 -0700
++++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-10-16 12:44:52.872891972 -0700
+@@ -49,6 +49,7 @@
+ 	RHYTHMDB_PROPERTY_MODEL_COLUMN_TITLE,
+ 	RHYTHMDB_PROPERTY_MODEL_COLUMN_PRIORITY,
+ 	RHYTHMDB_PROPERTY_MODEL_COLUMN_NUMBER,
++	RHYTHMDB_PROPERTY_MODEL_COLUMN_YEAR,
+ 	RHYTHMDB_PROPERTY_MODEL_COLUMN_LAST,
+ } RhythmDBPropertyModelColumn;
+ 
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c rhythmbox/src/rhythmbox/widgets/rb-property-view.c
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c	2024-10-16 09:20:16.724676299 -0700
++++ rhythmbox/src/rhythmbox/widgets/rb-property-view.c	2024-10-16 12:44:54.066245326 -0700
+@@ -675,7 +675,14 @@
+ 
+ 		str = g_strdup_printf (fmt, nodes, number);
+ 	} else {
+-		str = g_strdup_printf (_("%s (%d)"), title, number);
++		if (view->priv->propid == RHYTHMDB_PROP_ALBUM) {
++			guint year;
++			gtk_tree_model_get(GTK_TREE_MODEL(tree_model), iter, RHYTHMDB_PROPERTY_MODEL_COLUMN_YEAR, &year, -1);
++
++			str = g_strdup_printf(_("(%d) %s (%d)"), year, title, number);
++		} else {
++			str = g_strdup_printf (_("%s (%d)"), title, number);
++		}
+ 	}
+ 
+ 	g_object_set (G_OBJECT (renderer), "text", str,
