@@ -1,0 +1,12 @@
+diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-util.c thunar/src/thunar/thunar/thunar-util.c
+--- thunar.ORIG/src/thunar/thunar/thunar-util.c	2024-10-21 00:39:25.435320199 -0700
++++ thunar/src/thunar/thunar/thunar-util.c	2024-10-21 01:32:06.591817745 -0700
+@@ -63,7 +63,7 @@
+ #include <glib.h>
+ #include <glib/gstdio.h>
+ 
+-#define BORDER_RADIUS 8
++#define BORDER_RADIUS 2
+ 
+ enum
+ {
