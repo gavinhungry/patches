@@ -1,6 +1,6 @@
 diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c
---- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-10-16 09:20:16.721342913 -0700
-+++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-10-16 12:44:42.762722351 -0700
+--- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-10-23 09:27:14.395655868 -0700
++++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-10-23 09:28:57.903911408 -0700
 @@ -60,6 +60,7 @@
  	RBRefString *sort_string;
  	gint sort_string_from;
@@ -72,8 +72,8 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c
  		};
  
 diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h
---- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-10-16 09:20:16.721342913 -0700
-+++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-10-16 12:44:52.872891972 -0700
+--- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-10-23 09:27:14.395655868 -0700
++++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-10-23 09:28:58.640589380 -0700
 @@ -49,6 +49,7 @@
  	RHYTHMDB_PROPERTY_MODEL_COLUMN_TITLE,
  	RHYTHMDB_PROPERTY_MODEL_COLUMN_PRIORITY,
@@ -83,9 +83,28 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h
  } RhythmDBPropertyModelColumn;
  
 diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c rhythmbox/src/rhythmbox/widgets/rb-property-view.c
---- rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c	2024-10-16 09:20:16.724676299 -0700
-+++ rhythmbox/src/rhythmbox/widgets/rb-property-view.c	2024-10-16 12:44:54.066245326 -0700
-@@ -675,7 +675,14 @@
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c	2024-10-23 09:27:14.395655868 -0700
++++ rhythmbox/src/rhythmbox/widgets/rb-property-view.c	2024-10-23 09:32:46.994092189 -0700
+@@ -660,22 +660,29 @@
+ 
+ 		switch (view->priv->propid) {
+ 		case RHYTHMDB_PROP_ARTIST:
+-			fmt = ngettext ("%d artist (%d)", "All %d artists (%d)", nodes);
++			fmt = ngettext ("%d artist (%d)", "%d artists (%d)", nodes);
+ 			break;
+ 		case RHYTHMDB_PROP_ALBUM:
+-			fmt = ngettext ("%d album (%d)", "All %d albums (%d)", nodes);
++			fmt = ngettext ("%d album (%d)", "%d albums (%d)", nodes);
+ 			break;
+ 		case RHYTHMDB_PROP_GENRE:
+-			fmt = ngettext ("%d genre (%d)", "All %d genres (%d)", nodes);
++			fmt = ngettext ("%d genre (%d)", "%d genres (%d)", nodes);
+ 			break;
+ 		default:
+-			fmt = ngettext ("%d (%d)", "All %d (%d)", nodes);
++			fmt = ngettext ("%d (%d)", "%d (%d)", nodes);
+ 			break;
+ 		}
  
  		str = g_strdup_printf (fmt, nodes, number);
  	} else {
@@ -94,9 +113,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c rhythmb
 +			guint year;
 +			gtk_tree_model_get(GTK_TREE_MODEL(tree_model), iter, RHYTHMDB_PROPERTY_MODEL_COLUMN_YEAR, &year, -1);
 +
-+			str = g_strdup_printf(_("(%d) %s (%d)"), year, title, number);
++			str = g_strdup_printf(_("(%d) %s"), year, title);
 +		} else {
-+			str = g_strdup_printf (_("%s (%d)"), title, number);
++			str = g_strdup_printf (_("%s"), title);
 +		}
  	}
  
