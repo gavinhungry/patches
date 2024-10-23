@@ -1,0 +1,18 @@
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c rhythmbox/src/rhythmbox/widgets/rb-entry-view.c
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c	2024-10-23 14:15:01.677542974 -0700
++++ rhythmbox/src/rhythmbox/widgets/rb-entry-view.c	2024-10-23 14:26:46.825505873 -0700
+@@ -2661,13 +2661,7 @@
+ void
+ rb_entry_view_set_status (RBEntryView *view, const char *status, gboolean busy)
+ {
+-	if (status == NULL) {
+-		gtk_widget_hide (view->priv->status);
+-	} else {
+-		nautilus_floating_bar_set_primary_label (NAUTILUS_FLOATING_BAR (view->priv->status), status);
+-		nautilus_floating_bar_set_show_spinner (NAUTILUS_FLOATING_BAR (view->priv->status), busy);
+-		gtk_widget_show (view->priv->status);
+-	}
++	gtk_widget_hide (view->priv->status);
+ }
+ 
+ /* This should really be standard. */
