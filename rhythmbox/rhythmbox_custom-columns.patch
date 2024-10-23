@@ -1,0 +1,263 @@
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c
+--- rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2024-10-23 09:27:14.388989100 -0700
++++ rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2024-10-23 10:27:09.469809419 -0700
+@@ -275,7 +275,7 @@
+ 	RB_CHAIN_GOBJECT_METHOD (rb_iradio_source_parent_class, constructed, object);
+ 	source = RB_IRADIO_SOURCE (object);
+ 
+-	paned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
++	paned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
+ 
+ 	g_object_get (source, "shell", &shell, NULL);
+ 	g_object_get (shell,
+@@ -300,7 +300,6 @@
+ 						    FALSE, FALSE);
+ 
+ 	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_TITLE, TRUE);
+-	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_GENRE, FALSE);
+ /* 	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_QUALITY, FALSE); */
+ 	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_RATING, FALSE);
+ /*	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_PLAY_COUNT, FALSE);*/
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/podcast/rb-podcast-source.c rhythmbox/src/rhythmbox/podcast/rb-podcast-source.c
+--- rhythmbox.ORIG/src/rhythmbox/podcast/rb-podcast-source.c	2024-10-23 09:27:14.395655868 -0700
++++ rhythmbox/src/rhythmbox/podcast/rb-podcast-source.c	2024-10-23 10:27:07.603112681 -0700
+@@ -1361,14 +1361,13 @@
+ 
+ 	source->priv->paned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
+ 
+-
+ 	/* set up posts view */
+ 	source->priv->posts = rb_entry_view_new (source->priv->db,
+ 						 G_OBJECT (shell_player),
+ 						 TRUE, FALSE);
+ 	g_object_unref (shell_player);
+ 
+-	/* Podcast date column */
++	/* COLUMN FEED */
+ 	column = gtk_tree_view_column_new ();
+ 	renderer = gtk_cell_renderer_text_new();
+ 
+@@ -1377,26 +1376,18 @@
+ 	gtk_tree_view_column_set_clickable (column, TRUE);
+ 	gtk_tree_view_column_set_resizable (column, TRUE);
+ 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_FIXED);
+-	{
+-		const char *sample_strings[3];
+-		sample_strings[0] = _("Date");
+-		sample_strings[1] = rb_entry_view_get_time_date_column_sample ();
+-		sample_strings[2] = NULL;
+-		rb_entry_view_set_fixed_column_width (source->priv->posts, column, renderer, sample_strings);
+-	}
++	gtk_tree_view_column_set_expand (column, TRUE);
+ 
+ 	gtk_tree_view_column_set_cell_data_func (column, renderer,
+-						 (GtkTreeCellDataFunc) podcast_post_date_cell_data_func,
++						 (GtkTreeCellDataFunc) podcast_post_feed_cell_data_func,
+ 						 source, NULL);
+ 
+ 	rb_entry_view_append_column_custom (source->priv->posts, column,
+-					    _("Date"), "Date",
+-					    (GCompareDataFunc) podcast_post_date_sort_func,
++					    _("Feed"), "Feed",
++					    (GCompareDataFunc) podcast_post_feed_sort_func,
+ 					    0, NULL);
+ 
+-	rb_entry_view_append_column (source->priv->posts, RB_ENTRY_VIEW_COL_TITLE, TRUE);
+-
+-	/* COLUMN FEED */
++	/* Podcast date column */
+ 	column = gtk_tree_view_column_new ();
+ 	renderer = gtk_cell_renderer_text_new();
+ 
+@@ -1405,21 +1396,26 @@
+ 	gtk_tree_view_column_set_clickable (column, TRUE);
+ 	gtk_tree_view_column_set_resizable (column, TRUE);
+ 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_FIXED);
+-	gtk_tree_view_column_set_expand (column, TRUE);
++	{
++		const char *sample_strings[3];
++		sample_strings[0] = _("Date");
++		sample_strings[1] = rb_entry_view_get_time_date_column_sample ();
++		sample_strings[2] = NULL;
++		rb_entry_view_set_fixed_column_width (source->priv->posts, column, renderer, sample_strings);
++	}
+ 
+ 	gtk_tree_view_column_set_cell_data_func (column, renderer,
+-						 (GtkTreeCellDataFunc) podcast_post_feed_cell_data_func,
++						 (GtkTreeCellDataFunc) podcast_post_date_cell_data_func,
+ 						 source, NULL);
+ 
+ 	rb_entry_view_append_column_custom (source->priv->posts, column,
+-					    _("Feed"), "Feed",
+-					    (GCompareDataFunc) podcast_post_feed_sort_func,
++					    _("Date"), "Date",
++					    (GCompareDataFunc) podcast_post_date_sort_func,
+ 					    0, NULL);
+ 
++	rb_entry_view_append_column (source->priv->posts, RB_ENTRY_VIEW_COL_TITLE, TRUE);
+ 	rb_entry_view_append_column (source->priv->posts, RB_ENTRY_VIEW_COL_DURATION, FALSE);
+ 	rb_entry_view_append_column (source->priv->posts, RB_ENTRY_VIEW_COL_RATING, FALSE);
+-	rb_entry_view_append_column (source->priv->posts, RB_ENTRY_VIEW_COL_PLAY_COUNT, FALSE);
+-	rb_entry_view_append_column (source->priv->posts, RB_ENTRY_VIEW_COL_LAST_PLAYED, FALSE);
+ 
+ 	/* Status column */
+ 	column = gtk_tree_view_column_new ();
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-browser-source.c rhythmbox/src/rhythmbox/sources/rb-browser-source.c
+--- rhythmbox.ORIG/src/rhythmbox/sources/rb-browser-source.c	2024-10-23 09:27:14.395655868 -0700
++++ rhythmbox/src/rhythmbox/sources/rb-browser-source.c	2024-10-23 10:33:09.838916235 -0700
+@@ -348,16 +348,16 @@
+ 	source->priv->songs = rb_entry_view_new (source->priv->db, shell_player,
+ 						 TRUE, FALSE);
+ 
++	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ARTIST, FALSE);
++	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_YEAR, FALSE);
++	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ALBUM, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_TRACK_NUMBER, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_TITLE, TRUE);
++	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_DURATION, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_GENRE, FALSE);
+-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ARTIST, FALSE);
+-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ALBUM, FALSE);
++	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_PLAY_COUNT, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_COMPOSER, FALSE);
+-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_YEAR, FALSE);
+-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_DURATION, FALSE);
+  	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_QUALITY, FALSE);
+-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_PLAY_COUNT, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_BPM, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_COMMENT, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_LOCATION, FALSE);
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-missing-files-source.c rhythmbox/src/rhythmbox/sources/rb-missing-files-source.c
+--- rhythmbox.ORIG/src/rhythmbox/sources/rb-missing-files-source.c	2024-10-23 09:27:14.395655868 -0700
++++ rhythmbox/src/rhythmbox/sources/rb-missing-files-source.c	2024-10-23 10:30:53.483404822 -0700
+@@ -173,11 +173,11 @@
+ 
+ 	rb_entry_view_set_model (source->priv->view, model);
+ 
++	rb_entry_view_append_column (source->priv->view, RB_ENTRY_VIEW_COL_ARTIST, FALSE);
++	rb_entry_view_append_column (source->priv->view, RB_ENTRY_VIEW_COL_ALBUM, FALSE);
+ 	rb_entry_view_append_column (source->priv->view, RB_ENTRY_VIEW_COL_TRACK_NUMBER, FALSE);
+ 	rb_entry_view_append_column (source->priv->view, RB_ENTRY_VIEW_COL_TITLE, TRUE);
+ /*	rb_entry_view_append_column (source->priv->view, RB_ENTRY_VIEW_COL_GENRE, FALSE); */
+-	rb_entry_view_append_column (source->priv->view, RB_ENTRY_VIEW_COL_ARTIST, FALSE);
+-	rb_entry_view_append_column (source->priv->view, RB_ENTRY_VIEW_COL_ALBUM, FALSE);
+ 	rb_entry_view_append_column (source->priv->view, RB_ENTRY_VIEW_COL_LOCATION, TRUE);
+ 	rb_entry_view_append_column (source->priv->view, RB_ENTRY_VIEW_COL_LAST_SEEN, TRUE);
+ 
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-playlist-source.c rhythmbox/src/rhythmbox/sources/rb-playlist-source.c
+--- rhythmbox.ORIG/src/rhythmbox/sources/rb-playlist-source.c	2024-10-23 09:27:14.395655868 -0700
++++ rhythmbox/src/rhythmbox/sources/rb-playlist-source.c	2024-10-23 10:40:49.579558601 -0700
+@@ -337,18 +337,12 @@
+ 	g_object_unref (query_model);
+ 
+ 	{
+-		const char *title = "";
++		const char *title = "Index";
+ 		const char *strings[3] = {0};
+ 
+ 		GtkTreeViewColumn *column = gtk_tree_view_column_new ();
+ 		GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
+ 
+-		g_object_set(renderer,
+-			     "style", PANGO_STYLE_OBLIQUE,
+-			     "weight", PANGO_WEIGHT_LIGHT,
+-			     "xalign", 1.0,
+-			     NULL);
+-
+ 		gtk_tree_view_column_pack_start (column, renderer, TRUE);
+ 
+ 		gtk_tree_view_column_set_resizable (column, TRUE);
+@@ -366,20 +360,20 @@
+ 						    "PlaylistTrack", NULL, 0, NULL, 0);
+ 	}
+ 
++	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ARTIST, FALSE);
++	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_YEAR, FALSE);
++	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ALBUM, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_TRACK_NUMBER, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_TITLE, TRUE);
++	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_DURATION, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_GENRE, FALSE);
+-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ARTIST, FALSE);
++	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_PLAY_COUNT, FALSE);
++	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_LAST_PLAYED, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_COMPOSER, FALSE);
+-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_ALBUM, FALSE);
+-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_YEAR, FALSE);
+-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_DURATION, FALSE);
+  	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_QUALITY, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_RATING, FALSE);
+-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_PLAY_COUNT, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_COMMENT, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_LOCATION, FALSE);
+-	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_LAST_PLAYED, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_FIRST_SEEN, FALSE);
+ 	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_BPM, FALSE);
+ 	rb_entry_view_set_columns_clickable (source->priv->songs, FALSE);
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c rhythmbox/src/rhythmbox/widgets/rb-entry-view.c
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c	2024-10-23 09:27:14.395655868 -0700
++++ rhythmbox/src/rhythmbox/widgets/rb-entry-view.c	2024-10-23 10:51:05.036280174 -0700
+@@ -917,7 +917,9 @@
+ 	val = rhythmdb_entry_get_ulong (entry, data->propid);
+ 
+ 	if (val > 0)
+-		str = g_strdup_printf ("%lu", val);
++		str = data->propid == RHYTHMDB_PROP_TRACK_NUMBER ?
++			g_strdup_printf ("%02lu", val) :
++			g_strdup_printf ("%lu", val);
+ 	else
+ 		str = g_strdup ("");
+ 
+@@ -1417,7 +1419,7 @@
+ 	RhythmDBPropType propid;
+ 	RhythmDBPropType sort_propid = RHYTHMDB_NUM_PROPERTIES;
+ 	gboolean ellipsize = FALSE;
+-	gboolean resizable = TRUE;
++	gboolean resizable = FALSE;
+ 	gint column_width = -1;
+ 	gboolean has_numeric_data = FALSE;
+ 
+@@ -1435,6 +1437,7 @@
+ 		sort_func = (GCompareDataFunc) rhythmdb_query_model_track_sort_func;
+ 		title = _("Track");
+ 		key = "Track";
++		column_width = 60;
+ 		strings[0] = title;
+ 		strings[1] = "9999";
+ 		break;
+@@ -1486,7 +1489,7 @@
+ 		sort_func = (GCompareDataFunc) rhythmdb_query_model_genre_sort_func;
+ 		title = _("Genre");
+ 		key = "Genre";
+-		ellipsize = TRUE;
++		column_width = 130;
+ 		break;
+ 	case RB_ENTRY_VIEW_COL_COMMENT:
+ 		propid = RHYTHMDB_PROP_COMMENT;
+@@ -1507,6 +1510,7 @@
+ 		sort_func = (GCompareDataFunc) rhythmdb_query_model_ulong_sort_func;
+ 		title = _("Time");
+ 		key = "Time";
++		column_width = 60;
+ 		strings[0] = title;
+ 		strings[1] = "000:00";
+ 		strings[2] = _("Unknown");
+@@ -1520,6 +1524,7 @@
+ 		sort_func = (GCompareDataFunc) rhythmdb_query_model_date_sort_func;
+ 		title = _("Year");
+ 		key = "Year";
++		column_width = 60;
+ 		strings[0] = title;
+ 		strings[1] = "0000";
+ 		strings[2] = _("Unknown");
+@@ -1568,8 +1573,9 @@
+ 		cell_data_func = (GtkTreeCellDataFunc) rb_entry_view_play_count_cell_data_func;
+ 		sort_propid = cell_data->propid;
+ 		sort_func = (GCompareDataFunc) rhythmdb_query_model_ulong_sort_func;
+-		title = _("Play Count");
++		title = _("Plays");
+ 		key = "PlayCount";
++		column_width = 60;
+ 		strings[0] = title;
+ 		strings[1] = _("Never");
+ 		strings[2] = "9999";
