@@ -1,6 +1,6 @@
-diff --color -ru xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin-4.2.0/panel-plugin/main.c xfce4-genmon-plugin/src/xfce4-genmon-plugin-4.2.0/panel-plugin/main.c
---- xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin-4.2.0/panel-plugin/main.c	2023-04-16 22:45:34.371365640 -0700
-+++ xfce4-genmon-plugin/src/xfce4-genmon-plugin-4.2.0/panel-plugin/main.c	2023-04-16 22:49:16.301212483 -0700
+diff -ru xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin/panel-plugin/main.c xfce4-genmon-plugin/src/xfce4-genmon-plugin/panel-plugin/main.c
+--- xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin/panel-plugin/main.c	2024-11-03 11:18:30.250333797 -0800
++++ xfce4-genmon-plugin/src/xfce4-genmon-plugin/panel-plugin/main.c	2024-11-03 11:18:30.253667110 -0800
 @@ -368,16 +368,10 @@
      {
          acToolTips = g_strndup (begin + 6, end - begin - 6);
