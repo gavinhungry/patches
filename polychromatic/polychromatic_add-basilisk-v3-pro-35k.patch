@@ -1,6 +1,6 @@
-diff --color -ru polychromatic.ORIG/src/polychromatic-0.9.2/data/devices/openrazer.json polychromatic/src/polychromatic-0.9.2/data/devices/openrazer.json
---- polychromatic.ORIG/src/polychromatic-0.9.2/data/devices/openrazer.json	2024-10-02 14:57:01.306120824 -0700
-+++ polychromatic/src/polychromatic-0.9.2/data/devices/openrazer.json	2024-10-02 14:58:01.370085557 -0700
+diff --color -ru polychromatic.ORIG/src/polychromatic-0.9.3/data/devices/openrazer.json polychromatic/src/polychromatic-0.9.3/data/devices/openrazer.json
+--- polychromatic.ORIG/src/polychromatic-0.9.3/data/devices/openrazer.json	2024-10-02 14:57:01.306120824 -0700
++++ polychromatic/src/polychromatic-0.9.3/data/devices/openrazer.json	2024-10-02 14:58:01.370085557 -0700
 @@ -497,6 +497,12 @@
          "name": "Razer Basilisk V3 Pro (Wireless)",
          "since": "3.6.0"
