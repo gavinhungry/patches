@@ -1,7 +1,7 @@
-diff --color -ru gimp-devel.ORIG/src/gimp-2.99.18/app/display/gimpimagewindow.c gimp-devel/src/gimp-2.99.18/app/display/gimpimagewindow.c
---- gimp-devel.ORIG/src/gimp-2.99.18/app/display/gimpimagewindow.c	2022-09-01 15:02:47.087962435 -0700
-+++ gimp-devel/src/gimp-2.99.18/app/display/gimpimagewindow.c	2022-09-01 15:07:44.246347503 -0700
-@@ -2302,8 +2302,6 @@
+diff -ru gimp-devel.ORIG/src/gimp-3.0.0-RC1/app/display/gimpimagewindow.c gimp-devel/src/gimp-3.0.0-RC1/app/display/gimpimagewindow.c
+--- gimp-devel.ORIG/src/gimp-3.0.0-RC1/app/display/gimpimagewindow.c	2024-11-06 09:26:10.851102558 -0800
++++ gimp-devel/src/gimp-3.0.0-RC1/app/display/gimpimagewindow.c	2024-11-06 09:26:10.954437500 -0800
+@@ -2433,8 +2433,6 @@
    GtkWidget *hbox;
    GtkWidget *view;
    GimpImage *image;
@@ -10,7 +10,7 @@ diff --color -ru gimp-devel.ORIG/src/gimp-2.99.18/app/display/gimpimagewindow.c 
  
    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
    gtk_widget_show (hbox);
-@@ -2321,23 +2319,6 @@
+@@ -2452,23 +2450,6 @@
    if (image)
      gimp_view_set_viewable (GIMP_VIEW (view), GIMP_VIEWABLE (image));
  
