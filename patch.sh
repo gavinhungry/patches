@@ -234,9 +234,9 @@ patchPkg() {
   local PKGBUILD_DIR=$(getPkgbuildDir $PKG)
   local PKGSRC_DIR=$(getPkgSourceDir $PKG)
 
-  if [ ! -d "$PKGSRC_DIR" ]; then
-    return
-  fi
+  # if [ ! -d "$PKGSRC_DIR" ]; then
+  #   return
+  # fi
 
   cd "$PACKAGES_DIR"
 
@@ -276,12 +276,25 @@ fi
 
 _PKGS=($(nfargs))
 arge unpatched && _PKGS+=($(getUnpatchedPkgs))
-PKGS=$(echo ${_PKGS[*]} | tr ' ' '\n' | cut -d'/' -f1 | sort -u)
+_PKGS=$(echo ${_PKGS[*]} | tr ' ' '\n' | cut -d'/' -f1 | sort -u)
 
-(arge download || arge download-only:D) && downloadPkgs $PKGS
+PKGS=""
+NOSYNC_PKGS=""
+
+for PKG in $_PKGS; do
+  [ -e "$PATCHES_DIR"/$PKG/.no-sync ] &&
+    NOSYNC_PKGS+="$PKG " ||
+    PKGS+="$PKG "
+done
+
+if (arge download || arge download-only:D); then
+  [ -n "$PKGS" ] && downloadPkgs $PKGS
+  [ -n "$NOSYNC_PKGS" ] && downloadPkgs -p $NOSYNC_PKGS
+fi
+
 arge download-only:D && exit
 
 softUpdatePkgs $PKGS
 arge hard-update:H && hardUpdatePkgs $PKGS
 
-patchPkgs $PKGS
+patchPkgs $_PKGS
