@@ -1,6 +1,6 @@
-diff --color -ru firefox.ORIG/src/firefox-130.0/toolkit/components/remote/nsDBusRemoteServer.cpp firefox/src/firefox-130.0/toolkit/components/remote/nsDBusRemoteServer.cpp
---- firefox.ORIG/src/firefox-130.0/toolkit/components/remote/nsDBusRemoteServer.cpp	2024-09-09 15:30:45.432334021 -0700
-+++ firefox/src/firefox-130.0/toolkit/components/remote/nsDBusRemoteServer.cpp	2024-09-09 15:31:26.779675570 -0700
+diff --color -ru toolkit.ORIG/components/remote/nsDBusRemoteServer.cpp toolkit/components/remote/nsDBusRemoteServer.cpp
+--- toolkit.ORIG/components/remote/nsDBusRemoteServer.cpp	2024-09-09 15:30:45.432334021 -0700
++++ toolkit/components/remote/nsDBusRemoteServer.cpp	2024-09-09 15:31:26.779675570 -0700
 @@ -47,7 +47,11 @@
      return false;
    }
@@ -14,10 +14,10 @@ diff --color -ru firefox.ORIG/src/firefox-130.0/toolkit/components/remote/nsDBus
    return true;
  }
  
-diff --color -ru firefox.ORIG/src/firefox-130.0/widget/gtk/nsWindow.cpp firefox/src/firefox-130.0/widget/gtk/nsWindow.cpp
---- firefox.ORIG/src/firefox-130.0/widget/gtk/nsWindow.cpp	2024-09-09 15:30:45.358999491 -0700
-+++ firefox/src/firefox-130.0/widget/gtk/nsWindow.cpp	2024-09-09 15:33:33.248406598 -0700
-@@ -3122,18 +3122,6 @@
+diff --color -ru widget.ORIG/gtk/nsWindow.cpp widget/gtk/nsWindow.cpp
+--- widget.ORIG/gtk/nsWindow.cpp	2024-09-09 15:30:45.358999491 -0700
++++ widget/gtk/nsWindow.cpp	2024-09-09 15:33:33.248406598 -0700
+@@ -3097,18 +3097,6 @@
              return t;
            }
          }
