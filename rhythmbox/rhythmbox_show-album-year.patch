@@ -1,6 +1,6 @@
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c
---- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-10-23 09:27:14.395655868 -0700
-+++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-10-23 09:28:57.903911408 -0700
+diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c
+--- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-11-22 14:42:56.955844042 -0800
 @@ -60,6 +60,7 @@
  	RBRefString *sort_string;
  	gint sort_string_from;
@@ -71,9 +71,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c
  			{ 0, 0, 0 }
  		};
  
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h
---- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-10-23 09:27:14.395655868 -0700
-+++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-10-23 09:28:58.640589380 -0700
+diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h
+--- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-11-22 14:42:56.955844042 -0800
 @@ -49,6 +49,7 @@
  	RHYTHMDB_PROPERTY_MODEL_COLUMN_TITLE,
  	RHYTHMDB_PROPERTY_MODEL_COLUMN_PRIORITY,
@@ -82,9 +82,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h
  	RHYTHMDB_PROPERTY_MODEL_COLUMN_LAST,
  } RhythmDBPropertyModelColumn;
  
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c rhythmbox/src/rhythmbox/widgets/rb-property-view.c
---- rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c	2024-10-23 09:27:14.395655868 -0700
-+++ rhythmbox/src/rhythmbox/widgets/rb-property-view.c	2024-10-23 09:32:46.994092189 -0700
+diff -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c rhythmbox/src/rhythmbox/widgets/rb-property-view.c
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/widgets/rb-property-view.c	2024-11-22 14:42:56.955844042 -0800
 @@ -660,22 +660,29 @@
  
  		switch (view->priv->propid) {

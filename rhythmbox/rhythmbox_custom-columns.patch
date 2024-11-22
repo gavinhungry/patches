@@ -1,7 +1,6 @@
-Binary files rhythmbox.ORIG/.git/index and rhythmbox/.git/index differ
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c
---- rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2024-11-22 13:40:28.407181688 -0800
-+++ rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2024-11-22 14:37:10.280854126 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c
+--- rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2024-11-22 14:42:56.672508109 -0800
++++ rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2024-11-22 14:42:56.695841657 -0800
 @@ -275,7 +275,7 @@
  	RB_CHAIN_GOBJECT_METHOD (rb_iradio_source_parent_class, constructed, object);
  	source = RB_IRADIO_SOURCE (object);
@@ -19,9 +18,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c 
  /* 	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_QUALITY, FALSE); */
  	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_RATING, FALSE);
  /*	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_PLAY_COUNT, FALSE);*/
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c rhythmbox/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c
---- rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c	2024-11-22 13:40:28.407181688 -0800
-+++ rhythmbox/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c	2024-11-22 14:37:10.280854126 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c rhythmbox/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c
+--- rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c	2024-11-22 14:42:56.672508109 -0800
++++ rhythmbox/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c	2024-11-22 14:42:56.695841657 -0800
 @@ -493,7 +493,7 @@
  static void
  rb_station_properties_dialog_update_last_played (RBStationPropertiesDialog *dialog)
@@ -31,9 +30,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-station-properti
  
  	if (dialog->priv->current_entry)
  		last_played = rhythmdb_entry_get_string (dialog->priv->current_entry, RHYTHMDB_PROP_LAST_PLAYED_STR);
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/podcast/rb-podcast-source.c rhythmbox/src/rhythmbox/podcast/rb-podcast-source.c
---- rhythmbox.ORIG/src/rhythmbox/podcast/rb-podcast-source.c	2024-11-22 13:40:28.410515076 -0800
-+++ rhythmbox/src/rhythmbox/podcast/rb-podcast-source.c	2024-11-22 14:37:10.280854126 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/podcast/rb-podcast-source.c rhythmbox/src/rhythmbox/podcast/rb-podcast-source.c
+--- rhythmbox.ORIG/src/rhythmbox/podcast/rb-podcast-source.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/podcast/rb-podcast-source.c	2024-11-22 14:42:56.695841657 -0800
 @@ -1379,14 +1379,13 @@
  
  	source->priv->paned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
@@ -123,9 +122,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/podcast/rb-podcast-source.c rhythm
  
  	{
  		static const char *status_strings[6];
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb.c rhythmbox/src/rhythmbox/rhythmdb/rhythmdb.c
---- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb.c	2024-11-22 13:40:28.420515241 -0800
-+++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb.c	2024-11-22 14:37:10.280854126 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb.c rhythmbox/src/rhythmbox/rhythmdb/rhythmdb.c
+--- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb.c	2024-11-22 14:42:56.695841657 -0800
 @@ -3847,7 +3847,7 @@
  	char *val;
  
@@ -135,9 +134,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb.c rhythmbox/src/
  
  	switch (propid) {
  	case RHYTHMDB_PROP_LAST_PLAYED_STR:
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-browser-source.c rhythmbox/src/rhythmbox/sources/rb-browser-source.c
---- rhythmbox.ORIG/src/rhythmbox/sources/rb-browser-source.c	2024-11-22 13:40:28.420515241 -0800
-+++ rhythmbox/src/rhythmbox/sources/rb-browser-source.c	2024-11-22 14:37:10.280854126 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-browser-source.c rhythmbox/src/rhythmbox/sources/rb-browser-source.c
+--- rhythmbox.ORIG/src/rhythmbox/sources/rb-browser-source.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/sources/rb-browser-source.c	2024-11-22 14:42:56.695841657 -0800
 @@ -348,16 +348,16 @@
  	source->priv->songs = rb_entry_view_new (source->priv->db, shell_player,
  						 TRUE, FALSE);
@@ -160,9 +159,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-browser-source.c rhythm
  	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_BPM, FALSE);
  	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_COMMENT, FALSE);
  	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_LOCATION, FALSE);
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-library-source.c rhythmbox/src/rhythmbox/sources/rb-library-source.c
---- rhythmbox.ORIG/src/rhythmbox/sources/rb-library-source.c	2024-11-22 13:40:28.420515241 -0800
-+++ rhythmbox/src/rhythmbox/sources/rb-library-source.c	2024-11-22 14:37:10.280854126 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-library-source.c rhythmbox/src/rhythmbox/sources/rb-library-source.c
+--- rhythmbox.ORIG/src/rhythmbox/sources/rb-library-source.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/sources/rb-library-source.c	2024-11-22 14:42:56.695841657 -0800
 @@ -413,7 +413,7 @@
  	rb_application_link_shared_menus (RB_APPLICATION (g_application_get_default ()), toolbar);
  
@@ -172,9 +171,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-library-source.c rhythm
  					  "entry-type", RHYTHMDB_ENTRY_TYPE_SONG,
  					  "shell", shell,
  					  "load-status", RB_SOURCE_LOAD_STATUS_LOADING,
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-missing-files-source.c rhythmbox/src/rhythmbox/sources/rb-missing-files-source.c
---- rhythmbox.ORIG/src/rhythmbox/sources/rb-missing-files-source.c	2024-11-22 13:40:28.420515241 -0800
-+++ rhythmbox/src/rhythmbox/sources/rb-missing-files-source.c	2024-11-22 14:37:10.280854126 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-missing-files-source.c rhythmbox/src/rhythmbox/sources/rb-missing-files-source.c
+--- rhythmbox.ORIG/src/rhythmbox/sources/rb-missing-files-source.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/sources/rb-missing-files-source.c	2024-11-22 14:42:56.695841657 -0800
 @@ -173,11 +173,11 @@
  
  	rb_entry_view_set_model (source->priv->view, model);
@@ -189,9 +188,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-missing-files-source.c 
  	rb_entry_view_append_column (source->priv->view, RB_ENTRY_VIEW_COL_LOCATION, TRUE);
  	rb_entry_view_append_column (source->priv->view, RB_ENTRY_VIEW_COL_LAST_SEEN, TRUE);
  
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-playlist-source.c rhythmbox/src/rhythmbox/sources/rb-playlist-source.c
---- rhythmbox.ORIG/src/rhythmbox/sources/rb-playlist-source.c	2024-11-22 13:40:28.420515241 -0800
-+++ rhythmbox/src/rhythmbox/sources/rb-playlist-source.c	2024-11-22 14:37:10.280854126 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-playlist-source.c rhythmbox/src/rhythmbox/sources/rb-playlist-source.c
+--- rhythmbox.ORIG/src/rhythmbox/sources/rb-playlist-source.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/sources/rb-playlist-source.c	2024-11-22 14:42:56.695841657 -0800
 @@ -337,18 +337,12 @@
  	g_object_unref (query_model);
  
@@ -239,9 +238,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-playlist-source.c rhyth
  	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_FIRST_SEEN, FALSE);
  	rb_entry_view_append_column (source->priv->songs, RB_ENTRY_VIEW_COL_BPM, FALSE);
  	rb_entry_view_set_columns_clickable (source->priv->songs, FALSE);
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-play-queue-source.c rhythmbox/src/rhythmbox/sources/rb-play-queue-source.c
---- rhythmbox.ORIG/src/rhythmbox/sources/rb-play-queue-source.c	2024-11-22 13:40:28.420515241 -0800
-+++ rhythmbox/src/rhythmbox/sources/rb-play-queue-source.c	2024-11-22 14:37:10.280854126 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-play-queue-source.c rhythmbox/src/rhythmbox/sources/rb-play-queue-source.c
+--- rhythmbox.ORIG/src/rhythmbox/sources/rb-play-queue-source.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/sources/rb-play-queue-source.c	2024-11-22 14:42:56.695841657 -0800
 @@ -296,7 +296,7 @@
  						 rb_play_queue_source_track_info_cell_data_func,
  						 source, NULL);
@@ -269,9 +268,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/sources/rb-play-queue-source.c rhy
  	int count;
         
  	model = rb_playlist_source_get_query_model (RB_PLAYLIST_SOURCE (source));
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c rhythmbox/src/rhythmbox/widgets/rb-entry-view.c
---- rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c	2024-11-22 13:40:28.423848628 -0800
-+++ rhythmbox/src/rhythmbox/widgets/rb-entry-view.c	2024-11-22 14:40:14.117207994 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c rhythmbox/src/rhythmbox/widgets/rb-entry-view.c
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/widgets/rb-entry-view.c	2024-11-22 14:42:56.695841657 -0800
 @@ -910,6 +910,8 @@
  {
  	RhythmDBEntry *entry;
@@ -404,9 +403,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c rhythmbox/
  }
  
  /**
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-song-info.c rhythmbox/src/rhythmbox/widgets/rb-song-info.c
---- rhythmbox.ORIG/src/rhythmbox/widgets/rb-song-info.c	2024-11-22 13:40:28.423848628 -0800
-+++ rhythmbox/src/rhythmbox/widgets/rb-song-info.c	2024-11-22 14:37:10.284187515 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-song-info.c rhythmbox/src/rhythmbox/widgets/rb-song-info.c
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-song-info.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/widgets/rb-song-info.c	2024-11-22 14:42:56.695841657 -0800
 @@ -1541,8 +1541,6 @@
  {
  	const char *str;

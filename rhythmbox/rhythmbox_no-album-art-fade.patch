@@ -1,6 +1,6 @@
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c rhythmbox/src/rhythmbox/widgets/rb-header.c
---- rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c	2024-11-10 18:57:34.538683736 -0800
-+++ rhythmbox/src/rhythmbox/widgets/rb-header.c	2024-11-10 18:58:25.636153492 -0800
+diff -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c rhythmbox/src/rhythmbox/widgets/rb-header.c
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c	2024-11-22 14:42:56.679174837 -0800
++++ rhythmbox/src/rhythmbox/widgets/rb-header.c	2024-11-22 14:42:56.779175754 -0800
 @@ -553,7 +553,7 @@
  		if (header->priv->art_key == NULL ||
  		    rhythmdb_entry_matches_ext_db_key (header->priv->db, entry, header->priv->art_key) == FALSE ||
