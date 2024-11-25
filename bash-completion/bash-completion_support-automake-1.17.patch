@@ -1,0 +1,71 @@
+diff --color -ru bash-completion.ORIG/src/bash-completion-2.14.0/completions/aclocal bash-completion/src/bash-completion-2.14.0/completions/aclocal
+--- bash-completion.ORIG/src/bash-completion-2.14.0/completions/aclocal	2024-11-25 12:52:41.392829486 -0800
++++ bash-completion/src/bash-completion-2.14.0/completions/aclocal	2024-11-25 12:52:57.353168669 -0800
+@@ -30,6 +30,6 @@
+     _comp_compgen_help
+     [[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+ } &&
+-    complete -F _comp_cmd_aclocal aclocal aclocal-1.1{0..6}
++    complete -F _comp_cmd_aclocal aclocal aclocal-1.1{0..7}
+ 
+ # ex: filetype=sh
+diff --color -ru bash-completion.ORIG/src/bash-completion-2.14.0/completions/automake bash-completion/src/bash-completion-2.14.0/completions/automake
+--- bash-completion.ORIG/src/bash-completion-2.14.0/completions/automake	2024-11-25 12:52:41.392829486 -0800
++++ bash-completion/src/bash-completion-2.14.0/completions/automake	2024-11-25 12:52:57.353168669 -0800
+@@ -31,6 +31,6 @@
+ 
+     _comp_compgen_filedir
+ } &&
+-    complete -F _comp_cmd_automake automake automake-1.1{0..6}
++    complete -F _comp_cmd_automake automake automake-1.1{0..7}
+ 
+ # ex: filetype=sh
+diff --color -ru bash-completion.ORIG/src/bash-completion-2.14.0/completions/Makefile.am bash-completion/src/bash-completion-2.14.0/completions/Makefile.am
+--- bash-completion.ORIG/src/bash-completion-2.14.0/completions/Makefile.am	2024-11-25 12:52:41.392829486 -0800
++++ bash-completion/src/bash-completion-2.14.0/completions/Makefile.am	2024-11-25 12:52:57.353168669 -0800
+@@ -516,6 +516,7 @@
+ 	aclocal-1.14 \
+ 	aclocal-1.15 \
+ 	aclocal-1.16 \
++	aclocal-1.17 \
+ 	_airflow \
+ 	_allero \
+ 	alpine \
+@@ -543,6 +544,7 @@
+ 	automake-1.14 \
+ 	automake-1.15 \
+ 	automake-1.16 \
++	automake-1.17 \
+ 	autossh \
+ 	autoupdate \
+ 	avahi-browse-domains \
+@@ -928,7 +930,7 @@
+ 		7zzs
+ 	$(ss) aclocal \
+ 		aclocal-1.10 aclocal-1.11 aclocal-1.12 aclocal-1.13 \
+-		aclocal-1.14 aclocal-1.15 aclocal-1.16
++		aclocal-1.14 aclocal-1.15 aclocal-1.16 aclocal-1.17
+ 	$(ss) ant \
+ 		phing
+ 	$(ss) aptitude \
+@@ -937,7 +939,7 @@
+ 		asciidoc.py
+ 	$(ss) automake \
+ 		automake-1.10 automake-1.11 automake-1.12 automake-1.13 \
+-		automake-1.14 automake-1.15 automake-1.16
++		automake-1.14 automake-1.15 automake-1.16 automake-1.17
+ 	$(ss) autoreconf \
+ 		autoheader
+ 	$(ss) autoscan \
+diff --color -ru bash-completion.ORIG/src/bash-completion-2.14.0/configure bash-completion/src/bash-completion-2.14.0/configure
+--- bash-completion.ORIG/src/bash-completion-2.14.0/configure	2024-11-25 12:52:41.396162890 -0800
++++ bash-completion/src/bash-completion-2.14.0/configure	2024-11-25 12:54:25.001703887 -0800
+@@ -1865,7 +1865,7 @@
+ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+- am__api_version='1.16'
++ am__api_version='1.17'
+ 
+ 
+ 
