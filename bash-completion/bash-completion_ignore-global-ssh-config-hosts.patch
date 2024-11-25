@@ -1,0 +1,12 @@
+diff --color -ru bash-completion.ORIG/src/bash-completion-2.14.0/bash_completion bash-completion/src/bash-completion-2.14.0/bash_completion
+--- bash-completion.ORIG/src/bash-completion-2.14.0/bash_completion	2024-11-25 12:44:14.398982483 -0800
++++ bash-completion/src/bash-completion-2.14.0/bash_completion	2024-11-25 12:44:41.242855044 -0800
+@@ -2547,7 +2547,7 @@
+     if [[ $configfile ]]; then
+         [[ -r $configfile && ! -d $configfile ]] && config+=("$configfile")
+     else
+-        for i in /etc/ssh/ssh_config ~/.ssh/config ~/.ssh2/config; do
++        for i in ~/.ssh/config ~/.ssh2/config; do
+             [[ -r $i && ! -d $i ]] && config+=("$i")
+         done
+     fi
