@@ -1,6 +1,6 @@
-diff --color -ru bash-completion.ORIG/src/bash-completion-2.14.0/bash_completion bash-completion/src/bash-completion-2.14.0/bash_completion
---- bash-completion.ORIG/src/bash-completion-2.14.0/bash_completion	2024-11-25 12:44:14.398982483 -0800
-+++ bash-completion/src/bash-completion-2.14.0/bash_completion	2024-11-25 12:44:41.242855044 -0800
+diff --color -ru bash-completion.ORIG/src/bash-completion-2.15.0/bash_completion bash-completion/src/bash-completion-2.15.0/bash_completion
+--- bash-completion.ORIG/src/bash-completion-2.15.0/bash_completion	2024-11-25 12:44:14.398982483 -0800
++++ bash-completion/src/bash-completion-2.15.0/bash_completion	2024-11-25 12:44:41.242855044 -0800
 @@ -2547,7 +2547,7 @@
      if [[ $configfile ]]; then
          [[ -r $configfile && ! -d $configfile ]] && config+=("$configfile")
