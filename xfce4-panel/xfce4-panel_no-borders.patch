@@ -1,8 +1,8 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel/panel/panel-base-window.c xfce4-panel/src/xfce4-panel/panel/panel-base-window.c
---- xfce4-panel.ORIG/src/xfce4-panel/panel/panel-base-window.c	2023-03-23 22:46:26.407166785 -0700
-+++ xfce4-panel/src/xfce4-panel/panel/panel-base-window.c	2023-03-23 22:46:26.467167684 -0700
-@@ -813,15 +813,6 @@
-   PanelBaseWindowPrivate *priv = window->priv;
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/panel/panel-base-window.c xfce4-panel/src/xfce4-panel/panel/panel-base-window.c
+--- xfce4-panel.ORIG/src/xfce4-panel/panel/panel-base-window.c	2024-12-23 11:47:52.087257979 -0800
++++ xfce4-panel/src/xfce4-panel/panel/panel-base-window.c	2024-12-23 12:09:19.049692228 -0800
+@@ -848,15 +848,6 @@
+   PanelBaseWindowPrivate *priv = get_instance_private (window);
  
    panel_return_if_fail (PANEL_IS_BASE_WINDOW (window));
 -
@@ -11,14 +11,14 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel/panel/panel-base-window.c xfce4-panel/
 -      priv->borders = borders;
 -      gtk_widget_queue_resize (GTK_WIDGET (window));
 -      /* Re-draw the borders if system colors are being used */
--      if (window->background_style == PANEL_BG_STYLE_NONE)
+-      if (priv->background_style == PANEL_BG_STYLE_NONE)
 -        panel_base_window_reset_background_css (window);
 -    }
  }
  
  
-@@ -840,6 +831,7 @@
-   else if (window->background_style != PANEL_BG_STYLE_NONE)
+@@ -875,6 +866,7 @@
+   else if (priv->background_style != PANEL_BG_STYLE_NONE)
      return PANEL_BORDER_NONE;
  
 +  priv->borders = PANEL_BORDER_NONE;

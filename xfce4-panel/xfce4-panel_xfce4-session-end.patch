@@ -1,7 +1,7 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/actions/actions.c xfce4-panel/src/xfce4-panel/plugins/actions/actions.c
---- xfce4-panel.ORIG/src/xfce4-panel/plugins/actions/actions.c	2023-03-23 22:46:26.410500168 -0700
-+++ xfce4-panel/src/xfce4-panel/plugins/actions/actions.c	2023-03-23 22:46:26.653837145 -0700
-@@ -1036,6 +1036,14 @@
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/actions/actions.c xfce4-panel/src/xfce4-panel/plugins/actions/actions.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/actions/actions.c	2024-12-23 11:47:52.087257979 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/actions/actions.c	2024-12-23 12:24:40.573000071 -0800
+@@ -1091,6 +1091,14 @@
  
  
  static void
@@ -13,32 +13,32 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/actions/actions.c xfce4-panel/
 +
 +
 +static void
- actions_plugin_action_activate (GtkWidget      *widget,
-                                 ActionsPlugin  *plugin)
+ actions_plugin_action_activate (GtkWidget *widget,
+                                 ActionsPlugin *plugin)
  {
-@@ -1064,21 +1072,25 @@
+@@ -1112,21 +1120,25 @@
    switch (entry->type)
      {
      case ACTION_TYPE_LOGOUT:
 +      actions_plugin_end_session ();
-       succeed = actions_plugin_action_dbus_xfsm ("Logout", FALSE,
-                                                  allow_save, &error);
+       succeed = actions_plugin_action_dbus_xfsm (plugin, "Logout", FALSE,
+                                                  !unattended, &error);
        break;
  
      case ACTION_TYPE_LOGOUT_DIALOG:
 +      actions_plugin_end_session ();
-       succeed = actions_plugin_action_dbus_xfsm ("Logout", TRUE,
-                                                  allow_save, &error);
+       succeed = actions_plugin_action_dbus_xfsm (plugin, "Logout", TRUE,
+                                                  !unattended, &error);
        break;
  
      case ACTION_TYPE_RESTART:
 +      actions_plugin_end_session ();
-       succeed = actions_plugin_action_dbus_xfsm ("Restart", FALSE,
-                                                  allow_save, &error);
+       succeed = actions_plugin_action_dbus_xfsm (plugin, "Restart", FALSE,
+                                                  !unattended, &error);
        break;
  
      case ACTION_TYPE_SHUTDOWN:
 +      actions_plugin_end_session ();
-       succeed = actions_plugin_action_dbus_xfsm ("Shutdown", FALSE,
-                                                  allow_save, &error);
+       succeed = actions_plugin_action_dbus_xfsm (plugin, "Shutdown", FALSE,
+                                                  !unattended, &error);
        break;

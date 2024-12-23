@@ -1,7 +1,7 @@
 diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2024-02-26 21:13:47.486314165 -0800
-+++ xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2024-02-26 21:18:49.460417791 -0800
-@@ -600,6 +600,7 @@
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2024-12-23 11:47:52.087257979 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2024-12-23 12:22:03.695892302 -0800
+@@ -689,6 +689,7 @@
    GtkStyleContext *context;
  
    gtk_widget_set_has_window (GTK_WIDGET (tasklist), FALSE);
@@ -9,12 +9,12 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widg
  
    tasklist->locked = 0;
    tasklist->screen = NULL;
-@@ -908,12 +909,47 @@
+@@ -939,12 +940,47 @@
  
  
  
 +static gint 
-+get_env_int(char* varname)
++get_env_int (char* varname)
 +{
 +  gchar *value;
 +  gint   value_int;
@@ -36,8 +36,8 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widg
 +
  static void
  xfce_tasklist_get_preferred_width (GtkWidget *widget,
-                                    gint      *minimum_width,
-                                    gint      *natural_width)
+                                    gint *minimum_width,
+                                    gint *natural_width)
  {
    XfceTasklist *tasklist = XFCE_TASKLIST (widget);
 +  XfcePanelPlugin *plugin = xfce_tasklist_get_panel_plugin (tasklist);

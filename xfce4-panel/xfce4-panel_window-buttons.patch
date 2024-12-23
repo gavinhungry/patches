@@ -1,110 +1,22 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2023-03-23 22:46:26.410500168 -0700
-+++ xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2023-03-23 22:46:26.627170079 -0700
-@@ -46,7 +46,7 @@
- 
- 
- #define DEFAULT_BUTTON_SIZE          (32)
--#define DEFAULT_MAX_BUTTON_LENGTH    (200)
-+#define DEFAULT_MAX_BUTTON_LENGTH    (300)
- #define DEFAULT_MIN_BUTTON_LENGTH    (DEFAULT_MAX_BUTTON_LENGTH / 4)
- #define DEFAULT_ICON_LUCENCY         (50)
- #define DEFAULT_ELLIPSIZE_MODE       (PANGO_ELLIPSIZE_END)
-@@ -1789,9 +1789,15 @@
-             }
-         }
- 
--      /* set the toggle button state */
--      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button),
--                                    !!(child->window == active_window));
-+      /* bold only active tasks - disabled for now */
-+      if (child->window == active_window) {
-+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), TRUE);
-+        // gtk_widget_override_font (GTK_WIDGET (child->label), pango_font_description_from_string ("semi-bold"));
-+      } else {
-+          gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child->button), FALSE);
-+      }
-+
-+      gtk_widget_override_font (GTK_WIDGET (child->label), pango_font_description_from_string (""));
-     }
-   /* set the toggle button state for the group button */
-   if (class_group)
-@@ -2311,14 +2317,15 @@
-                           G_BINDING_SYNC_CREATE);
- 
-   child->box = gtk_box_new (!xfce_tasklist_vertical (tasklist) ?
--      GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL, 6);
-+      GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL, 0);
-   gtk_container_add (GTK_CONTAINER (child->button), child->box);
-   gtk_widget_show (child->box);
- 
-   provider = gtk_css_provider_new ();
-   /* silly workaround for gtkcss only accepting "." as decimal separator and floats returning
-      with "," as decimal separator in some locales */
--  css_string = g_strdup_printf ("image { padding: 3px; } image.minimized { opacity: %d.%02d; }",
-+  css_string = g_strdup_printf ("image { padding: %s; } image.minimized { opacity: %d.%02d; }",
-+                                (tasklist->show_labels ? "3px 0 3px 8px" : "3px"),
-                                 tasklist->minimized_icon_lucency / 100,
-                                 tasklist->minimized_icon_lucency % 100);
-   gtk_css_provider_load_from_data (provider, css_string, -1, NULL);
-@@ -2338,7 +2345,7 @@
-     gtk_widget_show (child->icon);
- 
-   child->label = gtk_label_new (NULL);
--  gtk_box_pack_start (GTK_BOX (child->box), child->label, TRUE, TRUE, 0);
-+  gtk_box_pack_start (GTK_BOX (child->box), child->label, TRUE, TRUE, 6);
-   if (!xfce_tasklist_vertical (tasklist))
-     {
-       /* gtk_box_reorder_child (GTK_BOX (child->box), child->icon, 0); */
-@@ -2355,13 +2362,6 @@
-       /* TODO can we already ellipsize here yet? */
-     }
- 
--  provider = gtk_css_provider_new ();
--  gtk_css_provider_load_from_data (provider, ".label-hidden { opacity: 0.75; }", -1, NULL);
--  gtk_style_context_add_provider (gtk_widget_get_style_context (child->label),
--                                  GTK_STYLE_PROVIDER (provider),
--                                  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
--  g_object_unref (provider);
--
-   /* don't show the label if we're in iconbox style */
-   if (tasklist->show_labels)
-     gtk_widget_show (child->label);
-@@ -2823,16 +2823,8 @@
-   ctx = gtk_widget_get_style_context (child->label);
-   gtk_style_context_remove_class (ctx, "label-hidden");
- 
--  if (child->tasklist->label_decorations)
--    {
--      /* create the button label */
--      if (!child->tasklist->only_minimized
--          && wnck_window_is_minimized (child->window))
--        name = label = g_strdup_printf ("[%s]", name);
--      else if (wnck_window_is_shaded (child->window))
--        name = label = g_strdup_printf ("=%s=", name);
--    }
--  else
-+
-+  if (!child->tasklist->label_decorations)
-     {
-       if ((!child->tasklist->only_minimized
-           && wnck_window_is_minimized (child->window))
-@@ -2917,56 +2909,6 @@
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist-widget.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2024-12-23 11:47:52.087257979 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2024-12-23 12:38:10.743249366 -0800
+@@ -2915,54 +2915,6 @@
              }
          }
      }
 -
 -  /* update the blinking state */
--  if (PANEL_HAS_FLAG (changed_state, URGENT_FLAGS))
+-  if (PANEL_HAS_FLAG (changed_state, XFW_WINDOW_STATE_URGENT))
 -    {
 -      /* only start blinking if the window requesting urgency
 -       * notification is not the active window */
--      blink = PANEL_HAS_FLAG (new_state, URGENT_FLAGS);
--      if (!blink || (blink && !wnck_window_is_active (window)))
+-      blink = PANEL_HAS_FLAG (new_state, XFW_WINDOW_STATE_URGENT);
+-      if (!blink || (blink && !xfw_window_is_active (window)))
 -        {
 -          /* if we have all_blinking set make sure we toggle visibility of the button
 -           * in case the window is not in the current workspace */
--          active_ws = wnck_screen_get_active_workspace (child->tasklist->screen);
+-          active_ws = xfw_workspace_group_get_active_workspace (child->tasklist->workspace_group);
 -          if (child->tasklist->all_blinking && blink
 -              && !xfce_tasklist_button_visible (child, active_ws))
 -            {
@@ -119,16 +31,14 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c xfc
 -          if (child->tasklist->grouping)
 -            {
 -              /* find the child for the group */
--              g_hash_table_lookup_extended (child->tasklist->class_groups,
--                                            child->class_group,
--                                            NULL, (gpointer *) &group_child);
+-              XfceTasklistChild *group_child = g_hash_table_lookup (child->tasklist->apps, child->app);
 -
 -              /* stop blinking only if no window in group needs attention */
--              if (! blink)
+-              if (!blink)
 -                for (GSList *lp = group_child->windows; lp != NULL; lp = lp->next)
 -                  {
 -                    temp_child = lp->data;
--                    if (wnck_window_needs_attention (temp_child->window))
+-                    if (xfw_window_is_urgent (temp_child->window))
 -                      {
 -                        blink = TRUE;
 -                        break;
@@ -146,22 +56,12 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c xfc
  }
  
  
-@@ -2982,6 +2924,9 @@
- 
-   xfce_tasklist_sort (tasklist, FALSE);
-   xfce_tasklist_active_window_changed (tasklist->screen, window, tasklist);
-+
-+  gtk_widget_override_font (GTK_WIDGET (child->label), pango_font_description_from_string (""));
-+
-   if (!tasklist->all_workspaces)
-     xfce_tasklist_active_workspace_changed (tasklist->screen, NULL, tasklist);
- }
-@@ -3678,8 +3623,6 @@
+@@ -3668,8 +3620,6 @@
                       GDK_ACTION_MOVE);
    g_signal_connect (G_OBJECT (child->button), "drag-data-get",
-       G_CALLBACK (xfce_tasklist_button_drag_data_get), child);
+                     G_CALLBACK (xfce_tasklist_button_drag_data_get), child);
 -  g_signal_connect (G_OBJECT (child->button), "drag-begin",
--      G_CALLBACK (xfce_tasklist_button_drag_begin), child);
+-                    G_CALLBACK (xfce_tasklist_button_drag_begin), child);
    g_signal_connect (G_OBJECT (child->button), "drag-data-received",
-       G_CALLBACK (xfce_tasklist_button_drag_data_received), child);
+                     G_CALLBACK (xfce_tasklist_button_drag_data_received), child);
  

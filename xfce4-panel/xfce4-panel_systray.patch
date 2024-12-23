@@ -1,17 +1,17 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-plugin.c xfce4-panel/src/xfce4-panel/plugins/systray/sn-plugin.c
---- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-plugin.c	2023-03-23 22:46:26.410500168 -0700
-+++ xfce4-panel/src/xfce4-panel/plugins/systray/sn-plugin.c	2023-03-23 22:46:26.600503014 -0700
-@@ -252,8 +252,7 @@
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-plugin.c xfce4-panel/src/xfce4-panel/plugins/systray/sn-plugin.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-plugin.c	2024-12-23 11:47:52.087257979 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/sn-plugin.c	2024-12-23 12:19:17.881677296 -0800
+@@ -260,8 +260,7 @@
  static void
  update_button_visibility (SnPlugin *plugin)
  {
 -  gboolean visible = plugin->has_hidden_systray_items || plugin->has_hidden_sn_items;
--  gtk_widget_set_visible(GTK_WIDGET(plugin->button), visible);
-+  gtk_widget_set_visible(GTK_WIDGET(plugin->button), FALSE);
+-  gtk_widget_set_visible (GTK_WIDGET (plugin->button), visible);
++  gtk_widget_set_visible (GTK_WIDGET(plugin->button), FALSE);
  }
  
  
-@@ -372,7 +371,6 @@
+@@ -384,7 +383,6 @@
                              G_CALLBACK (sn_plugin_item_added), plugin);
    g_signal_connect_swapped (plugin->backend, "item-removed",
                              G_CALLBACK (sn_plugin_item_removed), plugin);
@@ -19,15 +19,15 @@ diff -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-plugin.c xfce4-pane
  #endif
  
    /* Systray arrow button */
-diff -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel/plugins/systray/systray-box.c
---- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray-box.c	2023-03-23 22:46:26.410500168 -0700
-+++ xfce4-panel/src/xfce4-panel/plugins/systray/systray-box.c	2023-03-23 22:46:26.600503014 -0700
-@@ -36,7 +36,7 @@
- #include "systray-socket.h"
- #include "sn-config.h"
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray-box.c xfce4-panel/src/xfce4-panel/plugins/systray/systray-box.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray-box.c	2024-12-23 11:47:52.087257979 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/systray-box.c	2024-12-23 12:19:25.375043812 -0800
+@@ -31,7 +31,7 @@
+ #include <math.h>
+ #endif
  
--#define SPACING    (2)
-+#define SPACING    (12)
- #define OFFSCREEN  (-9999)
+-#define SPACING (2)
++#define SPACING (12)
  
  /* some icon implementations request a 1x1 size for invisible icons */
+ #define REQUISITION_IS_INVISIBLE(child_req) ((child_req).width <= 1 && (child_req).height <= 1)

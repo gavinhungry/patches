@@ -1,13 +1,12 @@
-diff -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/launcher/launcher.c xfce4-panel/src/xfce4-panel/plugins/launcher/launcher.c
---- xfce4-panel.ORIG/src/xfce4-panel/plugins/launcher/launcher.c	2023-03-23 22:46:26.410500168 -0700
-+++ xfce4-panel/src/xfce4-panel/plugins/launcher/launcher.c	2023-03-23 22:46:26.493834750 -0700
-@@ -2226,12 +2226,7 @@
- launcher_plugin_arrow_visibility (LauncherPlugin *plugin)
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/launcher/launcher.c xfce4-panel/src/xfce4-panel/plugins/launcher/launcher.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/launcher/launcher.c	2024-12-23 11:47:52.087257979 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/launcher/launcher.c	2024-12-23 12:11:26.467091926 -0800
+@@ -2248,11 +2248,7 @@
  {
-   panel_return_if_fail (XFCE_IS_LAUNCHER_PLUGIN (plugin));
--
+   panel_return_if_fail (LAUNCHER_IS_PLUGIN (plugin));
+ 
 -  if (plugin->arrow_position != LAUNCHER_ARROW_INTERNAL
--       && LIST_HAS_TWO_OR_MORE_ENTRIES (plugin->items))
+-      && LIST_HAS_TWO_OR_MORE_ENTRIES (plugin->items))
 -    gtk_widget_show (plugin->arrow);
 -  else
 -    gtk_widget_hide (plugin->arrow);
