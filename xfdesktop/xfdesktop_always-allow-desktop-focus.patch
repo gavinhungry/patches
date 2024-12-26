@@ -1,12 +1,12 @@
-diff -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-icon-view.c xfdesktop/src/xfdesktop/src/xfdesktop-icon-view.c
---- xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-icon-view.c	2024-11-03 11:18:30.626998085 -0800
-+++ xfdesktop/src/xfdesktop/src/xfdesktop-icon-view.c	2024-11-03 11:18:30.636998023 -0800
-@@ -2222,7 +2222,7 @@
+diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-icon-view.c xfdesktop/src/xfdesktop/src/xfdesktop-icon-view.c
+--- xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-icon-view.c	2024-12-23 11:47:52.127258749 -0800
++++ xfdesktop/src/xfdesktop/src/xfdesktop-icon-view.c	2024-12-23 13:21:44.275351267 -0800
+@@ -2844,7 +2844,7 @@
      GdkScreen *gscreen;
-     GdkWindow *groot;
  
--    gtk_window_set_accept_focus(GTK_WINDOW(icon_view->priv->parent_window), FALSE);
-+    gtk_window_set_accept_focus(GTK_WINDOW(icon_view->priv->parent_window), TRUE);
+     GtkWidget *toplevel = gtk_widget_get_toplevel(widget);
+-    gtk_window_set_accept_focus(GTK_WINDOW(toplevel), FALSE);
++    gtk_window_set_accept_focus(GTK_WINDOW(toplevel), TRUE);
  
      gscreen = gtk_widget_get_screen(widget);
-     groot = gdk_screen_get_root_window(gscreen);
+ 
