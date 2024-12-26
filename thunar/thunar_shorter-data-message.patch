@@ -1,13 +1,14 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-notify.c thunar/src/thunar/thunar/thunar-notify.c
---- thunar.ORIG/src/thunar/thunar/thunar-notify.c	2023-10-24 15:53:44.918139681 -0700
-+++ thunar/src/thunar/thunar/thunar-notify.c	2023-10-24 15:53:45.594816353 -0700
-@@ -278,17 +278,13 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-notify.c	2024-12-26 11:23:27.675916709 -0800
++++ thunar/src/thunar/thunar/thunar-notify.c	2024-12-26 11:23:29.095939680 -0800
+@@ -282,18 +282,13 @@
    if (thunar_notify_device_readonly (device))
      {
        summary = _("Unmounting device");
 -      message = g_strdup_printf (_("The device \"%s\" is being unmounted by the system. "
 -                                   "Please do not remove the media or disconnect the "
--                                   "drive"), name);
+-                                   "drive"),
+-                                 name);
 +      message = g_strdup_printf (_("The device \"%s\" is being unmounted"), name);
      }
    else
@@ -16,17 +17,18 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-notify.c thunar/src/thunar/thunar/
        message = g_strdup_printf (_("There is data that needs to be written to the "
 -                                   "device \"%s\" before it can be removed. Please "
 -                                   "do not remove the media or disconnect the drive"),
--                                   name);
+-                                 name);
 +                                   "device \"%s\" before it can be removed"), name);
      }
  
    thunar_notify_show (device, summary, message);
-@@ -318,16 +314,13 @@
+@@ -323,17 +318,13 @@
    if (thunar_notify_device_readonly (device))
      {
        summary = _("Ejecting device");
 -      message = g_strdup_printf (_("The device \"%s\" is being ejected. "
--                                   "This may take some time"), name);
+-                                   "This may take some time"),
+-                                 name);
 +      message = g_strdup_printf (_("The device \"%s\" is being ejected"), name);
      }
    else
@@ -35,7 +37,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-notify.c thunar/src/thunar/thunar/
        message = g_strdup_printf (_("There is data that needs to be written to the "
 -                                   "device \"%s\" before it can be removed. Please "
 -                                   "do not remove the media or disconnect the drive"),
--                                   name);
+-                                 name);
 +                                   "device \"%s\" before it can be removed"), name);
      }
  

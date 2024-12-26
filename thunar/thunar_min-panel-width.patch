@@ -1,10 +1,10 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
---- thunar.ORIG/src/thunar/thunar/thunar-window.c	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar/thunar/thunar-window.c	2023-10-24 15:53:45.088142194 -0700
-@@ -2985,7 +2985,7 @@
-     {
-       /* allocate the new side pane widget */
-       window->sidepane = g_object_new (type, NULL);
+--- thunar.ORIG/src/thunar/thunar/thunar-window.c	2024-12-26 11:23:27.675916709 -0800
++++ thunar/src/thunar/thunar/thunar-window.c	2024-12-26 11:23:28.085923342 -0800
+@@ -3332,7 +3332,7 @@
+         window->sidepane = g_object_new (THUNAR_TYPE_SHORTCUTS_PANE, NULL);
+       else
+         window->sidepane = g_object_new (THUNAR_TYPE_TREE_PANE, NULL);
 -      gtk_widget_set_size_request (window->sidepane, 0, -1);
 +      gtk_widget_set_size_request (window->sidepane, 165, -1);
        g_object_bind_property (G_OBJECT (window), "current-directory", G_OBJECT (window->sidepane), "current-directory", G_BINDING_SYNC_CREATE);

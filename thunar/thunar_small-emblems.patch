@@ -1,28 +1,28 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-emblem-chooser.c thunar/src/thunar/thunar/thunar-emblem-chooser.c
---- thunar.ORIG/src/thunar/thunar/thunar-emblem-chooser.c	2023-10-24 15:53:44.918139681 -0700
-+++ thunar/src/thunar/thunar/thunar-emblem-chooser.c	2023-10-24 15:53:45.634816945 -0700
-@@ -474,7 +474,7 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-emblem-chooser.c	2024-12-26 11:23:27.672583321 -0800
++++ thunar/src/thunar/thunar/thunar-emblem-chooser.c	2024-12-26 11:23:29.189274523 -0800
+@@ -555,7 +555,7 @@
  
    /* lookup the icon info for the emblem */
    scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (chooser));
--  info = gtk_icon_theme_lookup_icon (chooser->icon_theme, emblem, 48 * scale_factor, 0);
-+  info = gtk_icon_theme_lookup_icon (chooser->icon_theme, emblem, 16 * scale_factor, 0);
+-  info = gtk_icon_theme_lookup_icon_for_scale (chooser->icon_theme, emblem, 48, scale_factor, GTK_ICON_LOOKUP_FORCE_SIZE);
++  info = gtk_icon_theme_lookup_icon_for_scale (chooser->icon_theme, emblem, 16, scale_factor, GTK_ICON_LOOKUP_FORCE_SIZE);
    if (G_UNLIKELY (info == NULL))
      return NULL;
  
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-icon-renderer.c thunar/src/thunar/thunar/thunar-icon-renderer.c
---- thunar.ORIG/src/thunar/thunar/thunar-icon-renderer.c	2023-10-24 15:53:44.918139681 -0700
-+++ thunar/src/thunar/thunar/thunar-icon-renderer.c	2023-10-24 15:53:45.634816945 -0700
-@@ -580,7 +580,7 @@
-           for (lp = emblems, position = 0; lp != NULL && position < max_emblems; lp = lp->next)
+--- thunar.ORIG/src/thunar/thunar/thunar-icon-renderer.c	2024-12-26 11:23:27.672583321 -0800
++++ thunar/src/thunar/thunar/thunar-icon-renderer.c	2024-12-26 11:23:29.189274523 -0800
+@@ -644,7 +644,7 @@
+           for (lp = emblems, position = 0; lp != NULL && position < MAX_EMBLEMS_PER_FILE; lp = lp->next)
              {
                /* calculate the emblem size */
--              emblem_size = MIN ((2 * icon_renderer->size) / 3, 32);
+-              emblem_size = MIN ((2 * icon_renderer->size) / 4, 32);
 +              emblem_size = 16;
  
                /* check if we have the emblem in the icon theme */
-               emblem = thunar_icon_factory_load_icon (icon_factory, lp->data, emblem_size * scale_factor, FALSE);
-@@ -591,19 +591,6 @@
+               emblem = thunar_icon_factory_load_icon (icon_factory, lp->data, emblem_size, scale_factor, FALSE,
+@@ -656,19 +656,6 @@
                emblem_area.width = gdk_pixbuf_get_width (emblem) / scale_factor;
                emblem_area.height = gdk_pixbuf_get_height (emblem) / scale_factor;
  

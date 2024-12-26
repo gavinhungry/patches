@@ -1,9 +1,9 @@
 diff -ru thunar.ORIG/PKGBUILD thunar/PKGBUILD
---- thunar.ORIG/PKGBUILD	2023-10-24 15:53:44.924806446 -0700
-+++ thunar/PKGBUILD	2023-10-24 15:53:45.361479569 -0700
-@@ -43,6 +43,7 @@
+--- thunar.ORIG/PKGBUILD	2024-12-26 11:23:27.702583806 -0800
++++ thunar/PKGBUILD	2024-12-26 11:23:28.639265626 -0800
+@@ -46,6 +46,7 @@
  package() {
-   cd $pkgname-$pkgver
+   cd $pkgname
    make DESTDIR="$pkgdir" install
 +  rm -f "$pkgdir"/usr/bin/Thunar
  }

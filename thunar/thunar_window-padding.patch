@@ -1,29 +1,31 @@
-diff -ru thunar.ORIG/src/thunar/thunar/thunar-application.c thunar/src/thunar/thunar/thunar-application.c
---- thunar.ORIG/src/thunar/thunar/thunar-application.c	2023-10-24 15:53:44.918139681 -0700
-+++ thunar/src/thunar/thunar/thunar-application.c	2023-10-24 15:53:45.674817536 -0700
-@@ -657,15 +657,9 @@
+diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-application.c thunar/src/thunar/thunar/thunar-application.c
+--- thunar.ORIG/src/thunar/thunar/thunar-application.c	2024-12-26 11:25:58.265008700 -0800
++++ thunar/src/thunar/thunar/thunar-application.c	2024-12-26 12:02:38.147000143 -0800
+@@ -697,17 +697,9 @@
    gtk_css_provider_load_from_data (css_provider,
-     /* for the location-buttons any margin looks ugly */
-     ".location-button { margin-right: 0; }"
--    /* remove extra border between side pane and view */
--    ".shortcuts-pane { border-right-width: 0px; }"
--    /* add missing top border to side pane */
--    ".shortcuts-pane { border-top-style: solid; }"
--    /* make border thicker during DnD */
--    ".standard-view { border-left-width: 0px; border-right-width: 0px; }"
--    /* for the example box in properties dialog > highlight tab */ 
--    "#example { border-radius: 10px; }"
--    ".standard-view:drop(active) { border-width: 2px; }", -1, NULL);
-+    ".sidebar { border-width: 1px; border-style: solid; }"
-+    ".shortcuts-pane, .tree-pane { border-right-width: 0px; }"
-+    ".standard-view { margin-left: 5px; }", -1, NULL);
+                                    /* for the location-buttons any margin looks ugly */
+                                    ".location-button { margin-right: 0; }"
+-                                   /* add missing top border to side pane */
+-                                   ".sidebar { border-top-style: solid; }"
+-                                   /* remove extra borders */
+-                                   ".preview-pane { border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; }"
+-                                   ".standard-view { border-left-width: 0px; border-right-width: 0px; }"
+-                                   /* make border thicker during DnD */
+-                                   ".standard-view:drop(active) { border-width: 2px; }"
+-                                   /* change background color of inactive split view pane */
+-                                   ".split-view-inactive-pane .view { background-color: @theme_unfocused_bg_color; }"
+-                                   /* for the example box in properties dialog > highlight tab */
+-                                   "#example { border-radius: 10px; }",
++                                   ".sidebar { border-width: 1px; border-style: solid; }"
++                                   ".shortcuts-pane, .tree-pane { border-right-width: 0px; }"
++                                   ".standard-view { margin-left: 5px; }",
+                                    -1, NULL);
    screen = gdk_screen_get_default ();
    gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER (css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-   g_object_unref (css_provider);
-diff -ru thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c thunar/src/thunar/thunar/thunar-tree-pane.c
---- thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c	2023-10-24 15:53:44.918139681 -0700
-+++ thunar/src/thunar/thunar/thunar-tree-pane.c	2023-10-24 15:53:45.674817536 -0700
-@@ -147,6 +147,9 @@
+diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c thunar/src/thunar/thunar/thunar-tree-pane.c
+--- thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c	2024-12-26 11:25:58.268342087 -0800
++++ thunar/src/thunar/thunar/thunar-tree-pane.c	2024-12-26 12:02:38.147000143 -0800
+@@ -157,6 +157,9 @@
    g_signal_connect_swapped (G_OBJECT (tree_pane->view), "open-new-tab", G_CALLBACK (thunar_navigator_open_new_tab), tree_pane);
    gtk_container_add (GTK_CONTAINER (tree_pane), tree_pane->view);
    gtk_widget_show (tree_pane->view);
@@ -33,10 +35,21 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c thunar/src/thunar/thun
  }
  
  
-diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
---- thunar.ORIG/src/thunar/thunar/thunar-window.c	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar/thunar/thunar-window.c	2023-10-24 15:53:45.674817536 -0700
-@@ -904,7 +904,7 @@
+diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar/thunar/thunar-window.c	2024-12-26 11:25:58.268342087 -0800
++++ thunar/src/thunar/thunar/thunar-window.c	2024-12-26 12:03:38.364626407 -0800
+@@ -66,10 +66,6 @@
+ 
+ 
+ 
+-#define DEFAULT_LOCATION_BAR_MARGIN 5
+-
+-
+-
+ /* Property identifiers */
+ enum
+ {
+@@ -1070,7 +1066,7 @@
  
    /* main paned widget */
    window->paned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
@@ -45,11 +58,24 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/
    gtk_widget_set_hexpand (window->paned, TRUE);
    gtk_widget_set_vexpand (window->paned, TRUE);
    gtk_grid_attach (GTK_GRID (window->grid), window->paned, 0, 4, 1, 1);
-@@ -6086,6 +6086,9 @@
+@@ -2059,8 +2055,8 @@
+       below_header_bar = window->location_toolbar;
  
+       /* restore default location bar margins */
+-      gtk_widget_set_margin_start (window->location_bar, DEFAULT_LOCATION_BAR_MARGIN);
+-      gtk_widget_set_margin_end (window->location_bar, DEFAULT_LOCATION_BAR_MARGIN);
++      gtk_widget_set_margin_start (window->location_bar, 1);
++      gtk_widget_set_margin_end (window->location_bar, 2);
+     }
+   else
+     {
+@@ -6683,8 +6679,9 @@
+ {
    /* allocate the new location bar widget */
    window->location_bar = thunar_location_bar_new ();
-+  gtk_widget_set_margin_top (GTK_WIDGET (window->location_bar), 2);
+-  gtk_widget_set_margin_start (window->location_bar, DEFAULT_LOCATION_BAR_MARGIN);
+-  gtk_widget_set_margin_end (window->location_bar, DEFAULT_LOCATION_BAR_MARGIN);
++  gtk_widget_set_margin_top (GTK_WIDGET (window->location_bar), 3);
 +  gtk_widget_set_margin_start (GTK_WIDGET (window->location_bar), 1);
 +  gtk_widget_set_margin_end (GTK_WIDGET (window->location_bar), 2);
    g_object_bind_property (G_OBJECT (window), "current-directory", G_OBJECT (window->location_bar), "current-directory", G_BINDING_SYNC_CREATE);

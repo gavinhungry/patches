@@ -1,19 +1,18 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
---- thunar.ORIG/src/thunar/thunar/thunar-window.c	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar/thunar/thunar-window.c	2023-10-24 15:53:45.401480161 -0700
-@@ -5163,9 +5163,6 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-window.c	2024-12-26 11:23:27.675916709 -0800
++++ thunar/src/thunar/thunar/thunar-window.c	2024-12-26 11:23:28.729267082 -0800
+@@ -5499,8 +5499,6 @@
  thunar_window_set_current_directory (ThunarWindow *window,
                                       ThunarFile   *current_directory)
  {
 -  gboolean is_trash;
 -  gboolean is_recent;
--
-   _thunar_return_if_fail (THUNAR_IS_WINDOW (window));
-   _thunar_return_if_fail (current_directory == NULL || THUNAR_IS_FILE (current_directory));
- 
-@@ -5248,18 +5245,7 @@
-   if (current_directory == NULL)
-     return;
+   GType    type;
+   gchar   *type_name;
+   gint     num_pages;
+@@ -5576,20 +5574,7 @@
+   if (window->view != NULL && window->view_type != type)
+     thunar_window_replace_view (window, window->view, type);
  
 -  is_trash = thunar_file_is_trash (current_directory);
 -  is_recent = thunar_file_is_recent (current_directory);
@@ -24,6 +23,8 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/
 -
 -  if (THUNAR_IS_DETAILS_VIEW (window->view) == FALSE)
 -    return;
+-
+-  /* show/hide date_deleted column/sortBy in the trash directory */
 -  thunar_details_view_set_date_deleted_column_visible (THUNAR_DETAILS_VIEW (window->view), is_trash);
 -  thunar_details_view_set_recency_column_visible (THUNAR_DETAILS_VIEW (window->view), is_recent);
 -  thunar_details_view_set_location_column_visible (THUNAR_DETAILS_VIEW (window->view), is_recent);

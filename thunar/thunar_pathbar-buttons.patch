@@ -1,7 +1,20 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-location-button.c thunar/src/thunar/thunar/thunar-location-button.c
---- thunar.ORIG/src/thunar/thunar/thunar-location-button.c	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar/thunar/thunar-location-button.c	2023-10-24 15:53:45.438147370 -0700
-@@ -398,44 +398,16 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-location-button.c	2024-12-26 11:23:27.675916709 -0800
++++ thunar/src/thunar/thunar/thunar-location-button.c	2024-12-26 11:23:28.819268538 -0800
+@@ -426,11 +426,9 @@
+ thunar_location_button_file_changed (ThunarLocationButton *location_button,
+                                      ThunarFile           *file)
+ {
+-  ThunarPreferences *preferences;
+   GtkIconTheme      *icon_theme;
+-  gchar             *icon_name;
+   const gchar       *dnd_icon_name;
+-  gboolean           use_symbolic_icons;
++  const gchar       *diplay_name;
+ 
+   _thunar_return_if_fail (THUNAR_IS_LOCATION_BUTTON (location_button));
+   _thunar_return_if_fail (location_button->file == file);
+@@ -440,54 +438,21 @@
    icon_theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (location_button)));
    /* TODO: listen for icon theme changes */
  
@@ -13,28 +26,32 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-location-button.c thunar/src/thuna
 -    }
 -  else
 -    {
+-      const gchar *diplay_name;
+-
 -      /* set label to the file's display name and show the label */
--      gtk_label_set_text (GTK_LABEL (location_button->label), thunar_file_get_display_name (file));
-+  /* set label to the file's display name and show the label */
-+  gtk_label_set_text (GTK_LABEL (location_button->label), thunar_file_get_display_name (file));
- 
+-      diplay_name = thunar_file_get_display_name (file);
+-      if (diplay_name != NULL)
+-        gtk_label_set_text (GTK_LABEL (location_button->label), diplay_name);
+-
+-      /* reset the size request before applying the new label size so that the button can shrink */
+-      gtk_widget_set_size_request (location_button->label, -1, -1);
+-
 -      /* set the label's size request in such a way that a bold label will not change the button size */
 -      if (gtk_widget_get_mapped (GTK_WIDGET (location_button)))
 -        thunar_location_button_apply_label_size (location_button);
-+  /* set the label's size request in such a way that a bold label will not change the button size */
-+  if (gtk_widget_get_mapped (GTK_WIDGET (location_button)))
-+    thunar_location_button_apply_label_size (location_button);
- 
+-
 -      gtk_widget_show (location_button->label);
 -    }
-+  gtk_widget_show (location_button->label);
- 
+-
 -  /* the image is only visible for certain special paths */
 -  if (thunar_file_is_home (file) || thunar_file_is_desktop (file) || thunar_file_is_root (file))
 -    {
--      icon_name = g_strdup_printf ("%s-symbolic", thunar_file_get_icon_name (file,
--                                                                             location_button->file_icon_state,
--                                                                             icon_theme));
+-      preferences = thunar_preferences_get ();
+-      g_object_get (G_OBJECT (preferences), "misc-symbolic-icons-in-toolbar", &use_symbolic_icons, NULL);
+-      g_object_unref (G_OBJECT (preferences));
+-
+-      icon_name = g_strdup_printf ("%s%s", thunar_file_get_icon_name (file, location_button->file_icon_state, icon_theme),
+-                                   use_symbolic_icons ? "-symbolic" : "");
 -
 -      /* update the icon for the image */
 -      gtk_image_set_from_icon_name (GTK_IMAGE (location_button->image), icon_name, GTK_ICON_SIZE_BUTTON);
@@ -49,6 +66,20 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-location-button.c thunar/src/thuna
 -      /* hide the image widget */
 -      gtk_widget_hide (location_button->image);
 -    }
++  /* set label to the file's display name and show the label */
++  diplay_name = thunar_file_get_display_name (file);
++  if (diplay_name != NULL)
++    gtk_label_set_text (GTK_LABEL (location_button->label), diplay_name);
++
++  /* reset the size request before applying the new label size so that the button can shrink */
++  gtk_widget_set_size_request (location_button->label, -1, -1);
++
++  /* set the label's size request in such a way that a bold label will not change the button size */
++  if (gtk_widget_get_mapped (GTK_WIDGET (location_button)))
++    thunar_location_button_apply_label_size (location_button);
++
++  gtk_widget_show (location_button->label);
++
 +  gtk_widget_hide (location_button->image);
  
    /* setup the DnD icon for the button */

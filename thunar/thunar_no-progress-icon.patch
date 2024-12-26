@@ -1,7 +1,7 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-progress-view.c thunar/src/thunar/thunar/thunar-progress-view.c
---- thunar.ORIG/src/thunar/thunar/thunar-progress-view.c	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar/thunar/thunar-progress-view.c	2023-10-24 15:53:45.284811770 -0700
-@@ -190,7 +190,6 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-progress-view.c	2024-12-26 11:23:27.675916709 -0800
++++ thunar/src/thunar/thunar/thunar-progress-view.c	2024-12-26 11:23:28.549264170 -0800
+@@ -207,7 +207,6 @@
  static void
  thunar_progress_view_init (ThunarProgressView *view)
  {
@@ -9,14 +9,14 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-progress-view.c thunar/src/thunar/
    GtkWidget *label;
    GtkWidget *cancel_button;
    GtkWidget *vbox;
-@@ -210,14 +209,6 @@
+@@ -227,14 +226,6 @@
    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
    gtk_widget_show (hbox);
  
 -  image = g_object_new (GTK_TYPE_IMAGE, "icon-size", GTK_ICON_SIZE_DND, NULL);
--  gtk_image_set_pixel_size (GTK_IMAGE(image), 32);
+-  gtk_image_set_pixel_size (GTK_IMAGE (image), 32);
 -  gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, TRUE, 0);
--  g_object_bind_property (G_OBJECT (view),  "icon-name",
+-  g_object_bind_property (G_OBJECT (view), "icon-name",
 -                          G_OBJECT (image), "icon-name",
 -                          G_BINDING_SYNC_CREATE);
 -  gtk_widget_show (image);

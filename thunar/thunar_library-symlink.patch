@@ -1,10 +1,11 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/thunar-file.c
---- thunar.ORIG/src/thunar/thunar/thunar-file.c	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar/thunar/thunar-file.c	2023-10-24 15:53:45.048141603 -0700
-@@ -2682,6 +2682,45 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-file.c	2024-12-26 11:23:27.672583321 -0800
++++ thunar/src/thunar/thunar/thunar-file.c	2024-12-26 11:23:27.982588336 -0800
+@@ -2639,6 +2639,43 @@
+   return g_file_info_get_attribute_boolean (file->info, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK);
+ }
  
- 
- /**
++/**
 + * thunar_file_is_library_symlink:
 + * @file : a #ThunarFile instance.
 + *
@@ -41,13 +42,10 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/th
 +  return ret;
 +}
 +
-+
-+
-+/**
-  * thunar_file_get_size:
-  * @file : a #ThunarFile instance.
-  *
-@@ -2831,6 +2870,10 @@
+ 
+ 
+ /**
+@@ -2818,6 +2855,10 @@
  thunar_file_is_directory (const ThunarFile *file)
  {
    _thunar_return_val_if_fail (THUNAR_IS_FILE (file), FALSE);
@@ -58,16 +56,16 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/th
    return file->kind == G_FILE_TYPE_DIRECTORY;
  }
  
-@@ -3644,7 +3687,7 @@
-         emblems = g_list_append (emblems, *emblem_names);
+@@ -3748,7 +3789,7 @@
+       g_strfreev (emblem_names);
      }
  
 -  if (thunar_file_is_symlink (file))
 +  if (thunar_file_is_symlink (file) && !thunar_file_is_library_symlink (file))
-     emblems = g_list_prepend (emblems, THUNAR_FILE_EMBLEM_NAME_SYMBOLIC_LINK);
+     emblems = g_list_prepend (emblems, g_strdup (THUNAR_FILE_EMBLEM_NAME_SYMBOLIC_LINK));
  
    /* determine the user ID of the file owner */
-@@ -3656,7 +3699,7 @@
+@@ -3760,7 +3801,7 @@
    /* we add "cant-read" if either (a) the file is not readable or (b) a directory, that lacks the
     * x-bit, see https://bugzilla.xfce.org/show_bug.cgi?id=1408 for the details about this change.
     */
@@ -75,15 +73,16 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/th
 +  if ((!thunar_file_is_readable (file) && !thunar_file_is_library_symlink (file))
        || (thunar_file_is_directory (file)
            && thunar_file_denies_access_permission (file, THUNAR_FILE_MODE_USR_EXEC,
-                                                          THUNAR_FILE_MODE_GRP_EXEC,
+                                                    THUNAR_FILE_MODE_GRP_EXEC,
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.h thunar/src/thunar/thunar/thunar-file.h
---- thunar.ORIG/src/thunar/thunar/thunar-file.h	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar/thunar/thunar-file.h	2023-10-24 15:53:45.048141603 -0700
-@@ -192,6 +192,7 @@
- const gchar      *thunar_file_get_symlink_target         (const ThunarFile       *file);
- const gchar      *thunar_file_get_basename               (const ThunarFile       *file) G_GNUC_CONST;
- gboolean          thunar_file_is_symlink                 (const ThunarFile       *file);
-+gboolean          thunar_file_is_library_symlink         (const ThunarFile       *file);
- guint64           thunar_file_get_size                   (const ThunarFile       *file);
- GAppInfo         *thunar_file_get_default_handler        (const ThunarFile       *file);
- GFileType         thunar_file_get_kind                   (const ThunarFile       *file) G_GNUC_PURE;
+--- thunar.ORIG/src/thunar/thunar/thunar-file.h	2024-12-26 11:23:27.672583321 -0800
++++ thunar/src/thunar/thunar/thunar-file.h	2024-12-26 11:23:27.982588336 -0800
+@@ -239,6 +239,8 @@
+ thunar_file_get_basename (const ThunarFile *file) G_GNUC_CONST;
+ gboolean
+ thunar_file_is_symlink (const ThunarFile *file);
++gboolean
++thunar_file_is_library_symlink (const ThunarFile *file);
+ guint64
+ thunar_file_get_size (const ThunarFile *file);
+ guint64

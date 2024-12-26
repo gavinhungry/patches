@@ -1,8 +1,8 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-device.c thunar/src/thunar/thunar/thunar-device.c
---- thunar.ORIG/src/thunar/thunar/thunar-device.c	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar/thunar/thunar-device.c	2023-10-24 15:53:45.554815762 -0700
-@@ -683,9 +683,27 @@
-   gchar* name2;
+--- thunar.ORIG/src/thunar/thunar/thunar-device.c	2024-12-26 11:23:27.672583321 -0800
++++ thunar/src/thunar/thunar/thunar-device.c	2024-12-26 11:23:29.002604837 -0800
+@@ -696,9 +696,27 @@
+   gchar *name2;
    gint   result;
  
 +  GIcon *icon1;
@@ -14,8 +14,8 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-device.c thunar/src/thunar/thunar/
    _thunar_return_val_if_fail (THUNAR_IS_DEVICE (device1), 0);
    _thunar_return_val_if_fail (THUNAR_IS_DEVICE (device2), 0);
  
-+  icon1 = thunar_device_get_icon (device1);
-+  icon2 = thunar_device_get_icon (device2);
++  icon1 = thunar_device_get_icon (device1, FALSE);
++  icon2 = thunar_device_get_icon (device2, FALSE);
 +  icon1_names = g_themed_icon_get_names (G_THEMED_ICON (icon1));
 +  icon2_names = g_themed_icon_get_names (G_THEMED_ICON (icon2));
 +
@@ -29,7 +29,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-device.c thunar/src/thunar/thunar/
    /* sort mounts above volumes */
    if (G_OBJECT_TYPE (device1->device) != G_OBJECT_TYPE (device2->device))
      return G_IS_MOUNT (device1->device) ? 1 : -1;
-@@ -693,7 +711,7 @@
+@@ -706,7 +724,7 @@
    name1 = thunar_device_get_name (device1);
    name2 = thunar_device_get_name (device2);
  
@@ -39,18 +39,18 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-device.c thunar/src/thunar/thunar/
    g_free (name1);
    g_free (name2);
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c thunar/src/thunar/thunar/thunar-shortcuts-model.c
---- thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c	2023-10-24 15:53:44.918139681 -0700
-+++ thunar/src/thunar/thunar/thunar-shortcuts-model.c	2023-10-24 15:53:45.554815762 -0700
-@@ -1054,7 +1054,7 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c	2024-12-26 11:23:27.675916709 -0800
++++ thunar/src/thunar/thunar/thunar-shortcuts-model.c	2024-12-26 11:23:29.002604837 -0800
+@@ -1077,7 +1077,7 @@
        shortcut->name = g_strdup (_("Browse Network"));
        shortcut->tooltip = g_strdup (_("Browse local network connections"));
-       shortcut->location = thunar_g_file_new_for_network();
+       shortcut->location = thunar_g_file_new_for_network ();
 -      shortcut->gicon = g_themed_icon_new ("network-workgroup");
 +      shortcut->gicon = g_themed_icon_new ("network-server");
        shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
        thunar_shortcuts_model_add_shortcut (model, shortcut);
      }
-@@ -1088,7 +1088,7 @@
+@@ -1111,7 +1111,7 @@
        shortcut->group = THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT;
        shortcut->tooltip = g_strdup (_("Open the home folder"));
        shortcut->file = file;
@@ -59,7 +59,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c thunar/src/thuna
        shortcut->sort_id = 0;
        shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
        thunar_shortcuts_model_add_shortcut (model, shortcut);
-@@ -1157,19 +1157,6 @@
+@@ -1181,19 +1181,6 @@
        shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
        thunar_shortcuts_model_add_shortcut (model, shortcut);
      }
@@ -71,7 +71,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c thunar/src/thuna
 -      shortcut->group = THUNAR_SHORTCUT_GROUP_PLACES_RECENT;
 -      shortcut->name = g_strdup (_("Recent"));
 -      shortcut->tooltip = g_strdup (_("Browse recently used files"));
--      shortcut->location = thunar_g_file_new_for_recent();
+-      shortcut->location = thunar_g_file_new_for_recent ();
 -      shortcut->gicon = g_themed_icon_new ("document-open-recent");
 -      shortcut->hidden = thunar_shortcuts_model_get_hidden (model, shortcut);
 -      thunar_shortcuts_model_add_shortcut (model, shortcut);
@@ -79,7 +79,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c thunar/src/thuna
  }
  
  
-@@ -1557,6 +1544,8 @@
+@@ -1554,6 +1541,8 @@
  {
    ThunarShortcut *shortcut;
    GFile          *mount_point;
@@ -88,11 +88,11 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c thunar/src/thuna
  
    _thunar_return_if_fail (device_monitor == NULL || THUNAR_DEVICE_MONITOR (device_monitor));
    _thunar_return_if_fail (device_monitor == NULL || model->device_monitor == device_monitor);
-@@ -1590,6 +1579,14 @@
+@@ -1587,6 +1576,14 @@
        break;
      }
  
-+  icon = thunar_device_get_icon (device);
++  icon = thunar_device_get_icon (device, FALSE);
 +  icon_names = g_themed_icon_get_names (G_THEMED_ICON (icon));
 +  if (G_LIKELY (icon_names != NULL))
 +    {
@@ -104,15 +104,15 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c thunar/src/thuna
    thunar_shortcuts_model_add_shortcut (model, shortcut);
  
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.h thunar/src/thunar/thunar/thunar-shortcuts-model.h
---- thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.h	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar/thunar/thunar-shortcuts-model.h	2023-10-24 15:53:45.554815762 -0700
+--- thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.h	2024-12-26 11:23:27.675916709 -0800
++++ thunar/src/thunar/thunar/thunar-shortcuts-model.h	2024-12-26 11:23:29.002604837 -0800
 @@ -64,8 +64,7 @@
-                                        | THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT \
-                                        | THUNAR_SHORTCUT_GROUP_PLACES_TRASH \
-                                        | THUNAR_SHORTCUT_GROUP_PLACES_BOOKMARKS \
--                                       | THUNAR_SHORTCUT_GROUP_PLACES_COMPUTER \
--                                       | THUNAR_SHORTCUT_GROUP_PLACES_RECENT)
-+                                       | THUNAR_SHORTCUT_GROUP_PLACES_COMPUTER)
+                                       | THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT \
+                                       | THUNAR_SHORTCUT_GROUP_PLACES_TRASH \
+                                       | THUNAR_SHORTCUT_GROUP_PLACES_BOOKMARKS \
+-                                      | THUNAR_SHORTCUT_GROUP_PLACES_COMPUTER \
+-                                      | THUNAR_SHORTCUT_GROUP_PLACES_RECENT)
++                                      | THUNAR_SHORTCUT_GROUP_PLACES_COMPUTER)
  #define THUNAR_SHORTCUT_GROUP_NETWORK (THUNAR_SHORTCUT_GROUP_NETWORK_HEADER \
                                         | THUNAR_SHORTCUT_GROUP_NETWORK_DEFAULT \
                                         | THUNAR_SHORTCUT_GROUP_NETWORK_MOUNTS)
@@ -121,37 +121,37 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.h thunar/src/thuna
  enum _ThunarShortcutGroup
  {
 -  /* THUNAR_SHORTCUT_GROUP_PLACES */
--  THUNAR_SHORTCUT_GROUP_PLACES_HEADER      = (1 << 0),  /* places header */
--  THUNAR_SHORTCUT_GROUP_PLACES_COMPUTER    = (1 << 1),  /* computer */
--  THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT     = (1 << 2),  /* home and desktop */
--  THUNAR_SHORTCUT_GROUP_PLACES_RECENT      = (1 << 3),  /* recent */
--  THUNAR_SHORTCUT_GROUP_PLACES_TRASH       = (1 << 4),  /* trash */
--  THUNAR_SHORTCUT_GROUP_PLACES_BOOKMARKS   = (1 << 5),  /* gtk-bookmarks */
+-  THUNAR_SHORTCUT_GROUP_PLACES_HEADER = (1 << 0),    /* places header */
+-  THUNAR_SHORTCUT_GROUP_PLACES_COMPUTER = (1 << 1),  /* computer */
+-  THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT = (1 << 2),   /* home and desktop */
+-  THUNAR_SHORTCUT_GROUP_PLACES_RECENT = (1 << 3),    /* recent */
+-  THUNAR_SHORTCUT_GROUP_PLACES_TRASH = (1 << 4),     /* trash */
+-  THUNAR_SHORTCUT_GROUP_PLACES_BOOKMARKS = (1 << 5), /* gtk-bookmarks */
 -
    /* THUNAR_SHORTCUT_GROUP_DEVICES */
--  THUNAR_SHORTCUT_GROUP_DEVICES_HEADER     = (1 << 6),  /* devices header */
--  THUNAR_SHORTCUT_GROUP_DEVICES_FILESYSTEM = (1 << 7),  /* local filesystem */
--  THUNAR_SHORTCUT_GROUP_DEVICES_VOLUMES    = (1 << 8),  /* local ThunarDevices */
--  THUNAR_SHORTCUT_GROUP_DEVICES_MOUNTS     = (1 << 9),  /* local mounts, like cameras and archives */
-+  THUNAR_SHORTCUT_GROUP_DEVICES_HEADER     = (1 << 0),  /* devices header */
-+  THUNAR_SHORTCUT_GROUP_DEVICES_FILESYSTEM = (1 << 1),  /* local filesystem */
-+  THUNAR_SHORTCUT_GROUP_DEVICES_VOLUMES    = (1 << 3),  /* local ThunarDevices */
-+  THUNAR_SHORTCUT_GROUP_DEVICES_MOUNTS     = (1 << 3),  /* local mounts, like cameras and archives */
+-  THUNAR_SHORTCUT_GROUP_DEVICES_HEADER = (1 << 6),     /* devices header */
+-  THUNAR_SHORTCUT_GROUP_DEVICES_FILESYSTEM = (1 << 7), /* local filesystem */
+-  THUNAR_SHORTCUT_GROUP_DEVICES_VOLUMES = (1 << 8),    /* local ThunarDevices */
+-  THUNAR_SHORTCUT_GROUP_DEVICES_MOUNTS = (1 << 9),     /* local mounts, like cameras and archives */
++  THUNAR_SHORTCUT_GROUP_DEVICES_HEADER = (1 << 0),     /* devices header */
++  THUNAR_SHORTCUT_GROUP_DEVICES_FILESYSTEM = (1 << 1), /* local filesystem */
++  THUNAR_SHORTCUT_GROUP_DEVICES_VOLUMES = (1 << 2),    /* local ThunarDevices */
++  THUNAR_SHORTCUT_GROUP_DEVICES_MOUNTS = (1 << 3),     /* local mounts, like cameras and archives */
  
    /* THUNAR_SHORTCUT_GROUP_NETWORK */
--  THUNAR_SHORTCUT_GROUP_NETWORK_HEADER     = (1 << 10),  /* network header */
--  THUNAR_SHORTCUT_GROUP_NETWORK_DEFAULT    = (1 << 11), /* browse network */
--  THUNAR_SHORTCUT_GROUP_NETWORK_MOUNTS     = (1 << 12), /* remote ThunarDevices */
-+  THUNAR_SHORTCUT_GROUP_NETWORK_HEADER     = (1 << 4),  /* network header */
-+  THUNAR_SHORTCUT_GROUP_NETWORK_DEFAULT    = (1 << 5),  /* browse network */
-+  THUNAR_SHORTCUT_GROUP_NETWORK_MOUNTS     = (1 << 6),  /* remote ThunarDevices */
+-  THUNAR_SHORTCUT_GROUP_NETWORK_HEADER = (1 << 10),  /* network header */
+-  THUNAR_SHORTCUT_GROUP_NETWORK_DEFAULT = (1 << 11), /* browse network */
+-  THUNAR_SHORTCUT_GROUP_NETWORK_MOUNTS = (1 << 12),  /* remote ThunarDevices */
++  THUNAR_SHORTCUT_GROUP_NETWORK_HEADER = (1 << 4),  /* network header */
++  THUNAR_SHORTCUT_GROUP_NETWORK_DEFAULT = (1 << 5), /* browse network */
++  THUNAR_SHORTCUT_GROUP_NETWORK_MOUNTS = (1 << 6),  /* remote ThunarDevices */
 +
 +  /* THUNAR_SHORTCUT_GROUP_PLACES */
-+  THUNAR_SHORTCUT_GROUP_PLACES_HEADER      = (1 << 7),  /* places header */
-+  THUNAR_SHORTCUT_GROUP_PLACES_COMPUTER    = (1 << 8),  /* computer */
-+  THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT     = (1 << 9),  /* home and desktop */
-+  THUNAR_SHORTCUT_GROUP_PLACES_TRASH       = (1 << 10), /* trash */
-+  THUNAR_SHORTCUT_GROUP_PLACES_BOOKMARKS   = (1 << 11)  /* gtk-bookmarks */
++  THUNAR_SHORTCUT_GROUP_PLACES_HEADER = (1 << 7),    /* places header */
++  THUNAR_SHORTCUT_GROUP_PLACES_COMPUTER = (1 << 8),  /* computer */
++  THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT = (1 << 9),   /* home and desktop */
++  THUNAR_SHORTCUT_GROUP_PLACES_TRASH = (1 << 10),     /* trash */
++  THUNAR_SHORTCUT_GROUP_PLACES_BOOKMARKS = (1 << 11), /* gtk-bookmarks */
  };
  
  

@@ -1,7 +1,7 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-standard-view.c thunar/src/thunar/thunar/thunar-standard-view.c
---- thunar.ORIG/src/thunar/thunar/thunar-standard-view.c	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar/thunar/thunar-standard-view.c	2023-10-24 15:53:45.164809995 -0700
-@@ -813,7 +813,7 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-standard-view.c	2024-12-26 11:23:27.675916709 -0800
++++ thunar/src/thunar/thunar/thunar-standard-view.c	2024-12-26 11:23:28.275926416 -0800
+@@ -937,7 +937,7 @@
  
    /* initialize the scrolled window */
    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (standard_view),

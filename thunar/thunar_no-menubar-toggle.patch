@@ -1,21 +1,21 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
---- thunar.ORIG/src/thunar/thunar/thunar-window.c	2023-10-24 15:53:44.921473063 -0700
-+++ thunar/src/thunar/thunar/thunar-window.c	2023-10-24 15:53:45.204810587 -0700
-@@ -3899,7 +3899,7 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-window.c	2024-12-26 11:23:27.675916709 -0800
++++ thunar/src/thunar/thunar/thunar-window.c	2024-12-26 11:23:28.369261258 -0800
+@@ -4247,7 +4247,7 @@
    window->menubar_visible = !window->menubar_visible;
  
    gtk_widget_set_visible (window->menubar, window->menubar_visible);
--  gtk_widget_set_visible (window->location_toolbar_item_view_menubar, !window->menubar_visible);
-+  gtk_widget_set_visible (window->location_toolbar_item_view_menubar, FALSE);
+-  gtk_widget_set_visible (window->location_toolbar_item_menu, !window->menubar_visible);
++  gtk_widget_set_visible (window->location_toolbar_item_menu, FALSE);
  
    g_object_set (G_OBJECT (window->preferences), "last-menubar-visible", window->menubar_visible, NULL);
  
-@@ -6147,7 +6147,7 @@
+@@ -6774,7 +6774,7 @@
    gtk_widget_show_all (window->location_toolbar);
  
-   /* view_menubar is only visible when the menu is hidden */
--  gtk_widget_set_visible (window->location_toolbar_item_view_menubar, !window->menubar_visible);
-+  gtk_widget_set_visible (window->location_toolbar_item_view_menubar, FALSE);
+   /* only show the menu button when the menubar is hidden */
+-  gtk_widget_set_visible (window->location_toolbar_item_menu, !window->menubar_visible);
++  gtk_widget_set_visible (window->location_toolbar_item_menu, FALSE);
  
    /* add the location bar itself after gtk_widget_show_all to not mess with the visibility of the location buttons */
    gtk_container_add (GTK_CONTAINER (tool_item), window->location_bar);
