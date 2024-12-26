@@ -1,12 +1,21 @@
-diff -ru tumbler.ORIG/src/tumbler/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c tumbler/src/tumbler/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c
---- tumbler.ORIG/src/tumbler/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c	2022-12-15 19:42:43.371244674 -0800
-+++ tumbler/src/tumbler/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c	2022-12-15 19:42:43.387912098 -0800
-@@ -711,6 +711,8 @@
-                           gint          height,
-                           guint        *exif_orientation)
- {
-+  return NULL;
-+
-   GdkPixbuf *pixbuf = NULL;
-   guint marker_len;
-   guint marker;
+diff --color -ru tumbler.ORIG/src/tumbler/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c tumbler/src/tumbler/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c
+--- tumbler.ORIG/src/tumbler/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c	2024-12-23 11:47:52.077257787 -0800
++++ tumbler/src/tumbler/plugins/jpeg-thumbnailer/jpeg-thumbnailer.c	2024-12-23 13:26:49.457280614 -0800
+@@ -827,9 +827,6 @@
+                 {
+                   guint exif_orientation = 0;
+ 
+-                  /* try to load the embedded thumbnail first */
+-                  pixbuf = tvtj_jpeg_load_thumbnail (content, statb.st_size, width, height,
+-                                                     &exif_orientation);
+                   if (pixbuf == NULL)
+                     {
+                       /* fall back to loading and scaling the image itself */
+@@ -874,7 +871,6 @@
+       if (error == NULL)
+         {
+           guint exif_orientation = 0;
+-          pixbuf = tvtj_jpeg_load_thumbnail (content, length, width, height, &exif_orientation);
+ 
+           if (pixbuf == NULL)
+             {
