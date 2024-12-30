@@ -1,7 +1,7 @@
-diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-application.c thunar/src/thunar/thunar/thunar-application.c
---- thunar.ORIG/src/thunar/thunar/thunar-application.c	2024-12-26 11:25:58.265008700 -0800
-+++ thunar/src/thunar/thunar/thunar-application.c	2024-12-26 12:02:38.147000143 -0800
-@@ -697,17 +697,9 @@
+diff -ru thunar.ORIG/src/thunar/thunar/thunar-application.c thunar/src/thunar/thunar/thunar-application.c
+--- thunar.ORIG/src/thunar/thunar/thunar-application.c	2024-12-30 15:42:25.706759478 -0800
++++ thunar/src/thunar/thunar/thunar-application.c	2024-12-30 15:42:27.916796911 -0800
+@@ -697,19 +697,9 @@
    gtk_css_provider_load_from_data (css_provider,
                                     /* for the location-buttons any margin looks ugly */
                                     ".location-button { margin-right: 0; }"
@@ -14,6 +14,8 @@ diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-application.c thunar/src/t
 -                                   ".standard-view:drop(active) { border-width: 2px; }"
 -                                   /* change background color of inactive split view pane */
 -                                   ".split-view-inactive-pane .view { background-color: @theme_unfocused_bg_color; }"
+-                                   /* for the toorbar in headerbar looks ugly */
+-                                   "headerbar toolbar { background: none; }"
 -                                   /* for the example box in properties dialog > highlight tab */
 -                                   "#example { border-radius: 10px; }",
 +                                   ".sidebar { border-width: 1px; border-style: solid; }"
@@ -22,22 +24,21 @@ diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-application.c thunar/src/t
                                     -1, NULL);
    screen = gdk_screen_get_default ();
    gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER (css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c thunar/src/thunar/thunar/thunar-tree-pane.c
---- thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c	2024-12-26 11:25:58.268342087 -0800
-+++ thunar/src/thunar/thunar/thunar-tree-pane.c	2024-12-26 12:02:38.147000143 -0800
-@@ -157,6 +157,9 @@
+diff -ru thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c thunar/src/thunar/thunar/thunar-tree-pane.c
+--- thunar.ORIG/src/thunar/thunar/thunar-tree-pane.c	2024-12-30 15:42:25.710092867 -0800
++++ thunar/src/thunar/thunar/thunar-tree-pane.c	2024-12-30 15:42:27.920130300 -0800
+@@ -157,6 +157,8 @@
    g_signal_connect_swapped (G_OBJECT (tree_pane->view), "open-new-tab", G_CALLBACK (thunar_navigator_open_new_tab), tree_pane);
    gtk_container_add (GTK_CONTAINER (tree_pane), tree_pane->view);
    gtk_widget_show (tree_pane->view);
 +
-+  /* add widget to css class */
 +  gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (tree_pane)), "tree-pane");
  }
  
  
-diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
---- thunar.ORIG/src/thunar/thunar/thunar-window.c	2024-12-26 11:25:58.268342087 -0800
-+++ thunar/src/thunar/thunar/thunar-window.c	2024-12-26 12:03:38.364626407 -0800
+diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
+--- thunar.ORIG/src/thunar/thunar/thunar-window.c	2024-12-30 15:42:25.710092867 -0800
++++ thunar/src/thunar/thunar/thunar-window.c	2024-12-30 15:42:27.920130300 -0800
 @@ -66,10 +66,6 @@
  
  
@@ -69,7 +70,7 @@ diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar
      }
    else
      {
-@@ -6683,8 +6679,9 @@
+@@ -6681,8 +6677,9 @@
  {
    /* allocate the new location bar widget */
    window->location_bar = thunar_location_bar_new ();

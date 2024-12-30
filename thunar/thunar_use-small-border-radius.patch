@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-util.c thunar/src/thunar/thunar/thunar-util.c
---- thunar.ORIG/src/thunar/thunar/thunar-util.c	2024-12-26 11:23:27.675916709 -0800
-+++ thunar/src/thunar/thunar/thunar-util.c	2024-12-26 11:23:29.275942592 -0800
+--- thunar.ORIG/src/thunar/thunar/thunar-util.c	2024-12-30 15:42:25.710092867 -0800
++++ thunar/src/thunar/thunar/thunar-util.c	2024-12-30 15:42:27.796794878 -0800
 @@ -68,7 +68,7 @@
  #include <glib.h>
  #include <glib/gstdio.h>

@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-action-manager.c thunar/src/thunar/thunar/thunar-action-manager.c
---- thunar.ORIG/src/thunar/thunar/thunar-action-manager.c	2024-12-26 11:23:27.672583321 -0800
-+++ thunar/src/thunar/thunar/thunar-action-manager.c	2024-12-26 11:23:27.892586881 -0800
+--- thunar.ORIG/src/thunar/thunar/thunar-action-manager.c	2024-12-30 15:42:25.706759478 -0800
++++ thunar/src/thunar/thunar/thunar-action-manager.c	2024-12-30 15:42:25.953430322 -0800
 @@ -340,7 +340,7 @@
      {THUNAR_ACTION_MANAGER_ACTION_EMPTY_TRASH,        "<Actions>/ThunarWindow/empty-trash",             "",                  XFCE_GTK_IMAGE_MENU_ITEM, N_ ("_Empty Trash"),        N_ ("Delete all files and folders in the Trash"), NULL,                                                                                         G_CALLBACK (thunar_action_manager_action_empty_trash),         },
      {THUNAR_ACTION_MANAGER_ACTION_REMOVE_FROM_RECENT, "<Actions>/ThunarWindow/remove-from-recent",      "",                  XFCE_GTK_MENU_ITEM,       N_ ("_Remove from Recent"), N_ ("Remove the selected files from Recent"),     NULL,                                                                                         G_CALLBACK (thunar_action_manager_action_remove_from_recent),  },
@@ -19,8 +19,8 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-action-manager.c thunar/src/thunar
          parent = action_mgr->single_folder;
        else
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-action-manager.h thunar/src/thunar/thunar/thunar-action-manager.h
---- thunar.ORIG/src/thunar/thunar/thunar-action-manager.h	2024-12-26 11:23:27.672583321 -0800
-+++ thunar/src/thunar/thunar/thunar-action-manager.h	2024-12-26 11:23:27.892586881 -0800
+--- thunar.ORIG/src/thunar/thunar/thunar-action-manager.h	2024-12-30 15:42:25.706759478 -0800
++++ thunar/src/thunar/thunar/thunar-action-manager.h	2024-12-30 15:42:25.953430322 -0800
 @@ -60,6 +60,7 @@
    THUNAR_ACTION_MANAGER_ACTION_EMPTY_TRASH,
    THUNAR_ACTION_MANAGER_ACTION_REMOVE_FROM_RECENT,
@@ -30,8 +30,8 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-action-manager.h thunar/src/thunar
    THUNAR_ACTION_MANAGER_ACTION_RESTORE,
    THUNAR_ACTION_MANAGER_ACTION_RESTORE_SHOW,
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-menu.c thunar/src/thunar/thunar/thunar-menu.c
---- thunar.ORIG/src/thunar/thunar/thunar-menu.c	2024-12-26 11:23:27.675916709 -0800
-+++ thunar/src/thunar/thunar/thunar-menu.c	2024-12-26 11:23:27.892586881 -0800
+--- thunar.ORIG/src/thunar/thunar/thunar-menu.c	2024-12-30 15:42:25.710092867 -0800
++++ thunar/src/thunar/thunar/thunar-menu.c	2024-12-30 15:42:25.953430322 -0800
 @@ -258,6 +258,7 @@
      {
        item_added = FALSE;

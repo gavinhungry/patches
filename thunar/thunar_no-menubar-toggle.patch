@@ -1,7 +1,7 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
---- thunar.ORIG/src/thunar/thunar/thunar-window.c	2024-12-26 11:23:27.675916709 -0800
-+++ thunar/src/thunar/thunar/thunar-window.c	2024-12-26 11:23:28.369261258 -0800
-@@ -4247,7 +4247,7 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-window.c	2024-12-30 15:42:25.710092867 -0800
++++ thunar/src/thunar/thunar/thunar-window.c	2024-12-30 15:42:26.580107603 -0800
+@@ -4245,7 +4245,7 @@
    window->menubar_visible = !window->menubar_visible;
  
    gtk_widget_set_visible (window->menubar, window->menubar_visible);
@@ -10,7 +10,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/
  
    g_object_set (G_OBJECT (window->preferences), "last-menubar-visible", window->menubar_visible, NULL);
  
-@@ -6774,7 +6774,7 @@
+@@ -6772,7 +6772,7 @@
    gtk_widget_show_all (window->location_toolbar);
  
    /* only show the menu button when the menubar is hidden */

@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-dialogs.c thunar/src/thunar/thunar/thunar-dialogs.c
---- thunar.ORIG/src/thunar/thunar/thunar-dialogs.c	2024-12-26 11:23:27.672583321 -0800
-+++ thunar/src/thunar/thunar/thunar-dialogs.c	2024-12-26 11:23:27.705917194 -0800
+--- thunar.ORIG/src/thunar/thunar/thunar-dialogs.c	2024-12-30 15:42:25.706759478 -0800
++++ thunar/src/thunar/thunar/thunar-dialogs.c	2024-12-30 15:42:25.713426257 -0800
 @@ -94,7 +94,6 @@
    GdkScreen         *screen;
    GError            *error = NULL;

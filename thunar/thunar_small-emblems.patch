@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-emblem-chooser.c thunar/src/thunar/thunar/thunar-emblem-chooser.c
---- thunar.ORIG/src/thunar/thunar/thunar-emblem-chooser.c	2024-12-26 11:23:27.672583321 -0800
-+++ thunar/src/thunar/thunar/thunar-emblem-chooser.c	2024-12-26 11:23:29.189274523 -0800
+--- thunar.ORIG/src/thunar/thunar/thunar-emblem-chooser.c	2024-12-30 15:42:25.706759478 -0800
++++ thunar/src/thunar/thunar/thunar-emblem-chooser.c	2024-12-30 15:42:27.670126066 -0800
 @@ -555,7 +555,7 @@
  
    /* lookup the icon info for the emblem */
@@ -11,8 +11,8 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-emblem-chooser.c thunar/src/thunar
      return NULL;
  
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-icon-renderer.c thunar/src/thunar/thunar/thunar-icon-renderer.c
---- thunar.ORIG/src/thunar/thunar/thunar-icon-renderer.c	2024-12-26 11:23:27.672583321 -0800
-+++ thunar/src/thunar/thunar/thunar-icon-renderer.c	2024-12-26 11:23:29.189274523 -0800
+--- thunar.ORIG/src/thunar/thunar/thunar-icon-renderer.c	2024-12-30 15:42:25.706759478 -0800
++++ thunar/src/thunar/thunar/thunar-icon-renderer.c	2024-12-30 15:42:27.670126066 -0800
 @@ -644,7 +644,7 @@
            for (lp = emblems, position = 0; lp != NULL && position < MAX_EMBLEMS_PER_FILE; lp = lp->next)
              {

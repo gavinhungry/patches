@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
---- thunar.ORIG/src/thunar/thunar/thunar-window.c	2024-12-26 11:23:27.675916709 -0800
-+++ thunar/src/thunar/thunar/thunar-window.c	2024-12-26 11:23:28.085923342 -0800
+--- thunar.ORIG/src/thunar/thunar/thunar-window.c	2024-12-30 15:42:25.710092867 -0800
++++ thunar/src/thunar/thunar/thunar-window.c	2024-12-30 15:42:26.206767946 -0800
 @@ -3332,7 +3332,7 @@
          window->sidepane = g_object_new (THUNAR_TYPE_SHORTCUTS_PANE, NULL);
        else

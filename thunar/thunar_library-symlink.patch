@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/thunar-file.c
---- thunar.ORIG/src/thunar/thunar/thunar-file.c	2024-12-26 11:23:27.672583321 -0800
-+++ thunar/src/thunar/thunar/thunar-file.c	2024-12-26 11:23:27.982588336 -0800
+--- thunar.ORIG/src/thunar/thunar/thunar-file.c	2024-12-30 15:42:25.706759478 -0800
++++ thunar/src/thunar/thunar/thunar-file.c	2024-12-30 15:42:26.083432524 -0800
 @@ -2639,6 +2639,43 @@
    return g_file_info_get_attribute_boolean (file->info, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK);
  }
@@ -75,8 +75,8 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/th
            && thunar_file_denies_access_permission (file, THUNAR_FILE_MODE_USR_EXEC,
                                                     THUNAR_FILE_MODE_GRP_EXEC,
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.h thunar/src/thunar/thunar/thunar-file.h
---- thunar.ORIG/src/thunar/thunar/thunar-file.h	2024-12-26 11:23:27.672583321 -0800
-+++ thunar/src/thunar/thunar/thunar-file.h	2024-12-26 11:23:27.982588336 -0800
+--- thunar.ORIG/src/thunar/thunar/thunar-file.h	2024-12-30 15:42:25.706759478 -0800
++++ thunar/src/thunar/thunar/thunar-file.h	2024-12-30 15:42:26.083432524 -0800
 @@ -239,6 +239,8 @@
  thunar_file_get_basename (const ThunarFile *file) G_GNUC_CONST;
  gboolean
