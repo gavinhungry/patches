@@ -244,7 +244,7 @@ patchPkg() {
     local PATCHES="$PATCHES_DIR"/$PKG/*.patch
     for PATCH in ${PATCHES[@]}; do
       inform "Applying $(basename $PATCH)"
-      patch -Ns -r - -p0 < "$PATCH" || warn 'Error applying patch'
+      patch -Ns -r - -p0 --no-backup-if-mismatch < "$PATCH" || warn 'Error applying patch'
     done
   fi
 
