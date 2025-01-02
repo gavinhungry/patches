@@ -1,7 +1,7 @@
-diff --color -ru rofi.ORIG/src/rofi-1.7.5/source/view.c rofi/src/rofi-1.7.5/source/view.c
---- rofi.ORIG/src/rofi-1.7.5/source/view.c	2022-07-09 23:36:41.700690658 -0700
-+++ rofi/src/rofi-1.7.5/source/view.c	2022-07-09 23:39:49.901585279 -0700
-@@ -2075,6 +2075,8 @@
+diff -ru rofi.ORIG/src/rofi/source/view.c rofi/src/rofi/source/view.c
+--- rofi.ORIG/src/rofi/source/view.c	2025-01-02 08:36:39.731688284 -0800
++++ rofi/src/rofi/source/view.c	2025-01-02 08:36:39.828356382 -0800
+@@ -2572,6 +2572,8 @@
  }
  
  int rofi_view_error_dialog(const char *msg, int markup) {
