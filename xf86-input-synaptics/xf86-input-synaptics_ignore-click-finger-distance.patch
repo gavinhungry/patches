@@ -1,10 +1,10 @@
-diff --color -ru xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.9.2/src/synaptics.c xf86-input-synaptics/src/xf86-input-synaptics-1.9.2/src/synaptics.c
---- xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.9.2/src/synaptics.c	2022-07-22 20:06:08.477251040 -0700
-+++ xf86-input-synaptics/src/xf86-input-synaptics-1.9.2/src/synaptics.c	2022-07-22 20:08:16.233919682 -0700
-@@ -2642,39 +2642,17 @@
-     BUG_RETURN_VAL(hw->num_mt_mask > sizeof(close_point) * 8, 0);
+diff -ru xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.10.0/src/synaptics.c xf86-input-synaptics/src/xf86-input-synaptics-1.10.0/src/synaptics.c
+--- xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.10.0/src/synaptics.c	2025-01-07 12:35:45.224268590 -0800
++++ xf86-input-synaptics/src/xf86-input-synaptics-1.10.0/src/synaptics.c	2025-01-07 12:35:45.224268590 -0800
+@@ -2636,39 +2636,17 @@
+     }
  
-     for (i = 0; i < hw->num_mt_mask - 1; i++) {
+     for (int i = 0; i < hw->num_mt_mask - 1; i++) {
 -        ValuatorMask *f1;
 -
          if (hw->slot_state[i] == SLOTSTATE_EMPTY ||
@@ -13,7 +13,7 @@ diff --color -ru xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.9.2/src/sy
  
 -        f1 = hw->mt_mask[i];
 -
-         for (j = i + 1; j < hw->num_mt_mask; j++) {
+         for (int j = i + 1; j < hw->num_mt_mask; j++) {
 -            ValuatorMask *f2;
 -            double x1, x2, y1, y2;
 -

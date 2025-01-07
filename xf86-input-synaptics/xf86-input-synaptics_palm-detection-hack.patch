@@ -1,7 +1,7 @@
-diff -ru xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.9.2/src/synaptics.c xf86-input-synaptics/src/xf86-input-synaptics-1.9.2/src/synaptics.c
---- xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.9.2/src/synaptics.c	2016-12-30 23:26:47.010763088 -0800
-+++ xf86-input-synaptics/src/xf86-input-synaptics-1.9.2/src/synaptics.c	2016-12-30 23:28:46.434168310 -0800
-@@ -1796,31 +1796,23 @@
+diff -ru xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.10.0/src/synaptics.c xf86-input-synaptics/src/xf86-input-synaptics-1.10.0/src/synaptics.c
+--- xf86-input-synaptics.ORIG/src/xf86-input-synaptics-1.10.0/src/synaptics.c	2025-01-07 12:35:45.224268590 -0800
++++ xf86-input-synaptics/src/xf86-input-synaptics-1.10.0/src/synaptics.c	2025-01-07 12:35:45.254268652 -0800
+@@ -1793,31 +1793,23 @@
  
      /* palm detection */
  
