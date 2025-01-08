@@ -1,0 +1,23 @@
+diff --color -ru libxfce4ui.ORIG/src/libxfce4ui/libxfce4ui/libxfce4ui-dialog-ui.ui libxfce4ui/src/libxfce4ui/libxfce4ui/libxfce4ui-dialog-ui.ui
+--- libxfce4ui.ORIG/src/libxfce4ui/libxfce4ui/libxfce4ui-dialog-ui.ui	2025-01-08 04:08:17.187485000 -0800
++++ libxfce4ui/src/libxfce4ui/libxfce4ui/libxfce4ui-dialog-ui.ui	2025-01-08 04:19:13.668242189 -0800
+@@ -32,6 +32,7 @@
+           <object class="GtkBox" id="box">
+             <property name="visible">True</property>
+             <property name="can_focus">False</property>
++            <property name="margin_top">6</property>
+             <property name="margin_bottom">0</property>
+             <property name="margin_right">6</property>
+             <property name="halign">GTK_ALIGN_START</property>
+diff --color -ru libxfce4ui.ORIG/src/libxfce4ui/libxfce4ui/xfce-dialogs.c libxfce4ui/src/libxfce4ui/libxfce4ui/xfce-dialogs.c
+--- libxfce4ui.ORIG/src/libxfce4ui/libxfce4ui/xfce-dialogs.c	2025-01-08 04:08:17.187485000 -0800
++++ libxfce4ui/src/libxfce4ui/libxfce4ui/xfce-dialogs.c	2025-01-08 04:19:15.871611634 -0800
+@@ -604,7 +604,7 @@
+   dialog = GTK_WIDGET (gtk_builder_get_object (gxml, "xfce4ui-dialog"));
+   label_box = GTK_WIDGET (gtk_builder_get_object (gxml, "label-box"));
+   dialog_image = GTK_WIDGET (gtk_builder_get_object (gxml, "icon_stock_id"));
+-  gtk_window_set_default_size (GTK_WINDOW (dialog), 500, -1);
++  gtk_window_set_default_size (GTK_WINDOW (dialog), 350, -1);
+ 
+   /* Remove the original message area of the GtkMessageDialog as we add our own */
+   content_area = GTK_WIDGET (gtk_dialog_get_content_area (GTK_DIALOG (dialog)));
