@@ -1,0 +1,22 @@
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/actions/actions.c xfce4-panel/src/xfce4-panel/plugins/actions/actions.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/actions/actions.c	2025-01-08 04:31:24.470098748 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/actions/actions.c	2025-01-08 04:32:26.737768850 -0800
+@@ -855,6 +855,7 @@
+   ActionTimeout *timeout;
+   guint timeout_id;
+   gchar *initial_label_text;
++  GtkWidget *button;
+ 
+   panel_return_val_if_fail (entry->question != NULL, FALSE);
+   panel_return_val_if_fail (entry->status != NULL, FALSE);
+@@ -874,6 +875,10 @@
+   gtk_window_stick (GTK_WINDOW (dialog));
+   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
+ 
++  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
++  button = gtk_dialog_get_widget_for_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
++  gtk_widget_grab_focus (button);
++
+   timeout = g_slice_new0 (ActionTimeout);
+   timeout->entry = entry;
+   timeout->dialog = dialog;
