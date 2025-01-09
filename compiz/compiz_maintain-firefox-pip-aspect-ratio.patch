@@ -1,0 +1,107 @@
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/include/resize-logic.h compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/include/resize-logic.h
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/include/resize-logic.h	2025-01-09 15:19:23.510598927 -0800
++++ compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/include/resize-logic.h	2025-01-09 15:33:07.380487088 -0800
+@@ -98,6 +98,9 @@
+ 	XRectangle		    savedGeometry;
+ 	XRectangle		    geometry;
+ 
++	CompString		    windowClass;
++	CompString		    windowRole;
++
+         /* geometry without the vertical maximization.
+            Its value is undefined when maximized_vertically == false */
+ 	XRectangle  geometryWithoutVertMax;
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp	2025-01-09 15:19:23.510598927 -0800
++++ compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp	2025-01-09 15:36:17.496886846 -0800
+@@ -61,6 +61,18 @@
+ 
+ using namespace resize;
+ 
++/* common video aspect ratios */
++static constexpr float ASPECT_RATIOS[] =
++{
++    (float)16 / 9,
++    (float)4  / 3,
++    (float)21 / 9,
++    (float)43 / 18,
++    (float)2  / 1,
++    (float)1  / 1,
++    (float)9  / 16
++};
++
+ ResizeLogic::ResizeLogic() :
+     mScreen (NULL),
+     w (NULL),
+@@ -477,6 +489,36 @@
+ 	else if (mask & ResizeDownMask || lastMaskY & ResizeDownMask)
+ 	    he += pointerDy;
+ 
++	if (windowClass == "firefox" && windowRole == "PictureInPicture")
++	{
++	    float aspectRatio = (float)savedGeometry.width / savedGeometry.height;
++	    float closestAspectRatio = ASPECT_RATIOS[0];
++
++	    /* find closest matching aspect ratio to the current aspect ratio */
++	    for (float _aspectRatio : ASPECT_RATIOS)
++	    {
++		float prev  = std::abs(aspectRatio - closestAspectRatio);
++		float delta = std::abs(aspectRatio - _aspectRatio);
++
++		if (delta < prev)
++		{
++		    closestAspectRatio = _aspectRatio;
++		}
++	    }
++
++	    /*
++	     * Only force the aspect ratio when a corner resize is in progress.
++	     * This allow for manual adjustment (and forcing a different aspect
++	     * ratio) when needed by resizing in one direction only.
++	     */
++	    if ((mask & (ResizeLeftMask | ResizeRightMask)) &&
++	        (mask & (ResizeUpMask | ResizeDownMask)))
++	    {
++		he = wi / closestAspectRatio;
++		/* wi = he * closestAspectRatio; */
++	    }
++	}
++
+ 	if (w->state () & CompWindowStateMaximizedVertMask)
+ 	    he = w->serverGeometry ().height ();
+ 
+@@ -1297,6 +1339,34 @@
+ 
+ 	this->w		= w;
+ 
++	XClassHint classHint;
++	XGetClassHint (mScreen->dpy (), w->id (), &classHint);
++
++	if (classHint.res_class != NULL)
++	{
++	    windowClass = CompString (reinterpret_cast<char*> (classHint.res_class));
++	    XFree (classHint.res_class);
++	    XFree (classHint.res_name);
++	}
++	else
++	{
++	    windowClass = CompString ("");
++	}
++
++	XTextProperty role;
++	XGetTextProperty (mScreen->dpy (), w->id (), &role,
++	  XInternAtom (mScreen->dpy (), "WM_WINDOW_ROLE", True));
++
++	if (role.value != NULL)
++	{
++	    windowRole = CompString (reinterpret_cast<char*> (role.value));
++	    XFree(role.value);
++	}
++	else
++	{
++	    windowRole = CompString ("");
++	}
++
+ 	savedGeometry.x		= server.x ();
+ 	savedGeometry.y		= server.y ();
+ 	savedGeometry.width	= server.width ();
