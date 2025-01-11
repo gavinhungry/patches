@@ -1,7 +1,7 @@
-diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
---- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:01:20.249405437 -0800
-+++ clipit/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:59:40.223760725 -0800
-@@ -987,19 +987,8 @@
+diff -ru clipit-git.ORIG/src/clipit/src/main.c clipit-git/src/clipit/src/main.c
+--- clipit-git.ORIG/src/clipit/src/main.c	2025-01-11 01:24:05.286958754 -0800
++++ clipit-git/src/clipit/src/main.c	2025-01-11 01:24:05.320292646 -0800
+@@ -983,19 +983,8 @@
  /* Called when status icon is clicked */
  /* (checks type of click and calls correct function) */
  static void status_icon_clicked(GtkStatusIcon *status_icon, GdkEventButton *event ) {

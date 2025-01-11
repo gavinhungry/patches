@@ -1,7 +1,7 @@
-diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
---- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:01:20.249405437 -0800
-+++ clipit/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:25:47.074490009 -0800
-@@ -548,8 +548,8 @@
+diff -ru clipit-git.ORIG/src/clipit/src/main.c clipit-git/src/clipit/src/main.c
+--- clipit-git.ORIG/src/clipit/src/main.c	2025-01-11 01:24:05.286958754 -0800
++++ clipit-git/src/clipit/src/main.c	2025-01-11 01:24:05.403627377 -0800
+@@ -549,8 +549,8 @@
    }
    /* -------------------- */
    gtk_menu_shell_append((GtkMenuShell*)menu, gtk_separator_menu_item_new());
@@ -12,7 +12,7 @@ diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5
    gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
    g_signal_connect((GObject*)menu_item, "activate",
                     (GCallback)remove_all_selected, NULL);
-@@ -881,8 +881,8 @@
+@@ -877,8 +877,8 @@
  		gtk_widget_set_sensitive(item_label, FALSE);
  		gtk_menu_shell_append((GtkMenuShell*)history_menu, menu_item);
  	}

@@ -1,7 +1,7 @@
-diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
---- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-11-29 06:40:29.831512200 -0800
-+++ clipit/src/ClipIt-1.4.5/src/main.c	2023-11-29 06:45:39.096334188 -0800
-@@ -561,7 +561,7 @@
+diff -ru clipit-git.ORIG/src/clipit/src/main.c clipit-git/src/clipit/src/main.c
+--- clipit-git.ORIG/src/clipit/src/main.c	2025-01-11 01:24:05.286958754 -0800
++++ clipit-git/src/clipit/src/main.c	2025-01-11 01:24:05.290292144 -0800
+@@ -562,7 +562,7 @@
    gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
    /* Popup the menu... */
    gtk_widget_show_all(menu);
@@ -10,7 +10,7 @@ diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5
    /* Return false so the g_timeout_add() function is called only once */
    return FALSE;
  }
-@@ -898,8 +898,7 @@
+@@ -894,8 +894,7 @@
    g_signal_connect((GObject*)menu, "selection-done", (GCallback)gtk_widget_destroy, NULL);
    /* Popup the menu... */
    gtk_widget_show_all(menu);
@@ -20,7 +20,7 @@ diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5
    /* Return FALSE so the g_timeout_add() function is called only once */
    return FALSE;
  }
-@@ -979,7 +978,6 @@
+@@ -975,7 +974,6 @@
  	/* GENERATE THE MENU*/
  	gtk_widget_set_visible(statusicon_menu, TRUE);
  	gtk_menu_popup((GtkMenu*)statusicon_menu, NULL, NULL, gtk_status_icon_position_menu, status_icon, 1, gtk_get_current_event_time());

@@ -1,7 +1,7 @@
-diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
---- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:01:20.249405437 -0800
-+++ clipit/src/ClipIt-1.4.5/src/main.c	2023-11-29 06:07:34.140394438 -0800
-@@ -624,6 +624,8 @@
+diff -ru clipit-git.ORIG/src/clipit/src/main.c clipit-git/src/clipit/src/main.c
+--- clipit-git.ORIG/src/clipit/src/main.c	2025-01-11 01:24:05.286958754 -0800
++++ clipit-git/src/clipit/src/main.c	2025-01-11 01:24:05.303625700 -0800
+@@ -623,6 +623,8 @@
   * underlined and non matching entries greyed out.
  */
  gboolean selected_by_input(const GtkWidget *history_menu, const GdkEventKey *event) {
@@ -10,7 +10,7 @@ diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5
    if (event->keyval == GDK_KEY_Delete || event->keyval == GDK_KEY_BackSpace) {
      remove_from_input_buffer();
    } else if (event->keyval == GDK_KEY_KP_Enter || event->keyval == GDK_KEY_Return || event->keyval == GDK_KEY_Escape) {
-@@ -638,6 +640,10 @@
+@@ -637,6 +639,10 @@
    if (isprint(*event->string))
      append_to_input_buffer(event->string);
  
@@ -19,5 +19,5 @@ diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5
 +  }
 +
    GtkMenuShell* menu = (GtkMenuShell *) history_menu;
-   GList* element = gtk_container_get_children(menu);
+   GList* element = gtk_container_get_children(GTK_CONTAINER (menu));
    GtkMenuItem *menu_item, *first_match = 0;

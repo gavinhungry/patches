@@ -1,16 +1,15 @@
-diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
---- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:01:20.249405437 -0800
-+++ clipit/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:22:05.274559226 -0800
-@@ -598,27 +598,6 @@
+diff --color -ru clipit-git.ORIG/src/clipit/src/main.c clipit-git/src/clipit/src/main.c
+--- clipit-git.ORIG/src/clipit/src/main.c	2025-01-11 01:31:58.104794979 -0800
++++ clipit-git/src/clipit/src/main.c	2025-01-11 01:32:34.645395124 -0800
+@@ -598,26 +598,6 @@
+   return handled;
  }
  
- 
+-
 -/* Draw an underline under the matched portion of text.
 - * match should be a pointer to the first character of the matched text.
 - */
 -void underline_match(char* match, GtkMenuItem* menu_item, const gchar* menu_label) {
--  if (!match)
--    return;
 -
 -  int start = match - menu_label;
 -  int end = start + strlen(input_buffer);
@@ -23,17 +22,17 @@ diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5
 -  pango_attr_list_insert (attr_list, underline);
 -
 -  GtkWidget* gtk_label = gtk_bin_get_child (GTK_BIN (menu_item));
--  gtk_label_set_attributes (gtk_label, attr_list);
+-  gtk_label_set_attributes (GTK_LABEL (gtk_label), attr_list);
 -}
 -
  /*
   * As the user types, attempt to match input with the values in the menu. The matched text will be
   * underlined and non matching entries greyed out.
-@@ -657,7 +636,6 @@
+@@ -656,7 +636,6 @@
        if (!first_match)
          first_match = menu_item;
        match_count++;
 -      underline_match(match, menu_item, menu_label);
-       gtk_widget_set_sensitive(menu_item, true);
+       gtk_widget_set_sensitive(GTK_WIDGET (menu_item), true);
      } else {
-       gtk_widget_set_sensitive(menu_item, false);
+       gtk_widget_set_sensitive(GTK_WIDGET (menu_item), false);

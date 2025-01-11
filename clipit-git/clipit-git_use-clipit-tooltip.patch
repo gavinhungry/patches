@@ -1,8 +1,7 @@
-Only in clipit: clipit.ORIG
-diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
---- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-12-13 14:42:54.594122398 -0800
-+++ clipit/src/ClipIt-1.4.5/src/main.c	2023-12-13 14:43:30.394675382 -0800
-@@ -1074,7 +1074,7 @@
+diff -ru clipit-git.ORIG/src/clipit/src/main.c clipit-git/src/clipit/src/main.c
+--- clipit-git.ORIG/src/clipit/src/main.c	2025-01-11 01:24:05.286958754 -0800
++++ clipit-git/src/clipit/src/main.c	2025-01-11 01:24:05.433627880 -0800
+@@ -1070,7 +1070,7 @@
  	create_app_indicator(1);
  #else
  	status_icon = gtk_status_icon_new_from_icon_name(ICON);

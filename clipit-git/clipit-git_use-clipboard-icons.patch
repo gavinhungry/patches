@@ -1,0 +1,14 @@
+diff -ru clipit-git.ORIG/src/clipit/src/main.c clipit-git/src/clipit/src/main.c
+--- clipit-git.ORIG/src/clipit/src/main.c	2025-01-11 01:24:05.286958754 -0800
++++ clipit-git/src/clipit/src/main.c	2025-01-11 01:24:05.420294324 -0800
+@@ -48,8 +48,8 @@
+ #include <string.h>
+ #include <sys/stat.h>
+ 
+-#define ICON "clipit-trayicon"
+-#define ICON_OFFLINE "clipit-trayicon-offline"
++#define ICON "clipboard"
++#define ICON_OFFLINE "clipboard-disabled"
+ 
+ static gchar* primary_text;
+ static gchar* clipboard_text;

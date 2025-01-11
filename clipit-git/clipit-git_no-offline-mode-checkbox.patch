@@ -1,7 +1,7 @@
-diff --color -ru clipit.ORIG/src/ClipIt-1.4.5/src/main.c clipit/src/ClipIt-1.4.5/src/main.c
---- clipit.ORIG/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:01:20.249405437 -0800
-+++ clipit/src/ClipIt-1.4.5/src/main.c	2023-11-29 05:52:43.734366169 -0800
-@@ -920,11 +920,6 @@
+diff -ru clipit-git.ORIG/src/clipit/src/main.c clipit-git/src/clipit/src/main.c
+--- clipit-git.ORIG/src/clipit/src/main.c	2025-01-11 01:24:05.286958754 -0800
++++ clipit-git/src/clipit/src/main.c	2025-01-11 01:24:05.360293318 -0800
+@@ -916,11 +916,6 @@
  	 * - use_rmb_menu is active and menu_type is right-click, OR
  	 * - use_rmb_menu is inactive and menu_type is left-click */
  	if ((prefs.use_rmb_menu && (menu_type == 3)) || (!prefs.use_rmb_menu) || (menu_type == 2)) {

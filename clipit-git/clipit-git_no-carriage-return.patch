@@ -1,0 +1,12 @@
+diff -ru clipit-git.ORIG/src/clipit/src/utils.c clipit-git/src/clipit/src/utils.c
+--- clipit-git.ORIG/src/clipit/src/utils.c	2025-01-11 01:24:05.286958754 -0800
++++ clipit-git/src/clipit/src/utils.c	2025-01-11 01:24:05.333626204 -0800
+@@ -105,7 +105,7 @@
+ 	int i = 0;
+ 	while (i < string->len)
+ 	{
+-		if (string->str[i] == '\n')
++		if (string->str[i] == '\n' || string->str[i] == '\r')
+ 		g_string_overwrite(string, i, " ");
+ 		i++;
+ 	}
