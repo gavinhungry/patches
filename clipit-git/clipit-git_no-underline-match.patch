@@ -1,6 +1,6 @@
 diff --color -ru clipit-git.ORIG/src/clipit/src/main.c clipit-git/src/clipit/src/main.c
---- clipit-git.ORIG/src/clipit/src/main.c	2025-01-11 01:31:58.104794979 -0800
-+++ clipit-git/src/clipit/src/main.c	2025-01-11 01:32:34.645395124 -0800
+--- clipit-git.ORIG/src/clipit/src/main.c	2025-01-11 01:43:04.067353029 -0800
++++ clipit-git/src/clipit/src/main.c	2025-01-11 01:43:57.288071776 -0800
 @@ -598,26 +598,6 @@
    return handled;
  }
@@ -22,7 +22,7 @@ diff --color -ru clipit-git.ORIG/src/clipit/src/main.c clipit-git/src/clipit/src
 -  pango_attr_list_insert (attr_list, underline);
 -
 -  GtkWidget* gtk_label = gtk_bin_get_child (GTK_BIN (menu_item));
--  gtk_label_set_attributes (GTK_LABEL (gtk_label), attr_list);
+-  gtk_label_set_attributes (gtk_label, attr_list);
 -}
 -
  /*
@@ -33,6 +33,6 @@ diff --color -ru clipit-git.ORIG/src/clipit/src/main.c clipit-git/src/clipit/src
          first_match = menu_item;
        match_count++;
 -      underline_match(match, menu_item, menu_label);
-       gtk_widget_set_sensitive(GTK_WIDGET (menu_item), true);
+       gtk_widget_set_sensitive(menu_item, true);
      } else {
-       gtk_widget_set_sensitive(GTK_WIDGET (menu_item), false);
+       gtk_widget_set_sensitive(menu_item, false);
