@@ -1,6 +1,6 @@
-diff --color -ru bash-completion.ORIG/src/bash-completion-2.15.0/completions/aclocal bash-completion/src/bash-completion-2.15.0/completions/aclocal
---- bash-completion.ORIG/src/bash-completion-2.15.0/completions/aclocal	2024-11-25 12:52:41.392829486 -0800
-+++ bash-completion/src/bash-completion-2.15.0/completions/aclocal	2024-11-25 12:52:57.353168669 -0800
+diff --color -ru bash-completion.ORIG/src/bash-completion-2.16.0/completions/aclocal bash-completion/src/bash-completion-2.16.0/completions/aclocal
+--- bash-completion.ORIG/src/bash-completion-2.16.0/completions/aclocal	2024-11-25 12:52:41.392829486 -0800
++++ bash-completion/src/bash-completion-2.16.0/completions/aclocal	2024-11-25 12:52:57.353168669 -0800
 @@ -30,6 +30,6 @@
      _comp_compgen_help
      [[ ${COMPREPLY-} == *= ]] && compopt -o nospace
@@ -9,9 +9,9 @@ diff --color -ru bash-completion.ORIG/src/bash-completion-2.15.0/completions/acl
 +    complete -F _comp_cmd_aclocal aclocal aclocal-1.1{0..7}
  
  # ex: filetype=sh
-diff --color -ru bash-completion.ORIG/src/bash-completion-2.15.0/completions/automake bash-completion/src/bash-completion-2.15.0/completions/automake
---- bash-completion.ORIG/src/bash-completion-2.15.0/completions/automake	2024-11-25 12:52:41.392829486 -0800
-+++ bash-completion/src/bash-completion-2.15.0/completions/automake	2024-11-25 12:52:57.353168669 -0800
+diff --color -ru bash-completion.ORIG/src/bash-completion-2.16.0/completions/automake bash-completion/src/bash-completion-2.16.0/completions/automake
+--- bash-completion.ORIG/src/bash-completion-2.16.0/completions/automake	2024-11-25 12:52:41.392829486 -0800
++++ bash-completion/src/bash-completion-2.16.0/completions/automake	2024-11-25 12:52:57.353168669 -0800
 @@ -31,6 +31,6 @@
  
      _comp_compgen_filedir
@@ -20,9 +20,9 @@ diff --color -ru bash-completion.ORIG/src/bash-completion-2.15.0/completions/aut
 +    complete -F _comp_cmd_automake automake automake-1.1{0..7}
  
  # ex: filetype=sh
-diff --color -ru bash-completion.ORIG/src/bash-completion-2.15.0/completions/Makefile.am bash-completion/src/bash-completion-2.15.0/completions/Makefile.am
---- bash-completion.ORIG/src/bash-completion-2.15.0/completions/Makefile.am	2024-11-25 12:52:41.392829486 -0800
-+++ bash-completion/src/bash-completion-2.15.0/completions/Makefile.am	2024-11-25 12:52:57.353168669 -0800
+diff --color -ru bash-completion.ORIG/src/bash-completion-2.16.0/completions/Makefile.am bash-completion/src/bash-completion-2.16.0/completions/Makefile.am
+--- bash-completion.ORIG/src/bash-completion-2.16.0/completions/Makefile.am	2024-11-25 12:52:41.392829486 -0800
++++ bash-completion/src/bash-completion-2.16.0/completions/Makefile.am	2024-11-25 12:52:57.353168669 -0800
 @@ -516,6 +516,7 @@
  	aclocal-1.14 \
  	aclocal-1.15 \
@@ -57,9 +57,9 @@ diff --color -ru bash-completion.ORIG/src/bash-completion-2.15.0/completions/Mak
  	$(ss) autoreconf \
  		autoheader
  	$(ss) autoscan \
-diff --color -ru bash-completion.ORIG/src/bash-completion-2.15.0/configure bash-completion/src/bash-completion-2.15.0/configure
---- bash-completion.ORIG/src/bash-completion-2.15.0/configure	2024-11-25 12:52:41.396162890 -0800
-+++ bash-completion/src/bash-completion-2.15.0/configure	2024-11-25 12:54:25.001703887 -0800
+diff --color -ru bash-completion.ORIG/src/bash-completion-2.16.0/configure bash-completion/src/bash-completion-2.16.0/configure
+--- bash-completion.ORIG/src/bash-completion-2.16.0/configure	2024-11-25 12:52:41.396162890 -0800
++++ bash-completion/src/bash-completion-2.16.0/configure	2024-11-25 12:54:25.001703887 -0800
 @@ -1865,7 +1865,7 @@
  ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
  ac_compiler_gnu=$ac_cv_c_compiler_gnu
