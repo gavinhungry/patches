@@ -1,0 +1,74 @@
+diff --color -ru libwnck3.ORIG/src/libwnck/libwnck/window.c libwnck3/src/libwnck/libwnck/window.c
+--- libwnck3.ORIG/src/libwnck/libwnck/window.c	2025-01-17 13:09:03.126174631 -0800
++++ libwnck3/src/libwnck/libwnck/window.c	2025-01-17 14:16:33.555468388 -0800
+@@ -2843,6 +2843,70 @@
+   new_name = _wnck_get_name (WNCK_SCREEN_XSCREEN (window->priv->screen),
+                              window->priv->xwindow);
+
++  if (new_name) {
++    GString *cleaned_name = g_string_new(NULL);
++    const char *read = new_name;
++    gboolean previous_was_space = FALSE;
++
++    while (*read) {
++      unsigned char c = (unsigned char)*read;
++      int char_length;
++
++      if (c < 0x80) {
++          char_length = 1;
++      } else if ((c & 0xE0) == 0xC0) {
++          char_length = 2;
++      } else if ((c & 0xF0) == 0xE0) {
++          char_length = 3;
++      } else if ((c & 0xF8) == 0xF0) {
++          char_length = 4;
++      } else {
++          char_length = 1;
++      }
++
++      gboolean is_emoji = FALSE;
++      if (char_length == 4) {
++        unsigned int codepoint =
++            ((read[0] & 0x07) << 18) |
++            ((read[1] & 0x3F) << 12) |
++            ((read[2] & 0x3F) << 6) |
++             (read[3] & 0x3F);
++
++        is_emoji =
++            (codepoint >= 0x1F600 && codepoint <= 0x1F64F) ||
++            (codepoint >= 0x1F300 && codepoint <= 0x1F5FF) ||
++            (codepoint >= 0x1F680 && codepoint <= 0x1F6FF) ||
++            (codepoint >= 0x1F900 && codepoint <= 0x1F9FF) ||
++            (codepoint >= 0x1FA70 && codepoint <= 0x1FAFF);
++      }
++
++      if (is_emoji) {
++        read += char_length;
++        previous_was_space = TRUE;
++      } else {
++        if (*read == ' ') {
++          if (!previous_was_space) {
++            g_string_append_c(cleaned_name, *read);
++          }
++
++          previous_was_space = TRUE;
++        } else {
++          g_string_append_len(cleaned_name, read, char_length);
++          previous_was_space = FALSE;
++        }
++
++        read += char_length;
++      }
++    }
++
++    if (cleaned_name->len > 0 && cleaned_name->str[cleaned_name->len - 1] == ' ') {
++      g_string_truncate(cleaned_name, cleaned_name->len - 1);
++    }
++
++    g_free(new_name);
++    new_name = g_string_free(cleaned_name, FALSE);
++  }
++
+   if (g_strcmp0 (window->priv->name, new_name) != 0)
+     window->priv->need_emit_name_changed = TRUE;
+
