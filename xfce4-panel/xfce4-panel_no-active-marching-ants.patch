@@ -1,0 +1,23 @@
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/panel/panel-base-window.c xfce4-panel/src/xfce4-panel/panel/panel-base-window.c
+--- xfce4-panel.ORIG/src/xfce4-panel/panel/panel-base-window.c	2025-01-30 13:32:47.233161571 -0800
++++ xfce4-panel/src/xfce4-panel/panel/panel-base-window.c	2025-01-30 13:41:30.580627214 -0800
+@@ -439,18 +439,7 @@
+       break;
+ 
+     case PROP_ACTIVE:
+-      if (g_value_get_boolean (value))
+-        {
+-          if (priv->active_timeout_id == 0)
+-            {
+-              /* start timeout for the marching ants selection */
+-              priv->active_timeout_id = gdk_threads_add_timeout_seconds_full (
+-                G_PRIORITY_DEFAULT_IDLE, 1,
+-                panel_base_window_active_timeout, object,
+-                panel_base_window_active_timeout_destroyed);
+-            }
+-        }
+-      else if (priv->active_timeout_id != 0)
++      if (priv->active_timeout_id != 0)
+         {
+           /* stop timeout */
+           g_source_remove (priv->active_timeout_id);
