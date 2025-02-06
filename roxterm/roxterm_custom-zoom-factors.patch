@@ -1,0 +1,35 @@
+diff --color -ru roxterm.ORIG/src/roxterm-3.15.0/src/multitab.c roxterm/src/roxterm-3.15.0/src/multitab.c
+--- roxterm.ORIG/src/roxterm-3.15.0/src/multitab.c	2025-02-06 12:51:16.150140331 -0800
++++ roxterm/src/roxterm-3.15.0/src/multitab.c	2025-02-06 13:07:09.144733884 -0800
+@@ -106,24 +106,18 @@
+ };
+ 
+ static double multi_win_zoom_factors[] = {
+-    PANGO_SCALE_XX_SMALL / (1.2 *1.2 * 1.2 * 1.2),
+-    PANGO_SCALE_XX_SMALL / (1.2 * 1.2 * 1.2),
+-    PANGO_SCALE_XX_SMALL / (1.2 * 1.2),
+-    PANGO_SCALE_XX_SMALL / 1.2,
+-    PANGO_SCALE_XX_SMALL,
++    PANGO_SCALE_XX_SMALL / 1.5 / 1.5,
++    PANGO_SCALE_XX_SMALL / 1.5,
+     PANGO_SCALE_X_SMALL,
+-    PANGO_SCALE_SMALL,
+     PANGO_SCALE_MEDIUM,
+-    PANGO_SCALE_LARGE,
+     PANGO_SCALE_X_LARGE,
+     PANGO_SCALE_XX_LARGE,
+-    PANGO_SCALE_XX_LARGE * 1.2,
+-    PANGO_SCALE_XX_LARGE * 1.2 * 1.2,
+-    PANGO_SCALE_XX_LARGE * 1.2 * 1.2 * 1.2,
+-    PANGO_SCALE_XX_LARGE * 1.2 * 1.2 * 1.2 * 1.2
++    PANGO_SCALE_XX_LARGE * 1.5,
++    PANGO_SCALE_XX_LARGE * 1.5 * 1.5,
++    PANGO_SCALE_XX_LARGE * 1.5 * 1.5 * 1.5
+ };
+-#define MULTI_WIN_NORMAL_ZOOM_INDEX 7
+-#define MULTI_WIN_N_ZOOM_FACTORS 15
++#define MULTI_WIN_NORMAL_ZOOM_INDEX 3
++#define MULTI_WIN_N_ZOOM_FACTORS 9
+ 
+ static char *multi_win_role_prefix = NULL;
+ static int multi_win_role_index = 0;
