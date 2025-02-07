@@ -1,6 +1,6 @@
-diff -ru pacman.ORIG/src/pacman/lib/libalpm/sync.c pacman/src/pacman/lib/libalpm/sync.c
---- pacman.ORIG/src/pacman/lib/libalpm/sync.c	2024-09-15 14:54:14.016061156 -0700
-+++ pacman/src/pacman/lib/libalpm/sync.c	2024-09-15 14:54:14.036061472 -0700
+diff --color -ru pacman.ORIG/src/pacman/lib/libalpm/sync.c pacman/src/pacman/lib/libalpm/sync.c
+--- pacman.ORIG/src/pacman/lib/libalpm/sync.c	2025-02-07 12:04:33.724647129 -0800
++++ pacman/src/pacman/lib/libalpm/sync.c	2025-02-07 12:05:53.109349910 -0800
 @@ -93,8 +93,6 @@
  		/* check IgnorePkg/IgnoreGroup */
  		if(alpm_pkg_should_ignore(handle, spkg)
@@ -20,3 +20,13 @@ diff -ru pacman.ORIG/src/pacman/lib/libalpm/sync.c pacman/src/pacman/lib/libalpm
  		}
  	}
  	return 0;
+@@ -154,9 +149,6 @@
+ 			/* check IgnorePkg/IgnoreGroup */
+ 			if(alpm_pkg_should_ignore(handle, spkg)
+ 					|| alpm_pkg_should_ignore(handle, lpkg)) {
+-				_alpm_log(handle, ALPM_LOG_WARNING,
+-						_("ignoring package replacement (%s-%s => %s-%s)\n"),
+-						lpkg->name, lpkg->version, spkg->name, spkg->version);
+ 				continue;
+ 			}
+ 
