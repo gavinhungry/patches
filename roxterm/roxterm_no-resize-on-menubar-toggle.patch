@@ -1,6 +1,6 @@
-diff --color -ru roxterm.ORIG/src/roxterm-3.15.0/src/multitab.c roxterm/src/roxterm-3.15.0/src/multitab.c
---- roxterm.ORIG/src/roxterm-3.15.0/src/multitab.c	2023-01-19 12:58:04.222979132 -0800
-+++ roxterm/src/roxterm-3.15.0/src/multitab.c	2023-01-19 13:02:47.545901724 -0800
+diff --color -ru roxterm.ORIG/src/roxterm-3.15.3/src/multitab.c roxterm/src/roxterm-3.15.3/src/multitab.c
+--- roxterm.ORIG/src/roxterm-3.15.3/src/multitab.c	2023-01-19 12:58:04.222979132 -0800
++++ roxterm/src/roxterm-3.15.3/src/multitab.c	2023-01-19 13:02:47.545901724 -0800
 @@ -197,6 +197,7 @@
   */
  static void multi_win_request_size_restore(MultiWin *win)
