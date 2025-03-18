@@ -1,6 +1,6 @@
-diff -ru thunar.ORIG/src/thunar/thunar/thunar-device.c thunar/src/thunar/thunar/thunar-device.c
---- thunar.ORIG/src/thunar/thunar/thunar-device.c	2024-12-30 15:42:25.706759478 -0800
-+++ thunar/src/thunar/thunar/thunar-device.c	2024-12-30 15:42:27.436788780 -0800
+diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-device.c thunar/src/thunar/thunar/thunar-device.c
+--- thunar.ORIG/src/thunar/thunar/thunar-device.c	2025-03-18 13:57:57.702779479 -0700
++++ thunar/src/thunar/thunar/thunar-device.c	2025-03-18 14:01:35.139710847 -0700
 @@ -696,9 +696,27 @@
    gchar *name2;
    gint   result;
@@ -38,9 +38,9 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-device.c thunar/src/thunar/thunar/
  
    g_free (name1);
    g_free (name2);
-diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c thunar/src/thunar/thunar/thunar-shortcuts-model.c
---- thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c	2024-12-30 15:42:25.710092867 -0800
-+++ thunar/src/thunar/thunar/thunar-shortcuts-model.c	2024-12-30 15:42:27.436788780 -0800
+diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c thunar/src/thunar/thunar/thunar-shortcuts-model.c
+--- thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c	2025-03-18 13:57:57.704779511 -0700
++++ thunar/src/thunar/thunar/thunar-shortcuts-model.c	2025-03-18 14:02:37.855881574 -0700
 @@ -1077,7 +1077,7 @@
        shortcut->name = g_strdup (_("Browse Network"));
        shortcut->tooltip = g_strdup (_("Browse local network connections"));
@@ -79,7 +79,22 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c thunar/src/thuna
  }
  
  
-@@ -1554,6 +1541,8 @@
+@@ -1251,10 +1238,13 @@
+   if (a->sort_id != b->sort_id)
+     return a->sort_id > b->sort_id ? 1 : -1;
+ 
++  if (a->name != NULL && b->name != NULL)
++    return g_strcmp0 (a->name, b->name);
++
+   if (a->device != NULL && b->device != NULL)
+     return thunar_device_compare_by_name (a->device, b->device);
+ 
+-  return g_strcmp0 (a->name, b->name);
++  return 0;
+ }
+ 
+ 
+@@ -1554,6 +1544,8 @@
  {
    ThunarShortcut *shortcut;
    GFile          *mount_point;
@@ -88,24 +103,28 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.c thunar/src/thuna
  
    _thunar_return_if_fail (device_monitor == NULL || THUNAR_DEVICE_MONITOR (device_monitor));
    _thunar_return_if_fail (device_monitor == NULL || model->device_monitor == device_monitor);
-@@ -1587,6 +1576,14 @@
+@@ -1587,6 +1579,18 @@
        break;
      }
  
++  if (shortcut->name == NULL) {
++    shortcut->name = thunar_device_get_name (device);
++  }
++
 +  icon = thunar_device_get_icon (device, FALSE);
 +  icon_names = g_themed_icon_get_names (G_THEMED_ICON (icon));
 +  if (G_LIKELY (icon_names != NULL))
 +    {
-+      if (g_strcmp0 (icon_names[0], "folder-remote") == 0)
++      if (g_str_has_prefix (icon_names[0], "folder-remote"))
 +        shortcut->group = THUNAR_SHORTCUT_GROUP_NETWORK_MOUNTS;
 +    }
 +
    /* insert in the model */
    thunar_shortcuts_model_add_shortcut (model, shortcut);
  
-diff -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.h thunar/src/thunar/thunar/thunar-shortcuts-model.h
---- thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.h	2024-12-30 15:42:25.710092867 -0800
-+++ thunar/src/thunar/thunar/thunar-shortcuts-model.h	2024-12-30 15:42:27.436788780 -0800
+diff --color -ru thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.h thunar/src/thunar/thunar/thunar-shortcuts-model.h
+--- thunar.ORIG/src/thunar/thunar/thunar-shortcuts-model.h	2025-03-18 13:57:57.704779511 -0700
++++ thunar/src/thunar/thunar/thunar-shortcuts-model.h	2025-03-18 14:01:32.229314212 -0700
 @@ -64,8 +64,7 @@
                                        | THUNAR_SHORTCUT_GROUP_PLACES_DEFAULT \
                                        | THUNAR_SHORTCUT_GROUP_PLACES_TRASH \
