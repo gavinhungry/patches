@@ -1,0 +1,72 @@
+diff --color -ru xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin/panel-plugin/config_gui.c xfce4-genmon-plugin/src/xfce4-genmon-plugin/panel-plugin/config_gui.c
+--- xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin/panel-plugin/config_gui.c	2025-03-19 10:35:58.521979188 -0700
++++ xfce4-genmon-plugin/src/xfce4-genmon-plugin/panel-plugin/config_gui.c	2025-03-19 10:37:07.853835756 -0700
+@@ -122,8 +122,8 @@
+     gtk_widget_set_halign(GTK_WIDGET(eventbox1), GTK_ALIGN_START);
+     gtk_widget_set_hexpand(GTK_WIDGET(eventbox1), TRUE);
+ 
+-    wSc_Period_adj = gtk_adjustment_new (15, .25, 60*60*24, .25, 1, 0);
+-    wSc_Period = gtk_spin_button_new (GTK_ADJUSTMENT (wSc_Period_adj), .25, 2);
++    wSc_Period_adj = gtk_adjustment_new (15, .01, 60*60*24, .05, 1, 0);
++    wSc_Period = gtk_spin_button_new (GTK_ADJUSTMENT (wSc_Period_adj), .05, 2);
+     gtk_widget_show (wSc_Period);
+     gtk_container_add (GTK_CONTAINER (eventbox1), wSc_Period);
+     gtk_widget_set_tooltip_text (wSc_Period, _("Interval between 2 consecutive spawns"));
+diff --color -ru xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin/panel-plugin/main.c xfce4-genmon-plugin/src/xfce4-genmon-plugin/panel-plugin/main.c
+--- xfce4-genmon-plugin.ORIG/src/xfce4-genmon-plugin/panel-plugin/main.c	2025-03-19 10:35:58.521979188 -0700
++++ xfce4-genmon-plugin/src/xfce4-genmon-plugin/panel-plugin/main.c	2025-03-19 10:50:32.684800670 -0700
+@@ -437,16 +437,29 @@
+ 
+ /**************************************************************/
+ 
++static void ClearTimer (struct genmon_t *poPlugin)
++{
++    if (poPlugin->iTimerId)
++    {
++        g_source_remove (poPlugin->iTimerId);
++        poPlugin->iTimerId = 0;
++    }
++}
++
++static void SetTimer (struct genmon_t *poPlugin);
++
+ static gboolean Timer (gpointer user_data)
+ /* on timer event, recreate output */
+ {
+     struct genmon_t *poPlugin = user_data;
++    ClearTimer (poPlugin);
+ 
+     DBG("\n");
+ 
+     DisplayCmdOutput (poPlugin);
+ 
+-    return TRUE;
++    SetTimer (poPlugin);
++    return FALSE;
+ }
+ 
+ static void SetTimer (struct genmon_t *poPlugin)
+@@ -454,9 +467,7 @@
+ {
+     struct param_t *poConf = &poPlugin->oConf.oParam;
+ 
+-    if (poPlugin->iTimerId)
+-        g_source_remove (poPlugin->iTimerId);
+-
++    ClearTimer (poPlugin);
+     poPlugin->iTimerId = g_timeout_add (poConf->iPeriod_ms, Timer, poPlugin);
+ }
+ 
+@@ -660,11 +671,7 @@
+     TRACE ("genmon_free()\n");
+     DBG("\n");
+ 
+-    if (poPlugin->iTimerId)
+-    {
+-        g_source_remove (poPlugin->iTimerId);
+-        poPlugin->iTimerId = 0;
+-    }
++    ClearTimer (poPlugin);
+ 
+     g_free (poPlugin->oConf.oParam.acCmd);
+     g_free (poPlugin->oConf.oParam.acFiletmp);
