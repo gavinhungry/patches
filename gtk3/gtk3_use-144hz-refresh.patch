@@ -1,0 +1,50 @@
+diff --color -ru gtk3.ORIG/src/gtk/gdk/gdkframeclock.c gtk3/src/gtk/gdk/gdkframeclock.c
+--- gtk3.ORIG/src/gtk/gdk/gdkframeclock.c	2025-04-01 02:32:12.178060307 -0700
++++ gtk3/src/gtk/gdk/gdkframeclock.c	2025-04-01 03:06:34.363465179 -0700
+@@ -546,7 +546,7 @@
+ }
+ #endif /* G_ENABLE_DEBUG */
+ 
+-#define DEFAULT_REFRESH_INTERVAL 16667 /* 16.7ms (1/60th second) */
++#define DEFAULT_REFRESH_INTERVAL 6944  /* 6.94ms (1/144th second) */
+ #define MAX_HISTORY_AGE 150000         /* 150ms */
+ 
+ /**
+diff --color -ru gtk3.ORIG/src/gtk/gdk/gdkframeclockidle.c gtk3/src/gtk/gdk/gdkframeclockidle.c
+--- gtk3.ORIG/src/gtk/gdk/gdkframeclockidle.c	2025-04-01 02:32:12.178060307 -0700
++++ gtk3/src/gtk/gdk/gdkframeclockidle.c	2025-04-01 03:05:16.017150582 -0700
+@@ -34,7 +34,7 @@
+ #include <windows.h>
+ #endif
+ 
+-#define FRAME_INTERVAL 16667 /* microseconds */
++#define FRAME_INTERVAL 6944 /* microseconds */
+ 
+ typedef enum {
+   SMOOTH_PHASE_STATE_VALID = 0,    /* explicit, since we count on zero-init */
+diff --color -ru gtk3.ORIG/src/gtk/gdk/wayland/gdkwindow-wayland.c gtk3/src/gtk/gdk/wayland/gdkwindow-wayland.c
+--- gtk3.ORIG/src/gtk/gdk/wayland/gdkwindow-wayland.c	2025-04-01 02:32:12.171532343 -0700
++++ gtk3/src/gtk/gdk/wayland/gdkwindow-wayland.c	2025-04-01 03:06:42.973454307 -0700
+@@ -619,7 +619,7 @@
+   if (timings == NULL)
+     return;
+ 
+-  timings->refresh_interval = 16667; /* default to 1/60th of a second */
++  timings->refresh_interval = 6944; /* default to 1/144th of a second */
+   if (impl->display_server.outputs)
+     {
+       /* We pick a random output out of the outputs that the window touches
+diff --color -ru gtk3.ORIG/src/gtk/gtk/gtktreeview.c gtk3/src/gtk/gtk/gtktreeview.c
+--- gtk3.ORIG/src/gtk/gtk/gtktreeview.c	2025-04-01 02:32:12.238061418 -0700
++++ gtk3/src/gtk/gtk/gtktreeview.c	2025-04-01 03:05:44.991660614 -0700
+@@ -242,8 +242,8 @@
+ 
+ #define GTK_TREE_VIEW_PRIORITY_VALIDATE (GDK_PRIORITY_REDRAW + 5)
+ #define GTK_TREE_VIEW_PRIORITY_SCROLL_SYNC (GTK_TREE_VIEW_PRIORITY_VALIDATE + 2)
+-/* 3/5 of gdkframeclockidle.c's FRAME_INTERVAL (16667 microsecs) */
+-#define GTK_TREE_VIEW_TIME_MS_PER_IDLE 10
++/* 3/5 of gdkframeclockidle.c's FRAME_INTERVAL (6944 microsecs) */
++#define GTK_TREE_VIEW_TIME_MS_PER_IDLE 4
+ #define SCROLL_EDGE_SIZE 15
+ #define GTK_TREE_VIEW_SEARCH_DIALOG_TIMEOUT 5000
+ #define AUTO_EXPAND_TIMEOUT 500
