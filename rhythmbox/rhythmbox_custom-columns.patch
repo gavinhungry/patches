@@ -10,11 +10,12 @@ diff -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c rhythmbo
  
  	g_object_get (source, "shell", &shell, NULL);
  	g_object_get (shell,
-@@ -300,7 +300,6 @@
+@@ -300,7 +300,7 @@
  						    FALSE, FALSE);
  
  	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_TITLE, TRUE);
 -	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_GENRE, FALSE);
++	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_GENRE, TRUE);
  /* 	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_QUALITY, FALSE); */
  	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_RATING, FALSE);
  /*	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_PLAY_COUNT, FALSE);*/
@@ -331,7 +332,7 @@ diff -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c rhythmbox/src/rhyt
  		title = _("Genre");
  		key = "Genre";
 -		ellipsize = TRUE;
-+		column_width = 130;
++		column_width = always_visible ? 800 : 130;
  		break;
  	case RB_ENTRY_VIEW_COL_COMMENT:
  		propid = RHYTHMDB_PROP_COMMENT;
