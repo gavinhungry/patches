@@ -1,11 +1,12 @@
 diff --color -ru gnupg.ORIG/PKGBUILD gnupg/PKGBUILD
 --- gnupg.ORIG/PKGBUILD	2023-12-01 09:49:53.416295633 -0800
 +++ gnupg/PKGBUILD	2023-12-01 09:50:29.172815429 -0800
-@@ -126,6 +126,7 @@
+@@ -126,6 +126,8 @@
      --prefix=/usr
      --sbindir=/usr/bin
      --sysconfdir=/etc
 +    --enable-large-secmem
++    --disable-doc
    )
  
    cd $pkgname-$pkgver
