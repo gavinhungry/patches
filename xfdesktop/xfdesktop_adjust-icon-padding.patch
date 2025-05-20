@@ -1,0 +1,17 @@
+diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-icon-view.c xfdesktop/src/xfdesktop/src/xfdesktop-icon-view.c
+--- xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-icon-view.c	2025-05-20 03:44:15.584566682 -0700
++++ xfdesktop/src/xfdesktop/src/xfdesktop-icon-view.c	2025-05-20 03:52:46.081600712 -0700
+@@ -3702,11 +3702,11 @@
+ 
+         gint xrest = allocation->width - grid_params->ncols * SLOT_SIZE;
+         grid_params->xspacing = new_ncols > 1 ? (xrest - MIN_MARGIN * 2) / (new_ncols - 1) : 1;
+-        grid_params->xmargin = (xrest - (grid_params->ncols - 1) * grid_params->xspacing) / 2;
++        grid_params->xmargin = -2 + (xrest - (grid_params->ncols - 1) * grid_params->xspacing) / 2;
+ 
+         gint yrest = allocation->height - grid_params->nrows * SLOT_SIZE;
+         grid_params->yspacing = new_nrows > 1 ? (yrest - MIN_MARGIN * 2) / (new_nrows - 1) : 1;
+-        grid_params->ymargin = (yrest - (grid_params->nrows - 1) * grid_params->yspacing) / 2;
++        grid_params->ymargin = 20 + (yrest - (grid_params->nrows - 1) * grid_params->yspacing) / 2;
+ 
+         DBG("margin: (%d, %d), spacing: (%d, %d)",
+             grid_params->xmargin, grid_params->ymargin,

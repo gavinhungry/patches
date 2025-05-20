@@ -1,0 +1,21 @@
+diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-utils.c xfdesktop/src/xfdesktop/src/xfdesktop-file-utils.c
+--- xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-utils.c	2025-05-20 02:21:08.556951862 -0700
++++ xfdesktop/src/xfdesktop/src/xfdesktop-file-utils.c	2025-05-20 03:41:55.848011167 -0700
+@@ -1278,7 +1278,7 @@
+     gchar *title = g_strdup_printf(_("Create Document from template \"%s\""), name);
+     gchar *filename = show_editable_file_create_dialog(title,
+                                                        icon,
+-                                                       _("Enter the name:"),
++                                                       NULL,
+                                                        name,
+                                                        parent,
+                                                        _("Could not create a new file"));
+@@ -1311,7 +1311,7 @@
+ 
+     gchar *folder_name = show_editable_file_create_dialog(_("Create New Folder"),
+                                                           icon,
+-                                                          _("Enter the name:"),
++                                                          NULL,
+                                                           prefill,
+                                                           parent,
+                                                           _("Could not create a new folder"));

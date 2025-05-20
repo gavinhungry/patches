@@ -1,0 +1,238 @@
+diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c xfdesktop/src/xfdesktop/src/xfdesktop-file-icon-manager.c
+--- xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c	2025-05-20 02:21:08.556951862 -0700
++++ xfdesktop/src/xfdesktop/src/xfdesktop-file-icon-manager.c	2025-05-20 03:38:39.286894277 -0700
+@@ -975,10 +975,10 @@
+     if(!with_title_prefix)
+         title = g_strdup(g_app_info_get_name(app_info));
+     else if(with_mnemonic) {
+-        title = g_strdup_printf(_("_Open With \"%s\""),
++        title = g_strdup_printf(_("_Open with %s"),
+                                 g_app_info_get_name(app_info));
+     } else {
+-        title = g_strdup_printf(_("Open With \"%s\""),
++        title = g_strdup_printf(_("Open with %s"),
+                                 g_app_info_get_name(app_info));
+     }
+ 
+@@ -1647,7 +1647,6 @@
+     TRACE("ENTERING");
+ 
+     GtkWidget *menu = gtk_menu_new();
+-    gtk_menu_set_reserve_toggle_size(GTK_MENU(menu), FALSE);
+ 
+     MonitorData *mdata = g_hash_table_lookup(fmanager->monitor_data, xfce_desktop_get_monitor(desktop));
+     g_return_val_if_fail(mdata != NULL, GTK_MENU(menu));
+@@ -1754,26 +1753,6 @@
+                 if(file_icon == fmanager->desktop_icon) {
+                     /* Menu on the root desktop window */
+ 
+-                    /* create launcher item */
+-                    GtkWidget *create_launcher_mi = add_menu_item(menu,
+-                                                                  _("Create _Launcher..."),
+-                                                                  g_themed_icon_new("application-x-executable"),
+-                                                                  G_CALLBACK(xfdesktop_file_icon_menu_create_launcher),
+-                                                                  mdata);
+-                    g_object_set_data(G_OBJECT(create_launcher_mi), LAUNCHER_TYPE_KEY, "Application");
+-                    g_object_set_data(G_OBJECT(create_launcher_mi), DEST_ROW_KEY, GINT_TO_POINTER(dest_row));
+-                    g_object_set_data(G_OBJECT(create_launcher_mi), DEST_COL_KEY, GINT_TO_POINTER(dest_col));
+-
+-                    /* create link item */
+-                    GtkWidget *create_url_mi = add_menu_item(menu,
+-                                                             _("Create _URL Link..."),
+-                                                             g_themed_icon_new("insert-link"),
+-                                                             G_CALLBACK(xfdesktop_file_icon_menu_create_launcher),
+-                                                             mdata);
+-                    g_object_set_data(G_OBJECT(create_url_mi), LAUNCHER_TYPE_KEY, "Link");
+-                    g_object_set_data(G_OBJECT(create_url_mi), DEST_ROW_KEY, GINT_TO_POINTER(dest_row));
+-                    g_object_set_data(G_OBJECT(create_url_mi), DEST_COL_KEY, GINT_TO_POINTER(dest_col));
+-
+                     /* create folder item */
+                     GtkWidget *create_folder_mi = add_menu_item(menu,
+                                                                 _("Create _Folder..."),
+@@ -1783,65 +1762,17 @@
+                     g_object_set_data(G_OBJECT(create_folder_mi), DEST_ROW_KEY, GINT_TO_POINTER(dest_row));
+                     g_object_set_data(G_OBJECT(create_folder_mi), DEST_COL_KEY, GINT_TO_POINTER(dest_col));
+ 
+-                    /* create document submenu, 0 disables the sub-menu */
+-                    if(fmanager->max_templates > 0) {
+-                        GtkWidget *tmpl_mi = add_menu_item(menu,
+-                                                           _("Create _Document"),
+-                                                           g_themed_icon_new("document-new"),
+-                                                           NULL,
+-                                                           NULL);
+-
+-                        GtkWidget *tmpl_menu = gtk_menu_new();
+-                        gtk_menu_set_reserve_toggle_size(GTK_MENU(tmpl_menu), FALSE);
+-                        gtk_menu_item_set_submenu(GTK_MENU_ITEM(tmpl_mi), tmpl_menu);
+-
+-                        /* check if XDG_TEMPLATES_DIR="$HOME" and don't show
+-                         * templates if so. */
+-                        GFile *home_dir = g_file_new_for_path(xfce_get_homedir());
+-                        const gchar *templates_dir_path = g_get_user_special_dir(G_USER_DIRECTORY_TEMPLATES);
+-                        DBG("templates dir path: %s", templates_dir_path);
+-                        GFile *templates_dir = NULL;
+-                        if(templates_dir_path) {
+-                            templates_dir = g_file_new_for_path(templates_dir_path);
+-                        }
+-
+-                        if(templates_dir && !g_file_equal(home_dir, templates_dir)) {
+-                            xfdesktop_file_icon_menu_fill_template_menu(tmpl_menu,
+-                                                                        templates_dir,
+-                                                                        mdata,
+-                                                                        dest_row,
+-                                                                        dest_col,
+-                                                                        FALSE);
+-                        }
+-
+-                        GList *children = gtk_container_get_children(GTK_CONTAINER(tmpl_menu));
+-                        if (children == NULL) {
+-                            GtkWidget *no_tmpl_mi = add_menu_item(tmpl_menu,
+-                                                                  _("No templates installed"),
+-                                                                   NULL,
+-                                                                   NULL,
+-                                                                   NULL);
+-                            gtk_widget_set_sensitive(no_tmpl_mi, FALSE);
+-                        } else {
+-                            g_list_free(children);
+-                        }
+ 
+-                        if (templates_dir) {
+-                            g_object_unref(templates_dir);
+-                        }
+-                        g_object_unref(home_dir);
++                    /* add the "Empty File" template option */
++                    GtkWidget *create_empty_file_mi = add_menu_item(menu,
++                                                                    _("Create _Empty File..."),
++                                                                    g_themed_icon_new("text-x-generic"),
++                                                                    G_CALLBACK(xfdesktop_file_icon_template_item_activated),
++                                                                    mdata);
++                    g_object_set_data(G_OBJECT(create_empty_file_mi), DEST_ROW_KEY, GINT_TO_POINTER(dest_row));
++                    g_object_set_data(G_OBJECT(create_empty_file_mi), DEST_COL_KEY, GINT_TO_POINTER(dest_col));
+ 
+-                        add_menu_separator(tmpl_menu);
+ 
+-                        /* add the "Empty File" template option */
+-                        GtkWidget *create_empty_file_mi = add_menu_item(tmpl_menu,
+-                                                                        _("_Empty File"),
+-                                                                        g_themed_icon_new("text-x-generic"),
+-                                                                        G_CALLBACK(xfdesktop_file_icon_template_item_activated),
+-                                                                        mdata);
+-                        g_object_set_data(G_OBJECT(create_empty_file_mi), DEST_ROW_KEY, GINT_TO_POINTER(dest_row));
+-                        g_object_set_data(G_OBJECT(create_empty_file_mi), DEST_COL_KEY, GINT_TO_POINTER(dest_col));
+-                    }
+                 } else {
+                     /* Menu on folder icons */
+                     add_menu_item(menu,
+@@ -1925,7 +1856,6 @@
+                                                                     NULL);
+ 
+                             app_infos_menu = gtk_menu_new();
+-                            gtk_menu_set_reserve_toggle_size(GTK_MENU(app_infos_menu), FALSE);
+                             gtk_menu_item_set_submenu(GTK_MENU_ITEM(open_with_mi), app_infos_menu);
+                         } else {
+                             app_infos_menu = menu;
+@@ -1945,26 +1875,10 @@
+                         app_infos_menu = menu;
+                     }
+ 
+-                    if (!multi_sel) {
+-                        add_menu_item(app_infos_menu,
+-                                      _("Ope_n With Other Application..."),
+-                                      NULL,
+-                                      G_CALLBACK(xfdesktop_file_icon_menu_other_app),
+-                                      mdata);
+-
+-                        add_menu_separator(app_infos_menu);
+-
+-                        add_menu_item(app_infos_menu,
+-                                      _("Set Defa_ult Application..."),
+-                                      NULL,
+-                                      G_CALLBACK(xfdesktop_file_icon_menu_set_default_app),
+-                                      mdata);
+-                    }
+-
+                     g_list_free(app_infos);
+                 } else {
+                     add_menu_item(menu,
+-                                  _("Ope_n With Other Application..."),
++                                  _("Ope_n with Other Application..."),
+                                   g_themed_icon_new("document-open"),
+                                   G_CALLBACK(xfdesktop_file_icon_menu_other_app),
+                                   mdata);
+@@ -1976,49 +1890,10 @@
+ 
+         if(file_icon == fmanager->desktop_icon) {
+             /* Menu on the root desktop window */
+-            /* Paste */
+-            GtkWidget *paste_mi = add_menu_item(menu,
+-                                                _("_Paste"),
+-                                                g_themed_icon_new("edit-paste"),
+-                                                G_CALLBACK(xfdesktop_file_icon_menu_paste),
+-                                                mdata);
+-            gtk_widget_set_sensitive(paste_mi, xfdesktop_clipboard_manager_get_can_paste(clipboard_manager));
+-            g_object_set_data(G_OBJECT(paste_mi), DEST_ROW_KEY, GINT_TO_POINTER(dest_row));
+-            g_object_set_data(G_OBJECT(paste_mi), DEST_COL_KEY, GINT_TO_POINTER(dest_col));
+ 
+             add_menu_separator(menu);
+         } else if(!multi_sel_special) {
+             /* Menu popup on an icon */
+-            /* Cut */
+-            GtkWidget *cut_mi = add_menu_item(menu,
+-                                              _("Cu_t"),
+-                                              g_themed_icon_new("edit-cut"),
+-                                              G_CALLBACK(xfdesktop_file_icon_menu_cut),
+-                                              mdata);
+-            gtk_widget_set_sensitive(cut_mi, multi_sel || xfdesktop_file_icon_can_delete_file(file_icon));
+-
+-            /* Copy */
+-            add_menu_item(menu,
+-                          _("_Copy"),
+-                          g_themed_icon_new("edit-copy"),
+-                          G_CALLBACK(xfdesktop_file_icon_menu_copy),
+-                          mdata);
+-
+-            /* Paste Into Folder */
+-            if (!multi_sel
+-                && info != NULL
+-                && g_file_info_get_file_type(info) == G_FILE_TYPE_DIRECTORY
+-                && g_file_info_get_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE))
+-            {
+-                GtkWidget *paste_mi = add_menu_item(menu,
+-                                                    _("Paste Into Folder"),
+-                                                    g_themed_icon_new("edit-paste"),
+-                                                    G_CALLBACK(xfdesktop_file_icon_menu_paste_into_folder),
+-                                                    mdata);
+-                gtk_widget_set_sensitive(paste_mi, xfdesktop_clipboard_manager_get_can_paste(clipboard_manager));
+-            }
+-
+-            add_menu_separator(menu);
+ 
+             /* Trash */
+             GtkWidget *trash_mi = add_menu_item(menu,
+@@ -2092,18 +1967,6 @@
+ 
+         if(file_icon == fmanager->desktop_icon) {
+             /* Menu on the root desktop window */
+-            add_menu_item(menu,
+-                          _("_Open in New Window"),
+-                          g_themed_icon_new("document-open"),
+-                          G_CALLBACK(xfdesktop_file_icon_menu_open_desktop),
+-                          mdata);
+-
+-            /* show arrange desktop icons option */
+-            add_menu_item(menu,
+-                          _("Arrange Desktop _Icons"),
+-                          g_themed_icon_new("view-sort-ascending"),
+-                          G_CALLBACK(xfdesktop_file_icon_menu_arrange_icons),
+-                          mdata);
+ 
+             XfwScreen *xfw_screen = xfdesktop_icon_view_manager_get_screen(XFDESKTOP_ICON_VIEW_MANAGER(fmanager));
+             XfwMonitor *monitor = xfce_desktop_get_monitor(desktop);
+@@ -3530,7 +3393,6 @@
+     };
+ 
+     GtkWidget *menu = gtk_menu_new();
+-    gtk_menu_set_reserve_toggle_size(GTK_MENU(menu), FALSE);
+     gtk_menu_attach_to_widget(GTK_MENU(menu), parent, NULL);
+ 
+     /* This adds the Copy, Move, & Link options */
