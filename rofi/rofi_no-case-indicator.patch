@@ -1,23 +1,33 @@
-diff -ru rofi.ORIG/src/rofi/source/view.c rofi/src/rofi/source/view.c
---- rofi.ORIG/src/rofi/source/view.c	2025-01-02 08:36:39.731688284 -0800
-+++ rofi/src/rofi/source/view.c	2025-01-02 08:36:39.741688432 -0800
-@@ -1676,7 +1676,6 @@
+diff --color -ru rofi.ORIG/src/rofi/source/view.c rofi/src/rofi/source/view.c
+--- rofi.ORIG/src/rofi/source/view.c	2025-05-23 08:47:43.736046193 -0700
++++ rofi/src/rofi/source/view.c	2025-05-23 09:04:40.552003479 -0700
+@@ -1493,9 +1493,6 @@
+     state->case_sensitive = parse_case_sensitivity(state->text->text);
+     state->tokens = helper_tokenize(pattern, state->case_sensitive);
+ 
+-    if (config.case_smart && state->case_indicator) {
+-      textbox_text(state->case_indicator, get_matching_state(state));
+-    }
+     /**
+      * On long lists it can be beneficial to parallelize.
+      * If number of threads is 1, no thread is spawn.
+@@ -1722,7 +1719,6 @@
      if (state->case_indicator != NULL) {
        config.sort = !config.sort;
        state->refilter = TRUE;
--      textbox_text(state->case_indicator, get_matching_state());
+-      textbox_text(state->case_indicator, get_matching_state(state));
      }
      break;
    case MODE_PREVIOUS:
-@@ -1706,7 +1705,6 @@
+@@ -1752,7 +1748,6 @@
        config.case_sensitive = !config.case_sensitive;
        (state->selected_line) = 0;
        state->refilter = TRUE;
--      textbox_text(state->case_indicator, get_matching_state());
+-      textbox_text(state->case_indicator, get_matching_state(state));
      }
      break;
    // Special delete entry command.
-@@ -2327,10 +2325,9 @@
+@@ -2415,10 +2410,9 @@
      }
      state->case_indicator =
          textbox_create(parent_widget, WIDGET_TYPE_TEXTBOX_TEXT, name,
@@ -25,7 +35,7 @@ diff -ru rofi.ORIG/src/rofi/source/view.c rofi/src/rofi/source/view.c
 +                       TB_AUTOWIDTH | TB_AUTOHEIGHT, NORMAL, "", 0, 0);
      // Add small separator between case indicator and text box.
      box_add((box *)parent_widget, WIDGET(state->case_indicator), FALSE);
--    textbox_text(state->case_indicator, get_matching_state());
+-    textbox_text(state->case_indicator, get_matching_state(state));
    }
    /**
     * ENTRY BOX
