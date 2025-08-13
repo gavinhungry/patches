@@ -1,23 +1,41 @@
-diff -ru virtualbox.ORIG/src/VirtualBox-6.1.16/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp virtualbox/src/VirtualBox-6.1.16/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp
---- virtualbox.ORIG/src/VirtualBox-6.1.16/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-12-19 15:44:10.299951287 -0800
-+++ virtualbox/src/VirtualBox-6.1.16/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2017-12-19 15:44:11.259930173 -0800
-@@ -521,18 +521,7 @@
-     /* Update window title: */
-     if (iElement & UIVisualElement_WindowTitle)
-     {
--        /* Get machine state: */
--        KMachineState state = uisession()->machineState();
--        /* Prepare full name: */
--        QString strSnapshotName;
--        if (machine().GetSnapshotCount() > 0)
--        {
--            CSnapshot snapshot = machine().GetCurrentSnapshot();
--            strSnapshotName = " (" + snapshot.GetName() + ")";
--        }
--        QString strMachineName = machineName() + strSnapshotName;
--        if (state != KMachineState_Null)
--            strMachineName += " [" + gpConverter->toString(state) + "]";
-+        QString strMachineName = machineName();
-         /* Unusual on the Mac. */
- #ifndef VBOX_WS_MAC
-         const QString strUserProductName = uisession()->machineWindowNamePostfix();
+diff --color -ru virtualbox.ORIG/src/VirtualBox-7.1.12/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp virtualbox/src/VirtualBox-7.1.12/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp
+--- virtualbox.ORIG/src/VirtualBox-7.1.12/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2025-08-13 10:33:39.296399732 -0700
++++ virtualbox/src/VirtualBox-7.1.12/src/VBox/Frontends/VirtualBox/src/runtime/UIMachineWindow.cpp	2025-08-13 10:36:46.917578457 -0700
+@@ -264,36 +264,7 @@
+         }
+         else
+         {
+-            /* Prepare full name: */
+-            QString strMachineName = machineName();
+-
+-            /* Append snapshot name: */
+-            ulong uSnapshotCount = 0;
+-            uimachine()->acquireSnapshotCount(uSnapshotCount);
+-            if (uSnapshotCount > 0)
+-            {
+-                QString strCurrentSnapshotName;
+-                uimachine()->acquireCurrentSnapshotName(strCurrentSnapshotName);
+-                strMachineName += " (" + strCurrentSnapshotName + ")";
+-            }
+-
+-            /* Append state name: */
+-            strMachineName += " [" + gpConverter->toString(enmState) + "]";
+-
+-#ifndef VBOX_WS_MAC
+-            /* Append user product name (besides macOS): */
+-            const QString strUserProductName = uimachine()->machineWindowNamePostfix();
+-            strMachineName += " - " + (strUserProductName.isEmpty() ? defaultWindowTitle() : strUserProductName);
+-#endif /* !VBOX_WS_MAC */
+-
+-            /* Append screen number only if there are more than one present: */
+-            ulong cMonitorCount = 0;
+-            uimachine()->acquireMonitorCount(cMonitorCount);
+-            if (cMonitorCount > 1)
+-                strMachineName += QString(" : %1").arg(m_uScreenId + 1);
+-
+-            /* Assign title finally: */
+-            setWindowTitle(strMachineName);
++            setWindowTitle(machineName());
+         }
+     }
+ }
