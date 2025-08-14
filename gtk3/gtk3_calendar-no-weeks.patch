@@ -1,0 +1,128 @@
+diff --color -ru gtk3.ORIG/src/gtk/gtk/gtkcalendar.c gtk3/src/gtk/gtk/gtkcalendar.c
+--- gtk3.ORIG/src/gtk/gtk/gtkcalendar.c	2025-08-13 18:40:08.466361156 -0700
++++ gtk3/src/gtk/gtk/gtkcalendar.c	2025-08-13 21:42:17.676751314 -0700
+@@ -1157,10 +1157,7 @@
+     }
+ 
+   width = calendar->priv->day_width;
+-  if (priv->display_flags & GTK_CALENDAR_SHOW_WEEK_NUMBERS)
+-    x_left = week_width + calendar_xsep + (width + DAY_XSEP) * column;
+-  else
+-    x_left = week_width + CALENDAR_MARGIN + (width + DAY_XSEP) * column;
++  x_left = week_width + CALENDAR_MARGIN + (width + DAY_XSEP) * column;
+ 
+   return x_left;
+ }
+@@ -1458,12 +1455,6 @@
+                                        g_value_get_boolean (value)))
+         g_object_notify (object, "no-month-change");
+       break;
+-    case PROP_SHOW_WEEK_NUMBERS:
+-      if (calendar_set_display_option (calendar,
+-                                       GTK_CALENDAR_SHOW_WEEK_NUMBERS,
+-                                       g_value_get_boolean (value)))
+-        g_object_notify (object, "show-week-numbers");
+-      break;
+     case PROP_SHOW_DETAILS:
+       if (calendar_set_display_option (calendar,
+                                        GTK_CALENDAR_SHOW_DETAILS,
+@@ -1516,10 +1507,6 @@
+       g_value_set_boolean (value, calendar_get_display_option (calendar,
+                                                                GTK_CALENDAR_NO_MONTH_CHANGE));
+       break;
+-    case PROP_SHOW_WEEK_NUMBERS:
+-      g_value_set_boolean (value, calendar_get_display_option (calendar,
+-                                                               GTK_CALENDAR_SHOW_WEEK_NUMBERS));
+-      break;
+     case PROP_SHOW_DETAILS:
+       g_value_set_boolean (value, calendar_get_display_option (calendar,
+                                                                GTK_CALENDAR_SHOW_DETAILS));
+@@ -1850,7 +1837,7 @@
+   gint calendar_ysep = calendar_get_ysep (calendar);
+   gint calendar_xsep = calendar_get_xsep (calendar);
+ 
+-  gboolean show_week_numbers = (priv->display_flags & GTK_CALENDAR_SHOW_WEEK_NUMBERS);
++  gboolean show_week_numbers = FALSE;
+ 
+   layout = gtk_widget_create_pango_layout (widget, NULL);
+ 
+@@ -2110,25 +2097,12 @@
+   get_component_paddings (calendar, &padding, NULL, NULL, NULL);
+   gtk_widget_set_allocation (widget, allocation);
+ 
+-  if (priv->display_flags & GTK_CALENDAR_SHOW_WEEK_NUMBERS)
+-    {
+-      priv->day_width = (priv->min_day_width
+-                         * ((allocation->width - (inner_border * 2) - padding.left - padding.right
+-                             - (CALENDAR_MARGIN * 2) -  (DAY_XSEP * 6) - calendar_xsep * 2))
+-                         / (7 * priv->min_day_width + priv->max_week_char_width * 2));
+-      priv->week_width = ((allocation->width - (inner_border * 2) - padding.left - padding.right
+-                           - (CALENDAR_MARGIN * 2) - (DAY_XSEP * 6) - calendar_xsep * 2 )
+-                          - priv->day_width * 7 + CALENDAR_MARGIN + calendar_xsep);
+-    }
+-  else
+-    {
+-      priv->day_width = (allocation->width
+-                         - (inner_border * 2)
+-                         - padding.left - padding.right
+-                         - (CALENDAR_MARGIN * 2)
+-                         - (DAY_XSEP * 6))/7;
+-      priv->week_width = 0;
+-    }
++  priv->day_width = (allocation->width
++                     - (inner_border * 2)
++                     - padding.left - padding.right
++                     - (CALENDAR_MARGIN * 2)
++                     - (DAY_XSEP * 6))/7;
++  priv->week_width = 0;
+ 
+   if (gtk_widget_get_realized (widget))
+     {
+@@ -2342,13 +2316,6 @@
+                          cal_width - CALENDAR_MARGIN * 2,
+                          priv->day_name_h - CALENDAR_MARGIN);
+ 
+-  if (priv->display_flags & GTK_CALENDAR_SHOW_WEEK_NUMBERS)
+-    gtk_render_background (context, cr,
+-                           CALENDAR_MARGIN,
+-                           priv->day_name_h - calendar_ysep,
+-                           priv->week_width - calendar_ysep - CALENDAR_MARGIN,
+-                           calendar_ysep);
+-
+   /*
+    * Write the labels
+    */
+@@ -2818,9 +2785,6 @@
+   if (priv->display_flags & GTK_CALENDAR_SHOW_DAY_NAMES)
+     calendar_paint_day_names (calendar, cr);
+ 
+-  if (priv->display_flags & GTK_CALENDAR_SHOW_WEEK_NUMBERS)
+-    calendar_paint_week_numbers (calendar, cr);
+-
+   return FALSE;
+ }
+ 
+@@ -3616,14 +3580,6 @@
+             priv->display_flags |= GTK_CALENDAR_SHOW_DAY_NAMES;
+         }
+ 
+-      if ((flags ^ priv->display_flags) & GTK_CALENDAR_SHOW_WEEK_NUMBERS)
+-        {
+-          resize++;
+-
+-          if (flags & GTK_CALENDAR_SHOW_WEEK_NUMBERS)
+-            priv->display_flags |= GTK_CALENDAR_SHOW_WEEK_NUMBERS;
+-        }
+-
+       if ((flags ^ priv->display_flags) & GTK_CALENDAR_SHOW_DETAILS)
+         resize++;
+ 
+@@ -3641,8 +3597,6 @@
+     g_object_notify (G_OBJECT (calendar), "show-day-names");
+   if ((old_flags ^ priv->display_flags) & GTK_CALENDAR_NO_MONTH_CHANGE)
+     g_object_notify (G_OBJECT (calendar), "no-month-change");
+-  if ((old_flags ^ priv->display_flags) & GTK_CALENDAR_SHOW_WEEK_NUMBERS)
+-    g_object_notify (G_OBJECT (calendar), "show-week-numbers");
+   g_object_thaw_notify (G_OBJECT (calendar));
+ }
+ 
