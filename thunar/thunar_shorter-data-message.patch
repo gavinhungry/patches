@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-notify.c thunar/src/thunar/thunar/thunar-notify.c
---- thunar.ORIG/src/thunar/thunar/thunar-notify.c	2024-12-30 15:42:25.710092867 -0800
-+++ thunar/src/thunar/thunar/thunar-notify.c	2024-12-30 15:42:27.553457423 -0800
+--- thunar.ORIG/src/thunar/thunar/thunar-notify.c	2025-09-15 13:01:18.519037204 -0700
++++ thunar/src/thunar/thunar/thunar-notify.c	2025-09-15 13:01:20.070643339 -0700
 @@ -282,18 +282,13 @@
    if (thunar_notify_device_readonly (device))
      {

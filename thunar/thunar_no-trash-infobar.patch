@@ -1,7 +1,7 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
---- thunar.ORIG/src/thunar/thunar/thunar-window.c	2024-12-30 15:42:25.710092867 -0800
-+++ thunar/src/thunar/thunar/thunar-window.c	2024-12-30 15:42:27.073449293 -0800
-@@ -5497,8 +5497,6 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-window.c	2025-09-15 13:01:18.519037204 -0700
++++ thunar/src/thunar/thunar/thunar-window.c	2025-09-15 13:01:19.660378873 -0700
+@@ -5512,8 +5512,6 @@
  thunar_window_set_current_directory (ThunarWindow *window,
                                       ThunarFile   *current_directory)
  {
@@ -10,7 +10,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/
    GType    type;
    gchar   *type_name;
    gint     num_pages;
-@@ -5574,20 +5572,7 @@
+@@ -5589,20 +5587,7 @@
    if (window->view != NULL && window->view_type != type)
      thunar_window_replace_view (window, window->view, type);
  
