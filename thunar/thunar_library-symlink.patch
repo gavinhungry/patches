@@ -1,7 +1,7 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/thunar-file.c
 --- thunar.ORIG/src/thunar/thunar/thunar-file.c	2025-09-15 13:01:18.518973581 -0700
 +++ thunar/src/thunar/thunar/thunar-file.c	2025-09-15 13:01:18.836033967 -0700
-@@ -2645,6 +2645,44 @@
+@@ -2645,6 +2645,45 @@
    return g_file_info_get_attribute_boolean (file->info, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK);
  }
  
@@ -33,6 +33,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/th
 +  ret = (
 +    !strcmp(path, g_environ_getenv (envp, "XDG_BOOKS_DIR")) ||
 +    !strcmp(path, g_environ_getenv (envp, "XDG_DOCUMENTS_DIR")) ||
++    !strcmp(path, g_environ_getenv (envp, "XDG_MODELS_DIR")) ||
 +    !strcmp(path, g_environ_getenv (envp, "XDG_MUSIC_DIR")) ||
 +    !strcmp(path, g_environ_getenv (envp, "XDG_PICTURES_DIR"))
 +  );
