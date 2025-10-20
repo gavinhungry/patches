@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
---- thunar.ORIG/src/thunar/thunar/thunar-window.c	2025-09-15 13:01:18.519037204 -0700
-+++ thunar/src/thunar/thunar/thunar-window.c	2025-09-15 13:01:19.660378873 -0700
+--- thunar.ORIG/src/thunar/thunar/thunar-window.c	2025-10-20 03:25:36.233107088 -0700
++++ thunar/src/thunar/thunar/thunar-window.c	2025-10-20 03:25:37.251220781 -0700
 @@ -5512,8 +5512,6 @@
  thunar_window_set_current_directory (ThunarWindow *window,
                                       ThunarFile   *current_directory)

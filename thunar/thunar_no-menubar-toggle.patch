@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
---- thunar.ORIG/src/thunar/thunar/thunar-window.c	2025-09-15 13:01:18.519037204 -0700
-+++ thunar/src/thunar/thunar/thunar-window.c	2025-09-15 13:01:19.246651834 -0700
+--- thunar.ORIG/src/thunar/thunar/thunar-window.c	2025-10-20 03:25:36.233107088 -0700
++++ thunar/src/thunar/thunar/thunar-window.c	2025-10-20 03:25:36.870147868 -0700
 @@ -4260,7 +4260,7 @@
    window->menubar_visible = !window->menubar_visible;
  

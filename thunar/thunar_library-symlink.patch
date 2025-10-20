@@ -1,7 +1,7 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/thunar-file.c
---- thunar.ORIG/src/thunar/thunar/thunar-file.c	2025-09-15 13:01:18.518973581 -0700
-+++ thunar/src/thunar/thunar/thunar-file.c	2025-09-15 13:01:18.836033967 -0700
-@@ -2645,6 +2645,45 @@
+--- thunar.ORIG/src/thunar/thunar/thunar-file.c	2025-10-20 03:25:36.232836195 -0700
++++ thunar/src/thunar/thunar/thunar-file.c	2025-10-20 03:25:36.482912320 -0700
+@@ -2650,6 +2650,45 @@
    return g_file_info_get_attribute_boolean (file->info, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK);
  }
  
@@ -47,7 +47,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/th
  
  
  /**
-@@ -2824,6 +2862,10 @@
+@@ -2829,6 +2868,10 @@
  thunar_file_is_directory (const ThunarFile *file)
  {
    _thunar_return_val_if_fail (THUNAR_IS_FILE (file), FALSE);
@@ -58,7 +58,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/th
    return file->kind == G_FILE_TYPE_DIRECTORY;
  }
  
-@@ -3754,7 +3796,7 @@
+@@ -3759,7 +3802,7 @@
        g_strfreev (emblem_names);
      }
  
@@ -67,7 +67,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/th
      emblems = g_list_prepend (emblems, g_strdup (THUNAR_FILE_EMBLEM_NAME_SYMBOLIC_LINK));
  
    /* determine the user ID of the file owner */
-@@ -3766,7 +3808,7 @@
+@@ -3771,7 +3814,7 @@
    /* we add "cant-read" if either (a) the file is not readable or (b) a directory, that lacks the
     * x-bit, see https://bugzilla.xfce.org/show_bug.cgi?id=1408 for the details about this change.
     */
@@ -77,8 +77,8 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.c thunar/src/thunar/thunar/th
            && thunar_file_denies_access_permission (file, THUNAR_FILE_MODE_USR_EXEC,
                                                     THUNAR_FILE_MODE_GRP_EXEC,
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-file.h thunar/src/thunar/thunar/thunar-file.h
---- thunar.ORIG/src/thunar/thunar/thunar-file.h	2025-09-15 13:01:18.518973581 -0700
-+++ thunar/src/thunar/thunar/thunar-file.h	2025-09-15 13:01:18.837199120 -0700
+--- thunar.ORIG/src/thunar/thunar/thunar-file.h	2025-10-20 03:25:36.232836195 -0700
++++ thunar/src/thunar/thunar/thunar-file.h	2025-10-20 03:25:36.483176079 -0700
 @@ -239,6 +239,8 @@
  thunar_file_get_basename (const ThunarFile *file) G_GNUC_CONST;
  gboolean

@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-action-manager.c thunar/src/thunar/thunar/thunar-action-manager.c
---- thunar.ORIG/src/thunar/thunar/thunar-action-manager.c	2025-09-15 13:01:18.518973581 -0700
-+++ thunar/src/thunar/thunar/thunar-action-manager.c	2025-09-15 13:01:18.522339057 -0700
+--- thunar.ORIG/src/thunar/thunar/thunar-action-manager.c	2025-10-20 03:25:36.232836195 -0700
++++ thunar/src/thunar/thunar/thunar-action-manager.c	2025-10-20 03:25:36.236362965 -0700
 @@ -205,9 +205,6 @@
  static gboolean
  thunar_action_manager_action_properties (ThunarActionManager *action_mgr);
@@ -46,7 +46,7 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-action-manager.c thunar/src/thunar
  
      case THUNAR_ACTION_MANAGER_ACTION_OPEN_IN_TAB:
 -      n = action_mgr->n_files_to_process > 0 ? action_mgr->n_files_to_process : 1;
--      label_text = g_strdup_printf (ngettext (action_entry->menu_item_label_text, "Open in %d New _Tabs", n), n);
+-      label_text = g_strdup_printf (ngettext ("Open in new _Tab", "Open in %d New _Tabs", n), n);
 -      tooltip_text = g_strdup_printf (ngettext ("Open the selected directory in new tab",
 -                                                "Open the selected directories in %d new tabs", n),
 -                                      n);
@@ -364,8 +364,8 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-action-manager.c thunar/src/thunar
                                        g_app_info_get_name (applications->data));
  
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-details-view.c thunar/src/thunar/thunar/thunar-details-view.c
---- thunar.ORIG/src/thunar/thunar/thunar-details-view.c	2025-09-15 13:01:18.518973581 -0700
-+++ thunar/src/thunar/thunar/thunar-details-view.c	2025-09-15 13:01:18.522704622 -0700
+--- thunar.ORIG/src/thunar/thunar/thunar-details-view.c	2025-10-20 03:25:36.232836195 -0700
++++ thunar/src/thunar/thunar/thunar-details-view.c	2025-10-20 03:25:36.236701577 -0700
 @@ -1472,7 +1472,6 @@
  
    _thunar_return_if_fail (THUNAR_IS_DETAILS_VIEW (details_view));
@@ -375,8 +375,8 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-details-view.c thunar/src/thunar/t
  }
  
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-standard-view.c thunar/src/thunar/thunar/thunar-standard-view.c
---- thunar.ORIG/src/thunar/thunar/thunar-standard-view.c	2025-09-15 13:01:18.519037204 -0700
-+++ thunar/src/thunar/thunar/thunar-standard-view.c	2025-09-15 13:01:18.523136816 -0700
+--- thunar.ORIG/src/thunar/thunar/thunar-standard-view.c	2025-10-20 03:25:36.233107088 -0700
++++ thunar/src/thunar/thunar/thunar-standard-view.c	2025-10-20 03:25:36.237048008 -0700
 @@ -4166,26 +4166,18 @@
    if (selected_items != NULL)
      {
@@ -406,8 +406,8 @@ diff -ru thunar.ORIG/src/thunar/thunar/thunar-standard-view.c thunar/src/thunar/
      }
    thunar_gtk_menu_hide_accel_labels (GTK_MENU (context_menu));
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-window.c thunar/src/thunar/thunar/thunar-window.c
---- thunar.ORIG/src/thunar/thunar/thunar-window.c	2025-09-15 13:01:18.519037204 -0700
-+++ thunar/src/thunar/thunar/thunar-window.c	2025-09-15 13:01:18.523755088 -0700
+--- thunar.ORIG/src/thunar/thunar/thunar-window.c	2025-10-20 03:25:36.233107088 -0700
++++ thunar/src/thunar/thunar/thunar-window.c	2025-10-20 03:25:36.237529165 -0700
 @@ -646,8 +646,8 @@
  static XfceGtkActionEntry thunar_window_action_entries[] =
  {

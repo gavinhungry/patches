@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-standard-view.c thunar/src/thunar/thunar/thunar-standard-view.c
---- thunar.ORIG/src/thunar/thunar/thunar-standard-view.c	2025-09-15 13:01:18.519037204 -0700
-+++ thunar/src/thunar/thunar/thunar-standard-view.c	2025-09-15 13:01:19.141779201 -0700
+--- thunar.ORIG/src/thunar/thunar/thunar-standard-view.c	2025-10-20 03:25:36.233107088 -0700
++++ thunar/src/thunar/thunar/thunar-standard-view.c	2025-10-20 03:25:36.773492008 -0700
 @@ -939,7 +939,7 @@
  
    /* initialize the scrolled window */

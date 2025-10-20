@@ -1,6 +1,6 @@
 diff -ru thunar.ORIG/src/thunar/thunar/thunar-location-button.c thunar/src/thunar/thunar/thunar-location-button.c
---- thunar.ORIG/src/thunar/thunar/thunar-location-button.c	2025-09-15 13:01:18.519037204 -0700
-+++ thunar/src/thunar/thunar/thunar-location-button.c	2025-09-15 13:01:19.764778833 -0700
+--- thunar.ORIG/src/thunar/thunar/thunar-location-button.c	2025-10-20 03:25:36.233107088 -0700
++++ thunar/src/thunar/thunar/thunar-location-button.c	2025-10-20 03:25:37.347596816 -0700
 @@ -426,11 +426,9 @@
  thunar_location_button_file_changed (ThunarLocationButton *location_button,
                                       ThunarFile           *file)
