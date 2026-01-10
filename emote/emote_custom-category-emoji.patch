@@ -1,0 +1,25 @@
+diff --color -ru emote.ORIG/src/Emote-4.1.0/emote/emojis.py emote/src/Emote-4.1.0/emote/emojis.py
+--- emote.ORIG/src/Emote-4.1.0/emote/emojis.py	2026-01-09 21:46:49.525817608 -0800
++++ emote/src/Emote-4.1.0/emote/emojis.py	2026-01-09 22:07:47.541237325 -0800
+@@ -109,14 +109,14 @@
+     """
+     return [
+         ("recent", "Recently Used", "🕙"),
+-        ("smileys-people", "Smileys & People", "🙂"),
+-        ("animals-nature", "Animals & Nature", "🐯"),
+-        ("food-drink", "Food & Drink", "🍔"),
+-        ("activities", "Activities", "⚽"),
++        ("smileys-people", "Smileys & People", "😍"),
++        ("animals-nature", "Animals & Nature", "🐶"),
++        ("food-drink", "Food & Drink", "🌮"),
++        ("activities", "Activities", "🏈"),
+         ("travel-places", "Travel & Places", "✈️"),
+-        ("objects", "Objects", "💡"),
+-        ("symbols", "Symbols", "⁉️"),
+-        ("flags", "Flags", "🇺🇳"),
++        ("objects", "Objects", "🛠️"),
++        ("symbols", "Symbols", "♻️"),
++        ("flags", "Flags", "🇺🇸"),
+     ]
+ 
+ 

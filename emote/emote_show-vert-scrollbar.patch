@@ -1,0 +1,25 @@
+diff --color -ru emote.ORIG/src/Emote-4.1.0/emote/picker.py emote/src/Emote-4.1.0/emote/picker.py
+--- emote.ORIG/src/Emote-4.1.0/emote/picker.py	2026-01-09 21:46:49.525817608 -0800
++++ emote/src/Emote-4.1.0/emote/picker.py	2026-01-09 22:11:53.902703174 -0800
+@@ -461,6 +461,10 @@
+ 
+         self.search_scrolled = Gtk.ScrolledWindow()
+         self.search_scrolled.set_hexpand(False)
++        self.search_scrolled.set_policy(
++            Gtk.PolicyType.NEVER,
++            Gtk.PolicyType.ALWAYS
++        )
+ 
+         search_box = Gtk.Box(
+             orientation=Gtk.Orientation.VERTICAL,
+@@ -494,6 +498,10 @@
+ 
+         self.category_scrolled = Gtk.ScrolledWindow()
+         self.category_scrolled.set_hexpand(False)
++        self.category_scrolled.set_policy(
++            Gtk.PolicyType.NEVER,
++            Gtk.PolicyType.ALWAYS
++        )
+ 
+         category = self.selected_emoji_category
+ 

@@ -1,0 +1,12 @@
+diff --color -ru emote.ORIG/src/Emote-4.1.0/emote/debouncer.py emote/src/Emote-4.1.0/emote/debouncer.py
+--- emote.ORIG/src/Emote-4.1.0/emote/debouncer.py	2026-01-09 20:17:23.268893549 -0800
++++ emote/src/Emote-4.1.0/emote/debouncer.py	2026-01-09 20:27:23.388536927 -0800
+@@ -3,7 +3,7 @@
+ from gi.repository import GLib
+ 
+ # Debounce interval in seconds.
+-DEBOUNCE_INTERVAL = 0.2
++DEBOUNCE_INTERVAL = 0.02
+ 
+ 
+ class SearchDebouncer:
