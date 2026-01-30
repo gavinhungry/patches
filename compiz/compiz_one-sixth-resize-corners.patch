@@ -1,0 +1,27 @@
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp	2026-01-30 09:55:06.629065207 -0800
++++ compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp	2026-01-30 10:00:46.385491961 -0800
+@@ -1253,19 +1253,19 @@
+ 	}
+ 	else if (!mask)
+ 	{
+-	    int sectorSizeX = server.width () / 3;
+-	    int sectorSizeY = server.height () / 3;
++	    int sectorSizeX = server.width () / 6;
++	    int sectorSizeY = server.height () / 6;
+ 	    int posX        = x - server.x ();
+ 	    int posY        = y - server.y ();
+ 
+ 	    if (posX < sectorSizeX)
+ 		mask |= ResizeLeftMask;
+-	    else if (posX > (2 * sectorSizeX))
++	    else if (posX > (5 * sectorSizeX))
+ 		mask |= ResizeRightMask;
+ 
+ 	    if (posY < sectorSizeY)
+ 		mask |= ResizeUpMask;
+-	    else if (posY > (2 * sectorSizeY))
++	    else if (posY > (5 * sectorSizeY))
+ 		mask |= ResizeDownMask;
+ 
+ 	    /* if the pointer was in the middle of the window,
