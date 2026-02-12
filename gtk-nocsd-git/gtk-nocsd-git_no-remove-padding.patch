@@ -1,0 +1,17 @@
+diff --color -ru gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c
+--- gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-02-12 14:22:03.748515264 -0800
++++ gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-02-12 14:22:33.982559075 -0800
+@@ -1456,11 +1456,10 @@
+ 			g_object_set(Settings, "gtk-dialogs-use-header", FALSE, NULL);
+ 			g_object_set(Settings, "gtk-decoration-layout", "", NULL);
+ 
+-			// Remove rounding, padding, shadow, hide title
++			// Remove rounding, shadow, hide title
+ 			const char *CSS = "window { border-radius: 0; box-shadow: none; }"
+-				"headerbar { border-radius: 0; min-height: 0pt; padding: 0pt; }"
++				"headerbar { border-radius: 0; min-height: 0pt; }"
+ 				"headerbar * { margin: 0pt; }"
+-				"headerbar box { padding: 0pt; }"
+ 				"windowtitle { opacity: 0; }"
+ 				"decoration { margin: 0px; }";
+ 
