@@ -1,0 +1,20 @@
+diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/modules/ngx_http_autoindex_module.c nginx-mainline/src/nginx/src/http/modules/ngx_http_autoindex_module.c
+--- nginx-mainline.ORIG/src/nginx/src/http/modules/ngx_http_autoindex_module.c	2026-02-18 22:30:56.800327827 -0800
++++ nginx-mainline/src/nginx/src/http/modules/ngx_http_autoindex_module.c	2026-02-18 22:42:27.939719673 -0800
+@@ -445,11 +445,14 @@
+ 
+     static u_char  title[] =
+         "<html>" CRLF
+-        "<head><title>Index of "
++        "<head>" CRLF
++        "<title>Index of "
+     ;
+ 
+     static u_char  header[] =
+-        "</title></head>" CRLF
++        "</title>" CRLF
++        "<meta name=\"color-scheme\" content=\"light dark\">" CRLF
++        "</head>" CRLF
+         "<body>" CRLF
+         "<h1>Index of "
+     ;
