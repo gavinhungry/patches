@@ -1,0 +1,30 @@
+Binary files compiz.ORIG/.git/index and compiz/.git/index differ
+diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp compiz/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp	2026-03-05 22:04:53.305381142 -0800
++++ compiz/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp	2026-03-05 22:16:18.143221639 -0800
+@@ -185,8 +185,8 @@
+     {
+ 	region += CompRect (-window->output ().left,
+ 			    -window->output ().top,
+-			    window->width () + window->output ().right,
+-			    window->height () + window->output ().bottom);
++			    window->width () + window->output ().left + window->output ().right,
++			    window->height () + window->output ().top + window->output ().bottom);
+ 
+ 	region -= CompRect (0, 0, window->width (), window->height ());
+ 
+@@ -1621,10 +1621,10 @@
+ 
+ 	    if (!clientThreshold)
+ 	    {
+-		bScreen->tmpRegion -= CompRect (window->x (),
+-						window->x () + window->width (),
+-						window->y (),
+-						window->y () + window->height ());
++	bScreen->tmpRegion -= CompRect (window->x (),
++					window->y (),
++					window->width (),
++					window->height ());
+ 	    }
+ 
+ 	    if (clipped)
