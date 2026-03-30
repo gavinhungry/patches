@@ -1,0 +1,11 @@
+diff --color -ru gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c
+--- gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-03-30 14:40:43.637241719 -0700
++++ gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-03-30 14:41:00.938852861 -0700
+@@ -2187,7 +2187,6 @@
+ 	if (2 < GTKNoCSDGTKVersion) {
+ 		if (GTKNoCSDMagic(Window)) {
+ 			o_gtk_window_present(Window);
+-			g_idle_add(GTKNoCSDRedisplayContent, Window);
+ 		}
+ 		return;
+ 	}
