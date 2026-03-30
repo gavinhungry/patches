@@ -189,7 +189,7 @@ hardUpdatePkg() {
   inform "Hard-updating $PKG patches to $PKGSRC_DIR_BASE"
   local PATCHES="$PATCHES_DIR"/$PKG/*.patch
   for PATCH in ${PATCHES[@]}; do
-    patch -Ns -r - -p0 --no-backup-if-mismatch < "$PATCH"
+    applyPatchFile "$PATCH"
     diff -ru "$PKG.ORIG" "$PKG" > "$PATCH"
 
     rm -fr "$PKGBUILD_DIR"
@@ -229,6 +229,14 @@ downloadPkgs() {
   pkgsource $@
 }
 
+applyPatchFile() {
+  local OUTPUT
+
+  if ! OUTPUT=$(patch -N -r - -p0 --no-backup-if-mismatch < "$1"); then
+    warn "$(echo "$OUTPUT" | grep FAILED)"
+  fi
+}
+
 patchPkg() {
   local PKG=$1
   local PKGBUILD_DIR=$(getPkgbuildDir $PKG)
@@ -244,7 +252,7 @@ patchPkg() {
     local PATCHES="$PATCHES_DIR"/$PKG/*.patch
     for PATCH in ${PATCHES[@]}; do
       inform "Applying $(basename $PATCH)"
-      patch -Ns -r - -p0 --no-backup-if-mismatch < "$PATCH" || warn 'Error applying patch'
+      applyPatchFile "$PATCH"
     done
   fi
 
