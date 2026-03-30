@@ -1,7 +1,7 @@
 diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c xfdesktop/src/xfdesktop/src/xfdesktop-file-icon-manager.c
---- xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c	2025-05-20 08:54:42.832875880 -0700
-+++ xfdesktop/src/xfdesktop/src/xfdesktop-file-icon-manager.c	2025-05-20 08:58:00.993840542 -0700
-@@ -975,10 +975,10 @@
+--- xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c	2026-03-30 15:42:22.491730847 -0700
++++ xfdesktop/src/xfdesktop/src/xfdesktop-file-icon-manager.c	2026-03-30 15:48:04.276087133 -0700
+@@ -956,10 +956,10 @@
      if(!with_title_prefix)
          title = g_strdup(g_app_info_get_name(app_info));
      else if(with_mnemonic) {
@@ -14,7 +14,7 @@ diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c 
                                  g_app_info_get_name(app_info));
      }
  
-@@ -1647,7 +1647,6 @@
+@@ -1616,7 +1616,6 @@
      TRACE("ENTERING");
  
      GtkWidget *menu = gtk_menu_new();
@@ -22,7 +22,7 @@ diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c 
  
      MonitorData *mdata = g_hash_table_lookup(fmanager->monitor_data, xfce_desktop_get_monitor(desktop));
      g_return_val_if_fail(mdata != NULL, GTK_MENU(menu));
-@@ -1754,26 +1753,6 @@
+@@ -1723,26 +1722,6 @@
                  if(file_icon == fmanager->desktop_icon) {
                      /* Menu on the root desktop window */
  
@@ -49,81 +49,67 @@ diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c 
                      /* create folder item */
                      GtkWidget *create_folder_mi = add_menu_item(menu,
                                                                  _("Create _Folder..."),
-@@ -1783,65 +1762,17 @@
+@@ -1752,57 +1731,10 @@
                      g_object_set_data(G_OBJECT(create_folder_mi), DEST_ROW_KEY, GINT_TO_POINTER(dest_row));
                      g_object_set_data(G_OBJECT(create_folder_mi), DEST_COL_KEY, GINT_TO_POINTER(dest_col));
  
--                    /* create document submenu, 0 disables the sub-menu */
--                    if(fmanager->max_templates > 0) {
--                        GtkWidget *tmpl_mi = add_menu_item(menu,
--                                                           _("Create _Document"),
--                                                           g_themed_icon_new("document-new"),
--                                                           NULL,
--                                                           NULL);
+-                    GtkWidget *tmpl_mi = add_menu_item(menu,
+-                                                       _("Create _Document"),
+-                                                       g_themed_icon_new("document-new"),
+-                                                       NULL,
+-                                                       NULL);
 -
--                        GtkWidget *tmpl_menu = gtk_menu_new();
--                        gtk_menu_set_reserve_toggle_size(GTK_MENU(tmpl_menu), FALSE);
--                        gtk_menu_item_set_submenu(GTK_MENU_ITEM(tmpl_mi), tmpl_menu);
+-                    GtkWidget *tmpl_menu = gtk_menu_new();
+-                    gtk_menu_set_reserve_toggle_size(GTK_MENU(tmpl_menu), FALSE);
+-                    gtk_menu_item_set_submenu(GTK_MENU_ITEM(tmpl_mi), tmpl_menu);
 -
--                        /* check if XDG_TEMPLATES_DIR="$HOME" and don't show
--                         * templates if so. */
--                        GFile *home_dir = g_file_new_for_path(xfce_get_homedir());
--                        const gchar *templates_dir_path = g_get_user_special_dir(G_USER_DIRECTORY_TEMPLATES);
--                        DBG("templates dir path: %s", templates_dir_path);
--                        GFile *templates_dir = NULL;
--                        if(templates_dir_path) {
--                            templates_dir = g_file_new_for_path(templates_dir_path);
--                        }
+-                    /* check if XDG_TEMPLATES_DIR="$HOME" and don't show
+-                     * templates if so. */
+-                    GFile *home_dir = g_file_new_for_path(xfce_get_homedir());
+-                    const gchar *templates_dir_path = g_get_user_special_dir(G_USER_DIRECTORY_TEMPLATES);
+-                    DBG("templates dir path: %s", templates_dir_path);
+-                    GFile *templates_dir = NULL;
+-                    if(templates_dir_path) {
+-                        templates_dir = g_file_new_for_path(templates_dir_path);
+-                    }
+-
+-                    if(templates_dir && !g_file_equal(home_dir, templates_dir)) {
+-                        xfdesktop_file_icon_menu_fill_template_menu(tmpl_menu,
+-                                                                    templates_dir,
+-                                                                    mdata,
+-                                                                    dest_row,
+-                                                                    dest_col,
+-                                                                    FALSE);
+-                    }
+-
+-                    GList *children = gtk_container_get_children(GTK_CONTAINER(tmpl_menu));
+-                    if (children == NULL) {
+-                        GtkWidget *no_tmpl_mi = add_menu_item(tmpl_menu,
+-                                                              _("No templates installed"),
+-                                                               NULL,
+-                                                               NULL,
+-                                                               NULL);
+-                        gtk_widget_set_sensitive(no_tmpl_mi, FALSE);
+-                    } else {
+-                        g_list_free(children);
+-                    }
+-
+-                    if (templates_dir) {
+-                        g_object_unref(templates_dir);
+-                    }
+-                    g_object_unref(home_dir);
+-
+-                    add_menu_separator(tmpl_menu);
  
--                        if(templates_dir && !g_file_equal(home_dir, templates_dir)) {
--                            xfdesktop_file_icon_menu_fill_template_menu(tmpl_menu,
--                                                                        templates_dir,
--                                                                        mdata,
--                                                                        dest_row,
--                                                                        dest_col,
--                                                                        FALSE);
--                        }
--
--                        GList *children = gtk_container_get_children(GTK_CONTAINER(tmpl_menu));
--                        if (children == NULL) {
--                            GtkWidget *no_tmpl_mi = add_menu_item(tmpl_menu,
--                                                                  _("No templates installed"),
--                                                                   NULL,
--                                                                   NULL,
--                                                                   NULL);
--                            gtk_widget_set_sensitive(no_tmpl_mi, FALSE);
--                        } else {
--                            g_list_free(children);
--                        }
--
--                        if (templates_dir) {
--                            g_object_unref(templates_dir);
--                        }
--                        g_object_unref(home_dir);
-+                    /* add the "Empty File" template option */
+                     /* add the "Empty File" template option */
+-                    GtkWidget *create_empty_file_mi = add_menu_item(tmpl_menu,
+-                                                                    _("_Empty File"),
 +                    GtkWidget *create_empty_file_mi = add_menu_item(menu,
 +                                                                    _("Create _Empty File..."),
-+                                                                    g_themed_icon_new("text-x-generic"),
-+                                                                    G_CALLBACK(xfdesktop_file_icon_template_item_activated),
-+                                                                    mdata);
-+                    g_object_set_data(G_OBJECT(create_empty_file_mi), DEST_ROW_KEY, GINT_TO_POINTER(dest_row));
-+                    g_object_set_data(G_OBJECT(create_empty_file_mi), DEST_COL_KEY, GINT_TO_POINTER(dest_col));
- 
--                        add_menu_separator(tmpl_menu);
- 
--                        /* add the "Empty File" template option */
--                        GtkWidget *create_empty_file_mi = add_menu_item(tmpl_menu,
--                                                                        _("_Empty File"),
--                                                                        g_themed_icon_new("text-x-generic"),
--                                                                        G_CALLBACK(xfdesktop_file_icon_template_item_activated),
--                                                                        mdata);
--                        g_object_set_data(G_OBJECT(create_empty_file_mi), DEST_ROW_KEY, GINT_TO_POINTER(dest_row));
--                        g_object_set_data(G_OBJECT(create_empty_file_mi), DEST_COL_KEY, GINT_TO_POINTER(dest_col));
--                    }
-                 } else {
-                     /* Menu on folder icons */
-                     add_menu_item(menu,
-@@ -1856,31 +1787,6 @@
+                                                                     g_themed_icon_new("text-x-generic"),
+                                                                     G_CALLBACK(xfdesktop_file_icon_template_item_activated),
+                                                                     mdata);
+@@ -1822,31 +1754,6 @@
                  /* Menu on non-folder icons */
                  GList *app_infos = NULL;
  
@@ -155,7 +141,7 @@ diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c 
                  app_infos = g_app_info_get_all_for_type(g_file_info_get_content_type(info));
                  if(app_infos) {
                      GAppInfo *app_info, *default_application;
-@@ -1911,7 +1817,7 @@
+@@ -1877,7 +1784,7 @@
  
                      GtkWidget *app_infos_menu;
                      if(app_infos->next) {
@@ -164,7 +150,7 @@ diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c 
  
                          if (use_submenu || !xfdesktop_file_utils_file_is_executable(info)) {
                              add_menu_separator(menu);
-@@ -1925,7 +1831,6 @@
+@@ -1891,7 +1798,6 @@
                                                                      NULL);
  
                              app_infos_menu = gtk_menu_new();
@@ -172,7 +158,7 @@ diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c 
                              gtk_menu_item_set_submenu(GTK_MENU_ITEM(open_with_mi), app_infos_menu);
                          } else {
                              app_infos_menu = menu;
-@@ -1941,33 +1846,17 @@
+@@ -1907,33 +1813,17 @@
                          if (use_submenu) {
                              add_menu_separator(app_infos_menu);
                          }
@@ -210,7 +196,7 @@ diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c 
                  }
  
                  add_menu_separator(menu);
-@@ -1976,49 +1865,9 @@
+@@ -1942,49 +1832,9 @@
  
          if(file_icon == fmanager->desktop_icon) {
              /* Menu on the root desktop window */
@@ -260,7 +246,7 @@ diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c 
  
              /* Trash */
              GtkWidget *trash_mi = add_menu_item(menu,
-@@ -2051,6 +1900,17 @@
+@@ -2017,6 +1867,17 @@
              add_menu_separator(menu);
          }
  
@@ -278,7 +264,7 @@ diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c 
  #ifdef HAVE_THUNARX
          if(!multi_sel_special && fmanager->thunarx_menu_providers) {
              GtkWidget *gtk_menu_item = NULL;
-@@ -2092,36 +1952,6 @@
+@@ -2058,36 +1919,6 @@
  
          if(file_icon == fmanager->desktop_icon) {
              /* Menu on the root desktop window */
@@ -315,7 +301,7 @@ diff --color -ru xfdesktop.ORIG/src/xfdesktop/src/xfdesktop-file-icon-manager.c 
  
              /* Desktop settings window */
              add_menu_item(menu,
-@@ -3530,7 +3360,6 @@
+@@ -3505,7 +3336,6 @@
      };
  
      GtkWidget *menu = gtk_menu_new();
