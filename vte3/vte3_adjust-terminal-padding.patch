@@ -1,10 +1,10 @@
-diff -ru vte3.ORIG/src/vte/src/vtegtk.cc vte3/src/vte/src/vtegtk.cc
---- vte3.ORIG/src/vte/src/vtegtk.cc	2024-03-25 10:27:18.786477993 -0700
-+++ vte3/src/vte/src/vtegtk.cc	2024-03-25 10:27:18.819811981 -0700
-@@ -2614,7 +2614,7 @@
+diff --color -ru vte3.ORIG/src/vte/src/widget.cc vte3/src/vte/src/widget.cc
+--- vte3.ORIG/src/vte/src/widget.cc	2026-04-07 12:59:48.530156233 -0700
++++ vte3/src/vte/src/widget.cc	2026-04-07 13:01:10.117930739 -0700
+@@ -86,7 +86,7 @@
  #endif
-         gtk_css_provider_load_from_data (GTK_CSS_PROVIDER (klass->priv->style_provider),
-                                          "VteTerminal, " VTE_TERMINAL_CSS_NAME " {\n"
+         gtk_css_provider_load_from_data(GTK_CSS_PROVIDER(m_style_provider.get()),
+                                         "VteTerminal, " VTE_TERMINAL_CSS_NAME " {\n"
 -                                         "padding: 1px 1px 1px 1px;\n"
 +                                         "padding: 4px 2px 2px 4px;\n"
  #if (VTE_GTK == 4) || ((VTE_GTK == 3) && GTK_CHECK_VERSION (3, 24, 22))
