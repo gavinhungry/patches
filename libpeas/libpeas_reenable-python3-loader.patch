@@ -1,0 +1,37 @@
+diff --color -ru libpeas.ORIG/PKGBUILD libpeas/PKGBUILD
+--- libpeas.ORIG/PKGBUILD	2026-04-07 13:30:11.407689511 -0700
++++ libpeas/PKGBUILD	2026-04-07 13:31:31.929283465 -0700
+@@ -30,6 +30,9 @@
+   lua51-lgi
+   luajit
+   meson
++  python
++  python-gobject
++  python-setuptools
+   vala
+ )
+ checkdepends=(xorg-server-xvfb)
+@@ -43,7 +46,6 @@
+ build() {
+   local meson_options=(
+     -D gtk_doc=true
+-    -D python3=false
+     -D vapi=true
+   )
+ 
+@@ -69,6 +71,7 @@
+ package_libpeas() {
+   optdepends=(
+     'lua51-lgi: Lua loader'
++    'python-gobject: Python loader'
+   )
+   provides=(libpeas{,-gtk}-1.0.so)
+ 
+@@ -90,6 +93,7 @@
+     gtk3
+     libgirepository
+     libpeas
++    python-gobject
+   )
+   mv demo/* "$pkgdir"
+ }
