@@ -1,0 +1,297 @@
+diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/doc/pakku.8.txt pakku/src/pakku-0.17/doc/pakku.8.txt
+--- pakku.ORIG/src/pakku-0.17/doc/pakku.8.txt	2026-05-12 15:36:11.810288647 -0700
++++ pakku/src/pakku-0.17/doc/pakku.8.txt	2026-05-12 15:02:15.567767685 -0700
+@@ -42,6 +42,11 @@
+ 	Disable AUR support. This option is assumed when you use non-standard
+ 	root path or run the program from root.
+ 
++*\--no-min-aur-age*::
++	Bypass the +MinAurAgeHours+ check defined in linkman:pakku.conf[5] for
++	this invocation, allowing AUR packages uploaded within the configured
++	window to be installed or upgraded.
++
+ *-z, \--source*::
+ 	Retrieve PKGBUILD source. Version can be specified as with -n above.
+ 	You can specify destination directory after package name: +
+diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt pakku/src/pakku-0.17/doc/pakku.conf.5.txt
+--- pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt	2026-05-12 15:36:11.810288647 -0700
++++ pakku/src/pakku-0.17/doc/pakku.conf.5.txt	2026-05-12 15:41:43.538270545 -0700
+@@ -39,6 +39,16 @@
+ 	Ignore a missing or incomplete arch field in the build script. Pakku
+ 	will pass '\--ignorearch' option to linkman:makepkg[8].
+ 
++*MinAurAgeHours =* hours::
++	Skip AUR packages (including dependencies and makedepends) whose most
++	recent AUR upload (LastModified) is newer than the given number of
++	hours. Helps avoid pulling in just-uploaded, potentially malicious or
++	broken package updates. The default is 24. Set to 0 to disable. When
++	an explicit target is younger than the threshold, pakku will prompt
++	for confirmation; dependencies, makedepends, and upgrade candidates
++	are skipped with a warning. The check can be bypassed for a single
++	sync invocation with '\--no-min-aur-age'.
++
+ *PrintAurNotFound*::
+ 	Print warnings during upgrade operation when foreign packages were not
+ 	found in AUR.
+@@ -47,6 +57,11 @@
+ 	Print warnings during upgrade operation when local packages are newer
+ 	than those found in remote repositories.
+ 
++*PrintMinAurAgeSkipped*::
++	Print a warning during sysupgrade for each AUR package whose upgrade
++	is being skipped because the new version was uploaded less than
++	+MinAurAgeHours+ hours ago.
++
+ *SudoExec*::
+ 	Automatically exec the program from root via sudo if it is necessary,
+ 	allowing you to enter password for sudo only once.
+diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/pakku.conf pakku/src/pakku-0.17/pakku.conf
+--- pakku.ORIG/src/pakku-0.17/pakku.conf	2026-05-12 15:36:11.810288647 -0700
++++ pakku/src/pakku-0.17/pakku.conf	2026-05-12 15:41:50.632184936 -0700
+@@ -4,12 +4,14 @@
+ #UserCacheDir = ${HOME}/.cache/pakku
+ #TmpDir = /tmp/pakku-${USER}
+ #AurRepo = aur
++#MinAurAgeHours = 24
+ 
+ AurComments
+ CheckIgnored
+ #IgnoreArch
+ PrintAurNotFound
+ PrintLocalIsNewer
++PrintMinAurAgeSkipped
+ #SudoExec
+ #ViewNoDefault
+ 
+diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/common.nim pakku/src/pakku-0.17/src/common.nim
+--- pakku.ORIG/src/pakku-0.17/src/common.nim	2026-05-12 15:36:11.810288647 -0700
++++ pakku/src/pakku-0.17/src/common.nim	2026-05-12 15:09:10.554053396 -0700
+@@ -114,6 +114,31 @@
+     not (s.isAurTargetSync(aurRepo) and pkgInfoReferencesTable.opt(s.target.reference.name)
+     .map(r => s.target.reference.isProvidedBy(r, true)).get(false)))
+ 
++proc tooNew*(config: Config, rpc: RpcPackageInfo, now: int64): bool =
++  ## Returns true if `rpc.lastModified` is newer than (now - minAurAgeHours hours).
++  ## Returns false when the check is disabled (minAurAgeHours <= 0) or when
++  ## LastModified is missing from the RPC response (permissive default).
++  if config.minAurAgeHours <= 0:
++    false
++  else:
++    rpc.lastModified.map(t => now - t < int64(config.minAurAgeHours) * 3600).get(false)
++
++proc ageHours(rpc: RpcPackageInfo, now: int64): Option[int64] =
++  ## Package age in (rounded-down) whole hours since LastModified.
++  rpc.lastModified.map(t => (now - t) div 3600)
++
++proc ageHoursStr*(rpc: RpcPackageInfo, now: int64): string =
++  ## Human-friendly age string for use in user-facing warnings/prompts.
++  ## Returns "1 hour" (singular), "N hours" (plural), or "? hours" when
++  ## LastModified is unavailable.
++  let age = rpc.ageHours(now)
++  if age.isNone:
++    "? hours"
++  elif age.unsafeGet == 1:
++    "1 hour"
++  else:
++    $age.unsafeGet & " hours"
++
+ proc printSyncNotFound*(config: Config, notFoundTargets: seq[SyncPackageTarget]) =
+   let dbs = config.common.dbs.toHashSet
+ 
+diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/config.nim pakku/src/pakku-0.17/src/config.nim
+--- pakku.ORIG/src/pakku-0.17/src/config.nim	2026-05-12 15:36:11.810288647 -0700
++++ pakku/src/pakku-0.17/src/config.nim	2026-05-12 15:33:09.497514424 -0700
+@@ -54,11 +54,13 @@
+     ignoreArch: bool,
+     printAurNotFound: bool,
+     printLocalIsNewer: bool,
++    printMinAurAgeSkipped: bool,
+     sudoExec: bool,
+     viewNoDefault: bool,
+     preserveBuilt: PreserveBuilt,
+     preBuildCommand: Option[string],
+-    sudoCommand: seq[string]
++    sudoCommand: seq[string],
++    minAurAgeHours: int
+   ]
+ 
+ proc readConfigFile*(configFile: string):
+@@ -174,6 +176,7 @@
+     ignoreArch = options.hasKey("IgnoreArch")
+     printAurNotFound = options.hasKey("PrintAurNotFound")
+     printLocalIsNewer = options.hasKey("PrintLocalIsNewer")
++    printMinAurAgeSkipped = options.hasKey("PrintMinAurAgeSkipped")
+     sudoExec = options.hasKey("SudoExec")
+     viewNoDefault = options.hasKey("ViewNoDefault")
+     preserveBuilt = toSeq(enumerate[PreserveBuilt]())
+@@ -181,6 +184,22 @@
+       .optLast.get(PreserveBuilt.disabled)
+     preBuildCommand = options.opt("PreBuildCommand")
+     sudoCommand = options.opt("PreferredSudoCommand").getSudoPrefix()
++    minAurAgeHours = (block:
++      let raw = options.opt("MinAurAgeHours")
++      if raw.isNone:
++        24
++      else:
++        let s = raw.unsafeGet.strip
++        var parsed: int
++        try:
++          parsed = parseInt(s)
++        except ValueError:
++          raise commandError(tr"invalid value for MinAurAgeHours: '$#'" % [s],
++            colorNeeded = some(color))
++        if parsed < 0:
++          raise commandError(tr"MinAurAgeHours must be non-negative (got $#)" % [$parsed],
++            colorNeeded = some(color))
++        parsed)
+ 
+   if config.common.dbs.find(aurRepo) >= 0:
+     raise commandError(tr"repo '$#' can not be used as fake AUR repository" % [aurRepo],
+@@ -196,7 +215,8 @@
+     config.common.ignorePkgs, config.common.ignoreGroups),
+     root, db, cache, userCacheInitial, userCacheCurrent, tmpRootInitial, tmpRootCurrent,
+     color, aurRepo, aurComments, checkIgnored, ignoreArch, printAurNotFound, printLocalIsNewer,
+-    sudoExec, viewNoDefault, preserveBuilt, preBuildCommand, sudoCommand)
++    printMinAurAgeSkipped, sudoExec, viewNoDefault, preserveBuilt, preBuildCommand, sudoCommand,
++    minAurAgeHours)
+ 
+ template withAlpmConfig*(config: Config, passDbs: bool,
+   handle: untyped, alpmDbs: untyped, errors: untyped, body: untyped): untyped =
+diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/feature/syncinstall.nim pakku/src/pakku-0.17/src/feature/syncinstall.nim
+--- pakku.ORIG/src/pakku-0.17/src/feature/syncinstall.nim	2026-05-12 15:36:11.810288647 -0700
++++ pakku/src/pakku-0.17/src/feature/syncinstall.nim	2026-05-12 15:33:18.281406799 -0700
+@@ -1,5 +1,5 @@
+ import
+-  algorithm, options, os, posix, sequtils, sets, strutils, sugar, tables,
++  algorithm, options, os, posix, sequtils, sets, strutils, sugar, tables, times,
+   "../args", "../aur", "../config", "../common", "../format", "../lists", "../package",
+     "../pacman", "../utils",
+   "../wrapper/alpm"
+@@ -226,7 +226,17 @@
+               for e in cerrors: printError(config.color, e)
+               (pkgInfos, additionalPkgInfos, paths))
+ 
+-          let acceptedPkgInfos = pkgInfos.filter(i => not config.ignored(i.rpc.name, i.groups))
++          let now = getTime().toUnix
++          let acceptedPkgInfos = pkgInfos.filter(i => (block:
++            if config.ignored(i.rpc.name, i.groups):
++              false
++            elif config.tooNew(i.rpc, now):
++              printWarning(config.color,
++                tr"$# was uploaded $# ago -- skipping" %
++                [i.rpc.name, i.rpc.ageHoursStr(now)])
++              false
++            else:
++              true))
+           let aurTable = acceptedPkgInfos.map(i => (i.rpc.name, i)).toTable
+           let aurResult = aurCheck.map(proc (reference: PackageReference): ReferenceResult =
+             if aurTable.hasKey(reference.name):
+@@ -972,6 +982,7 @@
+ proc filterIgnoresAndConflicts(config: Config, pkgInfos: seq[PackageInfo],
+   targetNamesSet: HashSet[string], installed: Table[string, Installed],
+   printMode: bool, noconfirm: bool): (seq[PackageInfo], seq[PackageInfo]) =
++  let now = getTime().toUnix
+   let acceptedPkgInfos = pkgInfos.filter(pkgInfo => (block:
+     let instGroups = collect(newSeq):
+       for i in installed.opt(pkgInfo.rpc.name):
+@@ -989,6 +1000,21 @@
+           true
+       else:
+         false
++    elif config.tooNew(pkgInfo.rpc, now):
++      if pkgInfo.rpc.name in targetNamesSet:
++        if not printMode:
++          let input = printColonUserChoice(config.color,
++            tr"$# was uploaded $# ago. Install anyway?" %
++              [pkgInfo.rpc.name, pkgInfo.rpc.ageHoursStr(now)],
++            ['y', 'n'], 'y', 'n', noconfirm, 'y')
++          input != 'n'
++        else:
++          true
++      else:
++        printWarning(config.color,
++          tr"$# was uploaded $# ago -- skipping" %
++          [pkgInfo.rpc.name, pkgInfo.rpc.ageHoursStr(now)])
++        false
+     else:
+       true))
+ 
+@@ -1160,17 +1186,40 @@
+   if not printMode and (checkAur or build) and printHeader:
+     printColon(config.color, tr"Resolving build targets...")
+ 
++  let installedTable = installed.map(i => (i.name, i)).toTable
++
+   let upgradeRpcInfos = if checkAur: (block:
+       if not printMode:
+         echo(tr"checking AUR database for upgrades...")
+       let (upgradeRpcInfos, rerrors) = getRpcPackageInfos(checkAurUpgradeNames,
+         config.aurRepo, config.common.downloadTimeout, config.color)
+       for e in rerrors: printError(config.color, e)
+-      upgradeRpcInfos)
++      # Filter out upgrade candidates whose latest AUR upload is younger than
++      # MinAurAgeHours. Explicit AUR targets are handled later in
++      # filterIgnoresAndConflicts (which prompts the user instead of silently
++      # skipping), so this only affects pure upgrade candidates. Packages
++      # whose installed version already satisfies the AUR version are left
++      # alone -- there's no upgrade to skip, so no warning is emitted.
++      let now = getTime().toUnix
++      let targetNames = fullTargets
++        .filter(f => f.isAurTargetFull(config.aurRepo))
++        .map(f => f.sync.target.reference.name).toHashSet
++      upgradeRpcInfos.filter(i => (block:
++        if i.name in targetNames:
++          true
++        elif not installedTable.checkNeeded(i.name, i.version, upgradeCount >= 2).needed:
++          true
++        elif config.tooNew(i, now):
++          if not printMode and config.printMinAurAgeSkipped:
++            printWarning(config.color,
++              tr"$#: upgrade skipped, uploaded $# ago" %
++              [i.name, i.ageHoursStr(now)])
++          false
++        else:
++          true)))
+     else:
+       @[]
+ 
+-  let installedTable = installed.map(i => (i.name, i)).toTable
+   let rpcAurTargets = fullTargets.filter(f => f.isAurTargetFull(config.aurRepo))
+ 
+   let targetRpcInfos = collect(newSeq):
+@@ -1458,6 +1507,12 @@
+     (0, syncTargets, fullTargets)
+ 
+ proc handleSyncInstall*(args: seq[Argument], config: Config): int =
++  # Shallow copy so we can locally disable the MinAurAgeHours check when
++  # --no-min-aur-age is passed without leaking the change elsewhere.
++  var config = config
++  if args.check(%%%"no-min-aur-age"):
++    config.minAurAgeHours = 0
++
+   let printModeArg = args.check(%%%"print")
+   let printModeFormat = args.filter(arg => arg.matchOption(%%%"print-format")).optLast
+   let printFormat = if printModeArg or printModeFormat.isSome:
+diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/main.nim pakku/src/pakku-0.17/src/main.nim
+--- pakku.ORIG/src/pakku-0.17/src/main.nim	2026-05-12 15:36:11.810288647 -0700
++++ pakku/src/pakku-0.17/src/main.nim	2026-05-12 15:02:15.568330570 -0700
+@@ -196,6 +196,8 @@
+         printHelp(%%%"build", none(string), tr"build targets from source")
+         printHelp(%%%"keyserver", some("name"), tr"use name as keyserver to receive keys from")
+         printHelp(%%%"noaur", none(string), tr"disable all AUR operations")
++        printHelp(%%%"no-min-aur-age", none(string),
++          tr"bypass MinAurAgeHours check for this invocation")
+         printHelp(%%%"source", none(string), tr"retrieve PKGBUILD source")
+       else:
+         discard
+diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/pacman.nim pakku/src/pakku-0.17/src/pacman.nim
+--- pakku.ORIG/src/pakku-0.17/src/pacman.nim	2026-05-12 15:36:11.810288647 -0700
++++ pakku/src/pakku-0.17/src/pacman.nim	2026-05-12 15:02:15.568376439 -0700
+@@ -151,6 +151,7 @@
+     $o("n", "build") + g(syncInstall),
+     $(^o("keyserver")) + g(syncInstall),
+     $o("noaur") + g(syncInstall),
++    $o("no-min-aur-age") + g(syncInstall),
+     $o("z", "source") + g()
+   ]
+ 
