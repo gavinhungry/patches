@@ -1,0 +1,245 @@
+diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11/gdksurface-x11.c
+--- gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c	2026-06-12 12:53:24.450132291 -0700
++++ gtk4/src/gtk/gdk/x11/gdksurface-x11.c	2026-06-12 13:36:38.865488348 -0700
+@@ -123,6 +123,9 @@
+                                                 const GdkGeometry *geometry,
+                                                 GdkSurfaceHints    geom_mask);
+ 
++static void gdk_x11_surface_do_map (GdkSurface *surface);
++static void gdk_x11_surface_deferred_map (GdkSurface *surface);
++
+ /* Return whether time1 is considered later than time2 as far as xserver
+  * time is concerned.  Accounts for wraparound.
+  */
+@@ -856,6 +859,95 @@
+   return focus_window;
+ }
+ 
++static gboolean
++gdk_x11_defer_map (void)
++{
++  static int defer_map = -1;
++
++  if (defer_map == -1)
++    defer_map = (g_getenv ("GDK_X11_DEFER_MAP") != NULL) ? 1 : 0;
++
++  return defer_map;
++}
++
++/* Perform a map that was deferred by the GDK_X11_DEFER_MAP path. By the
++ * time this runs the surface has (hopefully) painted its first frame, so the
++ * compositor will animate a window that already has content.
++ *
++ * gdk_x11_toplevel_present() released the construction-time freeze early so
++ * painting could proceed. Here we re-add a matching freeze right before the
++ * real XMapWindow, so the MapNotify thaw (gdkdisplay-x11.c) stays balanced -
++ * mirroring the normal accounting.
++ */
++static void
++gdk_x11_surface_deferred_map (GdkSurface *surface)
++{
++  GdkX11Surface *impl = GDK_X11_SURFACE (surface);
++
++  if (!impl->defer_map_pending)
++    return;
++
++  impl->defer_map_pending = FALSE;
++  g_clear_handle_id (&impl->defer_map_timeout_id, g_source_remove);
++
++  if (GDK_SURFACE_DESTROYED (surface))
++    {
++      impl->defer_map_early_thawed = FALSE;
++      return;
++    }
++
++  /* Re-balance the early thaw from gdk_x11_toplevel_present() so the upcoming
++   * MapNotify thaw leaves the freeze count where the normal flow would. */
++  if (impl->defer_map_early_thawed)
++    {
++      impl->defer_map_early_thawed = FALSE;
++      gdk_surface_freeze_updates (surface);
++    }
++
++  gdk_x11_surface_do_map (surface);
++}
++
++static gboolean
++gdk_x11_surface_deferred_map_timeout (gpointer user_data)
++{
++  GdkSurface *surface = user_data;
++  GdkX11Surface *impl = GDK_X11_SURFACE (surface);
++
++  impl->defer_map_timeout_id = 0;
++
++  /* Safety net: if the first frame never arrived (e.g. an app that maps
++   * without immediately drawing), map anyway so the window can't get stuck
++   * invisible.
++   */
++  gdk_x11_surface_deferred_map (surface);
++
++  return G_SOURCE_REMOVE;
++}
++
++/* Cancel a pending deferred map without mapping (e.g. the surface is being
++ * hidden or destroyed before its first frame). Restores the freeze count to
++ * the construction-time state that the rest of the code expects. */
++static void
++gdk_x11_surface_cancel_deferred_map (GdkSurface *surface)
++{
++  GdkX11Surface *impl = GDK_X11_SURFACE (surface);
++
++  g_clear_handle_id (&impl->defer_map_timeout_id, g_source_remove);
++
++  if (!impl->defer_map_pending)
++    return;
++
++  impl->defer_map_pending = FALSE;
++
++  /* Undo the early thaw from gdk_x11_toplevel_present() so the freeze count
++   * matches the original construction-time freeze again. */
++  if (impl->defer_map_early_thawed)
++    {
++      impl->defer_map_early_thawed = FALSE;
++      gdk_surface_freeze_updates (surface);
++    }
++}
++
+ static void
+ ensure_sync_counter (GdkSurface *surface)
+ {
+@@ -997,6 +1089,11 @@
+     return;
+ 
+   gdk_x11_surface_end_frame (surface);
++
++  /* The first frame has now been painted; map a window whose map was deferred
++   * by the GDK_X11_DEFER_MAP path, so the compositor animates content. */
++  if (GDK_X11_SURFACE (surface)->defer_map_pending)
++    gdk_x11_surface_deferred_map (surface);
+ }
+ 
+ static void
+@@ -1135,6 +1232,7 @@
+ 
+   g_clear_pointer (&impl->surface_is_on_monitor, g_list_free);
+   g_clear_handle_id (&impl->compute_size_source_id, g_source_remove);
++  g_clear_handle_id (&impl->defer_map_timeout_id, g_source_remove);
+   g_clear_pointer (&impl->toplevel_layout, gdk_toplevel_layout_unref);
+ 
+   g_free (impl->toplevel);
+@@ -1285,6 +1383,8 @@
+   unhook_surface_changed (surface);
+   disconnect_frame_clock (surface);
+   g_clear_handle_id (&impl->compute_size_source_id, g_source_remove);
++  g_clear_handle_id (&impl->defer_map_timeout_id, g_source_remove);
++  impl->defer_map_pending = FALSE;
+ 
+   if (impl->cairo_surface)
+     {
+@@ -1505,8 +1605,6 @@
+   GdkDisplay *display;
+   GdkX11Display *display_x11;
+   GdkToplevelX11 *toplevel;
+-  Display *xdisplay = GDK_SURFACE_XDISPLAY (surface);
+-  Window xwindow = GDK_SURFACE_XID (surface);
+ 
+   if (!already_mapped)
+     set_initial_hints (surface);
+@@ -1527,8 +1625,25 @@
+        impl->map_time = g_get_monotonic_time ();
+    }
+ 
++  /* When a deferred map is pending (GDK_X11_DEFER_MAP), all the hint and
++   * user-time setup above still happens now, but the actual XMapWindow is held
++   * back until the first frame has been painted. */
++  if (!GDK_X11_SURFACE (surface)->defer_map_pending)
++    gdk_x11_surface_do_map (surface);
++}
++
++/* Actually map the X window and apply the fullscreen mode. This is split out
++ * of gdk_x11_surface_show() so it can be deferred until the first frame has
++ * been painted (see gdk_x11_surface_deferred_map()).
++ */
++static void
++gdk_x11_surface_do_map (GdkSurface *surface)
++{
++  Display *xdisplay = GDK_SURFACE_XDISPLAY (surface);
++  Window xwindow = GDK_SURFACE_XID (surface);
++
+   XMapWindow (xdisplay, xwindow);
+-  
++
+   /* Fullscreen on current monitor is the default, no need to apply this mode
+    * when mapping a window. This also ensures that the default behavior remains
+    * consistent with pre-fullscreen mode implementation.
+@@ -1563,6 +1678,9 @@
+   _gdk_x11_surface_grab_check_unmap (surface,
+                                     NextRequest (GDK_SURFACE_XDISPLAY (surface)));
+ 
++  /* If we were holding back the initial map, abandon it - we're hiding now. */
++  gdk_x11_surface_cancel_deferred_map (surface);
++
+   g_clear_handle_id (&impl->compute_size_source_id, g_source_remove);
+   g_clear_pointer (&impl->toplevel_layout, gdk_toplevel_layout_unref);
+ 
+@@ -5374,6 +5492,41 @@
+   if (!was_mapped)
+     gdk_surface_set_is_mapped (surface, TRUE);
+ 
++  /* GDK_X11_DEFER_MAP: defer the initial XMapWindow until the first frame
++   * has been painted, so a compositor (e.g. Compiz) animates a window that
++   * already has content instead of an empty buffer.
++   *
++   * Normally the construction-time render freeze is only released when the
++   * MapNotify round-trips back from the server - i.e. after the compositor has
++   * already started animating. Here we release that freeze early so painting
++   * can proceed while the window is still unmapped, and add a balancing freeze
++   * that the upcoming MapNotify will thaw (mirroring the normal accounting).
++   */
++  if (!was_mapped &&
++      gdk_x11_defer_map () &&
++      surface->update_freeze_count > 0)
++    {
++      impl->defer_map_pending = TRUE;
++      impl->defer_map_early_thawed = TRUE;
++
++      /* Release the construction-time freeze now (count 1 -> 0) so the first
++       * frame can paint while the window is still unmapped. The matching
++       * re-freeze happens in gdk_x11_surface_deferred_map() right before the
++       * real XMapWindow, so the MapNotify thaw stays balanced. */
++      gdk_surface_thaw_updates (surface);
++
++      /* Safety net in case the first frame never arrives. */
++      if (impl->defer_map_timeout_id == 0)
++        {
++          impl->defer_map_timeout_id =
++            g_timeout_add_full (G_PRIORITY_HIGH, 100,
++                                gdk_x11_surface_deferred_map_timeout,
++                                surface, NULL);
++          gdk_source_set_static_name_by_id (impl->defer_map_timeout_id,
++                                            "[gtk] gdk_x11_surface_deferred_map_timeout");
++        }
++    }
++
+   gdk_x11_surface_show (surface, was_mapped);
+ 
+   if (!was_mapped)
+diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.h gtk4/src/gtk/gdk/x11/gdksurface-x11.h
+--- gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.h	2026-06-12 12:53:24.450132291 -0700
++++ gtk4/src/gtk/gdk/x11/gdksurface-x11.h	2026-06-12 13:36:38.865531227 -0700
+@@ -63,6 +63,14 @@
+   guint frame_sync_enabled : 1;
+   guint tracking_damage: 1;
+ 
++  /* Deferred-map support (GDK_X11_DEFER_MAP): when set, the toplevel's
++   * initial XMapWindow is held back until the first frame has been painted,
++   * so that compositors (e.g. Compiz) animate a window that already has
++   * content rather than an empty buffer. */
++  guint defer_map_pending : 1;
++  guint defer_map_early_thawed : 1;
++  guint defer_map_timeout_id;
++
+   int surface_scale;
+ 
+   int shadow_left;
+Binary files gtk4.ORIG/src/gtk/.git/index and gtk4/src/gtk/.git/index differ
