@@ -1,6 +1,6 @@
 diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11/gdksurface-x11.c
---- gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c	2026-06-12 12:53:24.450132291 -0700
-+++ gtk4/src/gtk/gdk/x11/gdksurface-x11.c	2026-06-12 13:36:38.865488348 -0700
+--- gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c	2026-06-12 23:47:01.870972278 -0700
++++ gtk4/src/gtk/gdk/x11/gdksurface-x11.c	2026-06-12 23:47:44.083968367 -0700
 @@ -123,6 +123,9 @@
                                                  const GdkGeometry *geometry,
                                                  GdkSurfaceHints    geom_mask);
@@ -11,7 +11,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
  /* Return whether time1 is considered later than time2 as far as xserver
   * time is concerned.  Accounts for wraparound.
   */
-@@ -856,6 +859,95 @@
+@@ -856,6 +859,116 @@
    return focus_window;
  }
  
@@ -45,6 +45,9 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
 +
 +  impl->defer_map_pending = FALSE;
 +  g_clear_handle_id (&impl->defer_map_timeout_id, g_source_remove);
++  /* Cancel a still-pending dispatch idle (e.g. when mapped via the timeout).
++   * When called from the idle itself this is already 0. */
++  g_clear_handle_id (&impl->defer_map_idle_id, g_source_remove);
 +
 +  if (GDK_SURFACE_DESTROYED (surface))
 +    {
@@ -61,6 +64,23 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
 +    }
 +
 +  gdk_x11_surface_do_map (surface);
++}
++
++/* Dispatched from a separate idle (not directly from after-paint) so that the
++ * current frame's X output - in particular the XDAMAGE notification from the
++ * just-completed buffer swap - is flushed to the server before the MapNotify.
++ * Mapping straight from after-paint races the damage against the map, and if
++ * the compositor sees the map first it composites the new (still-undamaged)
++ * window as an empty rectangle for one frame, flickering the windows below. */
++static gboolean
++gdk_x11_surface_deferred_map_idle (gpointer user_data)
++{
++  GdkSurface *surface = GDK_SURFACE (user_data);
++
++  GDK_X11_SURFACE (surface)->defer_map_idle_id = 0;
++  gdk_x11_surface_deferred_map (surface);
++
++  return G_SOURCE_REMOVE;
 +}
 +
 +static gboolean
@@ -89,6 +109,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
 +  GdkX11Surface *impl = GDK_X11_SURFACE (surface);
 +
 +  g_clear_handle_id (&impl->defer_map_timeout_id, g_source_remove);
++  g_clear_handle_id (&impl->defer_map_idle_id, g_source_remove);
 +
 +  if (!impl->defer_map_pending)
 +    return;
@@ -107,36 +128,51 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
  static void
  ensure_sync_counter (GdkSurface *surface)
  {
-@@ -997,6 +1089,11 @@
+@@ -997,6 +1110,24 @@
      return;
  
    gdk_x11_surface_end_frame (surface);
 +
 +  /* The first frame has now been painted; map a window whose map was deferred
-+   * by the GDK_X11_DEFER_MAP path, so the compositor animates content. */
-+  if (GDK_X11_SURFACE (surface)->defer_map_pending)
-+    gdk_x11_surface_deferred_map (surface);
++   * by the GDK_X11_DEFER_MAP path, so the compositor animates content. Do the
++   * actual map from a separate idle rather than inline, so this frame's X
++   * output (including the buffer-swap XDAMAGE) reaches the server before the
++   * MapNotify - otherwise the compositor can briefly composite the new window
++   * as empty, flickering the windows below it. */
++  if (GDK_X11_SURFACE (surface)->defer_map_pending &&
++      GDK_X11_SURFACE (surface)->defer_map_idle_id == 0)
++    {
++      GDK_X11_SURFACE (surface)->defer_map_idle_id =
++        g_idle_add_full (G_PRIORITY_HIGH,
++                         gdk_x11_surface_deferred_map_idle,
++                         g_object_ref (surface),
++                         g_object_unref);
++      gdk_source_set_static_name_by_id (GDK_X11_SURFACE (surface)->defer_map_idle_id,
++                                        "[gtk] gdk_x11_surface_deferred_map_idle");
++    }
  }
  
  static void
-@@ -1135,6 +1232,7 @@
+@@ -1135,6 +1266,8 @@
  
    g_clear_pointer (&impl->surface_is_on_monitor, g_list_free);
    g_clear_handle_id (&impl->compute_size_source_id, g_source_remove);
 +  g_clear_handle_id (&impl->defer_map_timeout_id, g_source_remove);
++  g_clear_handle_id (&impl->defer_map_idle_id, g_source_remove);
    g_clear_pointer (&impl->toplevel_layout, gdk_toplevel_layout_unref);
  
    g_free (impl->toplevel);
-@@ -1285,6 +1383,8 @@
+@@ -1285,6 +1418,9 @@
    unhook_surface_changed (surface);
    disconnect_frame_clock (surface);
    g_clear_handle_id (&impl->compute_size_source_id, g_source_remove);
 +  g_clear_handle_id (&impl->defer_map_timeout_id, g_source_remove);
++  g_clear_handle_id (&impl->defer_map_idle_id, g_source_remove);
 +  impl->defer_map_pending = FALSE;
  
    if (impl->cairo_surface)
      {
-@@ -1505,8 +1605,6 @@
+@@ -1505,8 +1641,6 @@
    GdkDisplay *display;
    GdkX11Display *display_x11;
    GdkToplevelX11 *toplevel;
@@ -145,7 +181,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
  
    if (!already_mapped)
      set_initial_hints (surface);
-@@ -1527,8 +1625,25 @@
+@@ -1527,8 +1661,25 @@
         impl->map_time = g_get_monotonic_time ();
     }
  
@@ -172,7 +208,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
    /* Fullscreen on current monitor is the default, no need to apply this mode
     * when mapping a window. This also ensures that the default behavior remains
     * consistent with pre-fullscreen mode implementation.
-@@ -1563,6 +1678,9 @@
+@@ -1563,6 +1714,9 @@
    _gdk_x11_surface_grab_check_unmap (surface,
                                      NextRequest (GDK_SURFACE_XDISPLAY (surface)));
  
@@ -182,7 +218,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
    g_clear_handle_id (&impl->compute_size_source_id, g_source_remove);
    g_clear_pointer (&impl->toplevel_layout, gdk_toplevel_layout_unref);
  
-@@ -5374,6 +5492,41 @@
+@@ -5374,6 +5528,41 @@
    if (!was_mapped)
      gdk_surface_set_is_mapped (surface, TRUE);
  
@@ -225,9 +261,9 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
  
    if (!was_mapped)
 diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.h gtk4/src/gtk/gdk/x11/gdksurface-x11.h
---- gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.h	2026-06-12 12:53:24.450132291 -0700
-+++ gtk4/src/gtk/gdk/x11/gdksurface-x11.h	2026-06-12 13:36:38.865531227 -0700
-@@ -63,6 +63,14 @@
+--- gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.h	2026-06-12 23:47:01.870972278 -0700
++++ gtk4/src/gtk/gdk/x11/gdksurface-x11.h	2026-06-12 23:47:44.084008347 -0700
+@@ -63,6 +63,15 @@
    guint frame_sync_enabled : 1;
    guint tracking_damage: 1;
  
@@ -238,8 +274,8 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.h gtk4/src/gtk/gdk/x11
 +  guint defer_map_pending : 1;
 +  guint defer_map_early_thawed : 1;
 +  guint defer_map_timeout_id;
++  guint defer_map_idle_id;
 +
    int surface_scale;
  
    int shadow_left;
-Binary files gtk4.ORIG/src/gtk/.git/index and gtk4/src/gtk/.git/index differ
