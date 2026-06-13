@@ -1,0 +1,56 @@
+Only in file-roller/: file-roller-44.6-2-x86_64.pkg.tar
+Only in file-roller/: pkg
+Only in file-roller/src: build
+diff --color -ru file-roller.ORIG/src/file-roller/src/fr-application.c file-roller/src/file-roller/src/fr-application.c
+--- file-roller.ORIG/src/file-roller/src/fr-application.c	2026-06-12 16:14:44.161265927 -0700
++++ file-roller/src/file-roller/src/fr-application.c	2026-06-12 16:33:54.231921231 -0700
+@@ -630,7 +630,13 @@
+ 			GFile     *file;
+ 
+ 			window = fr_window_new ();
+-			gtk_window_present (GTK_WINDOW (window));
++
++			/* Don't present the window yet: it is presented once the
++			 * archive listing is available (see
++			 * _archive_operation_completed() in fr-window.c), so the
++			 * first frame the compositor sees already contains the
++			 * file list instead of an empty window. This lets a
++			 * compositor's open animation show real content. */
+ 
+ 			file = g_application_command_line_create_file_for_arg (command_line, filename);
+ 			fr_window_archive_open (FR_WINDOW (window), file, GTK_WINDOW (window));
+diff --color -ru file-roller.ORIG/src/file-roller/src/fr-window.c file-roller/src/file-roller/src/fr-window.c
+--- file-roller.ORIG/src/file-roller/src/fr-window.c	2026-06-12 16:14:44.164092365 -0700
++++ file-roller/src/file-roller/src/fr-window.c	2026-06-12 16:34:56.874532030 -0700
+@@ -2865,6 +2865,20 @@
+ #endif
+ 
+ 	_fr_window_stop_activity_mode (window);
++
++	/* The archive window is intentionally not presented at launch time (see
++	 * fr-application.c) so that its first frame already contains the archive
++	 * listing, letting a compositor animate real content. As a result, when
++	 * an archive fails to load/list we must present the window here so that
++	 * the error or password dialog (parented to it) has a visible parent. */
++	if ((action == FR_ACTION_LOADING_ARCHIVE || action == FR_ACTION_LISTING_CONTENT)
++	    && error != NULL
++	    && ! private->batch_mode
++	    && ! gtk_widget_get_mapped (GTK_WIDGET (window)))
++	{
++		gtk_window_present (GTK_WINDOW (window));
++	}
++
+ 	_handle_archive_operation_error (window, window->archive, action, error, &continue_batch, &opens_dialog);
+ 	if (opens_dialog)
+ 		return;
+@@ -2944,6 +2958,10 @@
+ 		fr_window_update_dir_tree (window);
+ 		fr_window_update_stack_content (window);
+ 
++		/* Present the window now that the listing is available. On a fresh
++		 * launch this is the first time the window is shown, so its initial
++		 * frame already contains the file list (see fr-application.c); when
++		 * opening an archive into an existing window this raises it. */
+ 		if (! private->batch_mode)
+ 			gtk_window_present (GTK_WINDOW (window));
+ 		break;
