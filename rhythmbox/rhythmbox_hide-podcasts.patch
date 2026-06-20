@@ -1,0 +1,12 @@
+Only in rhythmbox/src/rhythmbox/.git: opencode
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/shell/rb-shell.c rhythmbox/src/rhythmbox/shell/rb-shell.c
+--- rhythmbox.ORIG/src/rhythmbox/shell/rb-shell.c	2026-06-19 22:40:53.404012008 -0700
++++ rhythmbox/src/rhythmbox/shell/rb-shell.c	2026-06-19 23:01:17.014990012 -0700
+@@ -691,6 +691,7 @@
+ 
+ 	rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (shell->priv->library_source), page_group);
+ 	rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (shell->priv->podcast_source), page_group);
++	g_object_set (shell->priv->podcast_source, "visibility", FALSE, NULL);
+ 	rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (shell->priv->missing_files_source), page_group);
+ 	rb_shell_append_display_page (shell, RB_DISPLAY_PAGE (shell->priv->import_errors_source), page_group);
+ 
