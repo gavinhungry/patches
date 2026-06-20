@@ -1,0 +1,100 @@
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c
+--- rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2026-06-19 21:37:22.266012336 -0700
++++ rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2026-06-19 22:22:32.419174651 -0700
+@@ -79,6 +79,7 @@
+ static void genre_selection_reset_cb (RBPropertyView *propview, RBIRadioSource *iradio_source);
+ static void rb_iradio_source_songs_view_sort_order_changed_cb (GObject *object, GParamSpec *pspec, RBIRadioSource *source);
+ static char *guess_uri_scheme (const char *uri);
++static gint rb_iradio_source_order_sort_func (RhythmDBEntry *a, RhythmDBEntry *b, gpointer data);
+ 
+ /* entry type */
+ static void rb_iradio_entry_type_class_init (RBIRadioEntryTypeClass *klass);
+@@ -305,6 +306,14 @@
+ 	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_RATING, FALSE);
+ /*	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_PLAY_COUNT, FALSE);*/
+ 	rb_entry_view_append_column (source->priv->stations, RB_ENTRY_VIEW_COL_LAST_PLAYED, FALSE);
++
++	/* disable clicking on column headers to sort: the station order is a
++	 * persistent, user-defined manual order driven by the per-station
++	 * track-number stored in rhythmdb.xml (see do_query), just like
++	 * static playlists.
++	 */
++	rb_entry_view_set_columns_clickable (source->priv->stations, FALSE);
++
+ 	g_signal_connect_object (source->priv->stations,
+ 				 "notify::sort-order",
+ 				 G_CALLBACK (rb_iradio_source_songs_view_sort_order_changed_cb),
+@@ -677,6 +686,11 @@
+ 						   RBIRadioSource *source)
+ {
+ 	rb_debug ("sort order changed");
++	/* Don't let an external sort-order change (e.g. from GSettings at
++	 * startup) overwrite the manual order we are in the middle of applying.
++	 */
++	if (source->priv->setting_new_query)
++		return;
+ 	rb_entry_view_resort_model (RB_ENTRY_VIEW (object));
+ }
+ 
+@@ -742,6 +756,39 @@
+ 	rb_source_notify_filter_changed (RB_SOURCE (iradio_source));
+ }
+ 
++/*
++ * Sort comparator for the persistent manual station order.
++ *
++ * The order index is stored per-station in RHYTHMDB_PROP_TRACK_NUMBER.  Ties
++ * (e.g. stations that have not yet been assigned an index) are broken by title
++ * and then location so the order is stable.
++ */
++static gint
++rb_iradio_source_order_sort_func (RhythmDBEntry *a, RhythmDBEntry *b, gpointer data)
++{
++	gulong a_num, b_num;
++	const char *a_val, *b_val;
++
++	a_num = rhythmdb_entry_get_ulong (a, RHYTHMDB_PROP_TRACK_NUMBER);
++	b_num = rhythmdb_entry_get_ulong (b, RHYTHMDB_PROP_TRACK_NUMBER);
++	if (a_num != b_num)
++		return (a_num < b_num ? -1 : 1);
++
++	a_val = rhythmdb_entry_get_string (a, RHYTHMDB_PROP_TITLE_SORT_KEY);
++	b_val = rhythmdb_entry_get_string (b, RHYTHMDB_PROP_TITLE_SORT_KEY);
++	if (a_val != NULL && b_val != NULL) {
++		int ret = strcmp (a_val, b_val);
++		if (ret != 0)
++			return ret;
++	}
++
++	a_val = rhythmdb_entry_get_string (a, RHYTHMDB_PROP_LOCATION);
++	b_val = rhythmdb_entry_get_string (b, RHYTHMDB_PROP_LOCATION);
++	if (a_val == NULL || b_val == NULL)
++		return 0;
++	return strcmp (a_val, b_val);
++}
++
+ static void
+ rb_iradio_source_do_query (RBIRadioSource *source)
+ {
+@@ -829,6 +876,21 @@
+ 	}
+ 
+ 	rb_entry_view_set_model (source->priv->stations, station_query_model);
++
++	/* Apply the persistent, user-defined manual sort order.  The order is
++	 * stored per-station in RHYTHMDB_PROP_TRACK_NUMBER (which iradio does
++	 * not otherwise use) so it is saved to rhythmdb.xml, and can be edited
++	 * by hand there to set the order.  Applying it on every query means the
++	 * order survives genre filtering, searching and restarts.  Stations
++	 * with no track-number (0) sort to the top.
++	 *
++	 * This must be called AFTER rb_entry_view_set_model, because that
++	 * function calls rb_entry_view_resort_model internally (when a sorting
++	 * column is already set), which would overwrite our custom sort.
++	 */
++	rhythmdb_query_model_set_sort_order (station_query_model,
++					     (GCompareDataFunc) rb_iradio_source_order_sort_func,
++					     NULL, NULL, FALSE);
+ 	g_object_set (source, "query-model", station_query_model, NULL);
+ 
+ 	g_object_unref (genre_query_model);
