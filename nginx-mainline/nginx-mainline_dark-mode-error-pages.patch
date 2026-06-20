@@ -1,6 +1,6 @@
 diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_response.c nginx-mainline/src/nginx/src/http/ngx_http_special_response.c
---- nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_response.c	2026-02-18 22:30:56.800742492 -0800
-+++ nginx-mainline/src/nginx/src/http/ngx_http_special_response.c	2026-02-18 22:34:06.926759798 -0800
+--- nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_response.c	2026-06-19 23:50:42.098561310 -0700
++++ nginx-mainline/src/nginx/src/http/ngx_http_special_response.c	2026-06-19 23:52:58.185143459 -0700
 @@ -59,7 +59,10 @@
  
  static char ngx_http_error_301_page[] =
@@ -147,6 +147,18 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  ;
 @@ -155,7 +191,10 @@
  
+ static char ngx_http_error_407_page[] =
+ "<html>" CRLF
+-"<head><title>407 Proxy Authentication Required</title></head>" CRLF
++"<head>" CRLF
++"<title>407 Proxy Authentication Required</title>" CRLF
++"<meta name=\"color-scheme\" content=\"light dark\">" CRLF
++"</head>" CRLF
+ "<body>" CRLF
+ "<center><h1>407 Proxy Authentication Required</h1></center>" CRLF
+ ;
+@@ -163,7 +202,10 @@
+ 
  static char ngx_http_error_408_page[] =
  "<html>" CRLF
 -"<head><title>408 Request Time-out</title></head>" CRLF
@@ -157,7 +169,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>408 Request Time-out</h1></center>" CRLF
  ;
-@@ -163,7 +202,10 @@
+@@ -171,7 +213,10 @@
  
  static char ngx_http_error_409_page[] =
  "<html>" CRLF
@@ -169,7 +181,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>409 Conflict</h1></center>" CRLF
  ;
-@@ -171,7 +213,10 @@
+@@ -179,7 +224,10 @@
  
  static char ngx_http_error_410_page[] =
  "<html>" CRLF
@@ -181,7 +193,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>410 Gone</h1></center>" CRLF
  ;
-@@ -179,7 +224,10 @@
+@@ -187,7 +235,10 @@
  
  static char ngx_http_error_411_page[] =
  "<html>" CRLF
@@ -193,7 +205,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>411 Length Required</h1></center>" CRLF
  ;
-@@ -187,7 +235,10 @@
+@@ -195,7 +246,10 @@
  
  static char ngx_http_error_412_page[] =
  "<html>" CRLF
@@ -205,7 +217,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>412 Precondition Failed</h1></center>" CRLF
  ;
-@@ -195,7 +246,10 @@
+@@ -203,7 +257,10 @@
  
  static char ngx_http_error_413_page[] =
  "<html>" CRLF
@@ -217,7 +229,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>413 Request Entity Too Large</h1></center>" CRLF
  ;
-@@ -203,7 +257,10 @@
+@@ -211,7 +268,10 @@
  
  static char ngx_http_error_414_page[] =
  "<html>" CRLF
@@ -229,7 +241,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>414 Request-URI Too Large</h1></center>" CRLF
  ;
-@@ -211,7 +268,10 @@
+@@ -219,7 +279,10 @@
  
  static char ngx_http_error_415_page[] =
  "<html>" CRLF
@@ -241,7 +253,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>415 Unsupported Media Type</h1></center>" CRLF
  ;
-@@ -219,7 +279,10 @@
+@@ -227,7 +290,10 @@
  
  static char ngx_http_error_416_page[] =
  "<html>" CRLF
@@ -253,7 +265,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>416 Requested Range Not Satisfiable</h1></center>" CRLF
  ;
-@@ -227,7 +290,10 @@
+@@ -235,7 +301,10 @@
  
  static char ngx_http_error_421_page[] =
  "<html>" CRLF
@@ -265,7 +277,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>421 Misdirected Request</h1></center>" CRLF
  ;
-@@ -235,7 +301,10 @@
+@@ -243,7 +312,10 @@
  
  static char ngx_http_error_429_page[] =
  "<html>" CRLF
@@ -277,7 +289,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>429 Too Many Requests</h1></center>" CRLF
  ;
-@@ -243,8 +312,10 @@
+@@ -251,8 +323,10 @@
  
  static char ngx_http_error_494_page[] =
  "<html>" CRLF
@@ -290,7 +302,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>400 Bad Request</h1></center>" CRLF
  "<center>Request Header Or Cookie Too Large</center>" CRLF
-@@ -253,8 +324,10 @@
+@@ -261,8 +335,10 @@
  
  static char ngx_http_error_495_page[] =
  "<html>" CRLF
@@ -303,7 +315,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>400 Bad Request</h1></center>" CRLF
  "<center>The SSL certificate error</center>" CRLF
-@@ -263,8 +336,10 @@
+@@ -271,8 +347,10 @@
  
  static char ngx_http_error_496_page[] =
  "<html>" CRLF
@@ -316,7 +328,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>400 Bad Request</h1></center>" CRLF
  "<center>No required SSL certificate was sent</center>" CRLF
-@@ -273,8 +348,10 @@
+@@ -281,8 +359,10 @@
  
  static char ngx_http_error_497_page[] =
  "<html>" CRLF
@@ -329,7 +341,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>400 Bad Request</h1></center>" CRLF
  "<center>The plain HTTP request was sent to HTTPS port</center>" CRLF
-@@ -283,7 +360,10 @@
+@@ -291,7 +371,10 @@
  
  static char ngx_http_error_500_page[] =
  "<html>" CRLF
@@ -341,7 +353,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>500 Internal Server Error</h1></center>" CRLF
  ;
-@@ -291,7 +371,10 @@
+@@ -299,7 +382,10 @@
  
  static char ngx_http_error_501_page[] =
  "<html>" CRLF
@@ -353,7 +365,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>501 Not Implemented</h1></center>" CRLF
  ;
-@@ -299,7 +382,10 @@
+@@ -307,7 +393,10 @@
  
  static char ngx_http_error_502_page[] =
  "<html>" CRLF
@@ -365,7 +377,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>502 Bad Gateway</h1></center>" CRLF
  ;
-@@ -307,7 +393,10 @@
+@@ -315,7 +404,10 @@
  
  static char ngx_http_error_503_page[] =
  "<html>" CRLF
@@ -377,7 +389,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>503 Service Temporarily Unavailable</h1></center>" CRLF
  ;
-@@ -315,7 +404,10 @@
+@@ -323,7 +415,10 @@
  
  static char ngx_http_error_504_page[] =
  "<html>" CRLF
@@ -389,7 +401,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>504 Gateway Time-out</h1></center>" CRLF
  ;
-@@ -323,7 +415,10 @@
+@@ -331,7 +426,10 @@
  
  static char ngx_http_error_505_page[] =
  "<html>" CRLF
@@ -401,7 +413,7 @@ diff --color -ru nginx-mainline.ORIG/src/nginx/src/http/ngx_http_special_respons
  "<body>" CRLF
  "<center><h1>505 HTTP Version Not Supported</h1></center>" CRLF
  ;
-@@ -331,7 +426,10 @@
+@@ -339,7 +437,10 @@
  
  static char ngx_http_error_507_page[] =
  "<html>" CRLF
