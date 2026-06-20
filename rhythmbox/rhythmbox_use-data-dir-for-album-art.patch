@@ -1,0 +1,73 @@
+Only in rhythmbox/src/rhythmbox/.git: opencode
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/metadata/rb-ext-db.c rhythmbox/src/rhythmbox/metadata/rb-ext-db.c
+--- rhythmbox.ORIG/src/rhythmbox/metadata/rb-ext-db.c	2026-06-19 22:40:53.382924265 -0700
++++ rhythmbox/src/rhythmbox/metadata/rb-ext-db.c	2026-06-19 23:10:30.432960718 -0700
+@@ -324,6 +324,14 @@
+ 	}
+ }
+ 
++static const char *
++rb_ext_db_store_dir (const char *name)
++{
++	if (strcmp (name, "album-art") == 0)
++		return rb_user_data_dir ();
++	return rb_user_cache_dir ();
++}
++
+ static GObject *
+ impl_constructor (GType type, guint n_construct_properties, GObjectConstructParam *construct_properties)
+ {
+@@ -356,7 +364,7 @@
+ 	store = RB_EXT_DB (G_OBJECT_CLASS (rb_ext_db_parent_class)->constructor (type, n_construct_properties, construct_properties));
+ 
+ 	/* open the cache db */
+-	storedir = g_build_filename (rb_user_cache_dir (), name, NULL);
++	storedir = g_build_filename (rb_ext_db_store_dir (name), name, NULL);
+ 	if (g_mkdir_with_parents (storedir, 0700) != 0) {
+ 		/* what can we do now? */
+ 		g_assert_not_reached ();
+@@ -615,7 +623,7 @@
+ 		return NULL;
+ 	}
+ 
+-	path = g_build_filename (rb_user_cache_dir (), store->priv->name, fn, NULL);
++	path = g_build_filename (rb_ext_db_store_dir (store->priv->name), store->priv->name, fn, NULL);
+ 	g_free (fn);
+ 	return path;
+ }
+@@ -862,7 +870,7 @@
+ 	GFile *f;
+ 	GError *error = NULL;
+ 
+-	fullname = g_build_filename (rb_user_cache_dir (), store->priv->name, filename, NULL);
++	fullname = g_build_filename (rb_ext_db_store_dir (store->priv->name), store->priv->name, filename, NULL);
+ 	f = g_file_new_for_path (fullname);
+ 	g_free (fullname);
+ 
+@@ -1084,12 +1092,12 @@
+ 			rb_debug ("using existing filename %s (basename %s, subdir %s)", filename, basename, subdir);
+ 		}
+ 
+-		fullsubdir = g_build_filename (rb_user_cache_dir (), store->priv->name, subdir, NULL);
++		fullsubdir = g_build_filename (rb_ext_db_store_dir (store->priv->name), store->priv->name, subdir, NULL);
+ 		/* ignore errors, g_file_replace_contents will fail too, and it'll explain */
+ 		g_mkdir_with_parents (fullsubdir, 0770);
+ 		g_free (fullsubdir);
+ 
+-		req->filename = g_build_filename (rb_user_cache_dir (),
++		req->filename = g_build_filename (rb_ext_db_store_dir (store->priv->name),
+ 						  store->priv->name,
+ 						  subdir,
+ 						  basename,
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/plugins/webremote/webremote.py rhythmbox/src/rhythmbox/plugins/webremote/webremote.py
+--- rhythmbox.ORIG/src/rhythmbox/plugins/webremote/webremote.py	2026-06-19 22:40:53.391531075 -0700
++++ rhythmbox/src/rhythmbox/plugins/webremote/webremote.py	2026-06-19 23:11:21.487844247 -0700
+@@ -548,7 +548,7 @@
+ 		shell = self.object
+ 		self.db = shell.props.db
+ 
+-		self.artcache = os.path.join(RB.user_cache_dir(), "album-art", "")
++		self.artcache = os.path.join(RB.user_data_dir(), "album-art", "")
+ 		self.art_store = RB.ExtDB(name="album-art")
+ 		self.art_store.connect("added", self.art_added_cb)
+ 
