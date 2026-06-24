@@ -1,7 +1,7 @@
 diff -ru mkinitcpio.ORIG/src/mkinitcpio-41/functions mkinitcpio/src/mkinitcpio-41/functions
---- mkinitcpio.ORIG/src/mkinitcpio-41/functions	2024-03-04 10:45:44.457249286 -0800
-+++ mkinitcpio/src/mkinitcpio-41/functions	2024-03-04 10:45:44.473916235 -0800
-@@ -599,8 +599,7 @@
+--- mkinitcpio.ORIG/src/mkinitcpio-41/functions	2026-06-23 13:41:37.489079877 -0700
++++ mkinitcpio/src/mkinitcpio-41/functions	2026-06-23 13:41:38.267116341 -0700
+@@ -742,8 +742,7 @@
      fi
  
      if (( ${#firmware[*]} )); then

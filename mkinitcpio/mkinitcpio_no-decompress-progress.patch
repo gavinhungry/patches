@@ -1,7 +1,7 @@
 diff -ru mkinitcpio.ORIG/src/mkinitcpio-41/functions mkinitcpio/src/mkinitcpio-41/functions
---- mkinitcpio.ORIG/src/mkinitcpio-41/functions	2024-03-04 10:45:44.457249286 -0800
-+++ mkinitcpio/src/mkinitcpio-41/functions	2024-03-04 10:45:44.467249456 -0800
-@@ -1123,7 +1123,7 @@
+--- mkinitcpio.ORIG/src/mkinitcpio-41/functions	2026-06-23 13:41:37.489079877 -0700
++++ mkinitcpio/src/mkinitcpio-41/functions	2026-06-23 13:41:37.900099166 -0700
+@@ -1329,7 +1329,7 @@
  
      (( ${#xz_comp[*]} )) && xz -d "${xz_comp[@]}"
      (( ${#gz_comp[*]} )) && gzip -d "${gz_comp[@]}"
@@ -9,4 +9,4 @@ diff -ru mkinitcpio.ORIG/src/mkinitcpio-41/functions mkinitcpio/src/mkinitcpio-4
 +    (( ${#zst_comp[*]} )) && zstd -d --rm -qq "${zst_comp[@]}"
  
      msg "Generating module dependencies"
-     map add_file "$_d_kmoduledir"/modules.{builtin,builtin.modinfo,order}
+     for p in "$_d_kmoduledir"/modules.{builtin,builtin.modinfo,order}; do
