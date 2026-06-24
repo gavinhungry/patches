@@ -1,0 +1,13 @@
+diff -ru mkinitcpio.ORIG/src/mkinitcpio-41/functions mkinitcpio/src/mkinitcpio-41/functions
+--- mkinitcpio.ORIG/src/mkinitcpio-41/functions	2026-06-23 13:41:37.489079877 -0700
++++ mkinitcpio/src/mkinitcpio-41/functions	2026-06-23 13:41:38.619132795 -0700
+@@ -1386,9 +1386,6 @@
+ 
+     mapfile -t mods < <(find_module_from_symbol "$symbol" "${paths[@]}")
+     if (( ! ${#mods[@]} )); then
+-        paths=("${paths[@]#=}") paths=("${paths[@]/#/\'}") paths=("${paths[@]/%/\',}")
+-        local path_string="${paths[*]}"
+-        warning "No module containing the symbol '%s' found in: %s" "$symbol" "${path_string%,}"
+         return 1
+     fi
+ 
