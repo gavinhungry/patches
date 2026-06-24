@@ -1,7 +1,6 @@
-Binary files compiz.ORIG/.git/index and compiz/.git/index differ
 diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp compiz/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp	2026-03-05 22:04:53.305381142 -0800
-+++ compiz/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp	2026-03-05 22:16:18.143221639 -0800
+--- compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp	2026-06-24 12:29:55.060587626 -0700
++++ compiz/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp	2026-06-24 12:31:28.064862136 -0700
 @@ -185,8 +185,8 @@
      {
  	region += CompRect (-window->output ().left,
@@ -13,18 +12,13 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp compi
  
  	region -= CompRect (0, 0, window->width (), window->height ());
  
-@@ -1621,10 +1621,10 @@
- 
+@@ -1622,8 +1622,8 @@
  	    if (!clientThreshold)
  	    {
--		bScreen->tmpRegion -= CompRect (window->x (),
+ 		bScreen->tmpRegion -= CompRect (window->x (),
 -						window->x () + window->width (),
--						window->y (),
--						window->y () + window->height ());
-+	bScreen->tmpRegion -= CompRect (window->x (),
-+					window->y (),
-+					window->width (),
-+					window->height ());
+ 						window->y (),
++						window->x () + window->width (),
+ 						window->y () + window->height ());
  	    }
  
- 	    if (clipped)
