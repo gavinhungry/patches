@@ -1,6 +1,6 @@
-diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/doc/pakku.8.txt pakku/src/pakku-0.17/doc/pakku.8.txt
---- pakku.ORIG/src/pakku-0.17/doc/pakku.8.txt	2026-05-12 15:36:11.810288647 -0700
-+++ pakku/src/pakku-0.17/doc/pakku.8.txt	2026-05-12 15:02:15.567767685 -0700
+diff -ru pakku.ORIG/src/pakku-0.17/doc/pakku.8.txt pakku/src/pakku-0.17/doc/pakku.8.txt
+--- pakku.ORIG/src/pakku-0.17/doc/pakku.8.txt	2026-06-26 14:17:38.173152880 -0700
++++ pakku/src/pakku-0.17/doc/pakku.8.txt	2026-06-26 14:17:38.173727474 -0700
 @@ -42,6 +42,11 @@
  	Disable AUR support. This option is assumed when you use non-standard
  	root path or run the program from root.
@@ -13,9 +13,9 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/doc/pakku.8.txt pakk
  *-z, \--source*::
  	Retrieve PKGBUILD source. Version can be specified as with -n above.
  	You can specify destination directory after package name: +
-diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt pakku/src/pakku-0.17/doc/pakku.conf.5.txt
---- pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt	2026-05-12 15:36:11.810288647 -0700
-+++ pakku/src/pakku-0.17/doc/pakku.conf.5.txt	2026-05-12 15:41:43.538270545 -0700
+diff -ru pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt pakku/src/pakku-0.17/doc/pakku.conf.5.txt
+--- pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt	2026-06-26 14:17:38.173156700 -0700
++++ pakku/src/pakku-0.17/doc/pakku.conf.5.txt	2026-06-26 14:17:38.173731124 -0700
 @@ -39,6 +39,16 @@
  	Ignore a missing or incomplete arch field in the build script. Pakku
  	will pass '\--ignorearch' option to linkman:makepkg[8].
@@ -33,9 +33,9 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt
  *PrintAurNotFound*::
  	Print warnings during upgrade operation when foreign packages were not
  	found in AUR.
-@@ -47,6 +57,11 @@
- 	Print warnings during upgrade operation when local packages are newer
- 	than those found in remote repositories.
+@@ -50,6 +60,11 @@
+ *PromptImportKeys*::
+ 	Prompt to import missing signing keys.
  
 +*PrintMinAurAgeSkipped*::
 +	Print a warning during sysupgrade for each AUR package whose upgrade
@@ -45,10 +45,10 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt
  *SudoExec*::
  	Automatically exec the program from root via sudo if it is necessary,
  	allowing you to enter password for sudo only once.
-diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/pakku.conf pakku/src/pakku-0.17/pakku.conf
---- pakku.ORIG/src/pakku-0.17/pakku.conf	2026-05-12 15:36:11.810288647 -0700
-+++ pakku/src/pakku-0.17/pakku.conf	2026-05-12 15:41:50.632184936 -0700
-@@ -4,12 +4,14 @@
+diff -ru pakku.ORIG/src/pakku-0.17/pakku.conf pakku/src/pakku-0.17/pakku.conf
+--- pakku.ORIG/src/pakku-0.17/pakku.conf	2026-06-26 14:17:38.173292709 -0700
++++ pakku/src/pakku-0.17/pakku.conf	2026-06-26 14:17:38.173868953 -0700
+@@ -4,6 +4,7 @@
  #UserCacheDir = ${HOME}/.cache/pakku
  #TmpDir = /tmp/pakku-${USER}
  #AurRepo = aur
@@ -56,16 +56,17 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/pakku.conf pakku/src
  
  AurComments
  CheckIgnored
- #IgnoreArch
+@@ -11,6 +12,7 @@
  PrintAurNotFound
  PrintLocalIsNewer
+ PromptImportKeys
 +PrintMinAurAgeSkipped
  #SudoExec
  #ViewNoDefault
  
-diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/common.nim pakku/src/pakku-0.17/src/common.nim
---- pakku.ORIG/src/pakku-0.17/src/common.nim	2026-05-12 15:36:11.810288647 -0700
-+++ pakku/src/pakku-0.17/src/common.nim	2026-05-12 15:09:10.554053396 -0700
+diff -ru pakku.ORIG/src/pakku-0.17/src/common.nim pakku/src/pakku-0.17/src/common.nim
+--- pakku.ORIG/src/pakku-0.17/src/common.nim	2026-06-26 14:17:38.173191150 -0700
++++ pakku/src/pakku-0.17/src/common.nim	2026-06-26 14:17:38.173842713 -0700
 @@ -114,6 +114,31 @@
      not (s.isAurTargetSync(aurRepo) and pkgInfoReferencesTable.opt(s.target.reference.name)
      .map(r => s.target.reference.isProvidedBy(r, true)).get(false)))
@@ -98,13 +99,13 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/common.nim pakku
  proc printSyncNotFound*(config: Config, notFoundTargets: seq[SyncPackageTarget]) =
    let dbs = config.common.dbs.toHashSet
  
-diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/config.nim pakku/src/pakku-0.17/src/config.nim
---- pakku.ORIG/src/pakku-0.17/src/config.nim	2026-05-12 15:36:11.810288647 -0700
-+++ pakku/src/pakku-0.17/src/config.nim	2026-05-12 15:33:09.497514424 -0700
-@@ -54,11 +54,13 @@
-     ignoreArch: bool,
+diff -ru pakku.ORIG/src/pakku-0.17/src/config.nim pakku/src/pakku-0.17/src/config.nim
+--- pakku.ORIG/src/pakku-0.17/src/config.nim	2026-06-26 14:17:38.173288179 -0700
++++ pakku/src/pakku-0.17/src/config.nim	2026-06-26 14:17:38.173853063 -0700
+@@ -55,11 +55,13 @@
      printAurNotFound: bool,
      printLocalIsNewer: bool,
+     promptImportKeys: bool,
 +    printMinAurAgeSkipped: bool,
      sudoExec: bool,
      viewNoDefault: bool,
@@ -116,15 +117,15 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/config.nim pakku
    ]
  
  proc readConfigFile*(configFile: string):
-@@ -174,6 +176,7 @@
-     ignoreArch = options.hasKey("IgnoreArch")
+@@ -176,6 +178,7 @@
      printAurNotFound = options.hasKey("PrintAurNotFound")
      printLocalIsNewer = options.hasKey("PrintLocalIsNewer")
+     promptImportKeys = options.hasKey("PromptImportKeys")
 +    printMinAurAgeSkipped = options.hasKey("PrintMinAurAgeSkipped")
      sudoExec = options.hasKey("SudoExec")
      viewNoDefault = options.hasKey("ViewNoDefault")
      preserveBuilt = toSeq(enumerate[PreserveBuilt]())
-@@ -181,6 +184,22 @@
+@@ -183,6 +186,22 @@
        .optLast.get(PreserveBuilt.disabled)
      preBuildCommand = options.opt("PreBuildCommand")
      sudoCommand = options.opt("PreferredSudoCommand").getSudoPrefix()
@@ -147,19 +148,19 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/config.nim pakku
  
    if config.common.dbs.find(aurRepo) >= 0:
      raise commandError(tr"repo '$#' can not be used as fake AUR repository" % [aurRepo],
-@@ -196,7 +215,8 @@
+@@ -198,7 +217,8 @@
      config.common.ignorePkgs, config.common.ignoreGroups),
      root, db, cache, userCacheInitial, userCacheCurrent, tmpRootInitial, tmpRootCurrent,
      color, aurRepo, aurComments, checkIgnored, ignoreArch, printAurNotFound, printLocalIsNewer,
--    sudoExec, viewNoDefault, preserveBuilt, preBuildCommand, sudoCommand)
-+    printMinAurAgeSkipped, sudoExec, viewNoDefault, preserveBuilt, preBuildCommand, sudoCommand,
-+    minAurAgeHours)
+-    promptImportKeys, sudoExec, viewNoDefault, preserveBuilt, preBuildCommand, sudoCommand)
++    promptImportKeys, printMinAurAgeSkipped, sudoExec, viewNoDefault, preserveBuilt,
++    preBuildCommand, sudoCommand, minAurAgeHours)
  
  template withAlpmConfig*(config: Config, passDbs: bool,
    handle: untyped, alpmDbs: untyped, errors: untyped, body: untyped): untyped =
-diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/feature/syncinstall.nim pakku/src/pakku-0.17/src/feature/syncinstall.nim
---- pakku.ORIG/src/pakku-0.17/src/feature/syncinstall.nim	2026-05-12 15:36:11.810288647 -0700
-+++ pakku/src/pakku-0.17/src/feature/syncinstall.nim	2026-05-12 15:33:18.281406799 -0700
+diff -ru pakku.ORIG/src/pakku-0.17/src/feature/syncinstall.nim pakku/src/pakku-0.17/src/feature/syncinstall.nim
+--- pakku.ORIG/src/pakku-0.17/src/feature/syncinstall.nim	2026-06-26 14:17:38.173227959 -0700
++++ pakku/src/pakku-0.17/src/feature/syncinstall.nim	2026-06-26 14:17:38.173794624 -0700
 @@ -1,5 +1,5 @@
  import
 -  algorithm, options, os, posix, sequtils, sets, strutils, sugar, tables,
@@ -186,7 +187,7 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/feature/syncinst
            let aurTable = acceptedPkgInfos.map(i => (i.rpc.name, i)).toTable
            let aurResult = aurCheck.map(proc (reference: PackageReference): ReferenceResult =
              if aurTable.hasKey(reference.name):
-@@ -972,6 +982,7 @@
+@@ -976,6 +986,7 @@
  proc filterIgnoresAndConflicts(config: Config, pkgInfos: seq[PackageInfo],
    targetNamesSet: HashSet[string], installed: Table[string, Installed],
    printMode: bool, noconfirm: bool): (seq[PackageInfo], seq[PackageInfo]) =
@@ -194,7 +195,7 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/feature/syncinst
    let acceptedPkgInfos = pkgInfos.filter(pkgInfo => (block:
      let instGroups = collect(newSeq):
        for i in installed.opt(pkgInfo.rpc.name):
-@@ -989,6 +1000,21 @@
+@@ -993,6 +1004,21 @@
            true
        else:
          false
@@ -216,7 +217,7 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/feature/syncinst
      else:
        true))
  
-@@ -1160,17 +1186,40 @@
+@@ -1164,17 +1190,40 @@
    if not printMode and (checkAur or build) and printHeader:
      printColon(config.color, tr"Resolving build targets...")
  
@@ -259,7 +260,7 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/feature/syncinst
    let rpcAurTargets = fullTargets.filter(f => f.isAurTargetFull(config.aurRepo))
  
    let targetRpcInfos = collect(newSeq):
-@@ -1458,6 +1507,12 @@
+@@ -1462,6 +1511,12 @@
      (0, syncTargets, fullTargets)
  
  proc handleSyncInstall*(args: seq[Argument], config: Config): int =
@@ -272,9 +273,9 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/feature/syncinst
    let printModeArg = args.check(%%%"print")
    let printModeFormat = args.filter(arg => arg.matchOption(%%%"print-format")).optLast
    let printFormat = if printModeArg or printModeFormat.isSome:
-diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/main.nim pakku/src/pakku-0.17/src/main.nim
---- pakku.ORIG/src/pakku-0.17/src/main.nim	2026-05-12 15:36:11.810288647 -0700
-+++ pakku/src/pakku-0.17/src/main.nim	2026-05-12 15:02:15.568330570 -0700
+diff -ru pakku.ORIG/src/pakku-0.17/src/main.nim pakku/src/pakku-0.17/src/main.nim
+--- pakku.ORIG/src/pakku-0.17/src/main.nim	2026-06-26 14:17:38.173249929 -0700
++++ pakku/src/pakku-0.17/src/main.nim	2026-06-26 14:17:38.173857993 -0700
 @@ -196,6 +196,8 @@
          printHelp(%%%"build", none(string), tr"build targets from source")
          printHelp(%%%"keyserver", some("name"), tr"use name as keyserver to receive keys from")
@@ -284,9 +285,9 @@ diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/main.nim pakku/s
          printHelp(%%%"source", none(string), tr"retrieve PKGBUILD source")
        else:
          discard
-diff --color -ru '--exclude=.git' pakku.ORIG/src/pakku-0.17/src/pacman.nim pakku/src/pakku-0.17/src/pacman.nim
---- pakku.ORIG/src/pakku-0.17/src/pacman.nim	2026-05-12 15:36:11.810288647 -0700
-+++ pakku/src/pakku-0.17/src/pacman.nim	2026-05-12 15:02:15.568376439 -0700
+diff -ru pakku.ORIG/src/pakku-0.17/src/pacman.nim pakku/src/pakku-0.17/src/pacman.nim
+--- pakku.ORIG/src/pakku-0.17/src/pacman.nim	2026-06-26 14:17:38.173262459 -0700
++++ pakku/src/pakku-0.17/src/pacman.nim	2026-06-26 14:17:38.173863053 -0700
 @@ -151,6 +151,7 @@
      $o("n", "build") + g(syncInstall),
      $(^o("keyserver")) + g(syncInstall),

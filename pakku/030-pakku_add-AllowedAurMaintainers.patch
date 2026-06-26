@@ -1,0 +1,130 @@
+diff -ru pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt pakku/src/pakku-0.17/doc/pakku.conf.5.txt
+--- pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt	2026-06-26 14:23:25.400474012 -0700
++++ pakku/src/pakku-0.17/doc/pakku.conf.5.txt	2026-06-26 14:23:25.401028567 -0700
+@@ -88,6 +88,15 @@
+ 	not set or the command is not found on the system, pakku will try to guess the
+ 	command between sudo, doas and su.
+ 
++*AllowedAurMaintainers =* maintainer ...::
++	A whitelist of approved AUR maintainers. Multiple maintainers are separated
++	by spaces, and the option may be repeated on several lines to accumulate
++	names. When this list is non-empty, pakku will not build or install any
++	AUR package (including dependencies) whose maintainer is missing, empty, or
++	not present in the list. The check is performed before any PKGBUILD or
++	included file is executed, so untrusted packages are never built. If the
++	list is empty or unset (the default), the check is disabled.
++
+ See Also
+ --------
+ linkman:pacman.conf[5], linkman:pakku[8]
+diff -ru pakku.ORIG/src/pakku-0.17/pakku.conf pakku/src/pakku-0.17/pakku.conf
+--- pakku.ORIG/src/pakku-0.17/pakku.conf	2026-06-26 14:23:25.400628131 -0700
++++ pakku/src/pakku-0.17/pakku.conf	2026-06-26 14:23:25.401160475 -0700
+@@ -5,6 +5,7 @@
+ #TmpDir = /tmp/pakku-${USER}
+ #AurRepo = aur
+ #MinAurAgeHours = 24
++#AllowedAurMaintainers = maintainer1 maintainer2
+ 
+ AurComments
+ CheckIgnored
+diff -ru pakku.ORIG/src/pakku-0.17/src/config.nim pakku/src/pakku-0.17/src/config.nim
+--- pakku.ORIG/src/pakku-0.17/src/config.nim	2026-06-26 14:23:25.400609081 -0700
++++ pakku/src/pakku-0.17/src/config.nim	2026-06-26 14:23:25.401155645 -0700
+@@ -61,7 +61,8 @@
+     preserveBuilt: PreserveBuilt,
+     preBuildCommand: Option[string],
+     sudoCommand: seq[string],
+-    minAurAgeHours: int
++    minAurAgeHours: int,
++    allowedAurMaintainers: HashSet[string]
+   ]
+ 
+ proc readConfigFile*(configFile: string):
+@@ -87,7 +88,8 @@
+                 table[currentCategory] = category
+             elif currentCategory.len > 0:
+               if line.match(re"(\w+)\ *=\ *(.*)", matches):
+-                if matches[0] == "IgnorePkg" or matches[0] == "HoldPkg":
++                if matches[0] == "IgnorePkg" or matches[0] == "HoldPkg" or
++                  matches[0] == "AllowedAurMaintainers":
+                   if category.hasKey(matches[0]):
+                     if not isEmptyOrWhitespace(matches[1]): # stop empty lines adding spaces
+                       category[matches[0]] = category[matches[0]] & " " & matches[1]
+@@ -202,6 +204,9 @@
+           raise commandError(tr"MinAurAgeHours must be non-negative (got $#)" % [$parsed],
+             colorNeeded = some(color))
+         parsed)
++    allowedAurMaintainers = options.opt("AllowedAurMaintainers")
++      .map(s => s.split(' ').filter(x => x.len > 0).toHashSet)
++      .get(initHashSet[string]())
+ 
+   if config.common.dbs.find(aurRepo) >= 0:
+     raise commandError(tr"repo '$#' can not be used as fake AUR repository" % [aurRepo],
+@@ -218,7 +223,7 @@
+     root, db, cache, userCacheInitial, userCacheCurrent, tmpRootInitial, tmpRootCurrent,
+     color, aurRepo, aurComments, checkIgnored, ignoreArch, printAurNotFound, printLocalIsNewer,
+     promptImportKeys, printMinAurAgeSkipped, sudoExec, viewNoDefault, preserveBuilt,
+-    preBuildCommand, sudoCommand, minAurAgeHours)
++    preBuildCommand, sudoCommand, minAurAgeHours, allowedAurMaintainers)
+ 
+ template withAlpmConfig*(config: Config, passDbs: bool,
+   handle: untyped, alpmDbs: untyped, errors: untyped, body: untyped): untyped =
+diff -ru pakku.ORIG/src/pakku-0.17/src/feature/syncinstall.nim pakku/src/pakku-0.17/src/feature/syncinstall.nim
+--- pakku.ORIG/src/pakku-0.17/src/feature/syncinstall.nim	2026-06-26 14:23:25.400546292 -0700
++++ pakku/src/pakku-0.17/src/feature/syncinstall.nim	2026-06-26 14:23:25.401090916 -0700
+@@ -781,6 +781,38 @@
+ 
+     (true, satisfied, additionalPacmanTargets, orderedPkgInfos, paths)
+ 
++proc checkAllowedAurMaintainers(config: Config,
++  basePackages: seq[seq[seq[PackageInfo]]]): bool =
++  # Returns true if all AUR build packages have an allowed maintainer, or if the
++  # feature is disabled (empty allow-list). This runs before any PKGBUILD or
++  # included-file code can execute, so untrusted packages are never built.
++  if config.allowedAurMaintainers.len == 0:
++    return true
++
++  let pkgInfos = collect(newSeq):
++    for g in basePackages:
++      for b in g:
++        for i in b:
++          i
++
++  var allowed = true
++  for pkgInfo in pkgInfos:
++    let maintainer = pkgInfo.rpc.maintainer
++    if maintainer.isNone or maintainer.unsafeGet.strip.len == 0:
++      printWarning(config.color,
++        tr"$# has no maintainer; skipping" % [pkgInfo.rpc.name])
++      allowed = false
++    elif maintainer.unsafeGet notin config.allowedAurMaintainers:
++      printWarning(config.color,
++        tr"$#: maintainer '$#' not in AllowedAurMaintainers; skipping" %
++        [pkgInfo.rpc.name, maintainer.unsafeGet])
++      allowed = false
++
++  if not allowed:
++    printError(config.color, tr"skipped packages without allowed maintainers")
++
++  allowed
++
+ proc confirmViewAndImportKeys(config: Config, basePackages: seq[seq[seq[PackageInfo]]],
+   installed: seq[Installed], noconfirm: bool): int =
+   if basePackages.len > 0: (block:
+@@ -1319,10 +1351,12 @@
+         resolveDependencies(config, pkgInfos, additionalPkgInfos, false,
+           nodepsCount, assumeInstalled, noaur)
+ 
+-      let confirmAndResolveCode = if resolveSuccess:
+-          confirmViewAndImportKeys(config, basePackages, installed, noconfirm)
+-        else:
++      let confirmAndResolveCode = if not resolveSuccess:
++          1
++        elif not checkAllowedAurMaintainers(config, basePackages):
+           1
++        else:
++          confirmViewAndImportKeys(config, basePackages, installed, noconfirm)
+ 
+       let paths = initialPaths & dependencyPaths
+       if confirmAndResolveCode != 0:
