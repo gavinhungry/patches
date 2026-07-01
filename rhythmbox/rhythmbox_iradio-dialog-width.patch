@@ -1,0 +1,12 @@
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c rhythmbox/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c
+--- rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c	2026-06-30 18:35:55.365234492 -0700
++++ rhythmbox/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c	2026-06-30 18:41:41.593016356 -0700
+@@ -326,6 +326,8 @@
+ 
+ 	rb_station_properties_dialog_update (dialog);
+ 
++	gtk_window_set_default_size (GTK_WINDOW (dialog), 540, -1);
++
+ 	return GTK_WIDGET (dialog);
+ }
+ 
