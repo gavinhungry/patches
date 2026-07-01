@@ -1,0 +1,30 @@
+diff --color -ru eog.ORIG/src/eog/src/eog-metadata-sidebar.c eog/src/eog/src/eog-metadata-sidebar.c
+--- eog.ORIG/src/eog/src/eog-metadata-sidebar.c	2026-07-01 14:05:13.595629256 -0700
++++ eog/src/eog/src/eog-metadata-sidebar.c	2026-07-01 14:07:44.792562128 -0700
+@@ -313,7 +313,7 @@
+ 		g_object_unref (image);
+ }
+ 
+-static void
++static gboolean
+ _folder_label_clicked_cb (GtkLabel *label, const gchar *uri, gpointer user_data)
+ {
+ 	EogMetadataSidebarPrivate *priv = EOG_METADATA_SIDEBAR(user_data)->priv;
+@@ -322,7 +322,7 @@
+ 	GtkWindow *window;
+ 	GFile *file;
+ 
+-	g_return_if_fail (priv->parent_window != NULL);
++	g_return_val_if_fail (priv->parent_window != NULL, TRUE);
+ 
+ 	img = eog_window_get_image (priv->parent_window);
+ 	file = eog_image_get_file (img);
+@@ -336,6 +336,8 @@
+ 	eog_util_show_file_in_filemanager (file, window);
+ 
+ 	g_object_unref (file);
++
++	return TRUE;
+ }
+ 
+ #ifdef HAVE_METADATA
