@@ -1,0 +1,12 @@
+diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c rhythmbox/src/rhythmbox/widgets/rb-header.c
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c	2026-07-02 09:19:04.767893852 -0700
++++ rhythmbox/src/rhythmbox/widgets/rb-header.c	2026-07-02 10:18:14.114688219 -0700
+@@ -161,7 +161,7 @@
+ #define TITLE_FORMAT  "<big><b>%s</b></big>"
+ #define ALBUM_FORMAT  "<i>%s</i>"
+ #define ARTIST_FORMAT "<i>%s</i>"
+-#define STREAM_FORMAT "%s"
++#define STREAM_FORMAT "<i>%s</i>"
+ 
+ /* unicode graphic characters, encoded in UTF-8 */
+ static const char *const UNICODE_MIDDLE_DOT = "\xC2\xB7";
