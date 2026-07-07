@@ -1,0 +1,58 @@
+diff --color -ru pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt pakku/src/pakku-0.17/doc/pakku.conf.5.txt
+--- pakku.ORIG/src/pakku-0.17/doc/pakku.conf.5.txt	2026-07-07 08:49:47.463250887 -0700
++++ pakku/src/pakku-0.17/doc/pakku.conf.5.txt	2026-07-07 08:44:43.713505003 -0700
+@@ -91,11 +91,14 @@
+ *AllowedAurMaintainers =* maintainer ...::
+ 	A whitelist of approved AUR maintainers. Multiple maintainers are separated
+ 	by spaces, and the option may be repeated on several lines to accumulate
+-	names. When this list is non-empty, pakku will not build or install any
+-	AUR package (including dependencies) whose maintainer is missing, empty, or
+-	not present in the list. The check is performed before any PKGBUILD or
+-	included file is executed, so untrusted packages are never built. If the
+-	list is empty or unset (the default), the check is disabled.
++	names. A trailing `# comment` on a line is stripped before the value is
++	used, so each maintainer can be annotated, e.g. `AllowedAurMaintainers =
++	maintainer1 # used for package foo`. When this list is non-empty, pakku
++	will not build or install any AUR package (including dependencies) whose
++	maintainer is missing, empty, or not present in the list. The check is
++	performed before any PKGBUILD or included file is executed, so untrusted
++	packages are never built. If the list is empty or unset (the default), the
++	check is disabled.
+ 
+ See Also
+ --------
+diff --color -ru pakku.ORIG/src/pakku-0.17/pakku.conf pakku/src/pakku-0.17/pakku.conf
+--- pakku.ORIG/src/pakku-0.17/pakku.conf	2026-07-07 08:49:47.463250887 -0700
++++ pakku/src/pakku-0.17/pakku.conf	2026-07-07 08:44:49.901464543 -0700
+@@ -6,6 +6,7 @@
+ #AurRepo = aur
+ #MinAurAgeHours = 24
+ #AllowedAurMaintainers = maintainer1 maintainer2
++#AllowedAurMaintainers = maintainer3 # comments after a trailing '#' are ignored
+ 
+ AurComments
+ CheckIgnored
+diff --color -ru pakku.ORIG/src/pakku-0.17/src/config.nim pakku/src/pakku-0.17/src/config.nim
+--- pakku.ORIG/src/pakku-0.17/src/config.nim	2026-07-07 08:49:47.463250887 -0700
++++ pakku/src/pakku-0.17/src/config.nim	2026-07-07 08:44:35.208560611 -0700
+@@ -90,12 +90,16 @@
+               if line.match(re"(\w+)\ *=\ *(.*)", matches):
+                 if matches[0] == "IgnorePkg" or matches[0] == "HoldPkg" or
+                   matches[0] == "AllowedAurMaintainers":
++                  # allow "Key = value # comment" lines, stripping the trailing comment
++                  let hashIdx = matches[1].find('#')
++                  let value = (if hashIdx >= 0: matches[1][0 ..< hashIdx]
++                    else: matches[1]).strip()
+                   if category.hasKey(matches[0]):
+-                    if not isEmptyOrWhitespace(matches[1]): # stop empty lines adding spaces
+-                      category[matches[0]] = category[matches[0]] & " " & matches[1]
++                    if not isEmptyOrWhitespace(value): # stop empty lines adding spaces
++                      category[matches[0]] = category[matches[0]] & " " & value
+                   else:
+-                    if not isEmptyOrWhitespace(matches[1]):
+-                      category[matches[0]] = matches[1]
++                    if not isEmptyOrWhitespace(value):
++                      category[matches[0]] = value
+                 else:
+                   category[matches[0]]= matches[1]
+               else:
