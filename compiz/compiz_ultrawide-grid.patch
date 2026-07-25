@@ -1,6 +1,6 @@
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/grid/src/grid.cpp compiz/src/compiz-0.9.14.2/plugins/grid/src/grid.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/grid/src/grid.cpp	2023-03-26 02:36:21.514936571 -0700
-+++ compiz/src/compiz-0.9.14.2/plugins/grid/src/grid.cpp	2023-03-26 04:27:56.632917115 -0700
+diff --color -ru compiz.ORIG/src/compiz/plugins/grid/src/grid.cpp compiz/src/compiz/plugins/grid/src/grid.cpp
+--- compiz.ORIG/src/compiz/plugins/grid/src/grid.cpp	2023-03-26 02:36:21.514936571 -0700
++++ compiz/src/compiz/plugins/grid/src/grid.cpp	2023-03-26 04:27:56.632917115 -0700
 @@ -134,11 +134,11 @@
      if (cw)
      {
@@ -100,9 +100,9 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/grid/src/grid.cpp compi
  
      animations.clear ();
  
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/grid/src/grid.h compiz/src/compiz-0.9.14.2/plugins/grid/src/grid.h
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/grid/src/grid.h	2023-03-26 02:36:21.514936571 -0700
-+++ compiz/src/compiz-0.9.14.2/plugins/grid/src/grid.h	2023-03-26 04:27:59.186300611 -0700
+diff --color -ru compiz.ORIG/src/compiz/plugins/grid/src/grid.h compiz/src/compiz/plugins/grid/src/grid.h
+--- compiz.ORIG/src/compiz/plugins/grid/src/grid.h	2023-03-26 02:36:21.514936571 -0700
++++ compiz/src/compiz/plugins/grid/src/grid.h	2023-03-26 04:27:59.186300611 -0700
 @@ -58,14 +58,18 @@
  	gravityRight (0),
  	gravityDown (0),

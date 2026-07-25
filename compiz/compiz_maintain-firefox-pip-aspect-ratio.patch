@@ -1,6 +1,6 @@
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/include/resize-logic.h compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/include/resize-logic.h
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/include/resize-logic.h	2025-01-09 15:19:23.510598927 -0800
-+++ compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/include/resize-logic.h	2025-01-09 15:33:07.380487088 -0800
+diff --color -ru compiz.ORIG/src/compiz/plugins/resize/src/logic/include/resize-logic.h compiz/src/compiz/plugins/resize/src/logic/include/resize-logic.h
+--- compiz.ORIG/src/compiz/plugins/resize/src/logic/include/resize-logic.h	2025-01-09 15:19:23.510598927 -0800
++++ compiz/src/compiz/plugins/resize/src/logic/include/resize-logic.h	2025-01-09 15:33:07.380487088 -0800
 @@ -98,6 +98,9 @@
  	XRectangle		    savedGeometry;
  	XRectangle		    geometry;
@@ -11,9 +11,9 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/includ
          /* geometry without the vertical maximization.
             Its value is undefined when maximized_vertically == false */
  	XRectangle  geometryWithoutVertMax;
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp	2025-01-09 15:19:23.510598927 -0800
-+++ compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp	2025-01-09 15:36:17.496886846 -0800
+diff --color -ru compiz.ORIG/src/compiz/plugins/resize/src/logic/src/resize-logic.cpp compiz/src/compiz/plugins/resize/src/logic/src/resize-logic.cpp
+--- compiz.ORIG/src/compiz/plugins/resize/src/logic/src/resize-logic.cpp	2025-01-09 15:19:23.510598927 -0800
++++ compiz/src/compiz/plugins/resize/src/logic/src/resize-logic.cpp	2025-01-09 15:36:17.496886846 -0800
 @@ -61,6 +61,18 @@
  
  using namespace resize;

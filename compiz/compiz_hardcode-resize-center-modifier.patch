@@ -1,6 +1,6 @@
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp	2023-09-26 15:07:16.058648600 -0700
-+++ compiz/src/compiz-0.9.14.2/plugins/resize/src/logic/src/resize-logic.cpp	2023-09-26 15:56:04.207506904 -0700
+diff --color -ru compiz.ORIG/src/compiz/plugins/resize/src/logic/src/resize-logic.cpp compiz/src/compiz/plugins/resize/src/logic/src/resize-logic.cpp
+--- compiz.ORIG/src/compiz/plugins/resize/src/logic/src/resize-logic.cpp	2023-09-26 15:07:16.058648600 -0700
++++ compiz/src/compiz/plugins/resize/src/logic/src/resize-logic.cpp	2023-09-26 15:56:04.207506904 -0700
 @@ -59,6 +59,8 @@
  #define DOWN_RIGHT_CURSOR XC_bottom_right_corner
  #define MIDDLE_CURSOR XC_fleur

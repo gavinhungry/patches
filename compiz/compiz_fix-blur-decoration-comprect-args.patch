@@ -1,6 +1,6 @@
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp compiz/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp	2026-06-24 12:29:55.060587626 -0700
-+++ compiz/src/compiz-0.9.14.2/plugins/blur/src/blur.cpp	2026-06-24 12:31:28.064862136 -0700
+diff --color -ru compiz.ORIG/src/compiz/plugins/blur/src/blur.cpp compiz/src/compiz/plugins/blur/src/blur.cpp
+--- compiz.ORIG/src/compiz/plugins/blur/src/blur.cpp	2026-06-24 12:29:55.060587626 -0700
++++ compiz/src/compiz/plugins/blur/src/blur.cpp	2026-06-24 12:31:28.064862136 -0700
 @@ -185,8 +185,8 @@
      {
  	region += CompRect (-window->output ().left,

@@ -1,7 +1,7 @@
 Only in compiz: .patched
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp compiz/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp	2024-04-10 22:31:55.868596172 -0700
-+++ compiz/src/compiz-0.9.14.2/plugins/place/src/smart/src/smart.cpp	2024-04-10 23:39:33.581092991 -0700
+diff --color -ru compiz.ORIG/src/compiz/plugins/place/src/smart/src/smart.cpp compiz/src/compiz/plugins/place/src/smart/src/smart.cpp
+--- compiz.ORIG/src/compiz/plugins/place/src/smart/src/smart.cpp	2024-04-10 22:31:55.868596172 -0700
++++ compiz/src/compiz/plugins/place/src/smart/src/smart.cpp	2024-04-10 23:39:33.581092991 -0700
 @@ -101,11 +101,95 @@
  		    }
  		}

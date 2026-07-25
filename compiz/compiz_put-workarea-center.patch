@@ -1,6 +1,6 @@
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/put/src/put.cpp compiz/src/compiz-0.9.14.2/plugins/put/src/put.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/put/src/put.cpp	2024-04-10 22:31:55.868596172 -0700
-+++ compiz/src/compiz-0.9.14.2/plugins/put/src/put.cpp	2024-04-10 23:51:56.637598743 -0700
+diff --color -ru compiz.ORIG/src/compiz/plugins/put/src/put.cpp compiz/src/compiz/plugins/put/src/put.cpp
+--- compiz.ORIG/src/compiz/plugins/put/src/put.cpp	2024-04-10 22:31:55.868596172 -0700
++++ compiz/src/compiz/plugins/put/src/put.cpp	2024-04-10 23:51:56.637598743 -0700
 @@ -462,22 +462,22 @@
      case PutEmptyCenter:
      case PutCenter:

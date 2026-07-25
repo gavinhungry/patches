@@ -1,6 +1,6 @@
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/src/event.cpp compiz/src/compiz-0.9.14.2/src/event.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/src/event.cpp	2024-07-08 09:36:22.342247018 -0700
-+++ compiz/src/compiz-0.9.14.2/src/event.cpp	2024-07-08 09:37:18.249481102 -0700
+diff --color -ru compiz.ORIG/src/compiz/src/event.cpp compiz/src/compiz/src/event.cpp
+--- compiz.ORIG/src/compiz/src/event.cpp	2024-07-08 09:36:22.342247018 -0700
++++ compiz/src/compiz/src/event.cpp	2024-07-08 09:37:18.249481102 -0700
 @@ -1516,16 +1516,16 @@
  	if (w)
  	{

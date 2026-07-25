@@ -1,6 +1,6 @@
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/animationsim.xml.in compiz/src/compiz-0.9.14.2/plugins/simple-animations/animationsim.xml.in
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/animationsim.xml.in	2022-08-21 22:55:24.000000000 -0700
-+++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/animationsim.xml.in	2023-02-16 14:31:01.433878688 -0800
+diff --color -ru compiz.ORIG/src/compiz/plugins/simple-animations/animationsim.xml.in compiz/src/compiz/plugins/simple-animations/animationsim.xml.in
+--- compiz.ORIG/src/compiz/plugins/simple-animations/animationsim.xml.in	2022-08-21 22:55:24.000000000 -0700
++++ compiz/src/compiz/plugins/simple-animations/animationsim.xml.in	2023-02-16 14:31:01.433878688 -0800
 @@ -76,6 +76,124 @@
  	  </option>
  	</subgroup>
@@ -141,9 +141,9 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/anima
  	<value>animationsim:Bounce</value>
  	<_name>Bounce</_name>
        </restriction>
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.cpp compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.cpp	2022-08-21 22:55:24.000000000 -0700
-+++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.cpp	2023-02-16 14:31:32.887624887 -0800
+diff --color -ru compiz.ORIG/src/compiz/plugins/simple-animations/src/animationsim.cpp compiz/src/compiz/plugins/simple-animations/src/animationsim.cpp
+--- compiz.ORIG/src/compiz/plugins/simple-animations/src/animationsim.cpp	2022-08-21 22:55:24.000000000 -0700
++++ compiz/src/compiz/plugins/simple-animations/src/animationsim.cpp	2023-02-16 14:31:32.887624887 -0800
 @@ -45,6 +45,8 @@
  }
  
@@ -168,9 +168,9 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/a
      animEffects[i++] = AnimEffectRotateIn =
  	new AnimEffectInfo ("animationsim:Rotate In", usedFor,
  			    &createAnimation<RotateInAnim>);
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.h compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.h
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.h	2022-08-21 22:55:24.000000000 -0700
-+++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/animationsim.h	2023-02-16 14:31:56.131264911 -0800
+diff --color -ru compiz.ORIG/src/compiz/plugins/simple-animations/src/animationsim.h compiz/src/compiz/plugins/simple-animations/src/animationsim.h
+--- compiz.ORIG/src/compiz/plugins/simple-animations/src/animationsim.h	2022-08-21 22:55:24.000000000 -0700
++++ compiz/src/compiz/plugins/simple-animations/src/animationsim.h	2023-02-16 14:31:56.131264911 -0800
 @@ -13,6 +13,8 @@
  #include "animationsim_options.h"
  
@@ -245,9 +245,9 @@ diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/a
             const CompRect   &icon) :
  	    Animation::Animation (w, curWindowEvent, duration, info, icon),
  	    BaseSimAnim::BaseSimAnim (w, curWindowEvent, duration, info, icon),
-diff --color -ru compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/flyin.cpp compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/flyin.cpp
---- compiz.ORIG/src/compiz-0.9.14.2/plugins/simple-animations/src/flyin.cpp	2022-08-21 22:55:24.000000000 -0700
-+++ compiz/src/compiz-0.9.14.2/plugins/simple-animations/src/flyin.cpp	2023-02-16 14:32:44.878578858 -0800
+diff --color -ru compiz.ORIG/src/compiz/plugins/simple-animations/src/flyin.cpp compiz/src/compiz/plugins/simple-animations/src/flyin.cpp
+--- compiz.ORIG/src/compiz/plugins/simple-animations/src/flyin.cpp	2022-08-21 22:55:24.000000000 -0700
++++ compiz/src/compiz/plugins/simple-animations/src/flyin.cpp	2023-02-16 14:32:44.878578858 -0800
 @@ -84,3 +84,97 @@
      transform->translate (translation.x (), translation.y (), translation.z ());
  
