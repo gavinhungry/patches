@@ -1,6 +1,6 @@
 diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c
---- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-11-22 14:42:56.679174837 -0800
-+++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2024-11-22 14:42:56.955844042 -0800
+--- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2026-08-03 17:01:29.020305732 -0700
++++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.c	2026-08-03 17:01:29.797668523 -0700
 @@ -60,6 +60,7 @@
  	RBRefString *sort_string;
  	gint sort_string_from;
@@ -9,7 +9,7 @@ diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmb
  } RhythmDBPropertyModelEntry;
  
  static void rhythmdb_property_model_dispose (GObject *object);
-@@ -740,7 +741,14 @@
+@@ -741,7 +742,14 @@
  
  		propid = g_array_index (model->priv->sort_propids, RhythmDBPropType, pi);
  		newvalue = rhythmdb_entry_get_string (entry, propid);
@@ -24,7 +24,7 @@ diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmb
  			break;
  		}
  	}
-@@ -828,6 +836,7 @@
+@@ -829,6 +837,7 @@
  	prop->string = rb_refstring_new (propstr);
  	update_sort_string (model, prop, entry);
  	g_atomic_int_set (&prop->refcount, 1);
@@ -32,7 +32,7 @@ diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmb
  
  	ptr = g_sequence_insert_sorted (model->priv->properties, prop,
  					(GCompareDataFunc) rhythmdb_property_model_compare,
-@@ -958,6 +967,8 @@
+@@ -959,6 +968,8 @@
  		return G_TYPE_BOOLEAN;
  	case RHYTHMDB_PROPERTY_MODEL_COLUMN_NUMBER:
  		return G_TYPE_UINT;
@@ -41,7 +41,7 @@ diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmb
  	default:
  		g_assert_not_reached ();
  		return G_TYPE_INVALID;
-@@ -1041,6 +1052,10 @@
+@@ -1042,6 +1053,10 @@
  			g_value_init (value, G_TYPE_UINT);
  			g_value_set_uint (value, g_atomic_int_get (&model->priv->all->refcount));
  			break;
@@ -52,7 +52,7 @@ diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmb
  		default:
  			g_assert_not_reached ();
  		}
-@@ -1063,6 +1078,10 @@
+@@ -1064,6 +1079,10 @@
  			g_value_init (value, G_TYPE_UINT);
  			g_value_set_uint (value, g_atomic_int_get (&prop->refcount));
  			break;
@@ -63,7 +63,7 @@ diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmb
  		default:
  			g_assert_not_reached ();
  		}
-@@ -1455,6 +1474,7 @@
+@@ -1456,6 +1475,7 @@
  			ENUM_ENTRY (RHYTHMDB_PROPERTY_MODEL_COLUMN_TITLE, "property-title"),
  			ENUM_ENTRY (RHYTHMDB_PROPERTY_MODEL_COLUMN_PRIORITY, "value-priority"),
  			ENUM_ENTRY (RHYTHMDB_PROPERTY_MODEL_COLUMN_NUMBER, "track-count"),
@@ -72,8 +72,8 @@ diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.c rhythmb
  		};
  
 diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h
---- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-11-22 14:42:56.679174837 -0800
-+++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2024-11-22 14:42:56.955844042 -0800
+--- rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2026-08-03 17:01:29.020305732 -0700
++++ rhythmbox/src/rhythmbox/rhythmdb/rhythmdb-property-model.h	2026-08-03 17:01:29.797849552 -0700
 @@ -49,6 +49,7 @@
  	RHYTHMDB_PROPERTY_MODEL_COLUMN_TITLE,
  	RHYTHMDB_PROPERTY_MODEL_COLUMN_PRIORITY,
@@ -83,8 +83,8 @@ diff -ru rhythmbox.ORIG/src/rhythmbox/rhythmdb/rhythmdb-property-model.h rhythmb
  } RhythmDBPropertyModelColumn;
  
 diff -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c rhythmbox/src/rhythmbox/widgets/rb-property-view.c
---- rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c	2024-11-22 14:42:56.679174837 -0800
-+++ rhythmbox/src/rhythmbox/widgets/rb-property-view.c	2024-11-22 14:42:56.955844042 -0800
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-property-view.c	2026-08-03 17:01:29.027305689 -0700
++++ rhythmbox/src/rhythmbox/widgets/rb-property-view.c	2026-08-03 17:01:29.797944311 -0700
 @@ -660,22 +660,29 @@
  
  		switch (view->priv->propid) {

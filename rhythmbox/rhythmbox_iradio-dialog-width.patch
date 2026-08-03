@@ -1,6 +1,6 @@
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c rhythmbox/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c
---- rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c	2026-06-30 18:35:55.365234492 -0700
-+++ rhythmbox/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c	2026-06-30 18:41:41.593016356 -0700
+diff -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c rhythmbox/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c
+--- rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c	2026-08-03 17:01:29.008566522 -0700
++++ rhythmbox/src/rhythmbox/plugins/iradio/rb-station-properties-dialog.c	2026-08-03 17:01:29.240304407 -0700
 @@ -326,6 +326,8 @@
  
  	rb_station_properties_dialog_update (dialog);

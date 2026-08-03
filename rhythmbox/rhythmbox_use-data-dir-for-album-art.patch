@@ -1,7 +1,6 @@
-Only in rhythmbox/src/rhythmbox/.git: opencode
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/metadata/rb-ext-db.c rhythmbox/src/rhythmbox/metadata/rb-ext-db.c
---- rhythmbox.ORIG/src/rhythmbox/metadata/rb-ext-db.c	2026-06-19 22:40:53.382924265 -0700
-+++ rhythmbox/src/rhythmbox/metadata/rb-ext-db.c	2026-06-19 23:10:30.432960718 -0700
+diff -ru rhythmbox.ORIG/src/rhythmbox/metadata/rb-ext-db.c rhythmbox/src/rhythmbox/metadata/rb-ext-db.c
+--- rhythmbox.ORIG/src/rhythmbox/metadata/rb-ext-db.c	2026-08-03 17:01:29.002957264 -0700
++++ rhythmbox/src/rhythmbox/metadata/rb-ext-db.c	2026-08-03 17:01:29.908895132 -0700
 @@ -324,6 +324,14 @@
  	}
  }
@@ -35,7 +34,7 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/metadata/rb-ext-db.c rhythmbox/src
  	g_free (fn);
  	return path;
  }
-@@ -862,7 +870,7 @@
+@@ -869,7 +877,7 @@
  	GFile *f;
  	GError *error = NULL;
  
@@ -44,7 +43,7 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/metadata/rb-ext-db.c rhythmbox/src
  	f = g_file_new_for_path (fullname);
  	g_free (fullname);
  
-@@ -1084,12 +1092,12 @@
+@@ -1091,12 +1099,12 @@
  			rb_debug ("using existing filename %s (basename %s, subdir %s)", filename, basename, subdir);
  		}
  
@@ -59,9 +58,9 @@ diff --color -ru rhythmbox.ORIG/src/rhythmbox/metadata/rb-ext-db.c rhythmbox/src
  						  store->priv->name,
  						  subdir,
  						  basename,
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/plugins/webremote/webremote.py rhythmbox/src/rhythmbox/plugins/webremote/webremote.py
---- rhythmbox.ORIG/src/rhythmbox/plugins/webremote/webremote.py	2026-06-19 22:40:53.391531075 -0700
-+++ rhythmbox/src/rhythmbox/plugins/webremote/webremote.py	2026-06-19 23:11:21.487844247 -0700
+diff -ru rhythmbox.ORIG/src/rhythmbox/plugins/webremote/webremote.py rhythmbox/src/rhythmbox/plugins/webremote/webremote.py
+--- rhythmbox.ORIG/src/rhythmbox/plugins/webremote/webremote.py	2026-08-03 17:01:29.011089789 -0700
++++ rhythmbox/src/rhythmbox/plugins/webremote/webremote.py	2026-08-03 17:01:29.909111980 -0700
 @@ -548,7 +548,7 @@
  		shell = self.object
  		self.db = shell.props.db

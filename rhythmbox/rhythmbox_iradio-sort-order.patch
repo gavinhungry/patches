@@ -1,6 +1,6 @@
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c
---- rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2026-06-19 21:37:22.266012336 -0700
-+++ rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2026-06-19 22:22:32.419174651 -0700
+diff -ru rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c
+--- rhythmbox.ORIG/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2026-08-03 17:01:29.008566522 -0700
++++ rhythmbox/src/rhythmbox/plugins/iradio/rb-iradio-source.c	2026-08-03 17:01:29.350911427 -0700
 @@ -79,6 +79,7 @@
  static void genre_selection_reset_cb (RBPropertyView *propview, RBIRadioSource *iradio_source);
  static void rb_iradio_source_songs_view_sort_order_changed_cb (GObject *object, GParamSpec *pspec, RBIRadioSource *source);

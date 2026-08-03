@@ -1,7 +1,7 @@
 diff -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c rhythmbox/src/rhythmbox/widgets/rb-entry-view.c
---- rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c	2024-11-22 14:42:56.679174837 -0800
-+++ rhythmbox/src/rhythmbox/widgets/rb-entry-view.c	2024-11-22 14:42:56.869176580 -0800
-@@ -2661,13 +2661,7 @@
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-entry-view.c	2026-08-03 17:01:29.026305695 -0700
++++ rhythmbox/src/rhythmbox/widgets/rb-entry-view.c	2026-08-03 17:01:29.685746451 -0700
+@@ -2691,13 +2691,7 @@
  void
  rb_entry_view_set_status (RBEntryView *view, const char *status, gboolean busy)
  {

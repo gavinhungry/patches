@@ -1,6 +1,6 @@
-diff --color -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c rhythmbox/src/rhythmbox/widgets/rb-header.c
---- rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c	2026-07-02 09:19:04.767893852 -0700
-+++ rhythmbox/src/rhythmbox/widgets/rb-header.c	2026-07-02 10:18:14.114688219 -0700
+diff -ru rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c rhythmbox/src/rhythmbox/widgets/rb-header.c
+--- rhythmbox.ORIG/src/rhythmbox/widgets/rb-header.c	2026-08-03 17:01:29.026305695 -0700
++++ rhythmbox/src/rhythmbox/widgets/rb-header.c	2026-08-03 17:01:29.462886168 -0700
 @@ -161,7 +161,7 @@
  #define TITLE_FORMAT  "<big><b>%s</b></big>"
  #define ALBUM_FORMAT  "<i>%s</i>"
