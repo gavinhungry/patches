@@ -1,7 +1,135 @@
+diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist.c xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist.c	2026-08-03 17:51:06.235950669 -0700
++++ xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist.c	2026-08-03 18:00:34.418257806 -0700
+@@ -29,6 +29,8 @@
+ 
+ #include <libxfce4ui/libxfce4ui.h>
+ 
++#include <errno.h>
++
+ 
+ #define HANDLE_SIZE (4)
+ 
+@@ -40,6 +42,7 @@
+   /* the tasklist widget */
+   GtkWidget *tasklist;
+   GtkWidget *handle;
++  gboolean center_tasklist;
+ };
+ 
+ 
+@@ -64,6 +67,10 @@
+ tasklist_plugin_handle_draw (GtkWidget *widget,
+                              cairo_t *cr,
+                              TasklistPlugin *plugin);
++static void
++tasklist_plugin_size_allocate (GtkWidget *widget,
++                               GtkAllocation *allocation,
++                               TasklistPlugin *plugin);
+ 
+ 
+ 
+@@ -72,6 +79,28 @@
+ 
+ 
+ 
++static gint
++tasklist_plugin_get_env_width (void)
++{
++  const gchar *value;
++  gchar *end;
++  gint64 width;
++
++  value = g_getenv ("XFCE_PANEL_TASKLIST_WIDTH");
++  if (value == NULL || *value == '\0')
++    return -1;
++
++  errno = 0;
++  width = g_ascii_strtoll (value, &end, 10);
++  if (errno == ERANGE || end == value || *end != '\0'
++      || width < 1 || width > G_MAXINT)
++    return -1;
++
++  return (gint) width;
++}
++
++
++
+ static void
+ tasklist_plugin_class_init (TasklistPluginClass *klass)
+ {
+@@ -114,6 +143,9 @@
+   g_object_bind_property (G_OBJECT (plugin->tasklist), "show-handle",
+                           G_OBJECT (plugin->handle), "visible",
+                           G_BINDING_SYNC_CREATE);
++
++  g_signal_connect_after (plugin, "size-allocate",
++                          G_CALLBACK (tasklist_plugin_size_allocate), plugin);
+ }
+ 
+ 
+@@ -122,6 +154,7 @@
+ tasklist_plugin_construct (XfcePanelPlugin *panel_plugin)
+ {
+   TasklistPlugin *plugin = TASKLIST_PLUGIN (panel_plugin);
++  gint width;
+   const PanelProperty properties[] = {
+     { "show-labels", G_TYPE_BOOLEAN },
+     { "grouping", G_TYPE_BOOLEAN },
+@@ -153,11 +186,49 @@
+                          xfce_panel_plugin_get_property_base (panel_plugin),
+                          properties, FALSE);
+ 
++  width = tasklist_plugin_get_env_width ();
++  if (width > 0)
++    {
++      gtk_widget_set_size_request (GTK_WIDGET (plugin), width, -1);
++      plugin->center_tasklist = TRUE;
++    }
++
+   /* show the tasklist */
+   gtk_widget_show (plugin->tasklist);
+ }
+ 
+ 
++
++static void
++tasklist_plugin_size_allocate (GtkWidget *widget,
++                               GtkAllocation *allocation,
++                               TasklistPlugin *plugin)
++{
++  GtkWidget *itembar;
++  GtkAllocation itembar_allocation;
++  gint desired_x;
++  gint margin;
++
++  if (!plugin->center_tasklist
++      || xfce_panel_plugin_get_orientation (XFCE_PANEL_PLUGIN (plugin)) != GTK_ORIENTATION_HORIZONTAL)
++    return;
++
++  itembar = gtk_widget_get_parent (widget);
++  if (itembar == NULL)
++    return;
++
++  gtk_widget_get_allocation (itembar, &itembar_allocation);
++  if (itembar_allocation.width <= 0)
++    return;
++
++  desired_x = itembar_allocation.x + (itembar_allocation.width - allocation->width) / 2;
++  margin = MAX (0, gtk_widget_get_margin_start (widget) + desired_x - allocation->x);
++
++  if (margin != gtk_widget_get_margin_start (widget))
++    gtk_widget_set_margin_start (widget, margin);
++}
++
++
+ 
+ static void
+ tasklist_plugin_mode_changed (XfcePanelPlugin *panel_plugin,
 diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist-widget.c
---- xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2024-12-23 11:47:52.087257979 -0800
-+++ xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2024-12-23 12:22:03.695892302 -0800
-@@ -689,6 +689,7 @@
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2026-08-03 17:51:06.235950669 -0700
++++ xfce4-panel/src/xfce4-panel/plugins/tasklist/tasklist-widget.c	2026-08-03 18:00:18.318367970 -0700
+@@ -692,6 +692,7 @@
    GtkStyleContext *context;
  
    gtk_widget_set_has_window (GTK_WIDGET (tasklist), FALSE);
@@ -9,51 +137,3 @@ diff --color -ru xfce4-panel.ORIG/src/xfce4-panel/plugins/tasklist/tasklist-widg
  
    tasklist->locked = 0;
    tasklist->screen = NULL;
-@@ -939,12 +940,47 @@
- 
- 
- 
-+static gint 
-+get_env_int (char* varname)
-+{
-+  gchar *value;
-+  gint   value_int;
-+
-+  value = getenv(varname);
-+  if (value == NULL) {
-+    return 0;
-+  }
-+
-+  value_int = atoi(value);
-+  if (value_int == NULL) {
-+    return 0;
-+  }
-+
-+  return value_int;
-+}
-+
-+
-+
- static void
- xfce_tasklist_get_preferred_width (GtkWidget *widget,
-                                    gint *minimum_width,
-                                    gint *natural_width)
- {
-   XfceTasklist *tasklist = XFCE_TASKLIST (widget);
-+  XfcePanelPlugin *plugin = xfce_tasklist_get_panel_plugin (tasklist);
-+  
-+  if (G_LIKELY (plugin != NULL)) {
-+    gtk_widget_set_size_request(
-+      GTK_WIDGET (plugin),
-+      get_env_int("XFCE_PANEL_TASKLIST_WIDTH"),
-+      -1
-+    );
-+
-+    gtk_widget_set_margin_start(
-+      GTK_WIDGET (plugin),
-+      get_env_int("XFCE_PANEL_TASKLIST_MARGIN")
-+    );
-+  }
- 
-   if (xfce_tasklist_horizontal (tasklist))
-     {
