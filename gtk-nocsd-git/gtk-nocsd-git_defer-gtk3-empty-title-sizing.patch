@@ -1,0 +1,53 @@
+diff --color -ru gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c
+--- gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-08-04 04:14:05.908802179 -0700
++++ gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-08-04 04:19:54.428792805 -0700
+@@ -1587,19 +1587,45 @@
+ 	GTKNoCSDForceInvisible(Widget, NULL, NULL);
+ }
+ 
++static gboolean GTKNoCSDGTK3EmptyTitleSize(gpointer Data) {
++	// Make the headerbar take as much space as it would naturally after GTK has
++	// finished the current size request.
++
++	GtkWidget *Header = (GtkWidget *) Data;
++	if (o_g_object_get_data((GObject *) Header,
++		"GTKNoCSDEmptyTitlePending") == Header) {
++		o_g_object_set_data((GObject *) Header, "GTKNoCSDEmptyTitlePending",
++			NULL);
++		int Width = -1;
++		o_gtk_widget_get_preferred_width(Header, NULL, &Width);
++		o_gtk_widget_set_size_request(Header, Width, -1);
++	}
++	o_g_object_unref((GObject *) Header);
++
++	return FALSE;
++}
++
+ void GTKNoCSDGTK3EmptyTitleChanged(GtkWidget *Header,
+ 	G_GNUC_UNUSED GParamSpec *Spec, G_GNUC_UNUSED gpointer Data) {
+-	// Make the headerbar take as much space as it would naturally
++	// Title changes can occur while GTK is measuring this headerbar. Defer the
++	// measurement and coalesce repeated notifications to avoid re-entering it.
+ 
+-	int Width = -1;
+-	o_gtk_widget_get_preferred_width(Header, NULL, &Width);
+-	o_gtk_widget_set_size_request(Header, Width, -1);
++	if (o_g_object_get_data((GObject *) Header,
++		"GTKNoCSDEmptyTitlePending") == NULL) {
++		o_g_object_set_data((GObject *) Header, "GTKNoCSDEmptyTitlePending",
++			Header);
++		o_g_object_ref((GObject *) Header);
++		o_g_idle_add(GTKNoCSDGTK3EmptyTitleSize, Header);
++	}
+ }
+ 
+ void GTKNoCSDGTK3SetEmptyTitle(GtkWidget *Header, bool Setup) {
+ 	// Set up empty title with size monitoring for GTK3
+ 
+ 	if (!Setup) {
++		// A pending idle callback will release its reference without resizing.
++		o_g_object_set_data((GObject *) Header, "GTKNoCSDEmptyTitlePending",
++			NULL);
+ 		o_gtk_widget_set_size_request(Header, -1, -1);
+ 
+ 		// WARNING: Macro
