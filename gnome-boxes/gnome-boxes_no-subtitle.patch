@@ -1,0 +1,11 @@
+diff --color -ru gnome-boxes.ORIG/src/gnome-boxes/src/display-page.vala gnome-boxes/src/gnome-boxes/src/display-page.vala
+--- gnome-boxes.ORIG/src/gnome-boxes/src/display-page.vala	2026-08-10 12:19:57.050814979 -0700
++++ gnome-boxes/src/gnome-boxes/src/display-page.vala	2026-08-10 12:21:56.754443844 -0700
+@@ -118,6 +118,7 @@
+     }
+ 
+     public void update_subtitle () {
++        return;
+         var machine = window.current_item as Boxes.Machine;
+         return_if_fail (machine != null);
+ 

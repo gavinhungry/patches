@@ -1,0 +1,13 @@
+diff --color -ru gnome-boxes.ORIG/src/gnome-boxes/src/display-page.vala gnome-boxes/src/gnome-boxes/src/display-page.vala
+--- gnome-boxes.ORIG/src/gnome-boxes/src/display-page.vala	2026-08-10 12:19:57.050814979 -0700
++++ gnome-boxes/src/gnome-boxes/src/display-page.vala	2026-08-10 13:11:59.698845797 -0700
+@@ -327,7 +327,7 @@
+     }
+ 
+     private void show_size_allocation () {
+-        size_label.visible = true;
++        size_label.visible = false;
+ 
+         if (size_label_timeout != 0) {
+             Source.remove (size_label_timeout);
+Only in gnome-boxes/src/gnome-boxes/subprojects: .wraplock

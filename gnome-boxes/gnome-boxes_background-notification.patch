@@ -1,0 +1,15 @@
+diff --color -ru gnome-boxes.ORIG/src/gnome-boxes/src/app.vala gnome-boxes/src/gnome-boxes/src/app.vala
+--- gnome-boxes.ORIG/src/gnome-boxes/src/app.vala	2026-08-10 12:19:57.052953747 -0700
++++ gnome-boxes/src/gnome-boxes/src/app.vala	2026-08-10 13:02:00.135550954 -0700
+@@ -468,8 +468,9 @@
+         if (!machine.run_in_bg && !machine.is_running)
+             return;
+ 
+-        var msg = _("“%s“ is running in the background").printf (machine.name);
+-        var notification = new GLib.Notification (msg);
++        var msg = _("%s will remain running in the background").printf (machine.name);
++        var notification = new GLib.Notification ("GNOME Boxes");
++        notification.set_body(msg);
+         notification.set_default_action ("app.launch-run-in-bg-box::" + machine.name);
+ 
+         send_notification ("gnome-boxes-run-in-bg-%s" + machine.name, notification);

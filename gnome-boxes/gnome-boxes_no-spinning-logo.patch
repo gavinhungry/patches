@@ -1,0 +1,25 @@
+diff --color -ru gnome-boxes.ORIG/src/gnome-boxes/data/ui/app-window.ui gnome-boxes/src/gnome-boxes/data/ui/app-window.ui
+--- gnome-boxes.ORIG/src/gnome-boxes/data/ui/app-window.ui	2026-08-10 12:19:57.040379028 -0700
++++ gnome-boxes/src/gnome-boxes/data/ui/app-window.ui	2026-08-10 13:04:56.398811532 -0700
+@@ -52,19 +52,6 @@
+                     <property name="halign">fill</property>
+                     <property name="valign">fill</property>
+ 
+-                    <child>
+-                      <object class="GtkSpinner">
+-                        <property name="visible">True</property>
+-                        <property name="active">True</property>
+-                        <property name="width-request">32</property>
+-                        <property name="height-request">32</property>
+-                      </object>
+-
+-                      <packing>
+-                        <property name="expand">True</property>
+-                        <property name="fill">True</property>
+-                      </packing>
+-                    </child>
+                   </object>
+ 
+                   <packing>
+Binary files gnome-boxes.ORIG/src/gnome-boxes/.git/index and gnome-boxes/src/gnome-boxes/.git/index differ
+Binary files gnome-boxes.ORIG/src/gnome-boxes/.git/modules/subprojects/libovf-glib/index and gnome-boxes/src/gnome-boxes/.git/modules/subprojects/libovf-glib/index differ
