@@ -1,6 +1,6 @@
-diff -ru mkinitcpio.ORIG/src/mkinitcpio-41/hooks/encrypt mkinitcpio/src/mkinitcpio-41/hooks/encrypt
---- mkinitcpio.ORIG/src/mkinitcpio-41/hooks/encrypt	2026-06-23 13:41:37.490023796 -0700
-+++ mkinitcpio/src/mkinitcpio-41/hooks/encrypt	2026-06-23 13:41:37.530751707 -0700
+diff -ru mkinitcpio.ORIG/src/mkinitcpio/hooks/encrypt mkinitcpio/src/mkinitcpio/hooks/encrypt
+--- mkinitcpio.ORIG/src/mkinitcpio/hooks/encrypt	2026-06-23 13:41:37.490023796 -0700
++++ mkinitcpio/src/mkinitcpio/hooks/encrypt	2026-06-23 13:41:37.530751707 -0700
 @@ -38,6 +38,29 @@
          [ ! -f "${ckeyfile}" ] && echo "Keyfile could not be opened. Reverting to passphrase."
      fi
