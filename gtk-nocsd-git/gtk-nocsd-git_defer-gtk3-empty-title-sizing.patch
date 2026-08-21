@@ -1,8 +1,8 @@
-diff --color -ru gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c
---- gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-08-04 04:14:05.908802179 -0700
-+++ gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-08-04 04:19:54.428792805 -0700
-@@ -1587,19 +1587,45 @@
- 	GTKNoCSDForceInvisible(Widget, NULL, NULL);
+diff -ru gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c
+--- gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-08-21 16:06:38.938603064 -0700
++++ gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-08-21 16:06:38.940633552 -0700
+@@ -1591,19 +1591,45 @@
+ 	}
  }
  
 +static gboolean GTKNoCSDGTK3EmptyTitleSize(gpointer Data) {
