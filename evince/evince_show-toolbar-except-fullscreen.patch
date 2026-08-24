@@ -1,0 +1,71 @@
+diff --color -ru evince.ORIG/src/evince/shell/ev-toolbar.c evince/src/evince/shell/ev-toolbar.c
+--- evince.ORIG/src/evince/shell/ev-toolbar.c	2026-08-24 13:02:35.115456423 -0700
++++ evince/src/evince/shell/ev-toolbar.c	2026-08-24 13:28:31.890974410 -0700
+@@ -158,16 +158,13 @@
+ static void
+ ev_toolbar_init (EvToolbar *ev_toolbar)
+ {
+-	EvToolbarPrivate *priv = GET_PRIVATE (ev_toolbar);
+-
+-	priv->toolbar_mode = EV_TOOLBAR_MODE_NORMAL;
+-
+         /* Ensure GTK+ private types used by the template
+          * definition before calling gtk_widget_init_template() */
+         g_type_ensure (EV_TYPE_PAGE_ACTION_WIDGET);
+         g_type_ensure (EV_TYPE_ZOOM_ACTION);
+ 
+ 	gtk_widget_init_template (GTK_WIDGET (ev_toolbar));
++	ev_toolbar_set_mode (ev_toolbar, EV_TOOLBAR_MODE_NORMAL);
+ }
+ 
+ GtkWidget *
+diff --color -ru evince.ORIG/src/evince/shell/ev-window.c evince/src/evince/shell/ev-window.c
+--- evince.ORIG/src/evince/shell/ev-window.c	2026-08-24 13:02:35.115456423 -0700
++++ evince/src/evince/shell/ev-window.c	2026-08-24 13:23:15.424958554 -0700
+@@ -658,12 +658,13 @@
+ {
+ 	EvWindowPrivate *priv = GET_PRIVATE (window);
+ 	gboolean toolbar, sidebar;
++	gboolean fullscreen;
+ 	gboolean presentation;
+ 
++	fullscreen = ev_document_model_get_fullscreen (priv->model);
+ 	presentation = EV_WINDOW_IS_PRESENTATION (priv);
+ 
+-	toolbar = ((priv->chrome & EV_CHROME_TOOLBAR) != 0  ||
+-		   (priv->chrome & EV_CHROME_RAISE_TOOLBAR) != 0) && !presentation;
++	toolbar = !fullscreen && !presentation;
+ 	sidebar = (priv->chrome & EV_CHROME_SIDEBAR) != 0 && priv->document && !presentation;
+ 
+ 	set_widget_visibility (priv->toolbar, toolbar);
+@@ -1262,15 +1263,12 @@
+ static void
+ setup_chrome_from_metadata (EvWindow *window)
+ {
+-	gboolean show_toolbar;
+ 	gboolean show_sidebar;
+ 	EvWindowPrivate *priv = GET_PRIVATE (window);
+ 
+ 	if (!priv->metadata)
+ 		return;
+ 
+-	if (ev_metadata_get_boolean (priv->metadata, "show_toolbar", &show_toolbar))
+-		update_chrome_flag (window, EV_CHROME_TOOLBAR, show_toolbar);
+ 	if (ev_metadata_get_boolean (priv->metadata, "sidebar_visibility", &show_sidebar))
+ 		update_chrome_flag (window, EV_CHROME_SIDEBAR, show_sidebar);
+ 	update_chrome_visibility (window);
+@@ -4683,6 +4681,7 @@
+ 
+ 	ev_document_model_set_fullscreen (priv->model, TRUE);
+ 	ev_window_update_fullscreen_action (window);
++	update_chrome_visibility (window);
+ 
+ 	hdy_header_bar_set_show_close_button (ev_toolbar_get_header_bar (EV_TOOLBAR (priv->toolbar)), FALSE);
+ 
+@@ -4708,6 +4707,7 @@
+ 
+ 	ev_document_model_set_fullscreen (priv->model, FALSE);
+ 	ev_window_update_fullscreen_action (window);
++	update_chrome_visibility (window);
+ 
+ 	hdy_header_bar_set_show_close_button (ev_toolbar_get_header_bar (EV_TOOLBAR (priv->toolbar)), TRUE);
