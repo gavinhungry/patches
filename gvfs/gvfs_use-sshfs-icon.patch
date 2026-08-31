@@ -1,0 +1,25 @@
+diff --color -ru gvfs.ORIG/src/gvfs/monitor/udisks2/gvfsudisks2utils.c gvfs/src/gvfs/monitor/udisks2/gvfsudisks2utils.c
+--- gvfs.ORIG/src/gvfs/monitor/udisks2/gvfsudisks2utils.c	2026-08-31 13:33:35.973186684 -0700
++++ gvfs/src/gvfs/monitor/udisks2/gvfsudisks2utils.c	2026-08-31 13:33:38.117258132 -0700
+@@ -75,6 +75,10 @@
+     {
+       icon_name = "folder-remote";
+     }
++  else if (g_strcmp0 (fs_type, "fuse.sshfs") == 0)
++    {
++      icon_name = "network-server";
++    }
+   else
+     {
+       icon_name = "drive-removable-media";
+@@ -92,6 +96,10 @@
+     {
+       icon_name = "folder-remote-symbolic";
+     }
++  else if (g_strcmp0 (fs_type, "fuse.sshfs") == 0)
++    {
++      icon_name = "network-server-symbolic";
++    }
+   else
+     {
+       icon_name = "drive-removable-media-symbolic";
