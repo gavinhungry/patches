@@ -1,0 +1,54 @@
+diff --color -ru vte3.ORIG/src/vte/src/vte.cc vte3/src/vte/src/vte.cc
+--- vte3.ORIG/src/vte/src/vte.cc	2026-09-10 08:40:39.269127323 -0700
++++ vte3/src/vte/src/vte.cc	2026-09-10 10:38:13.552429648 -0700
+@@ -10927,6 +10927,7 @@
+ stop_processing(vte::terminal::Terminal* that)
+ {
+ 	that->reset_update_rects();
++	that->m_processing_updates_pending = false;
+ 
+         if (that->m_scheduler != nullptr) {
+                 _vte_scheduler_remove_callback (that->m_widget, that->m_scheduler);
+@@ -11120,12 +11121,21 @@
+ try
+ {
+         auto that = reinterpret_cast<vte::terminal::Terminal*>(data);
++        auto const updates_pending = that->m_processing_updates_pending;
+ 
+         that->m_is_processing = true;
+         auto is_active = that->process();
+         that->m_is_processing = false;
+ 
+-        that->invalidate_dirty_rects_and_process_updates();
++        /* Keep one frame's updates pending so that adjacent PTY reads can be
++         * presented together, but flush on the next tick even under continuous
++         * output. */
++        if (!is_active || updates_pending) {
++                that->invalidate_dirty_rects_and_process_updates();
++                that->m_processing_updates_pending = false;
++        } else {
++                that->m_processing_updates_pending = true;
++        }
+         that->emit_adjustment_changed();
+ 
+         if (!is_active) {
+diff --color -ru vte3.ORIG/src/vte/src/vteinternal.hh vte3/src/vte/src/vteinternal.hh
+--- vte3.ORIG/src/vte/src/vteinternal.hh	2026-09-10 08:40:39.269127323 -0700
++++ vte3/src/vte/src/vteinternal.hh	2026-09-10 10:38:13.546429701 -0700
+@@ -425,6 +425,7 @@
+ #endif
+         bool m_invalidated_all{false};       /* pending refresh of entire terminal */
+         bool m_is_processing{false};
++        bool m_processing_updates_pending{false};
+         // FIXMEchpe should these two be g[s]size ?
+         size_t m_input_bytes;
+         long m_max_input_bytes{VTE_MAX_INPUT_READ};
+@@ -1015,7 +1016,7 @@
+                                      vte::base::Chunk& chunk);
+         #endif
+         bool process();
+-        inline bool is_processing() const { return m_is_processing; };
++        inline bool is_processing() const { return m_is_processing || m_processing_updates_pending; };
+         void start_processing();
+ 
+         gssize get_preedit_width(bool left_only);
