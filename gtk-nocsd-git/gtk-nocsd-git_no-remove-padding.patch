@@ -1,15 +1,12 @@
-diff -ru gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c
---- gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-08-21 16:06:38.938603064 -0700
-+++ gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-08-21 16:06:38.952182337 -0700
-@@ -2327,9 +2327,9 @@
- 			}
+diff --color -ru gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c
+--- gtk-nocsd-git.ORIG/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-09-14 08:03:25.741972452 -0700
++++ gtk-nocsd-git/src/gtk-nocsd-git/Source/GTK-NoCSD.c	2026-09-14 08:03:28.762474912 -0700
+@@ -2349,7 +2349,7 @@
  
- 			if (!GTKNoCSDNoCSS) {
--				// Remove rounding, padding, shadow, hide title
-+				// Remove rounding, shadow, hide title
- 				GTKNoCSDLoadCSS("window { border-radius: 0; box-shadow: none; }"
--					"headerbar { border-radius: 0; min-height: 0pt; padding: 0pt; }"
-+					"headerbar { border-radius: 0; min-height: 0pt; }"
- 					"headerbar * { margin: 0pt; }"
- 					"windowtitle { opacity: 0; }"
- 					"decoration { margin: 0px; }"
+ 	// The CSS that is globally loaded
+ 	const char *CSS = "window { border-radius: 0; box-shadow: none; }"
+-		"headerbar { border-radius: 0; min-height: 0pt; padding: 0pt; }"
++		"headerbar { border-radius: 0; min-height: 0pt; }"
+ 		"headerbar * { margin: 0pt; }"
+ 		"decoration { margin: 0px; }"
+ 		"headerbar viewswitcher * { padding: 0pt; min-height: 0pt; }";
