@@ -237,6 +237,24 @@ applyPatchFile() {
   fi
 }
 
+isNoApplyPatch() {
+  local NO_APPLY="$PATCHES_DIR"/$1/.no-apply
+  [ -f "$NO_APPLY" ] || return 1
+
+  local PATCH=$(basename "$2")
+  local LINE
+
+  while read -r LINE || [ -n "$LINE" ]; do
+    LINE=${LINE%%#*}                      # strip comment
+    LINE=${LINE%"${LINE##*[![:space:]]}"} # strip trailing whitespace
+
+    [ -z "$LINE" ] && continue
+    [ "$LINE" == "$PATCH" ] && return 0
+  done < "$NO_APPLY"
+
+  return 1
+}
+
 patchPkg() {
   local PKG=$1
   local PKGBUILD_DIR=$(getPkgbuildDir $PKG)
@@ -251,6 +269,7 @@ patchPkg() {
   if compgen -G "$PATCHES_DIR"/$PKG/*.patch > /dev/null; then
     local PATCHES="$PATCHES_DIR"/$PKG/*.patch
     for PATCH in ${PATCHES[@]}; do
+      isNoApplyPatch $PKG "$PATCH" && continue
       inform "Applying $(basename $PATCH)"
       applyPatchFile "$PATCH"
     done
