@@ -1,0 +1,14 @@
+diff --color -ru decibels.ORIG/src/decibels/data/window.blp decibels/src/decibels/data/window.blp
+--- decibels.ORIG/src/decibels/data/window.blp	2026-09-25 09:57:50.020609845 -0700
++++ decibels/src/decibels/data/window.blp	2026-09-25 10:16:34.705702548 -0700
+@@ -2,8 +2,8 @@
+ using Adw 1;
+ 
+ template $Gjs_Window: Adw.ApplicationWindow {
+-  default-width: 650;
+-  default-height: 450;
++  default-width: 800;
++  default-height: 380;
+   height-request: 260;
+   title: _("Audio Player");
+ 

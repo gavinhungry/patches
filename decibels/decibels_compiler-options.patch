@@ -1,0 +1,11 @@
+diff --color -ru decibels.ORIG/src/decibels/tsconfig.json decibels/src/decibels/tsconfig.json
+--- decibels.ORIG/src/decibels/tsconfig.json	2026-09-25 09:57:50.048227174 -0700
++++ decibels/src/decibels/tsconfig.json	2026-09-25 10:08:57.460759964 -0700
+@@ -1,5 +1,7 @@
+ {
+   "compilerOptions": {
++    "ignoreDeprecations": "6.0",
++    "rootDir": "./src",
+     "target": "es2018",
+     "module": "ES2020",
+     "lib": [

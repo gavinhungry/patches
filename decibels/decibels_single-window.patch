@@ -1,0 +1,38 @@
+diff --color -ru decibels.ORIG/src/decibels/src/application.ts decibels/src/decibels/src/application.ts
+--- decibels.ORIG/src/decibels/src/application.ts	2026-09-25 09:57:50.047850218 -0700
++++ decibels/src/decibels/src/application.ts	2026-09-25 10:03:27.429494057 -0700
+@@ -128,20 +128,22 @@
+   }
+ 
+   vfunc_open(files: Gio.FilePrototype[]): void {
+-    const is_single_file = files.length === 1,
+-      window = this.get_active_window() as Window;
++    if (files.length === 0) return;
+ 
+-    if (is_single_file && window && !window.stream?.media_info) {
+-      // we are opening a single file, and the current window has no file open,
+-      // so open the file in the window
+-      void window.load_file(files[0]);
+-      return;
+-    }
++    // only autoplay when a single file is opened
++    const autoplay = files.length === 1;
++
++    const active = this.get_active_window();
++    const first_window =
++      active instanceof Window ? active : this.present_new_window();
++
++    // reuse the existing window for the first file, replacing any current track
++    void first_window.load_file(files[0], autoplay);
++    first_window.present();
+ 
+-    for (const file of files) {
+-      const window = this.present_new_window();
+-      // only autoplay when only one file is opened
+-      void window.load_file(file, is_single_file);
++    // any additional files get their own windows
++    for (const file of files.slice(1)) {
++      void this.present_new_window().load_file(file, autoplay);
+     }
+   }
+ }
