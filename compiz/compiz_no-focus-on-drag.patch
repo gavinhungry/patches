@@ -1,0 +1,69 @@
+diff --color -ru compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in compiz/src/compiz/plugins/winrules/winrules.xml.in
+--- compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 13:29:48.875584292 -0700
++++ compiz/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 16:50:17.048048519 -0700
+@@ -83,6 +83,11 @@
+ 					<_long>Set window as non closable</_long>
+ 					<default/>
+ 				</option>
++				<option name="no_focus_on_drag_match" type="match">
++					<_short>No focus on drag</_short>
++					<_long>Windows that are raised but not focused when moved or resized with a modifier+button binding</_long>
++					<default/>
++				</option>
+ 				<option name="no_focus_match" type="match">
+ 					<_short>No focus</_short>
+ 					<_long>Windows will not have focus</_long>
+diff --color -ru compiz.ORIG/src/compiz/src/event.cpp compiz/src/compiz/src/event.cpp
+--- compiz.ORIG/src/compiz/src/event.cpp	2026-10-03 13:29:48.887863534 -0700
++++ compiz/src/compiz/src/event.cpp	2026-10-03 16:50:23.306011492 -0700
+@@ -96,6 +96,28 @@
+     return false;
+ }
+ 
++/*
++ * Evaluate a match option from the winrules plugin against a window.
++ * Core cannot use winrules' generated option accessors, so the option is
++ * looked up by name. Returns false if winrules is not loaded, or the
++ * option is missing or not a match.
++ */
++static bool
++windowMatchesWinrulesOption (const CompWindow *w,
++			     const char       *name)
++{
++    CompPlugin *winrules = CompPlugin::find ("winrules");
++
++    if (!winrules)
++	return false;
++
++    CompOption *option =
++	CompOption::findOption (winrules->vTable->getOptions (), name);
++
++    return option && option->type () == CompOption::TypeMatch &&
++	   option->value ().match ().evaluate (w);
++}
++
+ #define REAL_MOD_MASK (ShiftMask | ControlMask | Mod1Mask | Mod2Mask | \
+ 		       Mod3Mask | Mod4Mask | Mod5Mask | CompNoMask)
+ 
+@@ -1673,10 +1695,19 @@
+ 		    w->updateAttributes (CompStackingUpdateModeAboveFullscreen);
+ 		}
+ 
++		/* Move/resize return false from their initiate callbacks, so
++		 * modifier+button binding clicks also reach this click-to-focus
++		 * code. w->grabbed () is only true here if this click just
++		 * started a move/resize of the window; skip focusing it if it
++		 * matches the winrules no_focus_on_drag_match option (it is
++		 * still raised above). */
+ 	        if (w->id () != privateScreen.orphanData.activeWindow)
+ 		    if (!(w->type () & CompWindowTypeDockMask))
+-			if (w->focus ())
+-			    w->moveInputFocusTo ();
++			if (!(w->grabbed () &&
++			      windowMatchesWinrulesOption (w,
++							   "no_focus_on_drag_match")))
++			    if (w->focus ())
++				w->moveInputFocusTo ();
+ 	    }
+ 	}
+ 
