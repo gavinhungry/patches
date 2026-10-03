@@ -1,0 +1,121 @@
+diff --color -ru compiz.ORIG/src/compiz/include/core/window.h compiz/src/compiz/include/core/window.h
+--- compiz.ORIG/src/compiz/include/core/window.h	2026-10-03 10:55:19.949378875 -0700
++++ compiz/src/compiz/include/core/window.h	2026-10-03 11:27:14.508468963 -0700
+@@ -365,6 +365,13 @@
+ 
+ 	CompString resName () const;
+ 
++	/* True if a button-initiated move/resize action on this window
++	 * should be captured by the client (a focused input-capturing
++	 * client such as a remote desktop viewer or VM) rather than
++	 * handled by compiz. */
++	bool clientCapturesButtonAction (CompAction::State  state,
++					 CompOption::Vector &options) const;
++
+ 	const CompRegion & region () const;
+ 
+ 	const CompRegion & frameRegion () const;
+diff --color -ru compiz.ORIG/src/compiz/plugins/move/src/move.cpp compiz/src/compiz/plugins/move/src/move.cpp
+--- compiz.ORIG/src/compiz/plugins/move/src/move.cpp	2026-10-03 10:55:19.959495152 -0700
++++ compiz/src/compiz/plugins/move/src/move.cpp	2026-10-03 11:27:28.818511035 -0700
+@@ -50,6 +50,9 @@
+ 
+     w = screen->findWindow (xid);
+ 
++    if (w && w->clientCapturesButtonAction (state, options))
++	return false;
++
+     if (w && (w->actions () & CompWindowActionMoveMask))
+     {
+ 	CompScreen *s = screen;
+diff --color -ru compiz.ORIG/src/compiz/plugins/resize/src/resize.cpp compiz/src/compiz/plugins/resize/src/resize.cpp
+--- compiz.ORIG/src/compiz/plugins/resize/src/resize.cpp	2026-10-03 10:55:19.962842641 -0700
++++ compiz/src/compiz/plugins/resize/src/resize.cpp	2026-10-03 11:27:28.818725693 -0700
+@@ -66,6 +66,12 @@
+ 			   CompAction::State  state,
+ 			   CompOption::Vector &options)
+ {
++    Window     xid = CompOption::getIntOptionNamed (options, "window");
++    CompWindow *w  = screen->findWindow (xid);
++
++    if (w && w->clientCapturesButtonAction (state, options))
++	return false;
++
+     RESIZE_SCREEN (screen);
+     return rs->logic.initiateResizeDefaultMode(action, state, options);
+ }
+diff --color -ru compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in compiz/src/compiz/plugins/winrules/winrules.xml.in
+--- compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 10:55:19.967216440 -0700
++++ compiz/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 11:41:07.747105615 -0700
+@@ -88,6 +88,11 @@
+ 					<_long>Windows will not have focus</_long>
+ 					<default/>
+ 				</option>
++				<option name="input_capture_match" type="match">
++					<_short>Input capturing</_short>
++					<_long>Windows (e.g. remote desktop viewers, virtual machines) that receive modifier+button move/resize bindings instead of compiz, when they are focused and the click is inside their client area</_long>
++					<default/>
++				</option>
+ 			</group>
+ 			<group>
+ 				<_short>Size rules</_short>
+diff --color -ru compiz.ORIG/src/compiz/src/window.cpp compiz/src/compiz/src/window.cpp
+--- compiz.ORIG/src/compiz/src/window.cpp	2026-10-03 10:55:19.982091813 -0700
++++ compiz/src/compiz/src/window.cpp	2026-10-03 11:41:13.041077390 -0700
+@@ -5883,6 +5883,56 @@
+     return CompString ();
+ }
+ 
++/*
++ * Let modifier+button move/resize bindings fall through to input-capturing
++ * clients (remote desktop viewers, VMs, etc. -- see the winrules
++ * input_capture_match option) so the guest/remote session can use the
++ * same bindings. We only do this when the window is focused (i.e. it has
++ * grabbed the keyboard) and the pointer is inside its client area, so the
++ * window itself can still be moved/resized by modifier+dragging its
++ * decorations.
++ *
++ * The option lives in the winrules plugin (which also pulls in regex, for
++ * class=/name=/title= matching), so it is looked up by name here. If
++ * winrules is not loaded, or the option is empty (the default), nothing
++ * is passed through.
++ *
++ * Plugins return false from their initiate callback when this is true,
++ * which causes core to replay the button press to the client (see
++ * XAllowEvents/ReplayPointer in CompScreenImpl::_handleEvent).
++ */
++bool
++CompWindow::clientCapturesButtonAction (CompAction::State  state,
++					CompOption::Vector &options) const
++{
++    if (!(state & CompAction::StateInitButton))
++	return false;
++
++    if (CompOption::getBoolOptionNamed (options, "external", false))
++	return false;
++
++    CompPlugin *winrules = CompPlugin::find ("winrules");
++
++    if (!winrules)
++	return false;
++
++    CompOption *match =
++	CompOption::findOption (winrules->vTable->getOptions (),
++				"input_capture_match");
++
++    if (!match || match->type () != CompOption::TypeMatch ||
++	!match->value ().match ().evaluate (this))
++	return false;
++
++    if (priv->id != screen->activeWindow ())
++	return false;
++
++    int x = CompOption::getIntOptionNamed (options, "x", pointerX);
++    int y = CompOption::getIntOptionNamed (options, "y", pointerY);
++
++    return priv->geometry.contains (CompPoint (x, y));
++}
++
+ int
+ CompWindow::mapNum () const
+ {
