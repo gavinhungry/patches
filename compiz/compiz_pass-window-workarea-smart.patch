@@ -1,7 +1,7 @@
 diff -ru compiz.ORIG/src/compiz/plugins/place/src/place.cpp compiz/src/compiz/plugins/place/src/place.cpp
---- compiz.ORIG/src/compiz/plugins/place/src/place.cpp	2018-01-02 10:06:51.539116903 -0800
-+++ compiz/src/compiz/plugins/place/src/place.cpp	2018-01-02 10:10:38.727173660 -0800
-@@ -585,7 +585,7 @@
+--- compiz.ORIG/src/compiz/plugins/place/src/place.cpp	2026-10-03 17:07:33.260917017 -0700
++++ compiz/src/compiz/plugins/place/src/place.cpp	2026-10-03 17:07:34.482501264 -0700
+@@ -586,7 +586,7 @@
  	    sendMaximizationRequest ();
  	    break;
  	case PlaceOptions::ModeSmart:
@@ -10,7 +10,7 @@ diff -ru compiz.ORIG/src/compiz/plugins/place/src/place.cpp compiz/src/compiz/pl
  	    break;
  	}
  
-@@ -711,10 +711,11 @@
+@@ -712,10 +712,11 @@
  using namespace compiz::place;
  
  void
@@ -25,9 +25,9 @@ diff -ru compiz.ORIG/src/compiz/plugins/place/src/place.cpp compiz/src/compiz/pl
  
  static void
 diff -ru compiz.ORIG/src/compiz/plugins/place/src/place.h compiz/src/compiz/plugins/place/src/place.h
---- compiz.ORIG/src/compiz/plugins/place/src/place.h	2018-01-02 10:06:51.539116903 -0800
-+++ compiz/src/compiz/plugins/place/src/place.h	2018-01-02 10:10:48.340512931 -0800
-@@ -133,7 +133,7 @@
+--- compiz.ORIG/src/compiz/plugins/place/src/place.h	2026-10-03 17:07:33.260917017 -0700
++++ compiz/src/compiz/plugins/place/src/place.h	2026-10-03 17:07:34.482767211 -0700
+@@ -136,7 +136,7 @@
  	void placeCentered (const CompRect& workArea, CompPoint& pos);
  	void placeRandom (const CompRect& workArea, CompPoint& pos);
  	void placePointer (const CompRect& workArea, CompPoint& pos);
@@ -37,8 +37,8 @@ diff -ru compiz.ORIG/src/compiz/plugins/place/src/place.h compiz/src/compiz/plug
  	bool cascadeFindFirstFit (const Placeable::Vector &placeabless,
  				  const CompRect& workArea,
 diff -ru compiz.ORIG/src/compiz/plugins/place/src/smart/include/smart.h compiz/src/compiz/plugins/place/src/smart/include/smart.h
---- compiz.ORIG/src/compiz/plugins/place/src/smart/include/smart.h	2018-01-02 10:06:51.539116903 -0800
-+++ compiz/src/compiz/plugins/place/src/smart/include/smart.h	2018-01-02 10:11:30.132128134 -0800
+--- compiz.ORIG/src/compiz/plugins/place/src/smart/include/smart.h	2026-10-03 17:07:33.261282903 -0700
++++ compiz/src/compiz/plugins/place/src/smart/include/smart.h	2026-10-03 17:07:34.482898909 -0700
 @@ -64,6 +64,7 @@
  	};
  
@@ -48,8 +48,8 @@ diff -ru compiz.ORIG/src/compiz/plugins/place/src/smart/include/smart.h compiz/s
  		    const compiz::place::Placeable::Vector &placeables);
  
 diff -ru compiz.ORIG/src/compiz/plugins/place/src/smart/src/smart.cpp compiz/src/compiz/plugins/place/src/smart/src/smart.cpp
---- compiz.ORIG/src/compiz/plugins/place/src/smart/src/smart.cpp	2018-01-02 10:06:51.539116903 -0800
-+++ compiz/src/compiz/plugins/place/src/smart/src/smart.cpp	2018-01-02 10:13:00.821451355 -0800
+--- compiz.ORIG/src/compiz/plugins/place/src/smart/src/smart.cpp	2026-10-03 17:07:33.261317733 -0700
++++ compiz/src/compiz/plugins/place/src/smart/src/smart.cpp	2026-10-03 17:07:34.483012958 -0700
 @@ -26,6 +26,7 @@
  	}
  

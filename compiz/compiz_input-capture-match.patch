@@ -1,6 +1,6 @@
-diff --color -ru compiz.ORIG/src/compiz/include/core/window.h compiz/src/compiz/include/core/window.h
---- compiz.ORIG/src/compiz/include/core/window.h	2026-10-03 10:55:19.949378875 -0700
-+++ compiz/src/compiz/include/core/window.h	2026-10-03 11:27:14.508468963 -0700
+diff -ru compiz.ORIG/src/compiz/include/core/window.h compiz/src/compiz/include/core/window.h
+--- compiz.ORIG/src/compiz/include/core/window.h	2026-10-03 17:07:33.248249636 -0700
++++ compiz/src/compiz/include/core/window.h	2026-10-03 17:07:33.887754676 -0700
 @@ -365,6 +365,13 @@
  
  	CompString resName () const;
@@ -15,9 +15,9 @@ diff --color -ru compiz.ORIG/src/compiz/include/core/window.h compiz/src/compiz/
  	const CompRegion & region () const;
  
  	const CompRegion & frameRegion () const;
-diff --color -ru compiz.ORIG/src/compiz/plugins/move/src/move.cpp compiz/src/compiz/plugins/move/src/move.cpp
---- compiz.ORIG/src/compiz/plugins/move/src/move.cpp	2026-10-03 10:55:19.959495152 -0700
-+++ compiz/src/compiz/plugins/move/src/move.cpp	2026-10-03 11:27:28.818511035 -0700
+diff -ru compiz.ORIG/src/compiz/plugins/move/src/move.cpp compiz/src/compiz/plugins/move/src/move.cpp
+--- compiz.ORIG/src/compiz/plugins/move/src/move.cpp	2026-10-03 17:07:33.258816098 -0700
++++ compiz/src/compiz/plugins/move/src/move.cpp	2026-10-03 17:07:33.887967164 -0700
 @@ -50,6 +50,9 @@
  
      w = screen->findWindow (xid);
@@ -28,9 +28,9 @@ diff --color -ru compiz.ORIG/src/compiz/plugins/move/src/move.cpp compiz/src/com
      if (w && (w->actions () & CompWindowActionMoveMask))
      {
  	CompScreen *s = screen;
-diff --color -ru compiz.ORIG/src/compiz/plugins/resize/src/resize.cpp compiz/src/compiz/plugins/resize/src/resize.cpp
---- compiz.ORIG/src/compiz/plugins/resize/src/resize.cpp	2026-10-03 10:55:19.962842641 -0700
-+++ compiz/src/compiz/plugins/resize/src/resize.cpp	2026-10-03 11:27:28.818725693 -0700
+diff -ru compiz.ORIG/src/compiz/plugins/resize/src/resize.cpp compiz/src/compiz/plugins/resize/src/resize.cpp
+--- compiz.ORIG/src/compiz/plugins/resize/src/resize.cpp	2026-10-03 17:07:33.262316702 -0700
++++ compiz/src/compiz/plugins/resize/src/resize.cpp	2026-10-03 17:07:33.888109733 -0700
 @@ -66,6 +66,12 @@
  			   CompAction::State  state,
  			   CompOption::Vector &options)
@@ -44,9 +44,9 @@ diff --color -ru compiz.ORIG/src/compiz/plugins/resize/src/resize.cpp compiz/src
      RESIZE_SCREEN (screen);
      return rs->logic.initiateResizeDefaultMode(action, state, options);
  }
-diff --color -ru compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in compiz/src/compiz/plugins/winrules/winrules.xml.in
---- compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 10:55:19.967216440 -0700
-+++ compiz/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 11:41:07.747105615 -0700
+diff -ru compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in compiz/src/compiz/plugins/winrules/winrules.xml.in
+--- compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 17:07:33.266985545 -0700
++++ compiz/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 17:07:33.888208902 -0700
 @@ -88,6 +88,11 @@
  					<_long>Windows will not have focus</_long>
  					<default/>
@@ -59,9 +59,9 @@ diff --color -ru compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in compiz/
  			</group>
  			<group>
  				<_short>Size rules</_short>
-diff --color -ru compiz.ORIG/src/compiz/src/window.cpp compiz/src/compiz/src/window.cpp
---- compiz.ORIG/src/compiz/src/window.cpp	2026-10-03 10:55:19.982091813 -0700
-+++ compiz/src/compiz/src/window.cpp	2026-10-03 11:41:13.041077390 -0700
+diff -ru compiz.ORIG/src/compiz/src/window.cpp compiz/src/compiz/src/window.cpp
+--- compiz.ORIG/src/compiz/src/window.cpp	2026-10-03 17:07:33.282151950 -0700
++++ compiz/src/compiz/src/window.cpp	2026-10-03 17:07:33.888479059 -0700
 @@ -5883,6 +5883,56 @@
      return CompString ();
  }

@@ -1,6 +1,6 @@
-diff --color -ru compiz.ORIG/src/compiz/plugins/blur/blur.xml.in compiz/src/compiz/plugins/blur/blur.xml.in
---- compiz.ORIG/src/compiz/plugins/blur/blur.xml.in	2024-11-04 10:04:22.949540926 -0800
-+++ compiz/src/compiz/plugins/blur/blur.xml.in	2024-11-04 15:40:20.759917399 -0800
+diff -ru compiz.ORIG/src/compiz/plugins/blur/blur.xml.in compiz/src/compiz/plugins/blur/blur.xml.in
+--- compiz.ORIG/src/compiz/plugins/blur/blur.xml.in	2026-10-03 17:07:33.252144956 -0700
++++ compiz/src/compiz/plugins/blur/blur.xml.in	2026-10-03 17:07:33.286510885 -0700
 @@ -73,7 +73,7 @@
  		<_long>Gaussian radius</_long>
  		<default>3</default>
@@ -10,9 +10,9 @@ diff --color -ru compiz.ORIG/src/compiz/plugins/blur/blur.xml.in compiz/src/comp
  	    </option>
  	    <option name="gaussian_strength" type="float">
  		<_short>Gaussian Strength</_short>
-diff --color -ru compiz.ORIG/src/compiz/plugins/blur/src/blur.cpp compiz/src/compiz/plugins/blur/src/blur.cpp
---- compiz.ORIG/src/compiz/plugins/blur/src/blur.cpp	2024-11-04 10:04:22.949540926 -0800
-+++ compiz/src/compiz/plugins/blur/src/blur.cpp	2024-11-04 15:40:17.946537762 -0800
+diff -ru compiz.ORIG/src/compiz/plugins/blur/src/blur.cpp compiz/src/compiz/plugins/blur/src/blur.cpp
+--- compiz.ORIG/src/compiz/plugins/blur/src/blur.cpp	2026-10-03 17:07:33.252194756 -0700
++++ compiz/src/compiz/plugins/blur/src/blur.cpp	2026-10-03 17:07:33.286700474 -0700
 @@ -57,17 +57,19 @@
      int   mySize = ceil (radius / 2.0f);
      int   i, j;
@@ -38,9 +38,9 @@ diff --color -ru compiz.ORIG/src/compiz/plugins/blur/src/blur.cpp compiz/src/com
  
  	tmp = ar1;
  	ar1 = ar2;
-diff --color -ru compiz.ORIG/src/compiz/plugins/blur/src/blur.h compiz/src/compiz/plugins/blur/src/blur.h
---- compiz.ORIG/src/compiz/plugins/blur/src/blur.h	2024-11-04 10:04:22.949540926 -0800
-+++ compiz/src/compiz/plugins/blur/src/blur.h	2024-11-04 15:40:19.653232517 -0800
+diff -ru compiz.ORIG/src/compiz/plugins/blur/src/blur.h compiz/src/compiz/plugins/blur/src/blur.h
+--- compiz.ORIG/src/compiz/plugins/blur/src/blur.h	2026-10-03 17:07:33.252194756 -0700
++++ compiz/src/compiz/plugins/blur/src/blur.h	2026-10-03 17:07:33.286819672 -0700
 @@ -42,7 +42,7 @@
  #include <decoration.h>
  

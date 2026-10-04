@@ -1,6 +1,6 @@
-diff --color -ru compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in compiz/src/compiz/plugins/winrules/winrules.xml.in
---- compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 13:29:48.875584292 -0700
-+++ compiz/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 16:50:17.048048519 -0700
+diff -ru compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in compiz/src/compiz/plugins/winrules/winrules.xml.in
+--- compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 17:07:33.266985545 -0700
++++ compiz/src/compiz/plugins/winrules/winrules.xml.in	2026-10-03 17:07:34.334331187 -0700
 @@ -83,6 +83,11 @@
  					<_long>Set window as non closable</_long>
  					<default/>
@@ -13,9 +13,9 @@ diff --color -ru compiz.ORIG/src/compiz/plugins/winrules/winrules.xml.in compiz/
  				<option name="no_focus_match" type="match">
  					<_short>No focus</_short>
  					<_long>Windows will not have focus</_long>
-diff --color -ru compiz.ORIG/src/compiz/src/event.cpp compiz/src/compiz/src/event.cpp
---- compiz.ORIG/src/compiz/src/event.cpp	2026-10-03 13:29:48.887863534 -0700
-+++ compiz/src/compiz/src/event.cpp	2026-10-03 16:50:23.306011492 -0700
+diff -ru compiz.ORIG/src/compiz/src/event.cpp compiz/src/compiz/src/event.cpp
+--- compiz.ORIG/src/compiz/src/event.cpp	2026-10-03 17:07:33.279334599 -0700
++++ compiz/src/compiz/src/event.cpp	2026-10-03 17:07:34.334604434 -0700
 @@ -96,6 +96,28 @@
      return false;
  }
