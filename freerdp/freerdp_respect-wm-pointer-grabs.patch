@@ -1,0 +1,64 @@
+diff --color -ru freerdp.ORIG/src/freerdp/client/X11/xf_input.c freerdp/src/freerdp/client/X11/xf_input.c
+--- freerdp.ORIG/src/freerdp/client/X11/xf_input.c	2026-10-03 13:40:24.367228660 -0700
++++ freerdp/src/freerdp/client/X11/xf_input.c	2026-10-03 13:44:04.420011276 -0700
+@@ -119,19 +119,18 @@
+ 							XISetMask(masks[nmasks], XI_TouchBegin);
+ 							XISetMask(masks[nmasks], XI_TouchUpdate);
+ 							XISetMask(masks[nmasks], XI_TouchEnd);
++							used = TRUE;
+ 						}
+ 					}
+ 					break;
+ 				case XIButtonClass:
+ 				{
++					/* Button and motion events are selected below
++					 * to respect window-manager pointer grabs. */
+ 					const XIButtonClassInfo* t =
+ 					    WINPR_PACKED_ALIGN_CAST(const XIButtonClassInfo*, c_class);
+ 					WLog_DBG(TAG, "%s button device (id: %d, mode: %d)", dev->name, dev->deviceid,
+ 					         t->num_buttons);
+-					XISetMask(masks[nmasks], XI_ButtonPress);
+-					XISetMask(masks[nmasks], XI_ButtonRelease);
+-					XISetMask(masks[nmasks], XI_Motion);
+-					used = TRUE;
+ 					break;
+ 				}
+ 				case XIValuatorClass:
+@@ -188,6 +187,26 @@
+ 
+ 	XIFreeDeviceInfo(info);
+ 
++	/*
++	 * Select pointer events so that window-manager grabs are respected.
++	 * This prevents modifier+button move/resize gestures from also sending
++	 * clicks to the remote session. Events explicitly replayed by the
++	 * grabbing client can still reach us.
++	 */
++	if (nmasks < MAX_NR_MASKS)
++	{
++		memset(masks[nmasks], 0, sizeof(masks[nmasks]));
++		evmasks[nmasks].mask = masks[nmasks];
++		evmasks[nmasks].mask_len = sizeof(masks[0]);
++		evmasks[nmasks].deviceid = XIAllMasterDevices;
++		XISetMask(masks[nmasks], XI_ButtonPress);
++		XISetMask(masks[nmasks], XI_ButtonRelease);
++		XISetMask(masks[nmasks], XI_Motion);
++		nmasks++;
++	}
++	else
++		WLog_WARN(TAG, "Too many input devices, not selecting pointer events");
++
+ 	if (nmasks > 0)
+ 	{
+ 		Status xstatus = XISelectEvents(xfc->display, window, evmasks, nmasks);
+@@ -869,7 +888,9 @@
+ 			{
+ 				WLog_DBG(TAG, "checking for pen");
+ 				XIDeviceEvent* deviceEvent = (XIDeviceEvent*)cookie.cc->data;
+-				int deviceid = deviceEvent->deviceid;
++				/* Identify pens using the device that
++				 * originated the event. */
++				int deviceid = deviceEvent->sourceid;
+ 
+ 				if (freerdp_client_is_pen(&xfc->common, deviceid))
+ 				{
