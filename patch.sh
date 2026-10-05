@@ -277,7 +277,7 @@ patchPkg() {
 
   if [ -x "$PATCHES_DIR"/$PKG/patch.sh ]; then
     cd "$PATCHES_DIR"/$PKG
-    source patch.sh
+    source patch.sh || err "Error running package-specific patch script"
   fi
 
   cd "$PKGBUILD_DIR" &> /dev/null || warn 'Could not switch to PKGBUILD directory'
