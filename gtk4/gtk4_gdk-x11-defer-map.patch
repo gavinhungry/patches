@@ -1,7 +1,7 @@
-diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11/gdksurface-x11.c
---- gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c	2026-06-12 23:47:01.870972278 -0700
-+++ gtk4/src/gtk/gdk/x11/gdksurface-x11.c	2026-06-12 23:47:44.083968367 -0700
-@@ -123,6 +123,9 @@
+diff -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11/gdksurface-x11.c
+--- gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c	2026-10-07 02:38:32.921356533 -0700
++++ gtk4/src/gtk/gdk/x11/gdksurface-x11.c	2026-10-07 02:38:32.977853234 -0700
+@@ -125,6 +125,9 @@
                                                  const GdkGeometry *geometry,
                                                  GdkSurfaceHints    geom_mask);
  
@@ -11,7 +11,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
  /* Return whether time1 is considered later than time2 as far as xserver
   * time is concerned.  Accounts for wraparound.
   */
-@@ -856,6 +859,116 @@
+@@ -816,6 +819,116 @@
    return focus_window;
  }
  
@@ -128,7 +128,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
  static void
  ensure_sync_counter (GdkSurface *surface)
  {
-@@ -997,6 +1110,24 @@
+@@ -956,6 +1069,24 @@
      return;
  
    gdk_x11_surface_end_frame (surface);
@@ -153,7 +153,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
  }
  
  static void
-@@ -1135,6 +1266,8 @@
+@@ -1094,6 +1225,8 @@
  
    g_clear_pointer (&impl->surface_is_on_monitor, g_list_free);
    g_clear_handle_id (&impl->compute_size_source_id, g_source_remove);
@@ -162,7 +162,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
    g_clear_pointer (&impl->toplevel_layout, gdk_toplevel_layout_unref);
  
    g_free (impl->toplevel);
-@@ -1285,6 +1418,9 @@
+@@ -1232,6 +1365,9 @@
    unhook_surface_changed (surface);
    disconnect_frame_clock (surface);
    g_clear_handle_id (&impl->compute_size_source_id, g_source_remove);
@@ -172,7 +172,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
  
    if (impl->cairo_surface)
      {
-@@ -1505,8 +1641,6 @@
+@@ -1451,8 +1587,6 @@
    GdkDisplay *display;
    GdkX11Display *display_x11;
    GdkToplevelX11 *toplevel;
@@ -181,7 +181,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
  
    if (!already_mapped)
      set_initial_hints (surface);
-@@ -1527,8 +1661,25 @@
+@@ -1473,6 +1607,23 @@
         impl->map_time = g_get_monotonic_time ();
     }
  
@@ -203,12 +203,9 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
 +  Window xwindow = GDK_SURFACE_XID (surface);
 +
    XMapWindow (xdisplay, xwindow);
--  
-+
+ 
    /* Fullscreen on current monitor is the default, no need to apply this mode
-    * when mapping a window. This also ensures that the default behavior remains
-    * consistent with pre-fullscreen mode implementation.
-@@ -1563,6 +1714,9 @@
+@@ -1518,6 +1669,9 @@
    _gdk_x11_surface_grab_check_unmap (surface,
                                      NextRequest (GDK_SURFACE_XDISPLAY (surface)));
  
@@ -218,7 +215,7 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
    g_clear_handle_id (&impl->compute_size_source_id, g_source_remove);
    g_clear_pointer (&impl->toplevel_layout, gdk_toplevel_layout_unref);
  
-@@ -5374,6 +5528,41 @@
+@@ -5310,6 +5464,41 @@
    if (!was_mapped)
      gdk_surface_set_is_mapped (surface, TRUE);
  
@@ -260,12 +257,12 @@ diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.c gtk4/src/gtk/gdk/x11
    gdk_x11_surface_show (surface, was_mapped);
  
    if (!was_mapped)
-diff --color -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.h gtk4/src/gtk/gdk/x11/gdksurface-x11.h
---- gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.h	2026-06-12 23:47:01.870972278 -0700
-+++ gtk4/src/gtk/gdk/x11/gdksurface-x11.h	2026-06-12 23:47:44.084008347 -0700
-@@ -63,6 +63,15 @@
-   guint frame_sync_enabled : 1;
+diff -ru gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.h gtk4/src/gtk/gdk/x11/gdksurface-x11.h
+--- gtk4.ORIG/src/gtk/gdk/x11/gdksurface-x11.h	2026-10-07 02:38:32.921356533 -0700
++++ gtk4/src/gtk/gdk/x11/gdksurface-x11.h	2026-10-07 02:38:32.978829545 -0700
+@@ -64,6 +64,15 @@
    guint tracking_damage: 1;
+   guint popup_grab : 1;
  
 +  /* Deferred-map support (GDK_X11_DEFER_MAP): when set, the toplevel's
 +   * initial XMapWindow is held back until the first frame has been painted,
