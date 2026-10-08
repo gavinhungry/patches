@@ -1,0 +1,12 @@
+diff --color -ru libwnck3.ORIG/src/libwnck/libwnck/window.c libwnck3/src/libwnck/libwnck/window.c
+--- libwnck3.ORIG/src/libwnck/libwnck/window.c	2026-10-08 12:16:21.894036996 -0700
++++ libwnck3/src/libwnck/libwnck/window.c	2026-10-08 12:16:42.316102673 -0700
+@@ -45,7 +45,7 @@
+  * referenced or unreferenced.
+  */
+ 
+-#define FALLBACK_NAME _("Untitled window")
++#define FALLBACK_NAME _("")
+ #define ALL_WORKSPACES ((int) 0xFFFFFFFF)
+ 
+ /* Keep 0-7 in sync with the numbers in the WindowState enum. Yeah I'm
