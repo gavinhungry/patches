@@ -1,0 +1,443 @@
+diff --color -ru openrazer.ORIG/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py openrazer/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py
+--- openrazer.ORIG/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py	2026-10-10 21:39:39.620180772 -0700
++++ openrazer/src/openrazer/daemon/openrazer_daemon/hardware/mouse.py	2026-10-10 22:25:48.499998176 -0700
+@@ -1783,6 +1783,46 @@
+     USB_PID = 0x00D7
+ 
+ 
++class RazerBasiliskV4ProWired(__RazerDevice):
++    """
++    Class for the Razer Basilisk V4 Pro (Wired)
++
++    Lighting-only proof of concept.
++    """
++    EVENT_FILE_REGEX = re.compile(r'.*Razer_Basilisk_V4_Pro_\w+-if0(1|2)-event-kbd')
++
++    USB_VID = 0x1532
++    USB_PID = 0x00E2
++    HAS_MATRIX = False
++    METHODS = ['get_device_type_mouse',
++               'get_brightness', 'set_brightness',
++               'get_logo_brightness', 'set_logo_brightness',
++               'get_scroll_brightness', 'set_scroll_brightness',
++               # All LEDs
++               'set_static_effect', 'set_wave_effect', 'set_spectrum_effect', 'set_none_effect',
++               # Logo
++               'set_logo_wave', 'set_logo_static', 'set_logo_spectrum', 'set_logo_none',
++               # Scroll wheel
++               'set_scroll_wave', 'set_scroll_static', 'set_scroll_spectrum', 'set_scroll_none',
++               # DPI / polling
++               'max_dpi', 'get_dpi_xy', 'set_dpi_xy',
++               'get_poll_rate', 'set_poll_rate', 'get_supported_poll_rates',
++               # Battery
++               'get_battery', 'is_charging', 'get_idle_time', 'set_idle_time',
++               'get_low_battery_threshold', 'set_low_battery_threshold']
++
++    DPI_MAX = 50000
++    POLL_RATES = [125, 500, 1000, 2000, 4000, 8000]
++
++
++class RazerBasiliskV4ProWireless(RazerBasiliskV4ProWired):
++    """
++    Class for the Razer Basilisk V4 Pro (Wireless)
++    """
++
++    USB_PID = 0x00E3
++
++
+ class RazerBasiliskV3_35K(__RazerDevice):
+     """
+     Class for the Razer Basilisk V3 35K
+diff --color -ru openrazer.ORIG/src/openrazer/driver/razerchromacommon.c openrazer/src/openrazer/driver/razerchromacommon.c
+--- openrazer.ORIG/src/openrazer/driver/razerchromacommon.c	2026-10-10 21:39:39.620537788 -0700
++++ openrazer/src/openrazer/driver/razerchromacommon.c	2026-10-10 22:25:13.894435900 -0700
+@@ -1213,8 +1213,8 @@
+     struct razer_report report = get_razer_report(0x04, 0x05, 0x07);
+ 
+     // Keep the DPI within bounds
+-    dpi_x = clamp_u16(dpi_x, 100, 45000);
+-    dpi_y = clamp_u16(dpi_y, 100, 45000);
++    dpi_x = clamp_u16(dpi_x, 100, 50000);
++    dpi_y = clamp_u16(dpi_y, 100, 50000);
+ 
+     report.arguments[0] = VARSTORE;
+ 
+diff --color -ru openrazer.ORIG/src/openrazer/driver/razermouse_driver.c openrazer/src/openrazer/driver/razermouse_driver.c
+--- openrazer.ORIG/src/openrazer/driver/razermouse_driver.c	2026-10-10 21:39:39.620537788 -0700
++++ openrazer/src/openrazer/driver/razermouse_driver.c	2026-10-10 22:25:35.578779547 -0700
+@@ -103,6 +103,13 @@
+         return razer_get_usb_response(usb_dev, index, request, index, response, RAZER_VIPER_MOUSE_RECEIVER_WAIT_MIN_US, RAZER_VIPER_MOUSE_RECEIVER_WAIT_MAX_US);
+         break;
+ 
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
++        // Only interface 3 accepts Razer feature reports on this device
++        index = 0x03;
++        return razer_get_usb_response(usb_dev, index, request, index, response, RAZER_NEW_MOUSE_RECEIVER_WAIT_MIN_US, RAZER_NEW_MOUSE_RECEIVER_WAIT_MAX_US);
++        break;
++
+     case USB_DEVICE_ID_RAZER_NAGA_X:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+@@ -596,6 +603,14 @@
+         device_type = "Razer Basilisk V3 Pro 35K Phantom Green Edition (Wireless)";
+         break;
+ 
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++        device_type = "Razer Basilisk V4 Pro (Wired)";
++        break;
++
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
++        device_type = "Razer Basilisk V4 Pro (Wireless)";
++        break;
++
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_MINI:
+         device_type = "Razer DeathAdder V2 Mini";
+         break;
+@@ -800,6 +815,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+@@ -934,6 +951,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_V2_VERTICAL_EDITION_WIRELESS:
+@@ -1112,6 +1131,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_V2_VERTICAL_EDITION_WIRELESS:
+@@ -1154,6 +1175,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_V2_VERTICAL_EDITION_WIRELESS:
+@@ -1202,6 +1225,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_V2_VERTICAL_EDITION_WIRELESS:
+@@ -1385,6 +1410,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+@@ -1520,6 +1547,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+@@ -1628,6 +1657,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+@@ -1862,6 +1893,8 @@
+     case USB_DEVICE_ID_RAZER_VIPER_V3_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V4_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V4_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+         request = razer_chroma_misc_get_polling_rate2();
+         request.transaction_id.id = 0x1f;
+ 
+@@ -2066,6 +2099,8 @@
+     case USB_DEVICE_ID_RAZER_VIPER_V3_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V4_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V4_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+         request = razer_chroma_misc_set_polling_rate2(polling_rate, 0x00);
+         request.transaction_id.id = 0x1f;
+         break;
+@@ -2133,6 +2168,8 @@
+     case USB_DEVICE_ID_RAZER_VIPER_V3_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V4_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V4_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+         request = razer_chroma_misc_set_polling_rate2(polling_rate, 0x01);
+         request.transaction_id.id = 0x1F;
+         razer_send_payload(device, &request, &response);
+@@ -2178,6 +2215,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_PRO_WIRED:
+@@ -2243,6 +2282,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_NAGA_V2_PRO_WIRED:
+@@ -2440,6 +2481,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+@@ -2593,6 +2636,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+@@ -3208,6 +3253,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+@@ -3305,6 +3352,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+@@ -3398,6 +3447,8 @@
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V3_HYPERSPEED_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V4_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V4_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_VIPER_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_VIPER_V3_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_V2_VERTICAL_EDITION_WIRELESS:
+@@ -3493,6 +3544,8 @@
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V3_HYPERSPEED_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V4_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V4_PRO_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_VIPER_V3_PRO_WIRED:
+     case USB_DEVICE_ID_RAZER_VIPER_V3_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_V2_VERTICAL_EDITION_WIRELESS:
+@@ -3747,6 +3800,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+@@ -3913,6 +3968,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER:
+@@ -4027,6 +4084,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+@@ -4130,6 +4189,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+@@ -4312,6 +4373,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_ULTIMATE_RECEIVER:
+@@ -4428,6 +4491,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+@@ -4878,6 +4943,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+@@ -5084,6 +5151,8 @@
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_35K:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++    case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED:
+     case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS:
+     case USB_DEVICE_ID_RAZER_DEATHADDER_V2_LITE:
+@@ -6253,6 +6322,34 @@
+             CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_matrix_custom_frame);
+             break;
+ 
++        case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++        case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_logo_led_brightness);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_logo_matrix_effect_wave);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_logo_matrix_effect_spectrum);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_logo_matrix_effect_static);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_logo_matrix_effect_none);
++
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_scroll_led_brightness);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_scroll_matrix_effect_wave);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_scroll_matrix_effect_spectrum);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_scroll_matrix_effect_static);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_scroll_matrix_effect_none);
++
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_matrix_brightness);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_matrix_effect_wave);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_matrix_effect_spectrum);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_matrix_effect_static);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_matrix_effect_none);
++
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_dpi);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_poll_rate);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_charge_level);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_charge_status);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_charge_low_threshold);
++            CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_device_idle_time);
++            break;
++
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+@@ -7394,6 +7491,34 @@
+             device_remove_file(&hdev->dev, &dev_attr_device_idle_time);
+             break;
+ 
++        case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED:
++        case USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS:
++            device_remove_file(&hdev->dev, &dev_attr_logo_led_brightness);
++            device_remove_file(&hdev->dev, &dev_attr_logo_matrix_effect_wave);
++            device_remove_file(&hdev->dev, &dev_attr_logo_matrix_effect_spectrum);
++            device_remove_file(&hdev->dev, &dev_attr_logo_matrix_effect_static);
++            device_remove_file(&hdev->dev, &dev_attr_logo_matrix_effect_none);
++
++            device_remove_file(&hdev->dev, &dev_attr_scroll_led_brightness);
++            device_remove_file(&hdev->dev, &dev_attr_scroll_matrix_effect_wave);
++            device_remove_file(&hdev->dev, &dev_attr_scroll_matrix_effect_spectrum);
++            device_remove_file(&hdev->dev, &dev_attr_scroll_matrix_effect_static);
++            device_remove_file(&hdev->dev, &dev_attr_scroll_matrix_effect_none);
++
++            device_remove_file(&hdev->dev, &dev_attr_matrix_brightness);
++            device_remove_file(&hdev->dev, &dev_attr_matrix_effect_wave);
++            device_remove_file(&hdev->dev, &dev_attr_matrix_effect_spectrum);
++            device_remove_file(&hdev->dev, &dev_attr_matrix_effect_static);
++            device_remove_file(&hdev->dev, &dev_attr_matrix_effect_none);
++
++            device_remove_file(&hdev->dev, &dev_attr_dpi);
++            device_remove_file(&hdev->dev, &dev_attr_poll_rate);
++            device_remove_file(&hdev->dev, &dev_attr_charge_level);
++            device_remove_file(&hdev->dev, &dev_attr_charge_status);
++            device_remove_file(&hdev->dev, &dev_attr_charge_low_threshold);
++            device_remove_file(&hdev->dev, &dev_attr_device_idle_time);
++            break;
++
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRED:
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_WIRELESS:
+         case USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED:
+@@ -8371,6 +8496,8 @@
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_BASILISK_V3_35K) },
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRED) },
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_WIRELESS) },
++    { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED) },
++    { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS) },
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED) },
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS) },
+     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_PRO_CLICK_MINI_RECEIVER) },
+diff --color -ru openrazer.ORIG/src/openrazer/driver/razermouse_driver.h openrazer/src/openrazer/driver/razermouse_driver.h
+--- openrazer.ORIG/src/openrazer/driver/razermouse_driver.h	2026-10-10 21:39:39.620537788 -0700
++++ openrazer/src/openrazer/driver/razermouse_driver.h	2026-10-10 21:40:22.614709060 -0700
+@@ -119,6 +119,8 @@
+ #define USB_DEVICE_ID_RAZER_BASILISK_MOBILE_RECEIVER 0x00D4
+ #define USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRED 0x00D6
+ #define USB_DEVICE_ID_RAZER_BASILISK_V3_PRO_35K_PHANTOM_GREEN_EDITION_WIRELESS 0x00D7
++#define USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRED 0x00E2
++#define USB_DEVICE_ID_RAZER_BASILISK_V4_PRO_WIRELESS 0x00E3
+ 
+ /* Each keyboard report has 90 bytes*/
+ #define RAZER_REPORT_LEN 0x5A
+Binary files openrazer.ORIG/src/openrazer/.git/index and openrazer/src/openrazer/.git/index differ
+diff --color -ru openrazer.ORIG/src/openrazer/install_files/udev/99-razer.rules openrazer/src/openrazer/install_files/udev/99-razer.rules
+--- openrazer.ORIG/src/openrazer/install_files/udev/99-razer.rules	2026-10-10 21:39:39.620749935 -0700
++++ openrazer/src/openrazer/install_files/udev/99-razer.rules	2026-10-10 21:40:35.889512042 -0700
+@@ -5,7 +5,7 @@
+ LABEL="razer_vendor"
+ 
+ # Mice
+-ATTRS{idProduct}=="0013|0015|0016|001f|0020|0024|0025|0029|002e|002f|0032|0034|0036|0037|0038|0039|003e|003f|0040|0041|0042|0043|0044|0045|0046|0048|004c|004f|0050|0053|0054|0059|005a|005b|005c|005e|0060|0062|0064|0065|0067|006a|006b|006c|006e|006f|0070|0071|0072|0073|0077|0078|007a|007b|007c|007d|0080|0083|0084|0085|0086|0088|008a|008c|008d|008f|0090|0091|0094|0095|0096|0098|0099|009a|009c|009e|009f|00a1|00a3|00a5|00a6|00a7|00a8|00aa|00ab|00af|00b0|00b2|00b3|00b4|00b6|00b7|00b8|00b9|00be|00bf|00c0|00c1|00c2|00c3|00c4|00c5|00c7|00c8|00cb|00cc|00cd|00d0|00d1|00d3|00d4|00d6|00d7", \
++ATTRS{idProduct}=="0013|0015|0016|001f|0020|0024|0025|0029|002e|002f|0032|0034|0036|0037|0038|0039|003e|003f|0040|0041|0042|0043|0044|0045|0046|0048|004c|004f|0050|0053|0054|0059|005a|005b|005c|005e|0060|0062|0064|0065|0067|006a|006b|006c|006e|006f|0070|0071|0072|0073|0077|0078|007a|007b|007c|007d|0080|0083|0084|0085|0086|0088|008a|008c|008d|008f|0090|0091|0094|0095|0096|0098|0099|009a|009c|009e|009f|00a1|00a3|00a5|00a6|00a7|00a8|00aa|00ab|00af|00b0|00b2|00b3|00b4|00b6|00b7|00b8|00b9|00be|00bf|00c0|00c1|00c2|00c3|00c4|00c5|00c7|00c8|00cb|00cc|00cd|00d0|00d1|00d3|00d4|00d6|00d7|00e2|00e3", \
+     ATTRS{idVendor}=="1532", \
+     ENV{ID_RAZER_CHROMA}="1", ENV{RAZER_DRIVER}="razermouse"
+ 
