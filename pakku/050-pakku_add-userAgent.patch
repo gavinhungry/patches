@@ -1,0 +1,31 @@
+diff --color -ru pakku.ORIG/src/pakku-0.17/src/aur.nim pakku/src/pakku-0.17/src/aur.nim
+--- pakku.ORIG/src/pakku-0.17/src/aur.nim	2026-11-03 10:37:54.009854366 -0800
++++ pakku/src/pakku-0.17/src/aur.nim	2026-11-03 10:41:12.955946172 -0800
+@@ -205,6 +205,8 @@
+           (filteredRpcInfos, none(string))
+       except CurlError:
+         (@[], some(getCurrentException().msg))
++      except JsonParsingError:
++        (@[], some(tr"failed to parse server response"))
+ 
+ proc formatHtml(content: XmlNode): string =
+   ## Transforms a HTML tree into a pleasant looking string to be printed
+diff --color -ru pakku.ORIG/src/pakku-0.17/src/wrapper/curl.nim pakku/src/pakku-0.17/src/wrapper/curl.nim
+--- pakku.ORIG/src/pakku-0.17/src/wrapper/curl.nim	2026-11-03 10:37:54.011347333 -0800
++++ pakku/src/pakku-0.17/src/wrapper/curl.nim	2026-11-03 10:41:11.991946386 -0800
+@@ -16,6 +16,7 @@
+     connectTimeoutMs = 156,
+     writeData = 10001,
+     url = 10002,
++    userAgent = 10018,
+     writeFunction = 20011
+ 
+   CurlError* = object of CatchableError
+@@ -107,6 +108,7 @@
+       raiseError(handle.setOption(CurlOption.timeoutMs, (clong) timeoutMs))
+       raiseError(handle.setOption(CurlOption.connectTimeoutMs, (clong) timeoutMs))
+       raiseError(handle.setOption(CurlOption.url, url))
++      raiseError(handle.setOption(CurlOption.userAgent, "pakku/0.17"))
+       raiseError(handle.setOption(CurlOption.writeFunction, cast[pointer](curlWriteMemory)))
+       raiseError(handle.setOption(CurlOption.writeData, instance))
+       raiseError(handle.perform())
