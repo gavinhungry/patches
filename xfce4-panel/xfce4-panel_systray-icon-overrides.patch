@@ -1,0 +1,942 @@
+diff --color -ru -x .git xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-config.c xfce4-panel/src/xfce4-panel/plugins/systray/sn-config.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-config.c	2026-11-20 09:35:53.774019106 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/sn-config.c	2026-11-20 10:11:50.915953491 -0800
+@@ -33,6 +33,10 @@
+ #include <libxfce4util/libxfce4util.h>
+ #include <xfconf/xfconf.h>
+ 
++#include <errno.h>
++#include <glib/gstdio.h>
++#include <string.h>
++
+ 
+ 
+ static void
+@@ -65,6 +69,12 @@
+   GList *known_items[N_SN_ITEM_TYPES];
+   GHashTable *hidden_items[N_SN_ITEM_TYPES];
+ 
++  /* not xfconf: loaded from ICON_OVERRIDES_FILE */
++  GHashTable *icon_overrides;
++  GHashTable *icon_override_names;
++  GFile *icon_overrides_file;
++  GFileMonitor *icon_overrides_monitor;
++
+   /* not xfconf properties but it is still convenient to have them here */
+   GtkOrientation orientation;
+   GtkOrientation panel_orientation;
+@@ -104,6 +114,12 @@
+ 
+ static guint sn_config_signals[LAST_SIGNAL] = { 0 };
+ 
++#define ICON_OVERRIDES_FILE "xfce4/panel/systray-icon-overrides.rc"
++#define ICON_OVERRIDES_GROUP "Overrides"
++#define ICON_FINGERPRINT_LENGTH 8
++#define ICON_CAPTURE_DIR "xfce4/panel/systray-fingerprints"
++#define ICON_CAPTURE_MAX 32
++
+ 
+ 
+ static void
+@@ -236,6 +252,9 @@
+   config->panel_orientation = DEFAULT_PANEL_ORIENTATION;
+   config->nrows = 1;
+   config->panel_size = DEFAULT_PANEL_SIZE;
++
++  config->icon_overrides = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
++  config->icon_override_names = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+ }
+ 
+ 
+@@ -251,6 +270,16 @@
+       g_hash_table_destroy (config->hidden_items[n]);
+     }
+ 
++  if (config->icon_overrides_monitor != NULL)
++    {
++      g_file_monitor_cancel (config->icon_overrides_monitor);
++      g_object_unref (config->icon_overrides_monitor);
++    }
++  if (config->icon_overrides_file != NULL)
++    g_object_unref (config->icon_overrides_file);
++  g_hash_table_destroy (config->icon_overrides);
++  g_hash_table_destroy (config->icon_override_names);
++
+   G_OBJECT_CLASS (sn_config_parent_class)->finalize (object);
+ }
+ 
+@@ -621,6 +650,249 @@
+ 
+ 
+ 
++static const gchar *
++sn_config_lookup_icon_override (SnConfig *config,
++                                const gchar *name,
++                                const gchar *suffix)
++{
++  const gchar *icon;
++  gchar *key;
++  gchar *key_lower;
++
++  key = suffix != NULL ? g_strconcat (name, ":", suffix, NULL) : g_strdup (name);
++  key_lower = g_utf8_strdown (key, -1);
++  icon = g_hash_table_lookup (config->icon_overrides, key_lower);
++  g_free (key_lower);
++  g_free (key);
++
++  return icon;
++}
++
++
++
++const gchar *
++sn_config_get_icon_override (SnConfig *config,
++                             const gchar *name,
++                             const gchar *fingerprint,
++                             gboolean attention)
++{
++  const gchar *icon = NULL;
++
++  g_return_val_if_fail (SN_IS_CONFIG (config), NULL);
++
++  if (name == NULL)
++    return NULL;
++
++  /* keys are stored lowercased, legacy item names are lowercased too */
++  if (fingerprint != NULL)
++    icon = sn_config_lookup_icon_override (config, name, fingerprint);
++  if (icon == NULL && attention)
++    icon = sn_config_lookup_icon_override (config, name, "attention");
++  if (icon == NULL)
++    icon = sn_config_lookup_icon_override (config, name, NULL);
++
++  return icon;
++}
++
++
++
++gboolean
++sn_config_has_icon_override (SnConfig *config,
++                             const gchar *name)
++{
++  gchar *key;
++  gboolean result;
++
++  g_return_val_if_fail (SN_IS_CONFIG (config), FALSE);
++
++  if (name == NULL)
++    return FALSE;
++
++  key = g_utf8_strdown (name, -1);
++  result = g_hash_table_contains (config->icon_override_names, key);
++  g_free (key);
++
++  return result;
++}
++
++
++
++gchar *
++sn_config_icon_fingerprint (GdkPixbuf *pixbuf)
++{
++  GChecksum *checksum;
++  const guchar *pixels;
++  gint width, height, rowstride, n_channels;
++  gboolean visible = FALSE;
++  gchar *fingerprint;
++
++  g_return_val_if_fail (GDK_IS_PIXBUF (pixbuf), NULL);
++
++  width = gdk_pixbuf_get_width (pixbuf);
++  height = gdk_pixbuf_get_height (pixbuf);
++  rowstride = gdk_pixbuf_get_rowstride (pixbuf);
++  n_channels = gdk_pixbuf_get_n_channels (pixbuf);
++  pixels = gdk_pixbuf_read_pixels (pixbuf);
++
++  /* a fully transparent image is most likely not drawn yet */
++  if (!gdk_pixbuf_get_has_alpha (pixbuf))
++    visible = TRUE;
++  for (gint y = 0; y < height && !visible; y++)
++    for (gint x = 0; x < width && !visible; x++)
++      if (pixels[y * rowstride + x * n_channels + 3] != 0)
++        visible = TRUE;
++
++  if (!visible)
++    return NULL;
++
++  checksum = g_checksum_new (G_CHECKSUM_SHA1);
++  g_checksum_update (checksum, (const guchar *) &width, sizeof (width));
++  g_checksum_update (checksum, (const guchar *) &height, sizeof (height));
++  for (gint y = 0; y < height; y++)
++    g_checksum_update (checksum, pixels + y * rowstride, width * n_channels);
++
++  fingerprint = g_strndup (g_checksum_get_string (checksum), ICON_FINGERPRINT_LENGTH);
++  g_checksum_free (checksum);
++
++  return fingerprint;
++}
++
++
++
++typedef struct
++{
++  gchar *path;
++  gint64 mtime;
++} SnCapture;
++
++
++
++static void
++sn_config_capture_free (gpointer data)
++{
++  SnCapture *capture = data;
++
++  g_free (capture->path);
++  g_free (capture);
++}
++
++
++
++static gint
++sn_config_capture_compare (gconstpointer a,
++                           gconstpointer b)
++{
++  const SnCapture *capture_a = a;
++  const SnCapture *capture_b = b;
++
++  return (capture_a->mtime > capture_b->mtime) - (capture_a->mtime < capture_b->mtime);
++}
++
++
++
++static gboolean
++sn_config_is_capture_of (const gchar *filename,
++                         const gchar *prefix)
++{
++  gsize prefix_len = strlen (prefix);
++
++  /* "<prefix><fingerprint>.png", so "discord-ptb-..." is not a capture of "discord" */
++  if (strlen (filename) != prefix_len + ICON_FINGERPRINT_LENGTH + strlen (".png")
++      || !g_str_has_prefix (filename, prefix)
++      || !g_str_has_suffix (filename, ".png"))
++    return FALSE;
++
++  for (gsize n = prefix_len; n < prefix_len + ICON_FINGERPRINT_LENGTH; n++)
++    if (!g_ascii_isxdigit (filename[n]))
++      return FALSE;
++
++  return TRUE;
++}
++
++
++
++void
++sn_config_capture_icon (SnConfig *config,
++                        const gchar *name,
++                        const gchar *fingerprint,
++                        GdkPixbuf *pixbuf)
++{
++  gchar *dir_path;
++  gchar *safe_name;
++  gchar *prefix;
++  gchar *filename;
++  gchar *path;
++  const gchar *entry;
++  GDir *dir;
++  GList *captures = NULL;
++  GList *li;
++  guint count;
++  SnCapture *capture;
++  GStatBuf st;
++  GError *error = NULL;
++
++  g_return_if_fail (SN_IS_CONFIG (config));
++
++  if (name == NULL || fingerprint == NULL || pixbuf == NULL
++      || !sn_config_has_icon_override (config, name))
++    return;
++
++  dir_path = g_build_filename (g_get_user_cache_dir (), ICON_CAPTURE_DIR, NULL);
++  safe_name = g_utf8_strdown (name, -1);
++  g_strcanon (safe_name, G_CSET_a_2_z G_CSET_DIGITS "-_.", '_');
++  prefix = g_strconcat (safe_name, "-", NULL);
++  filename = g_strconcat (prefix, fingerprint, ".png", NULL);
++  path = g_build_filename (dir_path, filename, NULL);
++
++  if (g_file_test (path, G_FILE_TEST_EXISTS))
++    goto out;
++
++  if (g_mkdir_with_parents (dir_path, 0700) != 0)
++    {
++      g_warning ("Failed to create %s: %s", dir_path, g_strerror (errno));
++      goto out;
++    }
++
++  /* keep only the most recent captures per item, e.g. for animated icons */
++  dir = g_dir_open (dir_path, 0, NULL);
++  if (dir != NULL)
++    {
++      while ((entry = g_dir_read_name (dir)) != NULL)
++        {
++          if (!sn_config_is_capture_of (entry, prefix))
++            continue;
++
++          capture = g_new0 (SnCapture, 1);
++          capture->path = g_build_filename (dir_path, entry, NULL);
++          if (g_stat (capture->path, &st) == 0)
++            capture->mtime = st.st_mtime;
++          captures = g_list_prepend (captures, capture);
++        }
++      g_dir_close (dir);
++    }
++
++  captures = g_list_sort (captures, sn_config_capture_compare);
++  count = g_list_length (captures);
++  for (li = captures; li != NULL && count >= ICON_CAPTURE_MAX; li = li->next, count--)
++    g_remove (((SnCapture *) li->data)->path);
++  g_list_free_full (captures, sn_config_capture_free);
++
++  if (!gdk_pixbuf_save (pixbuf, path, "png", &error, NULL))
++    {
++      g_warning ("Failed to save %s: %s", path, error->message);
++      g_error_free (error);
++    }
++
++out:
++  g_free (path);
++  g_free (filename);
++  g_free (prefix);
++  g_free (safe_name);
++  g_free (dir_path);
++}
++
++
++
+ gboolean
+ sn_config_get_menu_is_primary (SnConfig *config)
+ {
+@@ -965,6 +1237,98 @@
+ 
+ 
+ 
++static void
++sn_config_load_icon_overrides (SnConfig *config)
++{
++  GKeyFile *key_file;
++  gchar *path;
++  gchar **keys;
++  gchar *key;
++  gchar *value;
++  const gchar *suffix;
++  GError *error = NULL;
++
++  g_hash_table_remove_all (config->icon_overrides);
++  g_hash_table_remove_all (config->icon_override_names);
++
++  path = g_file_get_path (config->icon_overrides_file);
++  key_file = g_key_file_new ();
++
++  if (g_key_file_load_from_file (key_file, path, G_KEY_FILE_NONE, &error))
++    {
++      keys = g_key_file_get_keys (key_file, ICON_OVERRIDES_GROUP, NULL, NULL);
++      for (gint n = 0; keys != NULL && keys[n] != NULL; n++)
++        {
++          value = g_key_file_get_string (key_file, ICON_OVERRIDES_GROUP, keys[n], NULL);
++          if (value != NULL && *value != '\0')
++            {
++              key = g_utf8_strdown (keys[n], -1);
++              g_hash_table_replace (config->icon_overrides, key, value);
++
++              /* item name without the ":fingerprint" or ":attention" suffix */
++              suffix = g_strrstr (key, ":");
++              g_hash_table_add (config->icon_override_names,
++                                suffix != NULL ? g_strndup (key, suffix - key) : g_strdup (key));
++            }
++          else
++            g_free (value);
++        }
++      g_strfreev (keys);
++    }
++  else
++    {
++      if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
++        g_warning ("Failed to load %s: %s", path, error->message);
++      g_error_free (error);
++    }
++
++  g_key_file_free (key_file);
++  g_free (path);
++}
++
++
++
++static void
++sn_config_icon_overrides_changed (GFileMonitor *monitor,
++                                  GFile *file,
++                                  GFile *other_file,
++                                  GFileMonitorEvent event_type,
++                                  SnConfig *config)
++{
++  if (event_type != G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT
++      && event_type != G_FILE_MONITOR_EVENT_CREATED
++      && event_type != G_FILE_MONITOR_EVENT_DELETED
++      && event_type != G_FILE_MONITOR_EVENT_RENAMED
++      && event_type != G_FILE_MONITOR_EVENT_MOVED_IN
++      && event_type != G_FILE_MONITOR_EVENT_MOVED_OUT)
++    return;
++
++  sn_config_load_icon_overrides (config);
++  g_signal_emit (G_OBJECT (config), sn_config_signals[ICONS_CHANGED], 0);
++}
++
++
++
++static void
++sn_config_init_icon_overrides (SnConfig *config)
++{
++  gchar *path;
++
++  path = g_build_filename (g_get_user_config_dir (), ICON_OVERRIDES_FILE, NULL);
++  config->icon_overrides_file = g_file_new_for_path (path);
++  g_free (path);
++
++  sn_config_load_icon_overrides (config);
++
++  config->icon_overrides_monitor = g_file_monitor_file (config->icon_overrides_file,
++                                                        G_FILE_MONITOR_WATCH_MOVES, NULL, NULL);
++  if (config->icon_overrides_monitor != NULL)
++    g_signal_connect (config->icon_overrides_monitor, "changed",
++                      G_CALLBACK (sn_config_icon_overrides_changed), config);
++}
++
++
++
+ SnConfig *
+ sn_config_new (XfcePanelPlugin *plugin)
+ {
+@@ -986,6 +1350,7 @@
+   panel_properties_bind (NULL, G_OBJECT (config),
+                          xfce_panel_plugin_get_property_base (plugin),
+                          properties, FALSE);
++  sn_config_init_icon_overrides (config);
+   g_signal_emit (G_OBJECT (config), sn_config_signals[CONFIGURATION_CHANGED], 0);
+ 
+   return config;
+diff --color -ru -x .git xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-config.h xfce4-panel/src/xfce4-panel/plugins/systray/sn-config.h
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-config.h	2026-11-20 09:35:53.774019106 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/sn-config.h	2026-11-20 10:11:50.915953491 -0800
+@@ -81,6 +81,25 @@
+ gboolean
+ sn_config_get_symbolic_icons (SnConfig *config);
+ 
++const gchar *
++sn_config_get_icon_override (SnConfig *config,
++                             const gchar *name,
++                             const gchar *fingerprint,
++                             gboolean attention);
++
++gboolean
++sn_config_has_icon_override (SnConfig *config,
++                             const gchar *name);
++
++gchar *
++sn_config_icon_fingerprint (GdkPixbuf *pixbuf);
++
++void
++sn_config_capture_icon (SnConfig *config,
++                        const gchar *name,
++                        const gchar *fingerprint,
++                        GdkPixbuf *pixbuf);
++
+ gboolean
+ sn_config_get_menu_is_primary (SnConfig *config);
+ 
+diff --color -ru -x .git xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-icon-box.c xfce4-panel/src/xfce4-panel/plugins/systray/sn-icon-box.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-icon-box.c	2026-11-20 09:35:53.774019106 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/sn-icon-box.c	2026-11-20 10:11:50.915953491 -0800
+@@ -335,6 +335,10 @@
+   GdkPixbuf *icon_pixbuf;
+   const gchar *overlay_icon_name;
+   GdkPixbuf *overlay_icon_pixbuf;
++  const gchar *override_icon_name;
++  const gchar *name;
++  gchar *fingerprint = NULL;
++  gchar *extension;
+   const gchar *theme_path;
+   GtkIconTheme *icon_theme;
+   GtkIconTheme *icon_theme_from_path = NULL;
+@@ -352,6 +356,39 @@
+                     &icon_name, &icon_pixbuf,
+                     &overlay_icon_name, &overlay_icon_pixbuf);
+ 
++  name = sn_item_get_name (box->item);
++  if (sn_config_has_icon_override (box->config, name))
++    {
++      if (icon_name != NULL)
++        {
++          /* named icons are their own fingerprint */
++          if (icon_name[0] == '/')
++            {
++              fingerprint = g_path_get_basename (icon_name);
++              extension = g_strrstr (fingerprint, ".");
++              if (extension != NULL && extension != fingerprint)
++                *extension = '\0';
++            }
++          else
++            fingerprint = g_strdup (icon_name);
++        }
++      else if (icon_pixbuf != NULL)
++        {
++          fingerprint = sn_config_icon_fingerprint (icon_pixbuf);
++          sn_config_capture_icon (box->config, name, fingerprint, icon_pixbuf);
++        }
++    }
++
++  override_icon_name = sn_config_get_icon_override (box->config, name, fingerprint,
++                                                    sn_item_get_needs_attention (box->item));
++  g_free (fingerprint);
++  if (override_icon_name != NULL)
++    {
++      icon_name = override_icon_name;
++      icon_pixbuf = NULL;
++      theme_path = NULL;
++    }
++
+   if (theme_path != NULL)
+     {
+       icon_theme_from_path = gtk_icon_theme_new ();
+diff --color -ru -x .git xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-item.c xfce4-panel/src/xfce4-panel/plugins/systray/sn-item.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-item.c	2026-11-20 09:35:53.774019106 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/sn-item.c	2026-11-20 10:11:50.915953491 -0800
+@@ -939,6 +939,16 @@
+ 
+ 
+ 
++gboolean
++sn_item_get_needs_attention (SnItem *item)
++{
++  g_return_val_if_fail (SN_IS_ITEM (item), FALSE);
++
++  return g_strcmp0 (item->status, "NeedsAttention") == 0;
++}
++
++
++
+ void
+ sn_item_get_tooltip (SnItem *item,
+                      const gchar **title,
+diff --color -ru -x .git xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-item.h xfce4-panel/src/xfce4-panel/plugins/systray/sn-item.h
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-item.h	2026-11-20 09:35:53.774019106 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/sn-item.h	2026-11-20 10:11:50.915953491 -0800
+@@ -44,6 +44,9 @@
+                   const gchar **overlay_icon_name,
+                   GdkPixbuf **overlay_icon_pixbuf);
+ 
++gboolean
++sn_item_get_needs_attention (SnItem *item);
++
+ void
+ sn_item_get_tooltip (SnItem *item,
+                      const gchar **title,
+diff --color -ru -x .git xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-plugin.c xfce4-panel/src/xfce4-panel/plugins/systray/sn-plugin.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/sn-plugin.c	2026-11-20 09:35:53.774019106 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/sn-plugin.c	2026-11-20 10:11:50.915953491 -0800
+@@ -368,6 +368,10 @@
+                         G_CALLBACK (systray_plugin_configuration_changed), plugin);
+       g_signal_connect (plugin->config, "legacy-items-list-changed",
+                         G_CALLBACK (systray_plugin_configuration_changed), plugin);
++      g_signal_connect (plugin->config, "icons-changed",
++                        G_CALLBACK (systray_plugin_icons_changed), plugin);
++      g_signal_connect_object (gtk_icon_theme_get_default (), "changed",
++                               G_CALLBACK (systray_plugin_icon_theme_changed), plugin, G_CONNECT_SWAPPED);
+       g_signal_connect (G_OBJECT (plugin->systray_box), "notify::has-hidden",
+                         G_CALLBACK (systray_has_hidden_cb), plugin);
+     }
+diff --color -ru -x .git xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray.c xfce4-panel/src/xfce4-panel/plugins/systray/systray.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray.c	2026-11-20 09:35:53.774019106 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/systray.c	2026-11-20 10:11:50.915953491 -0800
+@@ -53,6 +53,9 @@
+ static void
+ systray_plugin_lost_selection (SystrayManager *manager,
+                                SnPlugin *plugin);
++static void
++systray_plugin_update_override_icon (SystraySocket *socket,
++                                     SnPlugin *plugin);
+ 
+ 
+ 
+@@ -255,13 +258,69 @@
+ 
+ 
+ 
++typedef struct
++{
++  SnPlugin *plugin;
++  cairo_t *cr;
++} SystrayDrawData;
++
++
++
++static void
++systray_plugin_update_fingerprint (SystraySocket *socket,
++                                   SnPlugin *plugin,
++                                   gint width,
++                                   gint height)
++{
++  const gchar *name;
++  cairo_surface_t *surface;
++  cairo_t *cr;
++  GdkPixbuf *pixbuf;
++  gchar *fingerprint = NULL;
++  gint scale;
++
++  name = systray_socket_get_name (socket);
++  if (!sn_config_has_icon_override (plugin->config, name)
++      || width <= 0 || height <= 0)
++    return;
++
++  /* render the plug window as the app drew it */
++  scale = gtk_widget_get_scale_factor (GTK_WIDGET (socket));
++  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width * scale, height * scale);
++  cr = cairo_create (surface);
++  cairo_scale (cr, scale, scale);
++  gdk_cairo_set_source_window (cr, gtk_widget_get_window (GTK_WIDGET (socket)), 0, 0);
++  cairo_paint (cr);
++  cairo_destroy (cr);
++
++  pixbuf = gdk_pixbuf_get_from_surface (surface, 0, 0, width * scale, height * scale);
++  cairo_surface_destroy (surface);
++  if (pixbuf != NULL)
++    fingerprint = sn_config_icon_fingerprint (pixbuf);
++
++  if (systray_socket_set_fingerprint (socket, fingerprint))
++    {
++      sn_config_capture_icon (plugin->config, name, fingerprint, pixbuf);
++      systray_plugin_update_override_icon (socket, plugin);
++    }
++
++  g_free (fingerprint);
++  if (pixbuf != NULL)
++    g_object_unref (pixbuf);
++}
++
++
++
+ static void
+ systray_plugin_box_draw_icon (GtkWidget *child,
+                               gpointer user_data)
+ {
+-  cairo_t *cr = user_data;
++  SystrayDrawData *data = user_data;
++  cairo_t *cr = data->cr;
+   GtkAllocation alloc;
+   GtkAllocation box_alloc;
++  cairo_surface_t *surface;
++  gint icon_size;
+ 
+   if (systray_socket_is_composited (SYSTRAY_SOCKET (child)))
+     {
+@@ -274,8 +333,21 @@
+           gtk_widget_get_allocation (box, &box_alloc);
+           alloc.x -= box_alloc.x;
+           alloc.y -= box_alloc.y;
+-          gdk_cairo_set_source_window (cr, gtk_widget_get_window (child),
+-                                       alloc.x, alloc.y);
++
++          /* draw the override icon instead of the plug window */
++          systray_plugin_update_fingerprint (SYSTRAY_SOCKET (child), data->plugin,
++                                             alloc.width, alloc.height);
++          sn_config_get_dimensions (data->plugin->config, &icon_size, NULL, NULL, NULL);
++          icon_size = MIN (icon_size, MIN (alloc.width, alloc.height));
++          surface = systray_socket_get_override_surface (SYSTRAY_SOCKET (child), icon_size,
++                                                         gtk_widget_get_scale_factor (child));
++          if (surface != NULL)
++            cairo_set_source_surface (cr, surface,
++                                      alloc.x + (alloc.width - icon_size) / 2,
++                                      alloc.y + (alloc.height - icon_size) / 2);
++          else
++            gdk_cairo_set_source_window (cr, gtk_widget_get_window (child),
++                                         alloc.x, alloc.y);
+           cairo_paint (cr);
+         }
+     }
+@@ -289,13 +361,75 @@
+                          gpointer user_data)
+ {
+   SnPlugin *plugin = SN_PLUGIN (user_data);
++  SystrayDrawData data = { plugin, cr };
++
+   panel_return_if_fail (SN_IS_PLUGIN (plugin));
+   panel_return_if_fail (cr != NULL);
+ 
+   /* separately draw all the composed tray icons after gtk
+    * handled the draw event */
+   gtk_container_foreach (GTK_CONTAINER (box),
+-                         (GtkCallback) (void (*) (void)) systray_plugin_box_draw_icon, cr);
++                         (GtkCallback) (void (*) (void)) systray_plugin_box_draw_icon, &data);
++}
++
++
++
++static void
++systray_plugin_update_override_icon (SystraySocket *socket,
++                                     SnPlugin *plugin)
++{
++  const gchar *icon;
++
++  icon = sn_config_get_icon_override (plugin->config,
++                                      systray_socket_get_name (socket),
++                                      systray_socket_get_fingerprint (socket),
++                                      FALSE);
++  systray_socket_set_override_icon (socket, icon);
++}
++
++
++
++static void
++systray_plugin_icons_changed_icon (GtkWidget *icon,
++                                   gpointer data)
++{
++  /* recomputed (and captured if needed) on the next draw */
++  systray_socket_set_fingerprint (SYSTRAY_SOCKET (icon), NULL);
++  systray_plugin_update_override_icon (SYSTRAY_SOCKET (icon), SN_PLUGIN (data));
++}
++
++
++
++void
++systray_plugin_icons_changed (SnConfig *config,
++                              SnPlugin *plugin)
++{
++  panel_return_if_fail (SN_IS_PLUGIN (plugin));
++
++  gtk_container_foreach (GTK_CONTAINER (plugin->systray_box),
++                         systray_plugin_icons_changed_icon, plugin);
++  gtk_widget_queue_draw (plugin->systray_box);
++}
++
++
++
++static void
++systray_plugin_icon_theme_changed_icon (GtkWidget *icon,
++                                        gpointer data)
++{
++  systray_socket_clear_override_surface (SYSTRAY_SOCKET (icon));
++}
++
++
++
++void
++systray_plugin_icon_theme_changed (SnPlugin *plugin)
++{
++  panel_return_if_fail (SN_IS_PLUGIN (plugin));
++
++  gtk_container_foreach (GTK_CONTAINER (plugin->systray_box),
++                         systray_plugin_icon_theme_changed_icon, NULL);
++  gtk_widget_queue_draw (plugin->systray_box);
+ }
+ 
+ 
+@@ -313,6 +447,7 @@
+ 
+   name = systray_socket_get_name (socket);
+   systray_socket_set_hidden (socket, systray_plugin_names_get_hidden (plugin, name));
++  systray_plugin_update_override_icon (socket, plugin);
+ }
+ 
+ 
+diff --color -ru -x .git xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray.h xfce4-panel/src/xfce4-panel/plugins/systray/systray.h
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray.h	2026-11-20 09:35:53.774019106 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/systray.h	2026-11-20 10:11:50.915953491 -0800
+@@ -41,6 +41,11 @@
+ systray_plugin_configuration_changed (SnConfig *config,
+                                       SnPlugin *plugin);
+ void
++systray_plugin_icons_changed (SnConfig *config,
++                              SnPlugin *plugin);
++void
++systray_plugin_icon_theme_changed (SnPlugin *plugin);
++void
+ systray_plugin_orientation_changed (XfcePanelPlugin *panel_plugin,
+                                     GtkOrientation orientation);
+ gboolean
+diff --color -ru -x .git xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray-socket.c xfce4-panel/src/xfce4-panel/plugins/systray/systray-socket.c
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray-socket.c	2026-11-20 09:35:53.774019106 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/systray-socket.c	2026-11-20 10:11:50.915953491 -0800
+@@ -40,6 +40,13 @@
+ 
+   gchar *name;
+ 
++  /* themed icon drawn instead of the plug window, composited sockets only */
++  gchar *override_icon;
++  gchar *fingerprint;
++  cairo_surface_t *override_surface;
++  gint override_surface_size;
++  gint override_surface_scale;
++
+   guint is_composited : 1;
+   guint parent_relative_bg : 1;
+   guint hidden : 1;
+@@ -96,6 +103,10 @@
+   SystraySocket *socket = SYSTRAY_SOCKET (object);
+ 
+   g_free (socket->name);
++  g_free (socket->override_icon);
++  g_free (socket->fingerprint);
++  if (socket->override_surface != NULL)
++    cairo_surface_destroy (socket->override_surface);
+ 
+   G_OBJECT_CLASS (systray_socket_parent_class)->finalize (object);
+ }
+@@ -421,3 +432,119 @@
+ 
+   socket->hidden = hidden;
+ }
++
++
++
++const gchar *
++systray_socket_get_override_icon (SystraySocket *socket)
++{
++  panel_return_val_if_fail (SYSTRAY_IS_SOCKET (socket), NULL);
++
++  return socket->override_icon;
++}
++
++
++
++void
++systray_socket_set_override_icon (SystraySocket *socket,
++                                  const gchar *icon)
++{
++  panel_return_if_fail (SYSTRAY_IS_SOCKET (socket));
++
++  if (g_strcmp0 (socket->override_icon, icon) == 0)
++    return;
++
++  g_free (socket->override_icon);
++  socket->override_icon = g_strdup (icon);
++  systray_socket_clear_override_surface (socket);
++}
++
++
++
++const gchar *
++systray_socket_get_fingerprint (SystraySocket *socket)
++{
++  panel_return_val_if_fail (SYSTRAY_IS_SOCKET (socket), NULL);
++
++  return socket->fingerprint;
++}
++
++
++
++gboolean
++systray_socket_set_fingerprint (SystraySocket *socket,
++                                const gchar *fingerprint)
++{
++  panel_return_val_if_fail (SYSTRAY_IS_SOCKET (socket), FALSE);
++
++  if (g_strcmp0 (socket->fingerprint, fingerprint) == 0)
++    return FALSE;
++
++  g_free (socket->fingerprint);
++  socket->fingerprint = g_strdup (fingerprint);
++
++  return TRUE;
++}
++
++
++
++void
++systray_socket_clear_override_surface (SystraySocket *socket)
++{
++  panel_return_if_fail (SYSTRAY_IS_SOCKET (socket));
++
++  if (socket->override_surface != NULL)
++    {
++      cairo_surface_destroy (socket->override_surface);
++      socket->override_surface = NULL;
++    }
++  socket->override_surface_size = 0;
++  socket->override_surface_scale = 0;
++}
++
++
++
++cairo_surface_t *
++systray_socket_get_override_surface (SystraySocket *socket,
++                                     gint size,
++                                     gint scale)
++{
++  GtkIconTheme *icon_theme;
++  GdkPixbuf *pixbuf;
++  GError *error = NULL;
++
++  panel_return_val_if_fail (SYSTRAY_IS_SOCKET (socket), NULL);
++
++  if (socket->override_icon == NULL || size <= 0)
++    return NULL;
++
++  if (socket->override_surface_size == size && socket->override_surface_scale == scale)
++    return socket->override_surface;
++
++  systray_socket_clear_override_surface (socket);
++  socket->override_surface_size = size;
++  socket->override_surface_scale = scale;
++
++  if (g_path_is_absolute (socket->override_icon))
++    {
++      pixbuf = gdk_pixbuf_new_from_file_at_size (socket->override_icon,
++                                                 size * scale, size * scale, &error);
++      if (pixbuf != NULL)
++        {
++          socket->override_surface = gdk_cairo_surface_create_from_pixbuf (pixbuf, scale, NULL);
++          g_object_unref (pixbuf);
++        }
++    }
++  else
++    {
++      icon_theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (socket)));
++      socket->override_surface = gtk_icon_theme_load_surface (icon_theme, socket->override_icon,
++                                                              size, scale, NULL,
++                                                              GTK_ICON_LOOKUP_FORCE_SIZE, &error);
++    }
++
++  if (error != NULL)
++    g_error_free (error);
++
++  return socket->override_surface;
++}
+diff --color -ru -x .git xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray-socket.h xfce4-panel/src/xfce4-panel/plugins/systray/systray-socket.h
+--- xfce4-panel.ORIG/src/xfce4-panel/plugins/systray/systray-socket.h	2026-11-20 09:35:53.774019106 -0800
++++ xfce4-panel/src/xfce4-panel/plugins/systray/systray-socket.h	2026-11-20 10:11:50.915953491 -0800
+@@ -56,6 +56,28 @@
+ systray_socket_set_hidden (SystraySocket *socket,
+                            gboolean hidden);
+ 
++const gchar *
++systray_socket_get_override_icon (SystraySocket *socket);
++
++void
++systray_socket_set_override_icon (SystraySocket *socket,
++                                  const gchar *icon);
++
++const gchar *
++systray_socket_get_fingerprint (SystraySocket *socket);
++
++gboolean
++systray_socket_set_fingerprint (SystraySocket *socket,
++                                const gchar *fingerprint);
++
++void
++systray_socket_clear_override_surface (SystraySocket *socket);
++
++cairo_surface_t *
++systray_socket_get_override_surface (SystraySocket *socket,
++                                     gint size,
++                                     gint scale);
++
+ G_END_DECLS
+ 
+ #endif /* !__SYSTRAY_SOCKET_H__ */
